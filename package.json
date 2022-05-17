@@ -1,0 +1,52 @@
+{
+  "name": "invicta-admin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "prod": "vite build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/eteachergrouprd/invicta-admin.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://bitbucket.org/eteachergrouprd/invicta-admin/issues"
+  },
+  "homepage": "https://bitbucket.org/eteachergrouprd/invicta-admin#readme",
+    "dependencies": {
+        "@inertiajs/inertia": "^0.11.0",
+        "@inertiajs/inertia-vue3": "^0.6.0",
+        "@inertiajs/progress": "^0.2.7",
+        "@vueuse/core": "^8.3.1",
+        "axios": "^0.21.1",
+        "dayjs": "^1.10.7",
+        "element-plus": "^2.1.10",
+        "get-video-id": "^3.5.3",
+        "laravel-echo": "^1.11.1",
+        "mitt": "^3.0.0",
+        "pinia": "^2.0.8",
+        "postcss": "^8.4.12",
+        "pusher-js": "^7.0.3",
+        "vue": "^3.2.6",
+        "vuedraggable": "^4.1.0"
+    },
+    "devDependencies": {
+        "@types/lodash": "^4.14.181",
+        "@vitejs/plugin-vue": "^1.6.1",
+        "@vue/compiler-sfc": "^3.0.0",
+        "autoprefixer": "^10.4.0",
+        "eslint": "^8.4.1",
+        "eslint-plugin-vue": "^8.2.0",
+        "tailwindcss": "^3.0.13",
+        "unplugin-auto-import": "^0.5.3",
+        "unplugin-vue-components": "^0.17.9",
+        "vite": "^2.5.4",
+        "vite-svg-loader": "^3.2.0"
+    }
+}
