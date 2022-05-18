@@ -8,14 +8,14 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 const path = require('path')
 
 export default defineConfig(({command}) => ({
-  base: command === 'serve' ? '' : '/build/',
-  server: {
-    host: 'invicta.local',
-  },
+  base: command === 'serve' ? '' : '/invicta-admin',
+  // server: {
+  //   host: 'invicta.local',
+  // },
   publicDir: false,
   build: {
     manifest: true,
-    outDir: 'public/build',
+    outDir: 'public/invicta-admin',
     rollupOptions: {
       input: 'resources/js/main.ts'
     },

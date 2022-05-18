@@ -2,22 +2,23 @@
 
 namespace Eteacher\InvictaAdmin;
 
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\HtmlString;
 
 class InvictaAdmin
 {
-	public static function assets(): HtmlString
+    public static function assets(): HtmlString
     {
         $devServerRunning = false;
-        $devServerUrl = 'http://invicta.local:3000'; //config('invicta.devUrl');
+        $devServerUrl = 'http://localhost:3000';
 
         if (app()->environment('local')) {
             try {
                 Http::get($devServerUrl);
                 $devServerRunning = true;
-            } catch (Exception) {
+            } catch (ConnectionException $e) {
             }
         }
 
@@ -59,8 +60,9 @@ class InvictaAdmin
     {
         $user = Auth::user();
 
-        if (! $user) 
-        	return [];
+        if (! $user) {
+            return [];
+        }
 
         return [
             'id' => $user->id,

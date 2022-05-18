@@ -16,7 +16,8 @@
     ],
     "require": {
         "inertiajs/inertia-laravel": "^0.6.0",
-        "laravel/sanctum": "^2.15"
+        "laravel/sanctum": "^2.15",
+        "friendsofphp/php-cs-fixer": "^3.8"
     },
     "extra": {
         "laravel": {
@@ -26,6 +27,14 @@
             "aliases": {
                 "InvictaAdmin": "Eteacher\\InvictaAdmin\\InvictaAdmin"
             }
+        }
+    },
+    "require-dev": {
+        "phpro/grumphp": "^1.12"
+    },
+    "config": {
+        "allow-plugins": {
+            "phpro/grumphp": true
         }
     }
 }

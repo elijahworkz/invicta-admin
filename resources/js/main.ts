@@ -1,15 +1,14 @@
+import '@/assets/styles/main.css' // tailwind css
+import '@/assets/sass/main.scss' // custom css
+
+import InvictaApp from '@/Invicta'
+
 declare global {
 	interface Window {
 		Invicta: any
 	}
 }
 
-const Invicta: Object = {
-	name: "something",
-	start() {
-		console.log('I got this here', this.name)
-	}
-}
-
-export default Invicta
+const Invicta = new InvictaApp()
+Invicta.initInertia()
 window.Invicta = Invicta

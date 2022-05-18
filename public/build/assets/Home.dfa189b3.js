@@ -1,0 +1,1 @@
+import{o as n,c}from"./main.2cf2a485.js";var s=(e,r)=>{const t=e.__vccOpts||e;for(const[o,a]of r)t[o]=a;return t};const _={name:"Home",data(){return{}}};function p(e,r,t,o,a,f){return n(),c("h1",null,"Hi there")}var m=s(_,[["render",p]]);export{m as default};

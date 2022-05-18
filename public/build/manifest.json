@@ -1,0 +1,21 @@
+{
+  "resources/js/main.ts": {
+    "file": "assets/main.2cf2a485.js",
+    "src": "resources/js/main.ts",
+    "isEntry": true,
+    "dynamicImports": [
+      "resources/js/views/Home.vue"
+    ],
+    "css": [
+      "assets/main.db0eba17.css"
+    ]
+  },
+  "resources/js/views/Home.vue": {
+    "file": "assets/Home.dfa189b3.js",
+    "src": "resources/js/views/Home.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/main.ts"
+    ]
+  }
+}
