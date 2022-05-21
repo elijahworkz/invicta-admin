@@ -11,4 +11,5 @@ declare global {
 
 const Invicta = new InvictaApp()
 Invicta.initInertia()
+console.log('something should change', ['foo', 'bar'])
 window.Invicta = Invicta

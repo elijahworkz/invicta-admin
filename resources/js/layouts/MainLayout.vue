@@ -2,19 +2,8 @@
 	<slot/>
 </template>
 
-<script>
-export default {
+<script setup>
+import { onMounted } from 'vue'
 
-	name: 'MainLayout',
-
-	data() {
-		return {
-
-		}
-	}
-}
+onMounted(() => document.body.classList.add('app-ready'))
 </script>
-
-<style lang="scss">
-
-</style>

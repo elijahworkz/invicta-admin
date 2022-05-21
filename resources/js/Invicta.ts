@@ -35,6 +35,10 @@ class Invicta
 			}
 		})
 	}
+
+	start() {
+		console.log(' i am starting')
+	}
 }
 
 export default Invicta

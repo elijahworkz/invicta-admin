@@ -16,8 +16,7 @@
     ],
     "require": {
         "inertiajs/inertia-laravel": "^0.6.0",
-        "laravel/sanctum": "^2.15",
-        "friendsofphp/php-cs-fixer": "^3.8"
+        "laravel/sanctum": "^2.15"
     },
     "extra": {
         "laravel": {
@@ -30,6 +29,7 @@
         }
     },
     "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.8",
         "phpro/grumphp": "^1.12"
     },
     "config": {
