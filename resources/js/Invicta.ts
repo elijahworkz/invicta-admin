@@ -17,7 +17,13 @@ import 'element-plus/es/components/notification/style/index';
 import MainLayout from '@/layouts/MainLayout.vue'
 
 class Invicta
-{
+{	
+	config: any
+
+	constructor(config: any) {
+		this.config = config
+	}
+
 	initInertia() {
 		console.log('I am in initInertia')
 

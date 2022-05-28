@@ -9,7 +9,7 @@ use Illuminate\Support\HtmlString;
 
 class InvictaAdmin
 {
-    public static function assets(): HtmlString
+    public static function scripts(): HtmlString
     {
         $devServerRunning = false;
         $devServerUrl = 'http://localhost:3000';
