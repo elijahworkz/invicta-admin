@@ -15,7 +15,7 @@ export default defineConfig(({command}) => ({
       origin: 'https://8000-ilyagromov-invictadev-uk7235k3xyz.ws-eu46.gitpod.io',
       credentials: true
     },
-    hmr: hmr: process.env.GITPOD_WORKSPACE_URL
+    hmr: process.env.GITPOD_WORKSPACE_URL
     ? {
         // removes the protocol and replaces it with the port we're connecting to
         host: process.env.GITPOD_WORKSPACE_URL.replace('https://', '3000-'),
