@@ -12,7 +12,7 @@ class InvictaAdmin
     public static function assets(): HtmlString
     {
         $devServerRunning = false;
-        $devServerUrl = 'http://localhost:3000';
+        $devServerUrl = 'https://3000-ilyagromov-invictadev-uk7235k3xyz.ws-eu46.gitpod.io'; //'http://localhost:3000';
 
         if (app()->environment('local')) {
             try {
@@ -24,8 +24,8 @@ class InvictaAdmin
 
         if ($devServerRunning) {
             return new HtmlString(<<<HTML
-                <script type="module" src="{$devServerUrl}/@vite/client"></script>
-                <script type="module" src="{$devServerUrl}/resources/js/main.ts"></script>
+                <script type="module" src="{$devServerUrl}/@vite/client" crossorigin="use-credentials"></script>
+                <script type="module" src="{$devServerUrl}/resources/js/main.ts" crossorigin="use-credentials"></script>
             HTML);
         }
 
