@@ -8,7 +8,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name') }}</title>
+    @inertiaHead
+    
     <link rel="icon" href="/images/favicon.png" type="image/png" />
 
     <!-- Font -->
@@ -17,9 +18,8 @@
     <!-- Push Js -->
     <script src="https://js.pusher.com/7.0/pusher.min.js" defer></script>
 
-    {{ InvictaAdmin::assets() }}
+    {{ InvictaAdmin::scripts() }}
 
-    @inertiaHead
 </head>
 <body>
     <noscript>
@@ -51,7 +51,9 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            Invicta.start(@json(InvictaAdmin::jsonVariables()))
+            window.Invicta = new InvictaApp(@json(InvictaAdmin::jsonVariables()))
+            Invicta.initInertia()
+            Invicta.start()
         })
     </script>
 </body>
