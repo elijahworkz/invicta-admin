@@ -10,11 +10,13 @@ const path = require('path')
 export default defineConfig(({command}) => ({
   base: command === 'serve' ? '' : '/invicta-admin',
   server: {
-    host: '0.0.0.0',
-    cors: {
-      origin: 'https://8000-ilyagromov-invictadev-uk7235k3xyz.ws-eu47.gitpod.io',
-      credentials: true
-    },
+    // host: '0.0.0.0',
+    cors: process.env.GITPOD_WORKSPACE_URL 
+    ? {
+        origin: process.env.GITPOD_WORKSPACE_URL.replace('https://', 'https://8000-'),
+        credentials: true
+      }
+    : false,
     hmr: process.env.GITPOD_WORKSPACE_URL
     ? {
         // removes the protocol and replaces it with the port we're connecting to
