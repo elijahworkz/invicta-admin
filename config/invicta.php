@@ -50,4 +50,16 @@ return [
 
     'guard' => env('INVICTA_GUARD', null),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Development server url
+    |--------------------------------------------------------------------------
+    |
+    | This option defines server url that is used for development.
+    | For local development it's default vite server, for gitpod - it will be set by gitpod.yaml script
+    |
+    */
+
+    'dev_server_url' => env('VITE_DEV_SERVER_URL', 'http://localhost:3000'),
+
 ];
