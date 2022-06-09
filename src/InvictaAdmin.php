@@ -12,7 +12,7 @@ class InvictaAdmin
     public static function scripts(): HtmlString
     {
         $devServerRunning = false;
-        $devServerUrl = 'https://3000-ilyagromov-invictadev-uk7235k3xyz.ws-eu46.gitpod.io'; //'http://localhost:3000';
+        $devServerUrl = 'https://3000-ilyagromov-invictadev-uk7235k3xyz.ws-eu47.gitpod.io'; //'http://localhost:3000';
 
         if (app()->environment('local')) {
             try {

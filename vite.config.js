@@ -12,7 +12,7 @@ export default defineConfig(({command}) => ({
   server: {
     host: '0.0.0.0',
     cors: {
-      origin: 'https://8000-ilyagromov-invictadev-uk7235k3xyz.ws-eu46.gitpod.io',
+      origin: 'https://8000-ilyagromov-invictadev-uk7235k3xyz.ws-eu47.gitpod.io',
       credentials: true
     },
     hmr: process.env.GITPOD_WORKSPACE_URL
