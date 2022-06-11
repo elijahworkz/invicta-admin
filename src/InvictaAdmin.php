@@ -78,7 +78,7 @@ class InvictaAdmin
         - do we collect all routes from application
         - do we have some default routes from package?
         - how do we authorize the routes
-        - 
+        -
         */
     }
 }
