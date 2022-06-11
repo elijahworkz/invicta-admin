@@ -40,6 +40,15 @@ class Invicta
 					.mount(el)
 			}
 		})
+
+		
+	}
+
+	getConfig(key: string) {
+		if (this.config && Object.prototype.hasOwnProperty.call(this.config, key)) {
+			return this.config[key]
+		}
+		return []
 	}
 
 	start() {
@@ -48,3 +57,7 @@ class Invicta
 }
 
 export default Invicta
+
+function getConfig(key: any, string: any) {
+	throw new Error('Function not implemented.')
+}

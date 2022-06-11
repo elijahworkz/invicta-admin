@@ -48,7 +48,7 @@ class InvictaAdmin
             // 'editorUrl' => route('editor'),
             // 'assetsUrl' => config('frontend.assetsUrl'),
             // 'screenshotsPath' => config('services.screenshots.key'),
-            // 'routes' => self::routes(),
+            'routes' => self::routes(),
             // 'brands' => self::brands(),
             // 'templates' => self::templates(),
             // 'languages' => self::languages(),
@@ -69,5 +69,16 @@ class InvictaAdmin
             'name' => $user->name,
             'role' => $user->role->label,
         ];
+    }
+
+    private static function routes()
+    {
+        /*
+        what do we need here.
+        - do we collect all routes from application
+        - do we have some default routes from package?
+        - how do we authorize the routes
+        - 
+        */
     }
 }
