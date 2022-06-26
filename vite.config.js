@@ -4,28 +4,13 @@ import svgLoader from 'vite-svg-loader'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import serverConfig from './server.config.js'
 
 const path = require('path')
 
 export default defineConfig(({command}) => ({
   base: command === 'serve' ? '' : '/invicta-admin',
-  server: {
-    // host: '0.0.0.0',
-    cors: process.env.GITPOD_WORKSPACE_URL 
-    ? {
-        origin: process.env.GITPOD_WORKSPACE_URL.replace('https://', 'https://8000-'),
-        credentials: true
-      }
-    : false,
-    hmr: process.env.GITPOD_WORKSPACE_URL
-    ? {
-        // removes the protocol and replaces it with the port we're connecting to
-        host: process.env.GITPOD_WORKSPACE_URL.replace('https://', '3000-'),
-        protocol: 'wss',
-        clientPort: 443
-      }
-    : true
-  },
+  server: serverConfig,
   publicDir: false,
   build: {
     manifest: true,

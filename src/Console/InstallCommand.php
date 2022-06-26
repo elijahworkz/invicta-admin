@@ -32,5 +32,15 @@ class InstallCommand extends Command
     	2. add InvictaServerProvider
     	3.
     	 */
+
+        $this->comment('Publishing Invicta Assets and Resources...');
+
+        $this->comment('Publishing Invicta Service Provider...'); // not sure if it's needed - depends on what we need to do from app side
+
+        $this->comment('Generating User Resources...');
+        /*
+            this should generate all the user related stuff in new folder
+
+        */
     }
 }

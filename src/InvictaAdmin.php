@@ -2,6 +2,7 @@
 
 namespace Eteacher\InvictaAdmin;
 
+use Eteacher\InvictaAdmin\Admin\Facades\Menu;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -48,7 +49,7 @@ class InvictaAdmin
             // 'editorUrl' => route('editor'),
             // 'assetsUrl' => config('frontend.assetsUrl'),
             // 'screenshotsPath' => config('services.screenshots.key'),
-            'routes' => self::routes(),
+            'menu' => self::menu(),
             // 'brands' => self::brands(),
             // 'templates' => self::templates(),
             // 'languages' => self::languages(),
@@ -71,8 +72,9 @@ class InvictaAdmin
         ];
     }
 
-    private static function routes()
+    private static function menu()
     {
+        return Menu::build();
         /*
         what do we need here.
         - do we collect all routes from application
