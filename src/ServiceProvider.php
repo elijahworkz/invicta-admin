@@ -2,9 +2,9 @@
 
 namespace Eteacher\InvictaAdmin;
 
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
 
-class InvictaAdminServiceProvider extends ServiceProvider
+class ServiceProvider extends LaravelServiceProvider
 {
     public function register()
     {
