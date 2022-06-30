@@ -4,6 +4,7 @@
         <li><Link href="/admin/resource/pages/index">Pages</Link></li>
         <li><Link href="/admin/resource/campaigns/index">Campaigns</Link></li>
         <li><Link href="/admin/resource/lessons/index">Lessons</Link></li>
+        <li><Link href="/admin/test">Student Test</Link></li>
         <li
             v-for="item in navItems"
             :key="item.url"
@@ -36,6 +37,7 @@
                                 v-for="(link, index) in item.submenu"
                                 :key="index"
                                 class="nav-item">
+
                                     <a :href="link" target="_blank" class="nav-link">{{ index }}</a>
                                 </li>
                         </ul>

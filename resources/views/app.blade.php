@@ -59,7 +59,7 @@
     {{-- @auth --}}
         @foreach (InvictaAdmin::registeredScripts() as $folder => $scripts)
             @foreach ($scripts as $script)
-                {{-- <script defer src="{{ InvictaAdmin::vendorAssetUrl("$folder/js/$script") }}"></script> --}}
+                <script src="{{ InvictaAdmin::vendorAssetUrl("$folder/js/$script") }}"></script>
             @endforeach
         @endforeach
     {{-- @endauth --}}

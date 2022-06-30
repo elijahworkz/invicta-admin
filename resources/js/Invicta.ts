@@ -39,10 +39,12 @@ class Invicta
 	}
 
 	booting(callback: Function) {
+		console.log('we have a new callback')
 		this.bootingCallbacks.push(callback)
 	}
 
 	boot() {
+		console.log('in boot', this.bootingCallbacks)
 		this.bootingCallbacks.forEach(callback => callback(this.app))
 	}
 
@@ -81,8 +83,12 @@ class Invicta
 				console.log(name, this.pages)
 				// const page = (await import(`./views/${name}.vue`)).default
 				// let page = this.pages[`./views/${name}.vue`]
-
-				const page = (await this.pages[`./views/${name}.vue`]()).default
+				let page
+				if (name == 'Student') {
+					page = this.pages[name]
+				} else {
+					page = (await this.pages[`./views/${name}.vue`]()).default
+				}
 				page.layout = MainLayout
 				return page
 			},
@@ -93,7 +99,7 @@ class Invicta
 				this.app.use(plugin)
 		this.app.component('Link', Link)
 		this.app.component('SvgIcon', SvgIcon)
-				// this.app.mount(el)
+				this.app.mount(el)
 			}
 		})
 	}
@@ -109,7 +115,12 @@ class Invicta
 		console.log(' i am starting')
 		this.boot()
 
-		this.app.mount('#app')
+		// this.app.mount('#app')
+	}
+
+	inertia(name, component) {
+		this.pages[name] = component
+		console.log('want to add', name, this.pages)
 	}
 
 	// component(name: string, component: any) {
