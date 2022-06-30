@@ -7,38 +7,13 @@ use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\HtmlString;
+use Illuminate\Support\Str;
 
 class InvictaAdmin
 {
-    public static function scripts(): HtmlString
-    {
-        $devServerRunning = false;
-        $devServerUrl = config('invicta.dev_server_url');
+    public static $scripts = [];
 
-        if (app()->environment('local')) {
-            try {
-                Http::get($devServerUrl);
-                $devServerRunning = true;
-            } catch (ConnectionException $e) {
-            }
-        }
-
-        if ($devServerRunning) {
-            return new HtmlString(<<<HTML
-                <script type="module" src="{$devServerUrl}/@vite/client" crossorigin="use-credentials"></script>
-                <script type="module" src="{$devServerUrl}/resources/js/main.ts" crossorigin="use-credentials"></script>
-            HTML);
-        }
-
-        $manifest = json_decode(file_get_contents(
-            public_path('build/manifest.json')
-        ), true);
-
-        return new HtmlString(<<<HTML
-            <script type="module" src="/build/{$manifest['resources/js/main.ts']['file']}"></script>
-            <link rel="stylesheet" href="/build/{$manifest['resources/js/main.ts']['css'][0]}">
-        HTML);
-    }
+    public static $styles = [];
 
     public static function jsonVariables()
     {
@@ -82,5 +57,55 @@ class InvictaAdmin
         - how do we authorize the routes
         -
         */
+    }
+
+    public static function vendorAssetUrl($url)
+    {
+        return asset('vendor/invicta/'.$url);
+    }
+
+    public static function script($name, $path)
+    {
+        static::$scripts[$name][] = Str::finish($path, '.js');
+    }
+
+    public static function registeredScripts()
+    {
+        return static::$scripts;
+    }
+
+    public static function style($name, $path)
+    {
+        static::$styles[$name][] = Str::finish($path, '.css');
+    }
+
+    public static function applicationScripts(): HtmlString
+    {
+        $devServerRunning = false;
+        $devServerUrl = config('invicta.dev_server_url');
+
+        if (app()->environment('local')) {
+            try {
+                Http::get($devServerUrl);
+                $devServerRunning = true;
+            } catch (ConnectionException $e) {
+            }
+        }
+
+        if ($devServerRunning) {
+            return new HtmlString(<<<HTML
+                <script type="module" src="{$devServerUrl}/@vite/client" crossorigin="use-credentials"></script>
+                <script type="module" src="{$devServerUrl}/resources/js/main.ts" crossorigin="use-credentials"></script>
+            HTML);
+        }
+
+        $manifest = json_decode(file_get_contents(
+            public_path('build/manifest.json')
+        ), true);
+
+        return new HtmlString(<<<HTML
+            <script type="module" src="/build/{$manifest['resources/js/main.ts']['file']}"></script>
+            <link rel="stylesheet" href="/build/{$manifest['resources/js/main.ts']['css'][0]}">
+        HTML);
     }
 }

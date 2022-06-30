@@ -18,7 +18,7 @@
     <!-- Push Js -->
     <script src="https://js.pusher.com/7.0/pusher.min.js" defer></script>
 
-    {{ InvictaAdmin::scripts() }}
+    {{ InvictaAdmin::applicationScripts() }}
 
 </head>
 <body>
@@ -53,6 +53,19 @@
         document.addEventListener('DOMContentLoaded', () => {
             window.Invicta = new InvictaApp(@json(InvictaAdmin::jsonVariables()))
             Invicta.initInertia()
+        })
+    </script>
+
+    {{-- @auth --}}
+        @foreach (InvictaAdmin::registeredScripts() as $folder => $scripts)
+            @foreach ($scripts as $script)
+                {{-- <script defer src="{{ InvictaAdmin::vendorAssetUrl("$folder/js/$script") }}"></script> --}}
+            @endforeach
+        @endforeach
+    {{-- @endauth --}}
+
+    <script defer>
+        document.addEventListener('DOMContentLoaded', () => {
             Invicta.start()
         })
     </script>

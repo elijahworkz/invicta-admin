@@ -20,9 +20,5 @@ class ServiceProvider extends LaravelServiceProvider
         $this->loadRoutesFrom(__DIR__.'/../routes/routes.php');
 
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'invicta');
-
-        $this->publishes([
-            __DIR__.'/../config/invicta.php' => config_path('invicta.php'),
-        ], 'invicta-config');
     }
 }
