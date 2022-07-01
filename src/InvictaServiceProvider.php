@@ -32,6 +32,10 @@ class InvictaServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../config/invicta.php' => config_path('invicta.php'),
         ], 'invicta-config');
+
+        $this->publishes([
+            __DIR__.'/../public' => public_path('vendor/invicta'),
+        ], ['invicta-assets', 'laravel-assets']);
     }
 
     /**

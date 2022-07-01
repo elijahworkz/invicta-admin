@@ -1,0 +1,1 @@
+import{o as r,c as o,t}from"./main.3ff2d779.js";const n={__name:"Resource",props:{resource:Object},setup(e){return(c,s)=>(r(),o("h1",null,"this will be resource index for "+t(e.resource),1))}};export{n as default};

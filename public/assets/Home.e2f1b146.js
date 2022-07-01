@@ -1,0 +1,1 @@
+import{_ as e,o as t,c as r}from"./main.3ff2d779.js";const o={name:"Home",data(){return{}}};function a(s,n,c,_,l,p){return t(),r("h1",null,"THis will be first test")}var i=e(o,[["render",a]]);export{i as default};

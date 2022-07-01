@@ -9,12 +9,12 @@ import serverConfig from './server.config.js'
 const path = require('path')
 
 export default defineConfig(({command}) => ({
-  base: command === 'serve' ? '' : '/invicta-admin',
+  // base: command === 'serve' ? '' : '/invicta-admin/',
   server: serverConfig,
   publicDir: false,
   build: {
     manifest: true,
-    outDir: 'public/invicta-admin',
+    outDir: 'public',
     rollupOptions: {
       input: 'resources/js/main.ts'
     },
