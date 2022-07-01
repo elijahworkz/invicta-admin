@@ -20,22 +20,22 @@ import { create } from 'lodash'
 class Invicta
 {	
 	app: any
-	mountElement: HTMLElement | null
+	mountElement: string
 	config: any
 	bootingCallbacks: Function[]
 	pages: any
 
 	constructor(config: any) {
 		this.app = null
-		this.mountElement = document.getElementById('app')
+		this.mountElement = '#app'
 		this.config = config
 		this.bootingCallbacks = []
 
-		// this.pages = {
-		// 	'Invicta.Home': () => import('./views/Home.vue'),
-		// 	'Invicta.Resource': () => import('./views/Resource.vue')
-		// }
-		this.pages = import.meta.glob('./views/*.vue')
+		this.pages = {
+			'Invicta.Home': () => import('./views/Home.vue'),
+			'Invicta.Resource': () => import('./views/Resource.vue')
+		}
+		// this.pages = import.meta.glob('./views/*.vue')
 	}
 
 	booting(callback: Function) {
@@ -50,58 +50,51 @@ class Invicta
 
 	initInertia() {
 
-		// this.app = createApp({
-		// 	render: () => h(App, {
-		// 		initialPage: JSON.parse(this.mountElement.dataset.page),
-		// 		resolveComponent: async (name) => {
-		// 			const page = (await this.pages[`./views/${name}.vue`]).default
+		let appElement = document.querySelector(this.mountElement)
+		let inertiaData = appElement?.getAttribute('data-page') || ''
 
-		// 			page.layout = MainLayout
+		this.app = createApp({
+			render: () => h(App, {
+				initialPage: JSON.parse(inertiaData),
+				resolveComponent: async (name) => {
 
-		// 			return page //page().then((module) => module.default)
-		// 		}
-		// 	})
-		// })
-// const app = createApp({
-// 	render: () => h(App, {
-// 		initialPage: JSON.parse(el.dataset.page),
-// 			resolveComponent: async name => {
-// 				if (import.meta.env.DEV) {
-// 					return (await import(`./Pages/${name}.vue`)).default;
-// 				} else {
-// 					let pages = asyncViews();
-// 					const importPage = pages[`./Pages/${name}.vue`];
-// 					return importPage().then(module => module.default);
-// 				}
-// 			}
-// 		})
-// 	})
-		// this.app.use(plugin)
-		
-		createInertiaApp({
-			resolve: async(name) => {
-				console.log(name, this.pages)
-				// const page = (await import(`./views/${name}.vue`)).default
-				// let page = this.pages[`./views/${name}.vue`]
-				let page
-				if (name == 'Student') {
-					page = this.pages[name]
-				} else {
-					page = (await this.pages[`./views/${name}.vue`]()).default
+					const page = name.includes('Invicta.')
+						? (await this.pages[name]()).default
+						: this.pages[name]
+
+					page.layout = MainLayout
+
+					return page
 				}
-				page.layout = MainLayout
-				return page
-			},
-			setup: ({el, app, props, plugin}): void => {
-				console.log(' are you there?')
-				// this.mountElement = el
-				this.app = createApp({ render: () => h(app, props) })
-				this.app.use(plugin)
+			})
+		})
+
+		this.app.use(plugin)
+		
+		// createInertiaApp({
+		// 	resolve: async(name) => {
+		// 		console.log(name, this.pages)
+		// 		// const page = (await import(`./views/${name}.vue`)).default
+		// 		// let page = this.pages[`./views/${name}.vue`]
+		// 		let page
+		// 		if (name == 'Student') {
+		// 			page = this.pages[name]
+		// 		} else {
+		// 			page = (await this.pages[`./views/${name}.vue`]()).default
+		// 		}
+		// 		page.layout = MainLayout
+		// 		return page
+		// 	},
+		// 	setup: ({el, app, props, plugin}): void => {
+		// 		console.log(' are you there?')
+		// 		// this.mountElement = el
+		// 		this.app = createApp({ render: () => h(app, props) })
+		// 		this.app.use(plugin)
 		this.app.component('Link', Link)
 		this.app.component('SvgIcon', SvgIcon)
-				this.app.mount(el)
-			}
-		})
+		// 		// this.app.mount(el)
+		// 	}
+		// })
 	}
 
 	getConfig(key: string) {
@@ -115,10 +108,11 @@ class Invicta
 		console.log(' i am starting')
 		this.boot()
 
-		// this.app.mount('#app')
+		this.app.mount('#app')
 	}
 
 	inertia(name, component) {
+		// this.pages = {...this.pages, ...name}
 		this.pages[name] = component
 		console.log('want to add', name, this.pages)
 	}
