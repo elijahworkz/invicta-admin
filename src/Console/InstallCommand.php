@@ -28,12 +28,6 @@ class InstallCommand extends Command
      */
     public function handle()
     {
-        /*
-    	1. create needed folders
-    	2. add InvictaServerProvider
-    	3.
-    	 */
-
         $this->comment('Publishing Invicta Assets and Resources...');
         $this->callSilent('vendor:publish', ['--tag' => 'invicta-config']);
 

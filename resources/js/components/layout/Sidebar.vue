@@ -52,7 +52,10 @@
 import { ref } from 'vue'
 
 const showSubmenu = ref(false)
-// const navItems = Invicta.getConfig('menu')
+const menuItems = Invicta.getConfig('menu')
+
+Invicta.log('Menu', menuItems)
+
 const navItems = [
     {
         name: 'Campaigns',

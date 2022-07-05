@@ -4,7 +4,6 @@ namespace Eteacher\InvictaAdmin;
 
 use Eteacher\InvictaAdmin\Admin\Facades\Menu;
 use Illuminate\Http\Client\ConnectionException;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
@@ -18,9 +17,9 @@ class InvictaAdmin
     public static function jsonVariables()
     {
         return [
-            'auth' => self::auth(),
-            // 'appUrl' => config('app.url'),
-            // 'appName' => config('app.name'),
+            'appUrl' => config('app.url'),
+            'appName' => config('app.name'),
+            'appPath' => config('invicta.path'),
             // 'editorUrl' => route('editor'),
             // 'assetsUrl' => config('frontend.assetsUrl'),
             // 'screenshotsPath' => config('services.screenshots.key'),
@@ -32,31 +31,9 @@ class InvictaAdmin
         ];
     }
 
-    private static function auth()
-    {
-        $user = Auth::user();
-
-        if (! $user) {
-            return [];
-        }
-
-        return [
-            'id' => $user->id,
-            'name' => $user->name,
-            'role' => $user->role->label,
-        ];
-    }
-
     private static function menu()
     {
         return Menu::build();
-        /*
-        what do we need here.
-        - do we collect all routes from application
-        - do we have some default routes from package?
-        - how do we authorize the routes
-        -
-        */
     }
 
     public static function vendorAssetUrl($url)

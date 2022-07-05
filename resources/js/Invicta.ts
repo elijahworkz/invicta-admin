@@ -32,6 +32,9 @@ class Invicta
 		this.bootingCallbacks = []
 
 		this.pages = {
+			'Invicta.Login': () => import('./views/Auth/Login.vue'),
+			'Invicta.ForgotPassword': () => import('./views/Auth/ForgotPassword.vue'),
+			'Invicta.ResetPassword': () => import('./views/Auth/ResetPassword.vue'),
 			'Invicta.Home': () => import('./views/Home.vue'),
 			'Invicta.Resource': () => import('./views/Resource.vue')
 		}
@@ -62,7 +65,7 @@ class Invicta
 						? (await this.pages[name]()).default
 						: this.pages[name]
 
-					page.layout = MainLayout
+					page.layout ??= MainLayout
 
 					return page
 				}

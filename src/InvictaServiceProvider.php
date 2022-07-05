@@ -34,8 +34,8 @@ class InvictaServiceProvider extends ServiceProvider
         ], 'invicta-config');
 
         $this->publishes([
-            __DIR__.'/../public' => public_path('vendor/invicta'),
-        ], ['invicta-assets', 'laravel-assets']);
+            __DIR__.'/../public/build' => public_path('vendor/invicta'),
+        ], ['invicta-assets']);
     }
 
     /**
@@ -47,6 +47,7 @@ class InvictaServiceProvider extends ServiceProvider
     {
         $this->commands([
             Console\InstallCommand::class,
+            Console\PublishCommand::class,
         ]);
     }
 }

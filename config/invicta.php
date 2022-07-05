@@ -40,15 +40,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Admin Panel Authentication Guard
+    | Admin Panel Authentication Settings
     |--------------------------------------------------------------------------
     |
     | This option defines guard that is used to protect all Admin panel
-    | routes. ??? TBD... how about adding routes??
+    | routes and determines if Invicta's login page should be used and
+    | if password resetting is enabled
     |
     */
 
-    'guard' => env('INVICTA_GUARD', null),
+    'auth' => [
+        'guard' => env('INVICTA_GUARD', 'web'),
+        'enable_login_form' => true,
+        'enable_password_reset' => true,
+    ],
 
     /*
     |--------------------------------------------------------------------------
