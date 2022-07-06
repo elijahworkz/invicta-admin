@@ -6,7 +6,7 @@
         <li><Link href="/admin/resource/lessons/index">Lessons</Link></li>
         <li><Link href="/admin/test">Student Test</Link></li>
         <li
-            v-for="item in navItems"
+            v-for="item in menuItems"
             :key="item.url"
             class="nav-item">
             <Link
@@ -14,7 +14,7 @@
                 :class="[{'active': $page.component === item.component}, 'nav-link']"
                 :href="`${item.url}`">
                     <span class="sidebar-mini">
-                        <svgIcon :name="item.icon" />
+                        <SvgIcon :icon="item.icon" />
                     </span>
                     <span class="sidebar-normal">{{ item.name }}</span>
             </Link>
@@ -23,11 +23,11 @@
                 :class="{ open: showSubmenu}">
                 <div class="nav-link" @click="showSubmenu = !showSubmenu">
                     <span class="sidebar-mini">
-                        <svgIcon :name="item.icon"/>
+                        <SvgIcon :icon="item.icon"/>
                     </span>
                     <span class="sidebar-normal">{{ item.name }}</span>
                     <SvgIcon 
-                        :icon="mdiChevronDown" 
+                        :icon="mdiAccountCogOutline" 
                         class="ml-auto nav-arrow"/>
                 </div>
                 <el-collapse-transition>
@@ -50,7 +50,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import { mdiChevronDown } from '@mdi/js'
+import { mdiChevronDown, mdiAccountCogOutline } from '@mdi/js'
 
 const showSubmenu = ref(false)
 const menuItems = Invicta.getConfig('menu')

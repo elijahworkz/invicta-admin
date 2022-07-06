@@ -3,9 +3,7 @@
 namespace Eteacher\InvictaAdmin;
 
 use Eteacher\InvictaAdmin\Admin\Facades\Menu;
-use Illuminate\Http\Client\ConnectionException;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\HtmlString;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
 class InvictaAdmin
@@ -56,33 +54,21 @@ class InvictaAdmin
         static::$styles[$name][] = Str::finish($path, '.css');
     }
 
-    public static function applicationScripts(): HtmlString
+    public static function svg($name, $attrs = null)
     {
-        $devServerRunning = false;
-        $devServerUrl = config('invicta.dev_server_url');
+        $nameIsPath = (Str::of($name)->endsWith('.svg'));
+        $svgPath = $nameIsPath ? $name : __DIR__."/../resources/svg/{$name}.svg";
 
-        if (app()->environment('local')) {
-            try {
-                Http::get($devServerUrl);
-                $devServerRunning = true;
-            } catch (ConnectionException $e) {
-            }
+        $svg = Str::squish(File::get($svgPath));
+
+        if ($nameIsPath) {
+            return $svg;
         }
 
-        if ($devServerRunning) {
-            return new HtmlString(<<<HTML
-                <script type="module" src="{$devServerUrl}/@vite/client" crossorigin="use-credentials"></script>
-                <script type="module" src="{$devServerUrl}/resources/js/main.ts" crossorigin="use-credentials"></script>
-            HTML);
+        if ($attrs) {
+            $attrs = " class=\"{$attrs}\"";
         }
 
-        $manifest = json_decode(file_get_contents(
-            public_path('vendor/invicta/manifest.json')
-        ), true);
-
-        return new HtmlString(<<<HTML
-            <script type="module" src="/vendor/invicta/{$manifest['resources/js/main.ts']['file']}"></script>
-            <link rel="stylesheet" href="/vendor/invicta/{$manifest['resources/js/main.ts']['css'][0]}">
-        HTML);
+        return str_replace('<svg', sprintf('<svg%s', $attrs), $svg);
     }
 }

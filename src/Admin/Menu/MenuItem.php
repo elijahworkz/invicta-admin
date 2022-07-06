@@ -3,6 +3,7 @@
 namespace Eteacher\InvictaAdmin\Admin\Menu;
 
 use Eteacher\InvictaAdmin\Admin\Traits\Makeable;
+use Eteacher\InvictaAdmin\InvictaAdmin;
 use Illuminate\Support\Str;
 
 class MenuItem
@@ -11,9 +12,9 @@ class MenuItem
 
     public $url = '/';
 
-    public $icon = 'label-alt';
-
     public $inertia = true;
+
+    public $icon = null;
 
     public $abilities;
 
@@ -43,6 +44,8 @@ class MenuItem
 
     public function icon($name)
     {
+        $this->icon = InvictaAdmin::svg($name);
+
         return $this;
     }
 
