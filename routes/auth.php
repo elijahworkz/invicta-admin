@@ -1,6 +1,8 @@
 <?php
 
 use Eteacher\InvictaAdmin\Http\Controllers\Auth\LoginController;
+use Eteacher\InvictaAdmin\Http\Controllers\Auth\NewPasswordController;
+use Eteacher\InvictaAdmin\Http\Controllers\Auth\PasswordResetController;
 
 Route::get('login', [LoginController::class, 'create'])->name('login');
 Route::post('login', [LoginController::class, 'store']);

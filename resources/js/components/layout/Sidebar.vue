@@ -27,8 +27,8 @@
                     </span>
                     <span class="sidebar-normal">{{ item.name }}</span>
                     <SvgIcon 
-                        name="angle-down" 
-                        class="ml-auto text-white nav-arrow"/>
+                        :icon="mdiChevronDown" 
+                        class="ml-auto nav-arrow"/>
                 </div>
                 <el-collapse-transition>
                     <div class="submenu sidebar-normal" v-show="showSubmenu">
@@ -50,6 +50,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import { mdiChevronDown } from '@mdi/js'
 
 const showSubmenu = ref(false)
 const menuItems = Invicta.getConfig('menu')
@@ -60,7 +61,7 @@ const navItems = [
     {
         name: 'Campaigns',
         url: '/manager/campaigns',
-        icon: 'apps'
+        icon: 'mdiApps'
     },
     {
         name: 'Masters',

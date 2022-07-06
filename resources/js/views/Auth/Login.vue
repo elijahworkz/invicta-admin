@@ -1,4 +1,6 @@
 <template>
+	<Head title="Login"/>
+	
 	<el-form
 		ref="loginForm"
 		:model="form"
@@ -21,8 +23,8 @@
 		<div v-if="form.errors.email" v-text="form.errors.email" class="text-crimson"></div>
 
 		<div class="flex items-center justify-end mt-4">
-			<Link v-if="canResetPassword" :href="resetUrl" class="underline text-sm text-gray-600 hover:text-gray-900">Forgot your password?</Link>
-			
+			<Link v-if="resetUrl" :href="resetUrl" class="underline text-sm text-gray-600 hover:text-gray-900">Forgot your password?</Link>
+
 			<el-form-item>
 				<el-button @click="submit(loginForm)">Log in</el-button>
 			</el-form-item>
@@ -41,8 +43,9 @@ export default {
 <script setup>
 import { useForm } from '@inertiajs/inertia-vue3'
 
-defineProps({
-	canResetPassword: Boolean,
+const props = defineProps({
+	loginUrl: String,
+	resetUrl: String,
 	status: String,
 })
 
@@ -52,10 +55,8 @@ const form = useForm({
 	remember: false
 })
 
-const loginUrl = Invicta.getConfig('loginUrl')
-
 const submit = () => {
-	form.post(loginUrl)
+	form.post(props.loginUrl)
 }
 </script>
 <style lang="scss">

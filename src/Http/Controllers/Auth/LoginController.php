@@ -6,7 +6,6 @@ use Eteacher\InvictaAdmin\Http\Controllers\Controller;
 use Eteacher\InvictaAdmin\Http\Request\LoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 class LoginController extends Controller
@@ -19,7 +18,8 @@ class LoginController extends Controller
     public function create()
     {
         return Inertia::render('Invicta.Login', [
-            'canResetPassword' => Route::has('password.reset'),
+            'loginUrl' => route('invicta.login'),
+            'resetUrl' => config('invicta.auth.enable_password_reset') ? route('invicta.password.forgot') : null,
             'status' => session('status'),
         ]);
     }
@@ -36,7 +36,7 @@ class LoginController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended('/');
+        return redirect()->intended(route('invicta.home'));
     }
 
     /**

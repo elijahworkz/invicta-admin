@@ -1,5 +1,5 @@
 import { createApp, h } from 'vue'
-import { createInertiaApp, App, plugin } from '@inertiajs/inertia-vue3'
+import { createInertiaApp, App, plugin, Head } from '@inertiajs/inertia-vue3'
 import { InertiaProgress } from '@inertiajs/progress'
 import { AxiosInstance } from 'axios'
 // import { setupAxios } from './services/axios'
@@ -59,6 +59,7 @@ class Invicta
 		this.app = createApp({
 			render: () => h(App, {
 				initialPage: JSON.parse(inertiaData),
+				titleCallback: (title: string) => `${title} - ${this.getConfig('appName')}`,
 				resolveComponent: async (name) => {
 
 					const page = name.includes('Invicta.')
@@ -93,6 +94,7 @@ class Invicta
 		// 		// this.mountElement = el
 		// 		this.app = createApp({ render: () => h(app, props) })
 		// 		this.app.use(plugin)
+		this.app.component('Head', Head)
 		this.app.component('Link', Link)
 		this.app.component('SvgIcon', SvgIcon)
 		// 		// this.app.mount(el)
