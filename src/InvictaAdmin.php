@@ -8,9 +8,7 @@ use Illuminate\Support\Str;
 
 class InvictaAdmin
 {
-    public static $scripts = [];
-
-    public static $styles = [];
+    public static $assets = [];
 
     public static function jsonVariables()
     {
@@ -39,19 +37,18 @@ class InvictaAdmin
         return asset('vendor/invicta/'.$url);
     }
 
-    public static function script($name, $path)
+    public static function assets($path)
     {
-        static::$scripts[$name][] = Str::finish($path, '.js');
+        if (is_array($path)) {
+            static::$assets = array_merge(static::$assets, $path);
+        } else {
+            static::$assets[] = $path;
+        }
     }
 
-    public static function registeredScripts()
+    public static function registeredAssets()
     {
-        return static::$scripts;
-    }
-
-    public static function style($name, $path)
-    {
-        static::$styles[$name][] = Str::finish($path, '.css');
+        return static::$assets;
     }
 
     public static function svg($name, $attrs = null)

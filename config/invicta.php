@@ -57,14 +57,28 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Development server url
+    | Assets build directory
     |--------------------------------------------------------------------------
     |
-    | This option defines server url that is used for development.
-    | For local development it's default vite server, for gitpod - it will be set by gitpod.yaml script
+    | This option defines the directory where all build assets can be found.
+    | Vite by default builds all assets into 'build' folder. If you change
+    | default build folder in vite.config.js - you need to change it here as well.
     |
     */
 
-    'dev_server_url' => env('VITE_DEV_SERVER_URL', 'http://localhost:3000'),
+    'assets_build_directory' => 'build',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Development build tool
+    |--------------------------------------------------------------------------
+    |
+    | This option determines how we should load external scripts.
+    | Older versions of Laravel are using laravel-mix, while newer are using vite
+    | Possible values are 'mix' or 'vite'.
+    |
+    */
+
+    'assets_build_tool' => env('INVICTA_ASSETS_BUILD_TOOL', 'vite'),
 
 ];

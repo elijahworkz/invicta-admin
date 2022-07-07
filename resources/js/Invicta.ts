@@ -100,6 +100,7 @@ class Invicta
 		// 		// this.app.mount(el)
 		// 	}
 		// })
+		this.event('InvictaReady')
 	}
 
 	getConfig(key: string) {
@@ -114,9 +115,11 @@ class Invicta
 		this.boot()
 
 		this.app.mount('#app')
+
+		console.log('started Invicta', this.pages)
 	}
 
-	inertia(name, component) {
+	inertia(name: string, component: any) {
 		// this.pages = {...this.pages, ...name}
 		this.pages[name] = component
 		console.log('want to add', name, this.pages)
@@ -125,6 +128,14 @@ class Invicta
 	// component(name: string, component: any) {
 	// 	this.app.component(name, component)
 	// }
+	// 
+	event(name: string, data: Object | null = null) {
+		let e = (data)
+			? new CustomEvent(name, { detail: {data} })
+			: new Event(name)
+
+		document.dispatchEvent(e)
+	}
 
 	log(message: string, payload: any = null): void {
 		if (payload) {

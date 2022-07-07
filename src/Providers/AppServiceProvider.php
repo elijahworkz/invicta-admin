@@ -56,5 +56,11 @@ class AppServiceProvider extends ServiceProvider
 
             return "<?php echo app('$class')(); ?>";
         });
+
+        Blade::directive('invictaAssets', function ($expression) {
+            $class = Vite::class;
+
+            return "<?php echo app('$class')->assets() ?>";
+        });
     }
 }

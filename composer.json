@@ -6,7 +6,10 @@
     "autoload": {
         "psr-4": {
             "Eteacher\\InvictaAdmin\\": "src/"
-        }
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "authors": [
         {

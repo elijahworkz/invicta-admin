@@ -18,7 +18,6 @@
     <!-- Push Js -->
     <script src="https://js.pusher.com/7.0/pusher.min.js" defer></script>
 
-    {{-- {{ InvictaAdmin::applicationScripts() }} --}}
     @invictaScripts
 
 </head>
@@ -52,15 +51,12 @@
     </script>
 
     @auth
-        @foreach (InvictaAdmin::registeredScripts() as $folder => $scripts)
-            @foreach ($scripts as $script)
-                <script src="{{ InvictaAdmin::vendorAssetUrl("$folder/js/$script") }}"></script>
-            @endforeach
-        @endforeach
+        @invictaAssets
     @endauth
 
-    <script defer>
-        document.addEventListener('DOMContentLoaded', () => {
+    <script type="module">
+        document.addEventListener('InvictaReady', () => {
+            console.log('I see assets loaded event')
             Invicta.start()
         })
     </script>
