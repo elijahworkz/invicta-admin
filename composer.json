@@ -21,7 +21,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Eteacher\\InvictaAdmin\\ServiceProvider"
+                "Eteacher\\InvictaAdmin\\InvictaServiceProvider"
             ],
             "aliases": {
                 "InvictaAdmin": "Eteacher\\InvictaAdmin\\InvictaAdmin"
