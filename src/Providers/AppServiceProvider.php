@@ -2,7 +2,7 @@
 
 namespace Eteacher\InvictaAdmin\Providers;
 
-use Eteacher\InvictaAdmin\Admin\Foundation\Vite;
+use Eteacher\InvictaAdmin\Foundation\Vite;
 use Eteacher\InvictaAdmin\Http\Middleware\Authorize;
 use Eteacher\InvictaAdmin\Http\Middleware\HandleInertiaRequests;
 use Eteacher\InvictaAdmin\Http\Middleware\SetAuthGuard;

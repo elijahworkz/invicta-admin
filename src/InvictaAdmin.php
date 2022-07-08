@@ -2,7 +2,7 @@
 
 namespace Eteacher\InvictaAdmin;
 
-use Eteacher\InvictaAdmin\Admin\Facades\Menu;
+use Eteacher\InvictaAdmin\Facades\Menu;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 

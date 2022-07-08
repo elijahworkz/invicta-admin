@@ -1,6 +1,6 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Admin\Foundation;
+namespace Eteacher\InvictaAdmin\Foundation;
 
 use Eteacher\InvictaAdmin\InvictaAdmin;
 use Illuminate\Support\HtmlString;
