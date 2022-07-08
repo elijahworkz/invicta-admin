@@ -2,8 +2,6 @@
 
 namespace Eteacher\InvictaAdmin\Providers;
 
-use Eteacher\InvictaAdmin\Console\InstallCommand;
-use Eteacher\InvictaAdmin\Console\PublishCommand;
 use Illuminate\Support\ServiceProvider;
 
 class ConsoleServiceProvider extends ServiceProvider
@@ -37,7 +35,14 @@ class ConsoleServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__.'/../../public/build' => public_path('vendor/invicta'),
-        ], ['invicta-assets']);
+        ], 'invicta-assets');
+
+        if (! class_exists('CreateInvictaAuthTables')) {
+            // Export migraion
+            $this->publishes([
+                __DIR__.'/../../database/migrations/invicta_auth_tables.php.stub' => database_path('migrations/'.date('Y_m_d_His', time()).'_create_invicta_auth_tables.php'),
+            ], 'invicta-auth');
+        }
     }
 
     /**
@@ -48,8 +53,10 @@ class ConsoleServiceProvider extends ServiceProvider
     public function register()
     {
         $this->commands([
-            InstallCommand::class,
-            PublishCommand::class,
+            \Eteacher\InvictaAdmin\Console\InstallCommand::class,
+            \Eteacher\InvictaAdmin\Console\PublishCommand::class,
+            \Eteacher\InvictaAdmin\Console\AuthPublishCommand::class,
+            \Eteacher\InvictaAdmin\Console\MakeSuperAdminCommand::class,
         ]);
     }
 }

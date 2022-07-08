@@ -57,6 +57,24 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Default authorization tables
+    |--------------------------------------------------------------------------
+    |
+    | By default if you run 'php artisan invicta:auth' it will install migrations
+    | for 'groups', 'group_user' and 'group_permissions' tables. If it conflicts
+    | with your existing tables you can change it here before you run
+    | 'invicta:auth' command.
+    |
+    */
+
+    'auth_tables' => [
+        'groups' => 'groups',
+        'group_user' => 'group_user',
+        'permissions' => 'permissions',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Assets build directory
     |--------------------------------------------------------------------------
     |

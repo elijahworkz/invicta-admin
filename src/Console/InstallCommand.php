@@ -31,7 +31,7 @@ class InstallCommand extends Command
         $this->comment('Publishing Invicta Assets and Resources...');
         $this->callSilent('vendor:publish', ['--tag' => 'invicta-config']);
 
-        $this->comment('Publishing Invicta Service Provider...'); // not sure if it's needed - depends on what we need to do from app side
+        $this->comment('Publishing Invicta Service Provider...');
         $this->callSilent('vendor:publish', ['--tag' => 'invicta-provider']);
 
         $this->installInvictaServiceProvider();
@@ -41,6 +41,7 @@ class InstallCommand extends Command
             this should generate all the user related stuff in new folder
 
         */
+        $this->info('Invicta installed successfully.');
     }
 
     public function installInvictaServiceProvider()

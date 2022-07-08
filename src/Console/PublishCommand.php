@@ -29,5 +29,6 @@ class PublishCommand extends Command
     {
         $this->comment('Publishing Invicta Assets...');
         $this->callSilent('vendor:publish', ['--tag' => 'invicta-assets']);
+        $this->info('Invicta successfully published assets.');
     }
 }

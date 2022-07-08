@@ -2,14 +2,13 @@
 
 namespace Eteacher\InvictaAdmin;
 
-use Eteacher\InvictaAdmin\Providers\AppServiceProvider;
-use Eteacher\InvictaAdmin\Providers\ConsoleServiceProvider;
 use Illuminate\Support\AggregateServiceProvider;
 
 class InvictaServiceProvider extends AggregateServiceProvider
 {
     protected $providers = [
-        AppServiceProvider::class,
-        ConsoleServiceProvider::class,
+        \Eteacher\InvictaAdmin\Providers\AppServiceProvider::class,
+        \Eteacher\InvictaAdmin\Providers\ConsoleServiceProvider::class,
+        \Eteacher\InvictaAdmin\Providers\AuthServiceProvider::class,
     ];
 }
