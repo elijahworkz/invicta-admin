@@ -5,14 +5,14 @@ use Eteacher\InvictaAdmin\Http\Controllers\Auth\LoginController;
 Route::middleware(['invicta'])
     ->name('invicta.')
     ->prefix(config('invicta.path'))
-    ->namespace('Invicta\Http\Controllers')
+    // ->namespace('Invicta\Http\Controllers')
     ->group(function () {
 
         // Authorization routess
         if (config('invicta.auth.enable_login_form')) {
             Route::middleware(['guest:invicta'])
                 ->prefix('auth')
-                ->namespace('Auth')
+                // ->namespace('Auth')
                 ->group(__DIR__.'/auth.php');
 
             Route::post('logout', [LoginController::class, 'destroy'])->name('logout');

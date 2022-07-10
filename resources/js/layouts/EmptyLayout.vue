@@ -1,9 +1,7 @@
 <template>
-	<div class="app-body">
-		<main>
-			<slot/>
-		</main>
-	</div>
+	<main class="app-empty">
+		<slot/>
+	</main>
 </template>
 
 <script setup>

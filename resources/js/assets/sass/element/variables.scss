@@ -4,10 +4,10 @@
   $colors: (
     (
       'white': #ffffff,
-      'black': #22292f,
+      'black': #4a596a,
       'primary': (
-        'base': #3673B1,
-        'dark': #34444a,
+        'base': #5f8fdf,
+        'dark': #3673B1,
       ),
       'success': (
         'base': #67c23a,
@@ -43,19 +43,19 @@
   -------------------------- */
   $font-size: (
     (
-      'extra-large': 22px,
-      'large': 20px,
-      'medium': 18px,
-      'base': 16px,
-      'small': 14px,
+      'extra-large': 20px,
+      'large': 18px,
+      'medium': 16px,
+      'base': 14px,
+      'small': 13px,
       'extra-small': 12px,
     )
   ),
 
   $text-color: (
     (
-      'primary': #383838,
-      'regular': #606266,
+      'primary': #4a596a,
+      'regular': #303133,
       'secondary': #909399,
       'placeholder': #a1a1a1,
     )

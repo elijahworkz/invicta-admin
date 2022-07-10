@@ -2,7 +2,9 @@
 
 namespace Eteacher\InvictaAdmin\Admin\Menu;
 
+use Eteacher\InvictaAdmin\Admin\Resources\ResourceRegistrar;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\App;
 
 class Menu
 {
@@ -37,11 +39,19 @@ class Menu
      */
     public function resource($resource)
     {
-        // should do more work here
-        // need to get the resource
-        // 1. get the menu name
-        // 2. get slug
-        // 3. build Menu Item with those values
+        $resource = App::make($resource);
+
+        ResourceRegistrar::put($resource->slug, $resource);
+
+        ResourceRegistrar::test($resource->slug);
+
+        // dd(ResourceRegistrar::get($resource->slug));
+
+        return $this->createItem($resource->title)
+            ->resource()
+            ->route($resource->route())
+            ->icon($resource->icon())
+            ->badge($resource->badge());
     }
 
     /**

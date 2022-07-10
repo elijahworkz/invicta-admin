@@ -1,15 +1,18 @@
 <?php
 
+use Eteacher\InvictaAdmin\Http\Controllers\InvictaAdminController;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Invicta.Home', []);
-})->name('home');
+Route::controller(InvictaAdminController::class)->group(function () {
+    Route::get('/', 'home')->name('home');
 
-Route::get('/resource/{resource}/index', function (Request $request, $resource) {
-    return Inertia::render('Invicta.Resource', ['resource' => $resource]);
-});
+    Route::get('/resource/{resource}', 'index');
+    Route::get('/resource/{resource}/{item}', 'edit');
+    Route::post('/resource/{resource}/{item}', 'update');
+    Route::delete('/resource/{resource}/{item}', 'destroy');
 
-Route::get('/test', function (Request $request) {
-    return Inertia::render('Student');
+    Route::get('/test', function (Request $request) {
+        return Inertia::render('Student');
+    });
 });

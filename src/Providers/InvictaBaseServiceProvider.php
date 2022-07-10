@@ -8,20 +8,16 @@ use Illuminate\Support\ServiceProvider;
 class InvictaBaseServiceProvider extends ServiceProvider
 {
     /**
-     * Register needed services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-    }
-
-    /**
      * Bootstrap any package services.
      *
      * @return void
      */
     public function boot()
+    {
+        $this->authorization();
+    }
+
+    protected function authorization()
     {
         $this->gate();
     }
@@ -40,5 +36,14 @@ class InvictaBaseServiceProvider extends ServiceProvider
         Gate::define('viewInvicta', function ($user) {
             return app()->environment('local');
         });
+    }
+
+    /**
+     * Register needed services.
+     *
+     * @return void
+     */
+    public function register()
+    {
     }
 }

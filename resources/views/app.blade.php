@@ -21,12 +21,16 @@
     @invictaScripts
 
 </head>
-<body class="bg-gray-100 text-gray-700">
+<body>
     <noscript>
       <strong>We're sorry but this page doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
 
     <style>
+        body {
+            background: #f3f7fa;
+            color: #4a596a;
+        }
         body:not(.app-ready) {
             display: flex;
             align-items: center;

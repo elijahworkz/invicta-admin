@@ -15,6 +15,10 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(__DIR__.'./../../config/invicta.php', 'invicta');
+
+        $this->app->singleton(ResourceRegistrar::class, function ($app) {
+            return new ResourceRegistrar;
+        });
     }
 
     public function boot()

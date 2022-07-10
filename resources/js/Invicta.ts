@@ -8,7 +8,7 @@ import { AxiosInstance } from 'axios'
 // global components
 import { Link } from '@inertiajs/inertia-vue3'
 // import Loading from '@/components/shared/Loading.vue'
-import SvgIcon from '@/components/global/SvgIcon.vue'
+import SvgIcon from '@/components/shared/SvgIcon.vue'
 import { ElNotification } from 'element-plus'
 import 'element-plus/es/components/message/style/index';
 import 'element-plus/es/components/notification/style/index';

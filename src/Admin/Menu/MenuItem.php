@@ -2,6 +2,7 @@
 
 namespace Eteacher\InvictaAdmin\Admin\Menu;
 
+use BadMethodCallException;
 use Eteacher\InvictaAdmin\Admin\Traits\Makeable;
 use Eteacher\InvictaAdmin\InvictaAdmin;
 use Illuminate\Support\Str;
@@ -22,9 +23,11 @@ class MenuItem
 
     public $group = null;
 
-    public $children = null;
+    public $children = false;
 
     public $hasDivider = false;
+
+    protected $resource = false;
 
     public function __construct(public $name)
     {
@@ -80,8 +83,18 @@ class MenuItem
         return $this;
     }
 
+    public function resource()
+    {
+        $this->resource = true;
+
+        return $this;
+    }
+
     public function children(array $items)
     {
+        if ($this->resource) {
+            throw new BadMethodCallException('You cannot add children to resource type menu item.');
+        }
         // we should get an array of menuItem instances here
         $this->children = $items;
     }
@@ -90,15 +103,10 @@ class MenuItem
     {
         // FIrst - filter for authorization
         //
-        // In the end I need an array with each item converted
-        // into an object with parameters
-        // 1. icon
-        // 2. path
-        // 3. link
-        // 4.
         //
+
         $url = $this->inertia
-            ? Str::start(config('invicta.path'), $this->url)
+            ? Str::start($this->url, config('invicta.path'))
             : $this->url;
 
         return [

@@ -1,7 +1,7 @@
 @import 'mixins/mixins';
 
 :root {
-	--color-primary-back: #34444a;
+	--color-primary-back: #f3f7fa;
 	--color-primary-back-darker: #2e3c40;
 	--color-secondary-back: #2f353a;
 	--color-light-back: #f4f3ef;
@@ -24,8 +24,8 @@ body {
 	padding: 0;
 	height: 100vh;
 	width: 100vw;
-	overflow: hidden;
 	font-family: Nunito,system-ui,-apple-system,sans-serif;
+	font-size: 14px;
 }
 
 h1, h2, h3, h4, h5 {
@@ -38,7 +38,7 @@ ul {
 	}
 }
 
-// @import '_partials/app';
+@import 'partials/app';
 // @import '_partials/info-bar';
 // @import '_partials/top-bar';
 // @import '_partials/fields';
