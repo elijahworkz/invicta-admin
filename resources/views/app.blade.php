@@ -32,6 +32,10 @@
             color: #4a596a;
         }
         body:not(.app-ready) {
+            padding: 0;
+            margin: 0;
+            height: 100vh;
+            font-size: 14px;
             display: flex;
             align-items: center;
             justify-content: center;

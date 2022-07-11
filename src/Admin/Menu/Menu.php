@@ -43,10 +43,6 @@ class Menu
 
         ResourceRegistrar::put($resource->slug, $resource);
 
-        ResourceRegistrar::test($resource->slug);
-
-        // dd(ResourceRegistrar::get($resource->slug));
-
         return $this->createItem($resource->title)
             ->resource()
             ->route($resource->route())

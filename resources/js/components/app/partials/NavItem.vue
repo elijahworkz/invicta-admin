@@ -1,20 +1,11 @@
 <template>
 	<template v-if="!item.children">
-	    <Link
-	    	v-if="item.inertia"
-	        :class="[{'active': $page.url === item.url}, 'nav-link']"
-	        :href="`${item.url}`">
-	            <span class="sidebar-mini">
-	                <SvgIcon :icon="item.icon" />
-	            </span>
-	            <span class="sidebar-normal">{{ item.name }}</span>
-	    </Link>
-	    <a v-else :href="item.url" class="nav-link" target="_blank">
-	    	<span class="sidebar-mini">
-	    		<SvgIcon :icon="item.icon"/>
-	    	</span>
-	    	<span class="sidebar-normal">{{ item.name }}</span>
-	    </a>
+        <NavLink :item="item">
+            <span class="sidebar-mini" v-if="!noIcon">
+                <SvgIcon :icon="item.icon"/>
+            </span>
+            <span class="sidebar-normal">{{ item.name }}</span>
+        </NavLink>
 	</template>
     <div
     	v-if="item.children"
@@ -30,14 +21,15 @@
                 class="ml-auto nav-arrow"/>
         </div>
         <el-collapse-transition>
-            <div class="submenu sidebar-normal" v-show="showSubmenu">
+            <div class="submenu" v-show="showSubmenu">
                 <ul class="nav">
                     <li
-                        v-for="(link, index) in item.children"
+                        v-for="(child, index) in item.children"
                         :key="index"
                         class="nav-item">
-
-                            <a :href="link" target="_blank" class="nav-link">{{ index }}</a>
+                            <NavLink :item="child">
+                                <span class="sidebar-normal">{{ child.name }}</span>
+                            </NavLink>
                         </li>
                 </ul>
             </div>
@@ -47,6 +39,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import NavLink from './NavLink.vue'
 import { mdiChevronDown } from '@mdi/js'
 
 defineProps({
@@ -54,6 +47,8 @@ defineProps({
 })
 
 const showSubmenu = ref(false)
+
+Invicta.on('close-sidebar-submenus', () => showSubmenu.value = false)
 </script>
 
 <style lang="scss">

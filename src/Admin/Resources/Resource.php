@@ -20,9 +20,11 @@ class Resource
 
     public $slug = 'base';
 
-    public $icon = 'file-table-box-multiple-outline';
+    public $icon = 'resource';
 
-    protected $routePrefix = '/resource/';
+    public $search = [];
+
+    private $routePrefix = '/resource/';
 
     public function __construct()
     {
@@ -40,7 +42,7 @@ class Resource
 
     public function badge()
     {
-        // code...
+        return null;
     }
 
     public function resource()
@@ -57,38 +59,26 @@ class Resource
             $query = $this->applyFilters($query, request()->get('filters'));
         }
 
-        $result = $query->with($this->eagerLoad)->orderBy($this->slug.'.id', $sortOrder)->paginate($perPage);
+        if (! empty($this->eagerLoad)) {
+            $query = $query->with($this->eagerLoad);
+        }
 
-        return $result->withQueryString();
+        $result = $query->orderBy($this->slug.'.id', $sortOrder)->paginate($perPage);
+
+        return $this->resourceCollection($result->withQueryString());
     }
 
     protected function applySearch($query, $search)
     {
-        if (strpos($search, ',')) {
-            $search_array = explode(',', $search);
-            $trimsearch = array_map('trim', array_filter($search_array));
-
-            if (is_numeric($trimsearch[0])) {
-                $query->where(function ($query) use ($trimsearch) {
-                    $query->whereIn('id', $trimsearch);
-                });
-            } else {
-                $query->where(function ($query) use ($search) {
-                    $query->where('keywords', 'like', '%'.$search.'%');
-                });
-            }
+        if (is_numeric($search)) {
+            $query->where(function ($query) use ($search) {
+                $query->where('id', $search);
+            });
         } else {
-            if (is_numeric($search)) {
-                $query->where(function ($query) use ($search) {
-                    $query->where('id', $search);
-                });
-            } else {
-                $query->where(function ($query) use ($search) {
-                    $query->where('name', 'like', '%'.$search.'%')
-                        ->orWhere('tag_name', 'like', '%'.$search.'%')
-                        ->orWhere('keywords', 'like', '%'.$search.'%')
-                        ->orWhere('created_by', 'like', '%'.$search.'%');
-                });
+            if (! empty($this->search)) {
+                foreach ($this->search as $column) {
+                    $query->orWhere($column, 'like', '%'.$search.'%');
+                }
             }
         }
 
@@ -100,5 +90,16 @@ class Resource
         self::decodeFilters($filters);
 
         return self::filteredQuery($query);
+    }
+
+    /**
+     * Transform result into resource Collection.
+     * By default it simply returns the result so if any
+     * transformation needed - overwrite this method on
+     * Model resource class (app/Invicta/resources/Model).
+     */
+    protected function resourceCollection($resource)
+    {
+        return $resource;
     }
 }

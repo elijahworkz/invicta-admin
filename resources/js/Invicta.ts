@@ -1,8 +1,8 @@
 import { createApp, h } from 'vue'
-import { createInertiaApp, App, plugin, Head } from '@inertiajs/inertia-vue3'
+import { App, plugin, Head } from '@inertiajs/inertia-vue3'
 import { InertiaProgress } from '@inertiajs/progress'
-import { AxiosInstance } from 'axios'
-// import { setupAxios } from './services/axios'
+import { setupAxios } from './services/axios'
+import mitt from 'mitt'
 // import { InvictaConfigObject } from './common/interfaces'
 
 // global components
@@ -17,6 +17,7 @@ import 'element-plus/es/components/notification/style/index';
 import MainLayout from '@/layouts/MainLayout.vue'
 import { create } from 'lodash'
 
+
 class Invicta
 {	
 	app: any
@@ -24,12 +25,14 @@ class Invicta
 	config: any
 	bootingCallbacks: Function[]
 	pages: any
+	eventBus: any
 
 	constructor(config: any) {
 		this.app = null
 		this.mountElement = '#app'
 		this.config = config
 		this.bootingCallbacks = []
+		this.eventBus = mitt()
 
 		this.pages = {
 			'Invicta.Login': () => import('./views/Auth/Login.vue'),
@@ -74,32 +77,9 @@ class Invicta
 		})
 
 		this.app.use(plugin)
-		
-		// createInertiaApp({
-		// 	resolve: async(name) => {
-		// 		console.log(name, this.pages)
-		// 		// const page = (await import(`./views/${name}.vue`)).default
-		// 		// let page = this.pages[`./views/${name}.vue`]
-		// 		let page
-		// 		if (name == 'Student') {
-		// 			page = this.pages[name]
-		// 		} else {
-		// 			page = (await this.pages[`./views/${name}.vue`]()).default
-		// 		}
-		// 		page.layout = MainLayout
-		// 		return page
-		// 	},
-		// 	setup: ({el, app, props, plugin}): void => {
-		// 		console.log(' are you there?')
-		// 		// this.mountElement = el
-		// 		this.app = createApp({ render: () => h(app, props) })
-		// 		this.app.use(plugin)
 		this.app.component('Head', Head)
 		this.app.component('Link', Link)
 		this.app.component('SvgIcon', SvgIcon)
-		// 		// this.app.mount(el)
-		// 	}
-		// })
 		this.event('InvictaReady')
 	}
 
@@ -129,12 +109,23 @@ class Invicta
 	// 	this.app.component(name, component)
 	// }
 	// 
-	event(name: string, data: Object | null = null) {
+	// Emits dom events
+	event(name: string, data?: Object | null = null) {
 		let e = (data)
 			? new CustomEvent(name, { detail: {data} })
 			: new Event(name)
 
 		document.dispatchEvent(e)
+	}
+
+	// Listents to mitt events
+	on(name: string, callback: Function) {
+		this.eventBus.on(name, callback)
+	}
+
+	// Emits mitt events
+	emit(name: string, data?: unknown) {
+		this.eventBus.emit(name, data)
 	}
 
 	log(message: string, payload: any = null): void {

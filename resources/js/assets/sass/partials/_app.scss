@@ -1,5 +1,5 @@
 $header-height: 50px;
-$sidebar-mini-width: 46px;
+$sidebar-mini-width: 54px;
 
 .app {
 	height: 100%;
@@ -84,15 +84,17 @@ $sidebar-mini-width: 46px;
 
 			&:not(:hover) {
 				.nav-group {
-					height: 0;
-					opacity: 0;
-					margin: 0;
+					span {
+						display: none;
+					}
+
+					&:before {
+						content: '-';
+						text-align: center;
+						display: block;
+					}
 				}
 			}
-		}
-
-		.submenu {
-			padding-left: 2.5rem;
 		}
 	}
 
@@ -111,46 +113,5 @@ $sidebar-mini-width: 46px;
 	&-empty {
 		@include flexbox(row, center, center);
 		flex: 1;
-	}
-
-	&-nav {
-		height: 100%;
-
-		.nav { 
-			height: 100%;
-			@include reset-list();
-
-			.nav-item {
-				cursor: pointer;
-
-				.nav-link {
-					line-height: 40px;
-					@include flexbox(row, center, flex-start);
-					padding: 0 14px;
-
-					svg {
-						white-space: nowrap;
-						width: 18px;
-					}
-
-					&:hover {
-						svg {
-							color: var(--el-color-primary);
-						}
-					}
-
-					&.active {
-						color: var(--el-color-primary);
-					}
-				}
-			}
-
-			.nav-group {
-				font-size: 12px;
-				padding: 0 14px;
-				opacity: .4;
-				margin-top: 10px;
-			}
-		}
 	}
 }

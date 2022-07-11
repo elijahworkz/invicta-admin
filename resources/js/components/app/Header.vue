@@ -12,7 +12,10 @@
 
 <script setup>
 import { mdiChevronDoubleLeft } from '@mdi/js';
-const toggleSidebar = () => document.body.classList.toggle('sidebar-mini')
+const toggleSidebar = () => {
+	document.body.classList.toggle('sidebar-mini')
+	Invicta.emit('close-sidebar-submenus')
+}
 </script>
 
 <style lang="scss">

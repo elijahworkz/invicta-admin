@@ -1,0 +1,70 @@
+.app-nav {
+	height: 100%;
+
+	.nav { 
+		height: 100%;
+		@include reset-list();
+
+		.nav-item {
+			cursor: pointer;
+
+			.nav-link {
+				line-height: 40px;
+				@include flexbox(row, center, flex-start);
+				padding: 0 18px;
+
+				svg {
+					white-space: nowrap;
+					width: 18px;
+				}
+
+				&:hover {
+					svg {
+						color: var(--el-color-primary);
+					}
+				}
+
+				&.active {
+					color: var(--el-color-primary);
+				}
+			}
+
+			&.divider {
+				&:after {
+					content: '';
+					display: block;
+					border-bottom: 1px solid var(--el-border-color);
+					margin: 5px 10px 0;
+					opacity: .7;
+				}
+
+				&+.nav-item {
+					margin-top: 12px;
+				}
+			}
+		}
+
+		.nav-group {
+			font-size: 12px;
+			padding: 0 14px;
+			opacity: .6;
+			margin-top: 10px;
+		}
+	}
+
+	.submenu {
+		margin-left: 26px;
+		border-left: 1px dashed var(--el-border-color);
+
+		.nav {
+			.nav-item {
+				.nav-link {
+					padding: 0 0 0 20px;
+					opacity: .7;
+					font-size: 12px;
+					line-height: 30px;
+				}
+			}
+		}
+	}
+}
