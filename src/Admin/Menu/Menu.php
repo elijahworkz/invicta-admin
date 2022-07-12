@@ -37,9 +37,9 @@ class Menu
     /**
      * Creates an Inertia Link from Resource class.
      */
-    public function resource($resource)
+    public function resource($resourceClass)
     {
-        $resource = App::make($resource);
+        $resource = App::make($resourceClass);
 
         ResourceRegistrar::put($resource->slug, $resource);
 

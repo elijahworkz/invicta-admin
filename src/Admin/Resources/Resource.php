@@ -3,9 +3,10 @@
 namespace Eteacher\InvictaAdmin\Admin\Resources;
 
 use Eteacher\InvictaAdmin\Admin\Traits\HasFilters;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\App;
 
-class Resource
+class Resource extends JsonResource
 {
     use HasFilters;
 
@@ -24,9 +25,11 @@ class Resource
 
     public $search = [];
 
+    protected $indexResource;
+
     private $routePrefix = '/resource/';
 
-    public function __construct()
+    public function __construct(public $resource = null)
     {
     }
 
@@ -47,6 +50,13 @@ class Resource
 
     public function resource()
     {
+        $this->resource = $this->indexQuery();
+
+        return $this->resource;
+    }
+
+    public function indexQuery($value = '')
+    {
         $query = App::make($this->model)->query();
         $perPage = request()->query('per_page', 10);
         $sortOrder = request()->query('sort_order', 'desc');
@@ -65,7 +75,7 @@ class Resource
 
         $result = $query->orderBy($this->slug.'.id', $sortOrder)->paginate($perPage);
 
-        return $this->resourceCollection($result->withQueryString());
+        return $result->withQueryString();
     }
 
     protected function applySearch($query, $search)
@@ -92,14 +102,45 @@ class Resource
         return self::filteredQuery($query);
     }
 
+    public function toArray($request)
+    {
+        if (is_null($this->resource)) {
+            return [];
+        }
+
+        $indexResource = $this->indexResource($request);
+
+        if ($indexResource) {
+            return collect($indexResource)->map(function ($item, $key) {
+                return is_callable($item)
+                    ? $item()
+                    : $item;
+            });
+        }
+
+        return is_array($this->resource)
+            ? $this->resource
+            : $this->resource->toArray();
+    }
+
+    public function columns()
+    {
+        return ['columns' => $this->indexColumns()];
+    }
+
     /**
      * Transform result into resource Collection.
      * By default it simply returns the result so if any
      * transformation needed - overwrite this method on
      * Model resource class (app/Invicta/resources/Model).
      */
-    protected function resourceCollection($resource)
+    public function indexResource($request)
     {
-        return $resource;
+        return null;
+    }
+
+    public function indexColumns()
+    {
+        return [];
     }
 }

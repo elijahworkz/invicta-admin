@@ -36,11 +36,9 @@ class InstallCommand extends Command
 
         $this->installInvictaServiceProvider();
 
-        $this->comment('Generating User Resources...');
-        /*
-            this should generate all the user related stuff in new folder
+        $this->comment('Generating User Resource...');
+        copy(__DIR__.'/stubs/UserResource.stub.php', app_path('Invicta/Resources/User.php'));
 
-        */
         $this->info('Invicta installed successfully.');
     }
 
@@ -48,12 +46,24 @@ class InstallCommand extends Command
     {
         $namespace = Str::replaceLast('\\', '', $this->laravel->getNamespace());
 
-        if (! Str::contains($appConfig = file_get_contents(config_path('app.php')), "{$namespace}\\Providers\\InvictaServiceProvider::class")) {
-            file_put_contents(config_path('app.php'), str_replace(
-                "{$namespace}\\Providers\\EventServiceProvider::class,".PHP_EOL,
-                "{$namespace}\\Providers\\EventServiceProvider::class,".PHP_EOL."        {$namespace}\Providers\InvictaServiceProvider::class,".PHP_EOL,
-                $appConfig
-            ));
+        $appConfig = file_get_contents(config_path('app.php'));
+
+        if (Str::contains($appConfig, "{$namespace}\\Providers\\InvictaServiceProvider::class")) {
+            return;
         }
+
+        $lineEndingCount = [
+            "\r\n" => substr_count($appConfig, "\r\n"),
+            "\r" => substr_count($appConfig, "\r"),
+            "\n" => substr_count($appConfig, "\n"),
+        ];
+
+        $eol = array_keys($lineEndingCount, max($lineEndingCount))[0];
+
+        file_put_contents(config_path('app.php'), str_replace(
+            "{$namespace}\\Providers\\EventServiceProvider::class,".$eol,
+            "{$namespace}\\Providers\\EventServiceProvider::class,".$eol."        {$namespace}\Providers\InvictaServiceProvider::class,".$eol,
+            $appConfig
+        ));
     }
 }

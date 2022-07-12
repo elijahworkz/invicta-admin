@@ -10,7 +10,9 @@ class ResourceRequest extends InvictaRequest
     {
         $handle = $this->route('resource');
         $resourceClass = ResourceRegistrar::get($handle);
+        $resource = $resourceClass->resource();
 
-        return $resourceClass->resource();
+        return $resourceClass::collection($resource)
+            ->additional(['columns' => $resourceClass->columns()]);
     }
 }

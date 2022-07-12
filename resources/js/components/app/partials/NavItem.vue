@@ -1,7 +1,7 @@
 <template>
 	<template v-if="!item.children">
         <NavLink :item="item">
-            <span class="sidebar-mini" v-if="!noIcon">
+            <span class="sidebar-mini">
                 <SvgIcon :icon="item.icon"/>
             </span>
             <span class="sidebar-normal">{{ item.name }}</span>
