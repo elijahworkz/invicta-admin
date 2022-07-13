@@ -26,7 +26,7 @@ class ConsoleServiceProvider extends ServiceProvider
     protected function registerPublishing()
     {
         $this->publishes([
-            __DIR__.'../Console/stubs/InvictaServiceProvider.stub' => app_path('Providers/InvictaServiceProvider.php'),
+            __DIR__.'../Console/stubs/InvictaServiceProvider.stub.php' => app_path('Providers/InvictaServiceProvider.php'),
         ], 'invicta-provider');
 
         $this->publishes([
@@ -57,6 +57,7 @@ class ConsoleServiceProvider extends ServiceProvider
             \Eteacher\InvictaAdmin\Console\PublishCommand::class,
             \Eteacher\InvictaAdmin\Console\AuthPublishCommand::class,
             \Eteacher\InvictaAdmin\Console\MakeSuperAdminCommand::class,
+            \Eteacher\InvictaAdmin\Console\ResourceCommand::class,
         ]);
     }
 }

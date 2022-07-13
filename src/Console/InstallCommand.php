@@ -37,7 +37,7 @@ class InstallCommand extends Command
         $this->installInvictaServiceProvider();
 
         $this->comment('Generating User Resource...');
-        copy(__DIR__.'/stubs/UserResource.stub.php', app_path('Invicta/Resources/User.php'));
+        $this->callSilet('invicta:resource', ['name' => 'User']);
 
         $this->info('Invicta installed successfully.');
     }
