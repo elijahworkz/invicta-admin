@@ -59,6 +59,7 @@ class Resource extends JsonResource
     {
         $query = App::make($this->model)->query();
         $perPage = request()->query('per_page', 10);
+        $sortBy = request()->query('sort_by', 'id');
         $sortOrder = request()->query('sort_order', 'desc');
 
         if (request()->has('search')) {
@@ -73,7 +74,7 @@ class Resource extends JsonResource
             $query = $query->with($this->eagerLoad);
         }
 
-        $result = $query->orderBy($this->slug.'.id', $sortOrder)->paginate($perPage);
+        $result = $query->orderBy($this->slug.'.'.$sortBy, $sortOrder)->paginate($perPage);
 
         return $result->withQueryString();
     }
@@ -126,6 +127,23 @@ class Resource extends JsonResource
     public function columns()
     {
         return $this->indexColumns();
+    }
+
+    /**
+     * Overwrite these settings to customize index table
+     * https://element-plus.org/en-US/component/table.html#table-attributes.
+     */
+    public function tableSettings()
+    {
+        return [
+            'stripe' => false,
+            'size' => 'default',
+            'fit' => true,
+            'showHeader' => true,
+            'tableLayout' => 'auto',
+            'border' => false,
+            'flexible' => false,
+        ];
     }
 
     /**

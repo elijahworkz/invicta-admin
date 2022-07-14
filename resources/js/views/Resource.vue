@@ -1,10 +1,13 @@
 <template>
+	<Head :title="resource.title"/>
 	<div class="p-6">
-		<div class="flex items-center justify-between mb-4">
-			<h1>Users</h1>
+		<div class="flex items-end justify-between mb-4">
+			<div>
+				<h1 class="mb-1">{{ resource.title }}</h1>
+				<Search :currentSearch="resource.meta.filters.search"/>
+			</div>
 			<el-button type="primary" size="large">Create User</el-button>
 		</div>
-		<Search :currentSearch="resource.meta.filters.search"/>
 		<el-card body-style="padding: 0;">
 			<div class="flex items-center justify-between p-3">
 				<div>Total: <strong>{{ resource.meta.total }}</strong></div>
@@ -20,10 +23,11 @@
 				/>
 			</div>
 			<div class="flex items-center justify-between p-3">
-				Filters, badges etc
+				<div>Filters, badges etc</div>
+				<Filters/>
 			</div>
 
-			<ResourceTable :data="resource.data" :columns="resource.columns" />
+			<ResourceTable :data="resource.data" :table-props="resource.table" :columns="resource.columns" />
 
 		</el-card>
 					<div class="flex items-center justify-between pt-3">
@@ -47,6 +51,7 @@ import { usePage } from '@inertiajs/inertia-vue3'
 import { useResource } from '@/services'
 import Search from '@/components/resource/Search.vue'
 import ResourceTable from '@/components/resource/ResourceTable.vue'
+import Filters from '@/components/resource/Filters.vue'
 
 const props = defineProps({
 	resource: Object

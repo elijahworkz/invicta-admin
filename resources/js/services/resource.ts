@@ -16,6 +16,7 @@ export const useResource = (resource: IResourceObject, pageUrl: string) => {
 	const currentPage = ref<any>(resource.meta.current_page)
 	const perPage = ref<any>(resource.meta.per_page)
 	const sortOrder = ref()
+	const sortBy = ref()
 	const activeFilters = ref([])
 
 	onMounted(() => { 
@@ -33,11 +34,16 @@ export const useResource = (resource: IResourceObject, pageUrl: string) => {
 		perPage.value = size
 	})
 
-	Invicta.on('sort-order-change', (order) => {
-		sortOrder.value = order
+	Invicta.on('sort-change', ({ prop, order }: { prop: string, order: string}) => {
+		sortOrder.value = order == 'ascending' ? 'asc' : 'desc'
+		sortBy.value = prop
 	})
 
-	Invicta.on('search-change', (query) => {
+	Invicta.on('sort-order-change', (order: string) => {
+		sortOrder.value = order == 'ascending' ? 'asc' : 'desc'
+	})
+
+	Invicta.on('search-change', (query: string) => {
 		currentPage.value = null
 		search.value = query
 	})
@@ -72,6 +78,7 @@ export const useResource = (resource: IResourceObject, pageUrl: string) => {
 		return {
 			page: currentPage.value,
 			per_page: perPage.value,
+			sort_by: sortBy.value,
 			sort_order: sortOrder.value,
 			search: search.value,
 			filters: encodedFilters.value,
@@ -85,7 +92,8 @@ export const useResource = (resource: IResourceObject, pageUrl: string) => {
 				search.value +
 				encodedFilters.value +
 				perPage.value +
-				sortOrder.value
+				sortOrder.value +
+				sortBy.value
 			)
 		},
 		() => {

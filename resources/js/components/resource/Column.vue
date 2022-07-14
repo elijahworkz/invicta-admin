@@ -1,16 +1,10 @@
 <template>
 	<el-table-column		
 		:prop="id"
-		:label="props.label"
-		:width="props.width"
-		:min-width="props.minWidth"
+		v-bind="props"
 		:align="align(props)"
 		:header-align="align(props, true)"
-		:sortable="props.sortable ? 'custom' : false"
-		:resizable="props.resizable"
-		:class-name="props.className"
-		:label-class-name="props.labelClassName"
-		:fixed="props.fixed">
+		:sortable="props.sortable ? 'custom' : false">
 
 		<template #default="scope">
 			<i v-if="props.boolean" class="icon-status" :class="{ 'success' : scope.row[id] }"></i>

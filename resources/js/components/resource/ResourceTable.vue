@@ -1,10 +1,10 @@
 <template>
 		<el-table
 			:data="data"
-			table-layout="auto"
-			:flexible="true"
+			v-bind="tableProps"
 			@select="updateSelection"
-			@select-all="updateSelection">
+			@select-all="updateSelection"
+			@sort-change="handleSortChange">
 			<el-table-column type="selection" fixed />
 
 			<template v-for="(column, key) in visibleColumns">
@@ -12,8 +12,7 @@
 			</template>
 			<el-table-column
 				width="100"
-				align-header="right"
-				align="right">
+				header-align="right">
 
 				<template #header >
 					<div v-if="selected.length" class="text-right" title="Delete Selected">
@@ -31,10 +30,13 @@
 
 				<div class="flex items-center justify-end">
 					<span class="action-icon" title="Edit">
-						<SvgIcon :icon="mdiSquareEditOutline" />
+						<!-- <el-icon><Edit /></el-icon> -->
+						<el-icon><EditPen /></el-icon>
+						<!-- <SvgIcon :icon="mdiSquareEditOutline" :width="20" :height="20" /> -->
 					</span>
 					<span class="action-icon danger" title="Delete">
-						<SvgIcon :icon="mdiTrashCanOutline" />
+						<el-icon><Delete /></el-icon>
+						<!-- <SvgIcon :icon="mdiTrashCanOutline" :width="20" :height="20" /> -->
 					</span>
 				</div>
 
@@ -46,14 +48,15 @@
 import { ref, computed } from 'vue'
 import map from 'lodash/map'
 import pickBy from 'lodash/pickBy'
-import { SetUp } from '@element-plus/icons-vue'
+import { SetUp, Edit, EditPen, Delete } from '@element-plus/icons-vue'
 import { mdiSquareEditOutline, mdiTrashCanOutline } from '@mdi/js'
 import { checked } from '@/utils/functions'
 import Column from './Column.vue'
 
 const props = defineProps({
 	data: Array,
-	columns: Object
+	tableProps: Object,
+	columns: Object,
 })
 
 const selected = ref([])
@@ -61,7 +64,7 @@ const updateSelection = (selection, row = null) => {
 	selected.value = selection
 }
 
-
+// Handle column setup and visibility
 const columnTree = map(props.columns, (item, index) => {
 	return { label: item.label, value: index, checked: true }
 })
@@ -72,15 +75,32 @@ const visibleColumns = computed(() => {
 
 	return pickBy(props.columns, (column, index) => visible.includes(index))
 })
+
+// Handle sorting
+const handleSortChange = ({ prop, order }) => {
+	Invicta.emit('sort-change', { prop, order })
+	console.log('Sorting changed on ', prop, order)
+}
 </script>
 
 <style lang="scss">
+$action-icon-size: 18px;
+.el-icon {
+	width: $action-icon-size;
+	height: $action-icon-size;
+
+	svg {
+		width: $action-icon-size;
+		height: $action-icon-size;
+	}
+}
 .action-icon {
 	cursor: pointer;
 	color: var(--el-table-header-text-color);
-	opacity: .8;
+	// opacity: .8;
 	margin: 0 5px;
 	display: inline-block;
+	line-height: 0;
 
 	thead & {
 		opacity: 1;
