@@ -37,7 +37,7 @@ class AuthPublishCommand extends Command
 
         $this->info('Invicta successfully published migrations.');
         $this->newLine(1);
-        $this->info('Please add `IsInvictaTrait` to your User model.');
+        $this->info('Please add `IsInvictaUser` trait to your User model.');
     }
 
     protected function createSuperAdminGroup()

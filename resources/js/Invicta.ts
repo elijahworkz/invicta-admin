@@ -9,6 +9,7 @@ import mitt from 'mitt'
 import { Link } from '@inertiajs/inertia-vue3'
 // import Loading from '@/components/shared/Loading.vue'
 import SvgIcon from '@/components/shared/SvgIcon.vue'
+import CheckTree from '@/components/shared/CheckTree.vue'
 import { ElNotification } from 'element-plus'
 import 'element-plus/es/components/message/style/index';
 import 'element-plus/es/components/notification/style/index';
@@ -80,6 +81,7 @@ class Invicta
 		this.app.component('Head', Head)
 		this.app.component('Link', Link)
 		this.app.component('SvgIcon', SvgIcon)
+		this.app.component('CheckTree', CheckTree)
 		this.event('InvictaReady')
 	}
 

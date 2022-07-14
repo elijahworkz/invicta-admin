@@ -125,7 +125,7 @@ class Resource extends JsonResource
 
     public function columns()
     {
-        return ['columns' => $this->indexColumns()];
+        return $this->indexColumns();
     }
 
     /**

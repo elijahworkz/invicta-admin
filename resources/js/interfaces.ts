@@ -1,4 +1,4 @@
-export interface InvictaResourceObject {
+export interface IResourceObject {
 	data: Object[]
 	links: Object
 	meta: {
@@ -9,6 +9,13 @@ export interface InvictaResourceObject {
 	[key: string]: any
 }
 
-export interface InvictaFilterObject {
+export interface IFilterObject {
 	[key: string]: any[]
+}
+
+export interface ICheckTree {
+	label: string
+	value: string | number
+	checked: boolean
+	children?: ICheckTree[]
 }

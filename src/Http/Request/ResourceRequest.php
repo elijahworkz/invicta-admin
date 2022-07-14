@@ -13,6 +13,11 @@ class ResourceRequest extends InvictaRequest
         $resource = $resourceClass->resource();
 
         return $resourceClass::collection($resource)
-            ->additional(['columns' => $resourceClass->columns()]);
+            ->additional([
+                'meta' => [
+                    'filters' => request()->only(['search', 'page', 'per_page', 'sort_order', 'filters']),
+                ],
+                'columns' => $resourceClass->columns(),
+            ]);
     }
 }

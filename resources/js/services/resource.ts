@@ -1,46 +1,53 @@
 import { ref, computed, watch, onMounted } from 'vue'
-import { Events, Inertia } from '@/services'
-import { InvictaResourceObject, InvictaFilterObject} from '@/interfaces'
+import { Inertia } from '@/services'
+import { IResourceObject, IFilterObject} from '@/interfaces'
 import pickBy from 'lodash/pickBy'
 
+declare global {
+	interface Window {
+		Invicta: any
+	}
+}
 
-export const useResource = (resource: InvictaResourceObject, pageUrl: string) => {
+const Invicta = window.Invicta
+
+export const useResource = (resource: IResourceObject, pageUrl: string) => {
 	const search = ref<any>('')
 	const currentPage = ref<any>(resource.meta.current_page)
-	const perPage = ref()
+	const perPage = ref<any>(resource.meta.per_page)
 	const sortOrder = ref()
 	const activeFilters = ref([])
 
 	onMounted(() => { 
-		if (Object.prototype.hasOwnProperty.call(resource.meta, 'filters')) {
-			let decodedFilters = JSON.parse(atob(resource.meta.filters))
+		if (Object.prototype.hasOwnProperty.call(resource.meta.filters, 'filters')) {
+			let decodedFilters = JSON.parse(atob(resource.meta.filters.filters))
 			Invicta.emit('request-filters', decodedFilters)
 		}
 	})
 
-	Events.on('page-change', (page) => {
+	Invicta.on('page-change', (page) => {
 		currentPage.value = page == 1 ? null : page
 	})
 
-	Events.on('page-size-change', (size) => {
+	Invicta.on('page-size-change', (size) => {
 		perPage.value = size
 	})
 
-	Events.on('sort-order-change', (order) => {
+	Invicta.on('sort-order-change', (order) => {
 		sortOrder.value = order
 	})
 
-	Events.on('search-change', (query) => {
+	Invicta.on('search-change', (query) => {
 		currentPage.value = null
 		search.value = query
 	})
 
-	Events.on('clear-filters', () => {
+	Invicta.on('clear-filters', () => {
 		currentPage.value = null
 		activeFilters.value = []
 	})
 
-	const updateFilters = (filters: InvictaFilterObject): void => {
+	const updateFilters = (filters: IFilterObject): void => {
 
 		currentPage.value = null
 
@@ -53,7 +60,7 @@ export const useResource = (resource: InvictaResourceObject, pageUrl: string) =>
 			}
 		}
 	}
-	Events.on('update-filters', updateFilters as any)
+	Invicta.on('update-filters', updateFilters as any)
 
 	const encodedFilters = computed(() => {
 		return Object.keys(activeFilters.value).length
@@ -88,7 +95,7 @@ export const useResource = (resource: InvictaResourceObject, pageUrl: string) =>
 
 	function getresource() {
 		let query = pickBy(requestQuery.value)
-		// console.log('I should change', pageUrl, requestQuery.value, query)
+		console.log('I should change', pageUrl, requestQuery.value, query)
 		Inertia.get(pageUrl, query, { preserveState: true})
 	}
 
