@@ -1,6 +1,6 @@
 <template>
 	<Head :title="resource.title"/>
-	<div class="p-6">
+	<div class="py-6 px-10">
 		<div class="flex items-end justify-between mb-4">
 			<div>
 				<h1 class="mb-1">{{ resource.title }}</h1>

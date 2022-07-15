@@ -39,10 +39,6 @@ export const useResource = (resource: IResourceObject, pageUrl: string) => {
 		sortBy.value = prop
 	})
 
-	Invicta.on('sort-order-change', (order: string) => {
-		sortOrder.value = order == 'ascending' ? 'asc' : 'desc'
-	})
-
 	Invicta.on('search-change', (query: string) => {
 		currentPage.value = null
 		search.value = query

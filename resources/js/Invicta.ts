@@ -17,6 +17,7 @@ import 'element-plus/es/components/notification/style/index';
 // Layouts
 import MainLayout from '@/layouts/MainLayout.vue'
 import { create } from 'lodash'
+import { AxiosInstance } from 'axios'
 
 
 class Invicta
@@ -27,6 +28,7 @@ class Invicta
 	bootingCallbacks: Function[]
 	pages: any
 	eventBus: any
+	axios: AxiosInstance | null
 
 	constructor(config: any) {
 		this.app = null
@@ -34,6 +36,7 @@ class Invicta
 		this.config = config
 		this.bootingCallbacks = []
 		this.eventBus = mitt()
+		this.axios = setupAxios(`${this.getConfig('appUrl')}${this.getConfig('appPath')}/api`)
 
 		this.pages = {
 			'Invicta.Login': () => import('./views/Auth/Login.vue'),
@@ -42,7 +45,6 @@ class Invicta
 			'Invicta.Home': () => import('./views/Home.vue'),
 			'Invicta.Resource': () => import('./views/Resource.vue')
 		}
-		// this.pages = import.meta.glob('./views/*.vue')
 	}
 
 	booting(callback: Function) {

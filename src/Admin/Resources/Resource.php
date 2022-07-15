@@ -2,6 +2,7 @@
 
 namespace Eteacher\InvictaAdmin\Admin\Resources;
 
+use Eteacher\InvictaAdmin\Admin\Filters\Filter;
 use Eteacher\InvictaAdmin\Admin\Traits\HasFilters;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\App;
@@ -160,5 +161,12 @@ class Resource extends JsonResource
     public function indexColumns()
     {
         return [];
+    }
+
+    public function filters()
+    {
+        return [
+            (new Filter),
+        ];
     }
 }

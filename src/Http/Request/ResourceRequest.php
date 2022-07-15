@@ -6,10 +6,16 @@ use Eteacher\InvictaAdmin\Admin\Resources\ResourceRegistrar;
 
 class ResourceRequest extends InvictaRequest
 {
-    public function resource()
+    public function resourceClass()
     {
         $handle = $this->route('resource');
-        $resourceClass = ResourceRegistrar::get($handle);
+
+        return ResourceRegistrar::get($handle);
+    }
+
+    public function resource()
+    {
+        $resourceClass = $this->resourceClass();
         $resource = $resourceClass->resource();
 
         return $resourceClass::collection($resource)

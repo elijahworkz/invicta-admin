@@ -1,7 +1,9 @@
 <template>
 	<head class="app-header">
-		<span class="sidebar-toggle" title="Minimize sidebar">
-			<SvgIcon :icon="mdiChevronDoubleLeft" @click="toggleSidebar"/>
+		<span class="sidebar-toggle" title="Minimize sidebar" @click="toggleSidebar">
+			<!-- <el-icon><DArrowLeft /></el-icon> -->
+			<!-- <el-icon><Menu /></el-icon> -->
+			<SvgIcon :icon="mdiMenuOpen" />
 		</span>
 		<div class="app-branding">Invicta Admin</div>
 		<div class="ml-auto">
@@ -11,7 +13,8 @@
 </template>
 
 <script setup>
-import { mdiChevronDoubleLeft } from '@mdi/js';
+import { DArrowLeft, Menu } from '@element-plus/icons-vue'
+import { mdiChevronDoubleLeft, mdiMenuOpen } from '@mdi/js';
 const toggleSidebar = () => {
 	document.body.classList.toggle('sidebar-mini')
 	Invicta.emit('close-sidebar-submenus')
@@ -19,18 +22,5 @@ const toggleSidebar = () => {
 </script>
 
 <style lang="scss">
-.sidebar-toggle {
-	opacity: .5;
-	cursor: pointer;
-	margin-left: -5px;
-	margin-right: 8px;
 
-	svg {
-		transition: all .2s;
-
-		.sidebar-mini & {
-			transform: rotate(180deg);
-		}
-	}
-}
 </style>
