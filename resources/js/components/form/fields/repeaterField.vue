@@ -23,29 +23,20 @@
 import { computed } from 'vue'
 import RepeaterBase from '@/components/form/RepeaterBase.vue'
 import FormField from '@/components/form/FormField.vue'
+import { useResourceForm } from '@/services/form'
 import { useFormField } from '@/services/form/field'
-import filter from 'lodash/filter'
+import get from 'lodash/get'
 
 const props = defineProps({
 	data: Object,
 	path: String
 })
 const { data, path } = props
+const resourceForm = useResourceForm()
 const field = useFormField(props)
 
 // let's create default from the fields we got
-const defaultRow = computed(() => {
-
-	return getFields(data.fields)
-	// return filter(data.fields, (o) => o.hasOwnProperty('id'))
-	// return data.fields.reduce((obj, item) => {
-	// 	if (item.fields) {
-
-	// 	}
-	// 	obj[item.id] = ''
-	// 	return obj
-	// }, {})
-})
+const defaultRow = computed(() => getFields(data.fields))
 
 function getFields(fields) {
 
@@ -63,13 +54,7 @@ function getFields(fields) {
 let rows = field.value([defaultRow.value])
 
 function getTitle(item, index) {
-	return field.get(data.title, `${data.title} #${index}`)
-
-	console.log(item, data.title, title, item[data.title])
-	return title
-	return Object.prototype.hasOwnProperty.call(item, data.title)
-		? item[data.title]
-		: `${data.title} #${index}`
+	return resourceForm.get(`${path}.${index}.${data.title}`, `${data.title} #${index}`)
 }
 
 const dataPath = (id, index) => `${path}.${index}.${id}`

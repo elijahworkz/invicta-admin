@@ -1,5 +1,5 @@
 <template>
-	<FormField v-for="field in data.fields" :field-data="field" :data-path="fixedPath" />
+	<FormField v-for="field in data.fields" :field-data="field" :data-path="fixedPath(field.id)" />
 </template>
 
 <script setup>
@@ -13,13 +13,14 @@ const props = defineProps({
 
 const { path } = props
 
-const fixedPath = computed(() => {
+const fixedPath = (id) => {
 	if (typeof path === 'undefined')
-		return props.data.id
+		return id
 
 	let pathArray = path.split('.')
 	pathArray.pop()
+	pathArray.push(id)
 
 	return pathArray.join('.')
-})
+}
 </script>

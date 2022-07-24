@@ -108,7 +108,7 @@ const blueprint = {
 				{
 					id: 'favorite_campaigns',
 					type: 'repeater',
-					title: 'Item',
+					title: 'social',
 					fields: [
 						{
 							type: 'row',
@@ -127,6 +127,20 @@ const blueprint = {
 									id: 'meta',
 									type: 'text',
 									width: '1/3'
+								}
+							]
+						},
+						{
+							id: 'my_group',
+							type: 'group',
+							fields: [
+								{
+									id: 'name',
+									type: 'text'
+								},
+								{
+									id: 'title',
+									type: 'text'
 								}
 							]
 						}

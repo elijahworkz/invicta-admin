@@ -39,7 +39,7 @@
 
 	&.group:not(.seamless) {
 		border: 1px solid var(--el-border-color-lighter);
-		background: var(--color-primary-back-lighter);
+		background: var(--el-fill-color-light);
 		border-radius: .15rem;
 		padding: 10px 20px;
 
@@ -57,7 +57,7 @@
 	.section {
 		width: 100%;
 		padding: 20px;
-		background: var(--color-primary-back);
+		background: var(--el-fill-color-light);
 		margin: 0 0 20px;
 
 		h2 {
@@ -72,6 +72,14 @@
 			color: #ccc;
 			cursor: move;
 			vertical-align: middle;
+		}
+
+		.el-collapse-item__content {
+			padding-bottom: 0;
+		}
+
+		.fieldset.group:not(.seamless) {
+			border-bottom: none;
 		}
 	}
 

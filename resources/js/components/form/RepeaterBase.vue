@@ -12,14 +12,14 @@
 							<SvgIcon class="handle mr-2" :icon="mdiDragVertical" />
 							<span>{{ itemTitle(element, index) }}</span>
 							<div class="delete-row-button ml-auto mr-4">
-								<el-button type="danger" link :icon="Close" size="small" @click="removeRow(index)">Remove {{ itemName }}</el-button>
+								<el-button type="danger" text :icon="Close" size="small" @click="removeRow(index)"></el-button>
 							</div>
 						</template>
 						<div class="fieldset py-3" :class="panelClass">
-							<slot :item="element" :index="index"></slot>
-							<div class="field-row field-row-full text-right">
-								<el-button type="danger" size="small" @click="removeRow(index)">Remove {{ itemName }}</el-button>
+							<div class="field-row-full text-right">
+								<el-button type="danger" text size="small" :icon="Close" @click="removeRow(index)">Remove {{ itemName }}</el-button>
 							</div>
+							<slot :item="element" :index="index"></slot>
 						</div>
 					</el-collapse-item>
 				</template>
