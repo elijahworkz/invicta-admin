@@ -20,12 +20,22 @@ class ResourceRequest extends InvictaRequest
 
         return $resourceClass::collection($resource)
             ->additional([
-                'meta' => [
-                    'filters' => request()->only('filters'),
-                ],
-                'columns' => $resourceClass->columns(),
                 'title' => $resourceClass->title,
-                'table' => $resourceClass->tableSettings(),
+                'meta' => [
+                    ...request()->only('search', 'filters'),
+                    'filterBadges' => $resourceClass->filterBadges(),
+                ],
+                'columns' => $resourceClass->indexColumns(),
+                'table' => $resourceClass->indexTableSettings(),
             ]);
+    }
+
+    public function resourceItem()
+    {
+        $resourceClass = $this->resourceClass();
+        $item = $this->route('item');
+
+        // return new $resourceClass($resourceClass->resourceItem($item));
+        return $resourceClass->resourceItem($item);
     }
 }

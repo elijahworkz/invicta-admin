@@ -2,14 +2,14 @@
 
 namespace Eteacher\InvictaAdmin\Admin\Resources;
 
-use Eteacher\InvictaAdmin\Admin\Filters\Filter;
 use Eteacher\InvictaAdmin\Admin\Traits\HasFilters;
+use Eteacher\InvictaAdmin\Admin\Traits\HasIndex;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\App;
 
 class Resource extends JsonResource
 {
-    use HasFilters;
+    use HasIndex, HasFilters;
 
     /**
      * The underlying resource model.
@@ -56,52 +56,9 @@ class Resource extends JsonResource
         return $this->resource;
     }
 
-    public function indexQuery($value = '')
+    public function resourceItem($item)
     {
-        $query = App::make($this->model)->query();
-        $perPage = request()->query('per_page', 10);
-        $sortBy = request()->query('sort_by', 'id');
-        $sortOrder = request()->query('sort_order', 'desc');
-
-        if (request()->has('search')) {
-            $query = $this->applySearch($query, request()->get('search'));
-        }
-
-        if (request()->has('filters')) {
-            $query = $this->applyFilters($query, request()->get('filters'));
-        }
-
-        if (! empty($this->eagerLoad)) {
-            $query = $query->with($this->eagerLoad);
-        }
-
-        $result = $query->orderBy($this->slug.'.'.$sortBy, $sortOrder)->paginate($perPage);
-
-        return $result->withQueryString();
-    }
-
-    protected function applySearch($query, $search)
-    {
-        if (is_numeric($search)) {
-            $query->where(function ($query) use ($search) {
-                $query->where('id', $search);
-            });
-        } else {
-            if (! empty($this->search)) {
-                foreach ($this->search as $column) {
-                    $query->orWhere($column, 'like', '%'.$search.'%');
-                }
-            }
-        }
-
-        return $query;
-    }
-
-    protected function applyFilters($query, $filters)
-    {
-        self::decodeFilters($filters);
-
-        return self::filteredQuery($query);
+        return App::make($this->model)->find($item);
     }
 
     public function toArray($request)
@@ -123,50 +80,5 @@ class Resource extends JsonResource
         return is_array($this->resource)
             ? $this->resource
             : $this->resource->toArray();
-    }
-
-    public function columns()
-    {
-        return $this->indexColumns();
-    }
-
-    /**
-     * Overwrite these settings to customize index table
-     * https://element-plus.org/en-US/component/table.html#table-attributes.
-     */
-    public function tableSettings()
-    {
-        return [
-            'stripe' => false,
-            'size' => 'default',
-            'fit' => true,
-            'showHeader' => true,
-            'tableLayout' => 'auto',
-            'border' => false,
-            'flexible' => false,
-        ];
-    }
-
-    /**
-     * Transform result into resource Collection.
-     * By default it simply returns the result so if any
-     * transformation needed - overwrite this method on
-     * Model resource class (app/Invicta/resources/Model).
-     */
-    public function indexResource($request)
-    {
-        return null;
-    }
-
-    public function indexColumns()
-    {
-        return [];
-    }
-
-    public function filters()
-    {
-        return [
-            (new Filter),
-        ];
     }
 }

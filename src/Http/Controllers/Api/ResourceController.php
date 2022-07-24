@@ -11,7 +11,7 @@ class ResourceController extends Controller
     public function filters(ResourceRequest $request)
     {
         // we need to grab resource class
-        return $request->resourceClass()->title;
+        return response()->json($request->resourceClass()->filters());
     }
 
     public function actions(Request $request, $resource)

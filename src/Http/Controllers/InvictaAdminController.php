@@ -3,7 +3,6 @@
 namespace Eteacher\InvictaAdmin\Http\Controllers;
 
 use Eteacher\InvictaAdmin\Http\Request\ResourceRequest;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class InvictaAdminController extends Controller
@@ -20,13 +19,25 @@ class InvictaAdminController extends Controller
         return Inertia::render('Invicta.Resource', ['resource' => $resource]);
     }
 
-    public function edit(Request $request, $resource)
+    public function create(ResourceRequest $request)
     {
         // code...
     }
 
-    public function destroy(Request $request, $resource)
+    public function edit(ResourceRequest $request)
+    {
+        $resource = $request->resourceItem();
+
+        return Inertia::render('Invicta.Resource.Edit', ['resource' => $resource]);
+    }
+
+    public function update(ResourceRequest $request)
     {
         // code...
+    }
+
+    public function destroy(ResourceRequest $request)
+    {
+        // ResourceRequest $request
     }
 }

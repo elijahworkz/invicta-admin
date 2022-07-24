@@ -1,10 +1,12 @@
 <template>
+	<div class="resource-table">
 		<el-table
 			:data="data"
 			v-bind="tableProps"
-			@select="updateSelection"
-			@select-all="updateSelection"
-			@sort-change="handleSortChange">
+			@select="$emit('select', $event)"
+			@select-all="$emit('select', $event)"
+			@sort-change="handleSortChange"
+			:key="tableKey">
 			<el-table-column type="selection" fixed />
 
 			<template v-for="(column, key) in visibleColumns">
@@ -15,9 +17,6 @@
 				header-align="right">
 
 				<template #header >
-					<div v-if="selected.length" class="text-right" title="Delete Selected">
-						<SvgIcon :icon="mdiTrashCanOutline" class="action-icon delete"/>
-					</div>
 					<el-dropdown trigger="click" class="!align-middle">
 						<el-icon class="action-icon"><SetUp /></el-icon>
 					    <template #dropdown>
@@ -28,28 +27,32 @@
 					</el-dropdown>
 				</template>
 
-				<div class="flex items-center justify-end">
-					<span class="action-icon" title="Edit">
-						<!-- <el-icon><Edit /></el-icon> -->
-						<el-icon><EditPen /></el-icon>
-						<!-- <SvgIcon :icon="mdiSquareEditOutline" :width="20" :height="20" /> -->
-					</span>
-					<span class="action-icon danger" title="Delete">
-						<el-icon><Delete /></el-icon>
-						<!-- <SvgIcon :icon="mdiTrashCanOutline" :width="20" :height="20" /> -->
-					</span>
-				</div>
+				<template #default="scope">
+					<div class="flex items-center justify-end">
+						<el-dropdown @command="handleAction">
+							<el-button text size="small" circle :icon="MoreFilled" />
+							<template #dropdown>
+								<el-dropdown-menu>
+									<el-dropdown-item :command="{action: 'edit', id: scope.row['id']}">Edit</el-dropdown-item>
+									<el-dropdown-item :command="{action: 'edit', id: scope.row['id']}" divided>Delete</el-dropdown-item>
+								</el-dropdown-menu>
+							</template>
+						</el-dropdown>
+					</div>
+				</template>
 
 			</el-table-column>
 		</el-table>
+	</div>
 </template>
 
 <script setup>
 import { ref, computed } from 'vue'
+import { Inertia } from '@inertiajs/inertia'
 import map from 'lodash/map'
 import pickBy from 'lodash/pickBy'
-import { SetUp, Edit, EditPen, Delete } from '@element-plus/icons-vue'
-import { mdiSquareEditOutline, mdiTrashCanOutline } from '@mdi/js'
+import { SetUp, MoreFilled } from '@element-plus/icons-vue'
+
 import { checked } from '@/utils/functions'
 import Column from './Column.vue'
 
@@ -58,11 +61,6 @@ const props = defineProps({
 	tableProps: Object,
 	columns: Object,
 })
-
-const selected = ref([])
-const updateSelection = (selection, row = null) => {
-	selected.value = selection
-}
 
 // Handle column setup and visibility
 const columnTree = map(props.columns, (item, index) => {
@@ -79,8 +77,23 @@ const visibleColumns = computed(() => {
 // Handle sorting
 const handleSortChange = ({ prop, order }) => {
 	Invicta.emit('sort-change', { prop, order })
-	console.log('Sorting changed on ', prop, order)
 }
+
+// Handle Edit
+const handleAction = ({ action, id }) => {
+
+	if (action == 'edit') {
+		Inertia.visit(`/admin/resource/users/${id}`)
+	}
+}
+// Repaint table when sidebar is exposed
+const tableKey = ref(0)
+Invicta.on('close-sidebar-submenus', () => {
+	if (!document.querySelector('body').classList.contains('sidebar-mini')) {
+		console.log('I should repaint')
+		tableKey.value = Date.now()
+	}
+})
 </script>
 
 <style lang="scss">

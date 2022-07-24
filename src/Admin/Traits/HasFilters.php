@@ -2,9 +2,22 @@
 
 namespace Eteacher\InvictaAdmin\Admin\Traits;
 
+use Illuminate\Support\Facades\App;
+
 trait HasFilters
 {
+    public static $filterBadges;
     private static $filters;
+
+    public function filters()
+    {
+        return [];
+    }
+
+    public function filterBadges()
+    {
+        return self::$filterBadges;
+    }
 
     protected static function decodeFilters($filters)
     {
@@ -14,17 +27,26 @@ trait HasFilters
     protected static function filteredQuery($query)
     {
         foreach (self::$filters as $filter => $value) {
-            if (is_array($value)) {
-                $query->where(function ($query) use ($filter, $value) {
-                    $query->whereIn($filter, $value);
-                });
-            } else {
-                $query->where(function ($query) use ($filter, $value) {
-                    $query->where($filter, $value);
-                });
-            }
+            $filterClass = App::make($filter);
+
+            self::filterBadge($filterClass, $value);
+
+            $query = $filterClass->apply($query, $value);
         }
 
         return $query;
+    }
+
+    protected static function filterBadge($filterClass, $filterValue)
+    {
+        self::$filterBadges[get_class($filterClass)] = [
+            'name' => $filterClass->badge(),
+            'value' => is_array($filterValue)
+                ? collect($filterClass->options())
+                    ->filter(function ($value, $key) use ($filterValue) {
+                        return in_array($key, $filterValue);
+                    })->values()->all()
+                : $filterClass->options()[$filterValue],
+        ];
     }
 }

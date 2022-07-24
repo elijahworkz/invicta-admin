@@ -1,7 +1,9 @@
 import { createApp, h } from 'vue'
 import { App, plugin, Head } from '@inertiajs/inertia-vue3'
 import { InertiaProgress } from '@inertiajs/progress'
+import { createPinia } from 'pinia'
 import { setupAxios } from './services/axios'
+import { AxiosInstance } from 'axios'
 import mitt from 'mitt'
 // import { InvictaConfigObject } from './common/interfaces'
 
@@ -10,15 +12,14 @@ import { Link } from '@inertiajs/inertia-vue3'
 // import Loading from '@/components/shared/Loading.vue'
 import SvgIcon from '@/components/shared/SvgIcon.vue'
 import CheckTree from '@/components/shared/CheckTree.vue'
-import { ElNotification } from 'element-plus'
 import 'element-plus/es/components/message/style/index';
 import 'element-plus/es/components/notification/style/index';
 
 // Layouts
 import MainLayout from '@/layouts/MainLayout.vue'
-import { create } from 'lodash'
-import { AxiosInstance } from 'axios'
 
+// Setup Pinia
+const pinia = createPinia()
 
 class Invicta
 {	
@@ -43,7 +44,8 @@ class Invicta
 			'Invicta.ForgotPassword': () => import('./views/Auth/ForgotPassword.vue'),
 			'Invicta.ResetPassword': () => import('./views/Auth/ResetPassword.vue'),
 			'Invicta.Home': () => import('./views/Home.vue'),
-			'Invicta.Resource': () => import('./views/Resource.vue')
+			'Invicta.Resource': () => import('./views/Resource.vue'),
+			'Invicta.Resource.Edit': () => import('./views/ResourceEdit.vue'),
 		}
 	}
 
@@ -80,6 +82,7 @@ class Invicta
 		})
 
 		this.app.use(plugin)
+		this.app.use(pinia)
 		this.app.component('Head', Head)
 		this.app.component('Link', Link)
 		this.app.component('SvgIcon', SvgIcon)
@@ -98,6 +101,21 @@ class Invicta
 		console.log(' i am starting')
 		this.boot()
 
+		InertiaProgress.init({
+			// The delay after which the progress bar will
+			// appear during navigation, in milliseconds.
+			delay: 20,
+
+			// The color of the progress bar.
+			color: '#29d',
+
+			// Whether to include the default NProgress styles.
+			includeCSS: true,
+
+			// Whether the NProgress spinner will be shown.
+			showSpinner: false,
+		})
+
 		this.app.mount('#app')
 
 		console.log('started Invicta', this.pages)
@@ -114,7 +132,7 @@ class Invicta
 	// }
 	// 
 	// Emits dom events
-	event(name: string, data?: Object | null = null) {
+	event(name: string, data: Object | null = null) {
 		let e = (data)
 			? new CustomEvent(name, { detail: {data} })
 			: new Event(name)

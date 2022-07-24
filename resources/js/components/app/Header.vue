@@ -1,8 +1,6 @@
 <template>
 	<head class="app-header">
 		<span class="sidebar-toggle" title="Minimize sidebar" @click="toggleSidebar">
-			<!-- <el-icon><DArrowLeft /></el-icon> -->
-			<!-- <el-icon><Menu /></el-icon> -->
 			<SvgIcon :icon="mdiMenuOpen" />
 		</span>
 		<div class="app-branding">Invicta Admin</div>

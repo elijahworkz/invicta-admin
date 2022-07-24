@@ -19,3 +19,20 @@ export interface ICheckTree {
 	checked: boolean
 	children?: ICheckTree[]
 }
+
+export interface IFormFieldCondition {
+    id: string
+    operator: string
+    value: any
+}
+
+export interface IFormField {
+    id: string
+    type: string
+    label?: string
+    info?: string
+    info_position?: string
+    if?: IFormFieldCondition
+    if_any?: IFormFieldCondition[]
+	params?: any
+}

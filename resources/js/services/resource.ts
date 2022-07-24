@@ -1,4 +1,4 @@
-import { ref, computed, watch, onMounted } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { Inertia } from '@/services'
 import { IResourceObject, IFilterObject} from '@/interfaces'
 import pickBy from 'lodash/pickBy'
@@ -18,13 +18,6 @@ export const useResource = (resource: IResourceObject, pageUrl: string) => {
 	const sortOrder = ref()
 	const sortBy = ref()
 	const activeFilters = ref([])
-
-	onMounted(() => { 
-		if (Object.prototype.hasOwnProperty.call(resource.meta.filters, 'filters')) {
-			let decodedFilters = JSON.parse(atob(resource.meta.filters.filters))
-			Invicta.emit('request-filters', decodedFilters)
-		}
-	})
 
 	Invicta.on('page-change', (page) => {
 		currentPage.value = page == 1 ? null : page
