@@ -8,7 +8,7 @@
 
 		<template #default="scope">
 			<i v-if="props.boolean" class="icon-status" :class="{ 'success' : scope.row[id] }"></i>
-			<div v-else v-html="scope.row[id]"></div>
+			<div v-else v-html="scope.row[id]"/>
 		</template>
 
 	</el-table-column>

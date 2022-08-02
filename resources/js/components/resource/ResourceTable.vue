@@ -14,7 +14,7 @@
 			</template>
 			<el-table-column
 				width="100"
-				header-align="right">
+				header-align="right" class="test2">
 
 				<template #header >
 					<el-dropdown trigger="click" class="!align-middle">
@@ -28,17 +28,7 @@
 				</template>
 
 				<template #default="scope">
-					<div class="flex items-center justify-end">
-						<el-dropdown @command="handleAction">
-							<el-button text size="small" circle :icon="MoreFilled" />
-							<template #dropdown>
-								<el-dropdown-menu>
-									<el-dropdown-item :command="{action: 'edit', id: scope.row['id']}">Edit</el-dropdown-item>
-									<el-dropdown-item :command="{action: 'edit', id: scope.row['id']}" divided>Delete</el-dropdown-item>
-								</el-dropdown-menu>
-							</template>
-						</el-dropdown>
-					</div>
+					<RowActions :id="scope.row.id" @action="handleAction"/>
 				</template>
 
 			</el-table-column>
@@ -55,16 +45,18 @@ import { SetUp, MoreFilled } from '@element-plus/icons-vue'
 
 import { checked } from '@/utils/functions'
 import Column from './Column.vue'
+import RowActions from '@/components/shared/RowActions.vue'
 
 const props = defineProps({
 	data: Array,
 	tableProps: Object,
 	columns: Object,
+	editUrl: String
 })
 
 // Handle column setup and visibility
 const columnTree = map(props.columns, (item, index) => {
-	return { label: item.label, value: index, checked: true }
+	return { label: item.label, value: index, checked: item.hidden ? false : true }
 })
 const treeModel = ref(columnTree)
 
@@ -83,7 +75,7 @@ const handleSortChange = ({ prop, order }) => {
 const handleAction = ({ action, id }) => {
 
 	if (action == 'edit') {
-		Inertia.visit(`/admin/resource/users/${id}`)
+		Inertia.visit(`${props.editUrl}/${id}`)
 	}
 }
 // Repaint table when sidebar is exposed
@@ -97,40 +89,5 @@ Invicta.on('close-sidebar-submenus', () => {
 </script>
 
 <style lang="scss">
-$action-icon-size: 18px;
-.el-icon {
-	width: $action-icon-size;
-	height: $action-icon-size;
 
-	svg {
-		width: $action-icon-size;
-		height: $action-icon-size;
-	}
-}
-.action-icon {
-	cursor: pointer;
-	color: var(--el-table-header-text-color);
-	// opacity: .8;
-	margin: 0 5px;
-	display: inline-block;
-	line-height: 0;
-
-	thead & {
-		opacity: 1;
-	}
-
-	&:hover {
-		opacity: 1;
-		color: var(--el-color-primary);
-
-		&.danger {
-			color: var(--el-color-danger);
-		}
-	}
-
-	&.delete {
-		color: var(--el-color-danger);
-	}
-
-}
 </style>

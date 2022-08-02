@@ -5,11 +5,17 @@
 			class="invicta-form"
 			label-position="top"
 			:model="resourceForm.data">
+		<div class="flex items-end justify-between mb-4">
+			<div>
+				<h1 class="mb-1">{{ resourceForm.title }}</h1>
+			</div>
+			<el-button type="primary" size="large">Update</el-button>
+		</div>
 		<el-row :gutter="hasSidebar ? 20 : 0">
 			<el-col :span="hasSidebar ? 18 : 24">
 				<el-card>
 					<el-tabs
-						v-if="blueprint.sections.length > 1"
+						v-if="hasSections"
 						v-model="activeTab"
 						v-bind="blueprint.settings.tabs">
 						<el-tab-pane 
@@ -50,13 +56,14 @@ const props = defineProps({
 	resource: Object
 })
 
+const { blueprint } = props.resource
 const resourceForm = useResourceForm()
 
-const blueprint = {
+const blueprint_back = {
 	settings: {
 		tabs: {
 			stretch: false,
-			tabPosition: 'top'
+			tabPosition: 'top',
 		}
 	},
 	sections: [
@@ -95,8 +102,13 @@ const blueprint = {
 					}
 				},
 				{
-					id: 'custom',
-					type: 'text'
+					id: 'groups',
+					type: 'related',
+					stack: false,
+					optionsLabel: 'title',
+					props: {
+						multiple: true
+					}
 				},
 				{
 					type: 'divider',
@@ -232,11 +244,13 @@ const blueprint = {
 	}
 }
 
-resourceForm.init(props.resource, blueprint)
+resourceForm.init(props.resource)
 
 // const rules = resourceForm.rules
-
-const activeTab = ref(blueprint.sections[0].id)
+const hasSections = has(blueprint, 'sections')
+const activeTab = hasSections && blueprint.sections.length
+	? ref(blueprint.sections[0].id)
+	: null
 const hasSidebar = has(blueprint, 'sidebar');
 
 </script>

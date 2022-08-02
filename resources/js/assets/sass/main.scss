@@ -10,6 +10,7 @@
 	--color-highlight: #20a8d8;
 	--color-editor-blue: #2c657c;
 	--color-light-blue: #f5f7fa;
+	--color-overlay-back: rgba(0, 0, 0, .2);
 }
 
 * {
@@ -46,7 +47,9 @@ ul {
 @import 'partials/app';
 @import 'partials/header';
 @import 'partials/nav';
+@import 'partials/data-table';
 @import 'partials/form';
+@import 'partials/drawer';
 // @import '_partials/info-bar';
 // @import '_partials/top-bar';
 // @import '_partials/misc';

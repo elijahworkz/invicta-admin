@@ -1,5 +1,6 @@
-import { ref, computed, watch } from 'vue'
-import { Inertia } from '@/services'
+import { ref, reactive, computed, watch } from 'vue'
+import { defineStore } from 'pinia'
+import { Inertia } from '@inertiajs/inertia'
 import { IResourceObject, IFilterObject} from '@/interfaces'
 import pickBy from 'lodash/pickBy'
 
@@ -11,23 +12,29 @@ declare global {
 
 const Invicta = window.Invicta
 
-export const useResource = (resource: IResourceObject, pageUrl: string) => {
+export const useResource = defineStore('resourceStore', () => {
+	const data = ref<any>([])
 	const search = ref<any>('')
-	const currentPage = ref<any>(resource.meta.current_page)
-	const perPage = ref<any>(resource.meta.per_page)
+	const currentPage = ref<any>(1)
+	const perPage = ref<any>(10)
 	const sortOrder = ref()
 	const sortBy = ref()
 	const activeFilters = ref([])
+	const requestUrl = ref<string>('')
+	const api = ref<any>(null)
+	const additionalParams = ref<any>(null)
+	const total = ref<any>(0)
 
-	Invicta.on('page-change', (page) => {
+	Invicta.on('page-change', (page: number) => {
 		currentPage.value = page == 1 ? null : page
 	})
 
-	Invicta.on('page-size-change', (size) => {
+	Invicta.on('page-size-change', (size: number) => {
 		perPage.value = size
 	})
 
 	Invicta.on('sort-change', ({ prop, order }: { prop: string, order: string}) => {
+		console.log('hear sort', prop, order)
 		sortOrder.value = order == 'ascending' ? 'asc' : 'desc'
 		sortBy.value = prop
 	})
@@ -86,18 +93,61 @@ export const useResource = (resource: IResourceObject, pageUrl: string) => {
 			)
 		},
 		() => {
-			getresource()
+			getResource()
 		})
 
+	watch(activeFilters, (newState) => {
+		console.log('we have some changes here', newState)
+	})
 
-	function getresource() {
-		let query = pickBy(requestQuery.value)
-		console.log('I should change', pageUrl, requestQuery.value, query)
-		Inertia.get(pageUrl, query, { preserveState: true})
+	function init(resourceUrl: string, apiResource: any = null) {
+		console.log('got some data', apiResource)
+		requestUrl.value = resourceUrl
+
+		if (apiResource) {
+			api.value = true
+			data.value = apiResource.data
+			total.value = apiResource.meta.total
+			additionalParams.value = apiResource.params
+		}
 	}
 
+	function getResource() {
+		let query = pickBy(requestQuery.value)
+		console.log('I should change', requestQuery.value, query, api)
+		
+		if (api.value) {
+			query = additionalParams.value
+				? { ...query, ...additionalParams.value }
+				: query
+			console.log(' I should ask api', query)
+
+			Invicta.axios.get(requestUrl.value, { params: query })
+				.then((response: { data: IResourceObject}) => {
+					console.log('got some new data', response.data)
+					data.value = response.data.data
+					currentPage.value = response.data.meta.current_page
+					total.value = response.data.meta.total
+				})
+
+		} else {
+
+			Inertia.get(requestUrl.value, query, { preserveState: true})
+		}
+	}
+
+	const resource = computed(() => data.value)
 	
 	return {
-		requestQuery,
+		init,
+		resource,
+		currentPage,
+		perPage,
+		total
+		// resourceData,
+		// requestQuery,
+		// activeFilters,
+		// sortOrder,
+		// sortBy
 	}
-}
+})

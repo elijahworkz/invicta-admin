@@ -23,7 +23,7 @@
 import { computed } from 'vue'
 import RepeaterBase from '@/components/form/RepeaterBase.vue'
 import FormField from '@/components/form/FormField.vue'
-import { useResourceForm } from '@/services/form'
+import { useResourceForm, getFields } from '@/services/form'
 import { useFormField } from '@/services/form/field'
 import get from 'lodash/get'
 
@@ -37,19 +37,6 @@ const field = useFormField(props)
 
 // let's create default from the fields we got
 const defaultRow = computed(() => getFields(data.fields))
-
-function getFields(fields) {
-
-	return fields.reduce((obj, item) => {
-		if (item.fields) {
-			let nested = getFields(item.fields)
-			return {...obj, ...nested}
-		} else {
-			obj[item.id] = ''
-			return obj
-		}
-	},{})
-}
 
 let rows = field.value([defaultRow.value])
 

@@ -1,5 +1,5 @@
 <template>
-	<el-popover placement="bottom-end" :width="200" trigger="click">
+	<el-popover placement="bottom-end" :width="200" trigger="click" v-if="filters.length">
 		<template #reference>
         	<el-button type="primary">
 				<el-icon><Filter /></el-icon><el-icon class="el-icon--right"><arrow-down /></el-icon>
@@ -37,7 +37,7 @@ onMounted(() => {
 		console.log(requestFilters)
 	}
 
-	Invicta.axios.get(`/resource/users/filters`)
+	Invicta.axios.get(`/resource/${resource.slug}/filters`)
 		.then(({data}) => {
 
 			if (data.length) {
@@ -58,6 +58,4 @@ onMounted(() => {
 			filters.value = data
 		})
 })
-
-// const hasFilters = 
 </script>

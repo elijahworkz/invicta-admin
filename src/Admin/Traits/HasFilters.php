@@ -11,7 +11,7 @@ trait HasFilters
 
     public function filters()
     {
-        return [];
+        return null;
     }
 
     public function filterBadges()

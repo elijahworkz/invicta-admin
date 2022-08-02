@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class ResourceController extends Controller
 {
+    public function index(ResourceRequest $request)
+    {
+        return $request->resource();
+    }
+
     public function filters(ResourceRequest $request)
     {
         // we need to grab resource class
@@ -17,5 +22,10 @@ class ResourceController extends Controller
     public function actions(Request $request, $resource)
     {
         // code...
+    }
+
+    public function related(ResourceRequest $request)
+    {
+        return $request->resourceRelated();
     }
 }

@@ -12,5 +12,8 @@ module.exports = {
 			}
 		},
 	},
+	safelist: [
+		'font-bold'
+	],
 	plugins: [],
 }

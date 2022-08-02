@@ -9,7 +9,7 @@
 				<template #item="{element, index}">
 					<el-collapse-item :name="index">
 						<template #title>
-							<SvgIcon class="handle mr-2" :icon="mdiDragVertical" />
+							<SvgIcon class="handle mr-2 cursor-grab" :icon="mdiDragVertical" />
 							<span>{{ itemTitle(element, index) }}</span>
 							<div class="delete-row-button ml-auto mr-4">
 								<el-button type="danger" text :icon="Close" size="small" @click="removeRow(index)"></el-button>

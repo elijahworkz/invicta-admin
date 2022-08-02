@@ -39,7 +39,7 @@ trait HasIndex
         return null;
     }
 
-    public function indexQuery($value = '')
+    public function indexQuery()
     {
         $query = App::make($this->model)->query();
         $perPage = request()->query('per_page', 10);
@@ -54,8 +54,8 @@ trait HasIndex
             $query = $this->applyFilters($query, request()->get('filters'));
         }
 
-        if (! empty($this->eagerLoad)) {
-            $query = $query->with($this->eagerLoad);
+        if (! empty($this->indexWith)) {
+            $query = $query->with($this->indexWith);
         }
 
         $result = $query->orderBy($this->slug.'.'.$sortBy, $sortOrder)->paginate($perPage);

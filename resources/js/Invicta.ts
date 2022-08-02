@@ -12,8 +12,10 @@ import { Link } from '@inertiajs/inertia-vue3'
 // import Loading from '@/components/shared/Loading.vue'
 import SvgIcon from '@/components/shared/SvgIcon.vue'
 import CheckTree from '@/components/shared/CheckTree.vue'
-import 'element-plus/es/components/message/style/index';
-import 'element-plus/es/components/notification/style/index';
+import Drawer from '@/components/shared/Drawer.vue'
+import 'element-plus/es/components/message/style/index'
+import 'element-plus/es/components/notification/style/index'
+import 'element-plus/es/components/table-v2/style/index'
 
 // Layouts
 import MainLayout from '@/layouts/MainLayout.vue'
@@ -44,7 +46,7 @@ class Invicta
 			'Invicta.ForgotPassword': () => import('./views/Auth/ForgotPassword.vue'),
 			'Invicta.ResetPassword': () => import('./views/Auth/ResetPassword.vue'),
 			'Invicta.Home': () => import('./views/Home.vue'),
-			'Invicta.Resource': () => import('./views/Resource.vue'),
+			'Invicta.Resource': () => import('./views/ResourceIndex.vue'),
 			'Invicta.Resource.Edit': () => import('./views/ResourceEdit.vue'),
 		}
 	}
@@ -87,6 +89,7 @@ class Invicta
 		this.app.component('Link', Link)
 		this.app.component('SvgIcon', SvgIcon)
 		this.app.component('CheckTree', CheckTree)
+		this.app.component('Drawer', Drawer)
 		this.event('InvictaReady')
 	}
 
@@ -102,10 +105,6 @@ class Invicta
 		this.boot()
 
 		InertiaProgress.init({
-			// The delay after which the progress bar will
-			// appear during navigation, in milliseconds.
-			delay: 20,
-
 			// The color of the progress bar.
 			color: '#29d',
 

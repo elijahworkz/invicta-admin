@@ -19,10 +19,21 @@
 		</div>
 
 			<ResourceTable 
-				:data="resource.data" 
+				:key="resource.slug"
+				:data="resource.data"
 				:table-props="resource.table" 
 				:columns="resource.columns"
+				:edit-url="resource.meta.path"
 				@select="handleSelect" />
+		
+<!--  			<ResourceTable 
+				:rows="resource.data" 
+				:table-props="resource.table" 
+				:columns="resource.columns"
+				:sort-order="sortOrder"
+				:sort-by="sortBy"
+				:edit-url="resource.meta.path"
+				@select="handleSelect" /> -->
 
 		</el-card>
 					<div class="flex items-center justify-between pt-3">
@@ -42,11 +53,12 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, unref } from 'vue'
 import { usePage } from '@inertiajs/inertia-vue3'
 import { useResource } from '@/services'
 import Search from '@/components/resource/Search.vue'
 import ResourceTable from '@/components/resource/ResourceTable.vue'
+// import ResourceTable from '@/components/shared/data-table/Table.vue'
 import Filters from '@/components/resource/Filters.vue'
 import FilterBadges from '@/components/resource/FilterBadges.vue'
 import { Delete } from '@element-plus/icons-vue'
@@ -55,17 +67,14 @@ const props = defineProps({
 	resource: Object
 })
 
-console.log(usePage().props.value);
-
 const { pageUrl } = usePage().props.value
-const { requestQuery } = useResource(props.resource, pageUrl)
+const resourceIndex = useResource()
+resourceIndex.init(pageUrl)
 
 /* Pagination Setup */
 
 const changePerPage = (event) => Invicta.emit('page-size-change', event)
 const changePage = (event) => Invicta.emit('page-change', event)
-
-console.log(requestQuery)
 
 const rowsSelected = ref(false)
 const handleSelect = (selection) => { 

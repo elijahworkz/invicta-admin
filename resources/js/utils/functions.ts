@@ -49,14 +49,22 @@ export const debounce = (fn: Function, delay = 0) => {
 };
 
 export function checked(items: ICheckTree[]): any {
-    // if (items.length) {
-        return items.reduce((array: any[], item: any) => {
-            if (! item.checked) return array
+    return items.reduce((array: any[], item: any) => {
+        if (! item.checked) return array
 
-            let children = (item.children) ? checked(item.children) : []
-            // array.push(item.value)
-            // return array
-            return [...array, item.value, ...children]
-        }, [])
-    // }
+        let children = (item.children) ? checked(item.children) : []
+        return [...array, item.value, ...children]
+    }, [])
+}
+
+export function intersectionBy (arr: any[], ...args: any) {
+  let iteratee = args.pop()
+  if (typeof iteratee === 'string') {
+    const prop = iteratee
+    iteratee = (item: any) => item[prop]
+  }
+
+  return arr.filter(item1 =>
+    args.every((arr2: any[])  => arr2.find(item2 => iteratee(item1) === iteratee(item2)))
+  )
 }

@@ -1,0 +1,27 @@
+#drawer {
+	.overlay {
+		position: fixed;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		z-index: 2000;
+		height: 100%;
+		background-color: var(--color-overlay-back);
+		overflow: auto;
+
+		.content {
+			position: absolute;
+			height: 100%;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			width: 80%;
+			display: flex;
+			box-shadow: var(--el-box-shadow-dark);
+			overflow: hidden;
+			transition: all var(--el-transition-duration);
+			background: #fff;
+		}
+	}
+}

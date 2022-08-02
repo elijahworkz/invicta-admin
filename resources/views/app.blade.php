@@ -43,13 +43,25 @@
         #app { display: none; }
         .app-ready .loading { display: none; }
         .app-ready #app { display: flex; }
+        .pulse { 
+            -webkit-animation: pulsate 2s ease-out; 
+            -webkit-animation-iteration-count: infinite; 
+            opacity: 0.5;
+        }
+        @-webkit-keyframes pulsate {
+            0% { opacity: 0.5; }
+            50% { opacity: 1.0; }
+            100% { opacity: 0.5; }
+        }
     </style>
 
-    <div class="loading">
+    <div class="loading pulse">
         <span>Loading Admin...</span>
     </div>
 
     <div id="app" class="app" data-page="{{ json_encode($page) }}"></div>
+
+    <div id="drawer"></div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {

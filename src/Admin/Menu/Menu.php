@@ -43,7 +43,7 @@ class Menu
 
         ResourceRegistrar::put($resource->slug, $resource);
 
-        return $this->createItem($resource->title)
+        return $this->createItem($resource->menuTitle())
             ->resource()
             ->route($resource->route())
             ->icon($resource->icon())

@@ -2,23 +2,49 @@
 
 namespace Eteacher\InvictaAdmin\Admin\Resources;
 
+use Eteacher\InvictaAdmin\Admin\Traits\CanEditItems;
 use Eteacher\InvictaAdmin\Admin\Traits\HasFilters;
 use Eteacher\InvictaAdmin\Admin\Traits\HasIndex;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Str;
 
 class Resource extends JsonResource
 {
-    use HasIndex, HasFilters;
+    use HasIndex, HasFilters, CanEditItems;
 
     /**
      * The underlying resource model.
      */
     public $model = 'App\Models\Page';
 
-    public $eagerLoad = '';
+    /**
+     * List of relationships that should be eager loaded on index.
+     *
+     * @var string
+     */
+    public $indexWith = '';
 
-    public $title = 'Resource';
+    /**
+     * List of relationships that should be eager loaded on edit.
+     *
+     * @var string
+     */
+    public $editWith;
+
+    /**
+     * The name that should be used in the menu.
+     *
+     * @var string
+     */
+    public $menuTitle = null;
+
+    /**
+     * The single value that should be used to represent the resource when being displayed.
+     *
+     * @var string
+     */
+    public $itemTitle = 'id';
 
     public $slug = 'base';
 
@@ -26,9 +52,7 @@ class Resource extends JsonResource
 
     public $search = [];
 
-    protected $indexResource;
-
-    private $routePrefix = '/resource/';
+    protected $routePrefix = '/resource/';
 
     public function __construct(public $resource = null)
     {
@@ -49,6 +73,13 @@ class Resource extends JsonResource
         return null;
     }
 
+    public function menuTitle()
+    {
+        return $this->menuTitle
+            ? $this->menuTitle
+            : Str::of($this->model)->classBasename()->plural();
+    }
+
     public function resource()
     {
         $this->resource = $this->indexQuery();
@@ -56,9 +87,13 @@ class Resource extends JsonResource
         return $this->resource;
     }
 
-    public function resourceItem($item)
+    public function resourceModel($id)
     {
-        return App::make($this->model)->find($item);
+        if ($this->editWith) {
+            return App::make($this->model)->where('id', $id)->with($this->editWith)->first();
+        }
+
+        return App::make($this->model)->find($id);
     }
 
     public function toArray($request)

@@ -7,7 +7,7 @@ import startCase from 'lodash/startCase'
 
 const resourceForm = useResourceForm()
 
-export const useFormField = (props: { data: IFormField, path: string}) => {
+export const useFormField = (props: { data: IFormField, path: string }) => {
 
     const field: IFormField = props.data
 
