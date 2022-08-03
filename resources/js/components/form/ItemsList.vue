@@ -1,14 +1,15 @@
 <template>
 	<draggable 
-		v-model="modelValue" 
+		:list="list"
+		:disabled="!sortable"
 		handle=".drag-handle" 
-		item-key="index">
-		<template #item="{element, index}"
-		@update="() => $emit('update:modelValue', modelValue)">
+		item-key="index"
+		class="items-stack"
+		@update="$emit('updated', list)">
+		<template #item="{element, index}">
 			<div class="flex items-center justify-start mb-2 border rounded-sm has-actions">
-				<DragHandle class="text-gray-300 hover:text-gray-400"/>
-				<div class="px-2">{{ element[titleField] }}
-				{{ element }}</div>
+				<DragHandle v-if="sortable" class="text-gray-300 hover:text-gray-400"/>
+				<div class="px-2">{{ element[titleField] }}</div>
 				<RowActions :id="index" @action="removeRow" class="ml-auto" />
 			</div>
 		</template>
@@ -20,7 +21,7 @@
 	</draggable>
 	  
 	<Drawer v-if="drawer" @close="drawer = false">
-		<ItemSelector :exclude="excludeItems" :request-url="itemsUrl" :title-field="titleField" @select="updateItems" />
+		<ItemsSelector :exclude="excludeItems" :request-url="itemsUrl" :title-field="titleField" @update="updateItems" />
 	</Drawer>
 </template>
 
@@ -29,38 +30,38 @@ import { ref, computed } from 'vue'
 import draggable from 'vuedraggable'
 import DragHandle from '@/components/shared/DragHandle.vue'
 import RowActions from '@/components/shared/RowActions.vue'
-import ItemSelector from './ItemSelector.vue'
+import ItemsSelector from './ItemsSelector.vue'
 import { Link } from '@element-plus/icons-vue'
-import { intersectionBy } from '@/utils/functions'
 
 const props = defineProps({
-	modelValue: {
+	list: {
 		type: Array,
 		default: [],
 		required: true
 	},
 	itemsUrl: String,
 	titleField: String,
+	sortable: Boolean
 })
-const emit = defineEmits(['update:modelValue', 'change'])
+const emit = defineEmits(['updated'])
 
 const drawer = ref(false)
 
 function removeRow({id}) {
-	props.modelValue.splice(id, 1)
+	props.list.splice(id, 1)
+	emit('updated', props.list)
 }
 
 const excludeItems = computed(() => {
-	return props.modelValue.map(item => {
+	return props.list.map(item => {
 		return item.id
 	})
 })
 
 const updateItems = (selected) => {
 	drawer.value = false
-	let updated = [...props.modelValue, ...selected]
-	emit('update:modelValue', updated)
-	emit('change', updated)
+	let updated = [...props.list, ...selected]
+	emit('updated', updated)
 }
 </script>
 

@@ -1,25 +1,19 @@
 <template>
 	<div class="flex items-center justify-end">
-		<span class="action-icon opacity-50 mr-1">
+		<span class="action-icon opacity-50">
 			<svg width="12" viewBox="0 0 24 24"><circle cx="3" cy="12" r="3"/><circle cx="12" cy="12" r="3"/><circle cx="21" cy="12" r="3"/></svg>
 		</span>
 		<div class="actions-wrap">
-		<div class="action-buttons opacity-80">
-			<el-button-group size="small">
-				<el-button text :icon="Edit" title="Edit" @click="$emit('action', { action: 'edit', id })" />
-				<el-button text :icon="Delete" title="Delete" @click="$emit('action', { action: 'delete', id })"/>
-			</el-button-group>
+			<div class="action-buttons opacity-80">
+				<el-icon class="action-icon"><Edit/></el-icon>
+				<el-icon class="action-icon"><Delete/></el-icon>
+<!-- 				<el-button-group size="small">
+					<el-button text :icon="Edit" title="Edit" @click="$emit('action', { action: 'edit', id })" />
+					<el-button text :icon="Delete" title="Delete" @click="$emit('action', { action: 'delete', id })"/>
+				</el-button-group> -->
+			</div>
 		</div>
 	</div>
-</div>
-<!-- 	<el-popover  trigger="click">
-		<template #reference>
-			<svg class="rotating-dots fill-current" width="12" viewBox="0 0 24 24"><circle cx="3" cy="12" r="3"/><circle cx="12" cy="12" r="3"/><circle cx="21" cy="12" r="3"/></svg>
-		</template>
-		<template #default>
-			<slot/>
-		</template>
-	</el-popover> -->
 </template>
 
 <script setup>
@@ -42,10 +36,10 @@ const open = ref(false)
 	height: 100%;
 	opacity: 0;
 	transition: all .2s;
-	padding: 0 0 0 30px; //rgba(245,247,250,1)
+	padding: 0 0 0 30px;
 
 	.hover-row  & {
-		background: linear-gradient(90deg, rgba(255,255,255,0) 0%, var(--el-fill-color-light) 5%); //var(--el-fill-color-light);
+		background: linear-gradient(90deg, rgba(255,255,255,0) 0%, var(--el-fill-color-light) 5%);
 		opacity: 1;
 	}
 	.has-actions:hover & {
@@ -61,7 +55,7 @@ const open = ref(false)
 	}
 
 	.el-button--small {
-		padding: 5px 12px;
+		padding: 5px 8px;
 	}
 }
 </style>

@@ -25,7 +25,7 @@
 				@update:page-size="changePerPage"
 				@update:current-page="changePage"
 			/>
-			<el-button type="primary" @click="$emit('select', selectedItems)">Select</el-button>
+			<el-button type="primary" @click="$emit('update', selectedItems)">Select</el-button>
 		</footer>
 	</div>
 </template>

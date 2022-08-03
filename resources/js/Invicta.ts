@@ -5,6 +5,7 @@ import { createPinia } from 'pinia'
 import { setupAxios } from './services/axios'
 import { AxiosInstance } from 'axios'
 import mitt from 'mitt'
+import isNil from 'lodash/isNil'
 // import { InvictaConfigObject } from './common/interfaces'
 
 // global components
@@ -80,7 +81,8 @@ class Invicta
 
 					return page
 				}
-			})
+			}),
+			checkComponent: (name: string) => this.$options[name]
 		})
 
 		this.app.use(plugin)
@@ -118,6 +120,8 @@ class Invicta
 		this.app.mount('#app')
 
 		console.log('started Invicta', this.pages)
+
+		console.log('checking components', this.app._context.components)
 	}
 
 	inertia(name: string, component: any) {
@@ -126,9 +130,15 @@ class Invicta
 		console.log('want to add', name, this.pages)
 	}
 
-	// component(name: string, component: any) {
-	// 	this.app.component(name, component)
-	// }
+	componentExists(name: string) {
+		return !isNil(this.app._context.components[name])
+	}
+
+	component(name: string, component: any) {
+		if (!this.componentExists(name)) {
+			this.app.component(name, component)
+		}
+	}
 	// 
 	// Emits dom events
 	event(name: string, data: Object | null = null) {

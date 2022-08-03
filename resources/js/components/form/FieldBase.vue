@@ -1,11 +1,13 @@
 <template>
 	<el-form-item>
-		<template #label>{{ field.label() }}</template>
-		<span class="info info-top" v-if="infoTop">{{ infoTop }}</span>
+		<template #label>
+			{{ field.label() }}
+			<div class="info info-top opacity-60" v-if="info && infoPosition == 'top'">{{ info }}</div>
+		</template>
 
 		<slot />
 
-		<span class="info" v-if="infoBottom">{{ infoBottom }}</span>
+		<span class="info" v-if="info && infoPosition == 'bottom'">{{ info }}</span>
 	</el-form-item>
 </template>
 
@@ -19,7 +21,6 @@ const props = defineProps({
 const { id } = props.fieldProps.data
 const field = useFormField(props.fieldProps)
 
-// const value = field.value()
-const infoTop = field.has('info') && field.check('info_position', 'top') ? field.get('info') : false
-const infoBottom = field.has('info') && field.check('info_position', 'bottom') ? field.get('info') : false
+const info = field.get('info', false)
+const infoPosition = field.get('info_position', 'top')
 </script>

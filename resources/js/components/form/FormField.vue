@@ -15,13 +15,21 @@ const props = defineProps({
 })
 
 let fieldComponent = shallowRef('textField')
-let fieldType = props.fieldData.type.replace('-', '')
-fieldType = fieldType == 'group' ? 'json' : fieldType
 
 const showField = useFieldCondition(props.fieldData)
 if (showField) {
-	import(`./fields/${fieldType}Field.vue`)
-		.then(value => fieldComponent.value = value.default)
-		.catch(err => console.log(err))
+
+	if (Invicta.componentExists(props.fieldData.type)) {
+		fieldComponent.value = props.fieldData.type
+	} else {
+
+		let fieldType = props.fieldData.type.replace('-', '')
+		fieldType = fieldType == 'group' ? 'json' : fieldType
+
+		import(`./fields/${fieldType}Field.vue`)
+			.then(value => fieldComponent.value = value.default)
+			.catch(err => console.log(err))
+	}
+
 }
 </script>
