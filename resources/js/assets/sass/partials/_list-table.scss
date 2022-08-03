@@ -1,0 +1,66 @@
+.icon-status {
+	border-radius: 7px;
+	display: inline-block;
+	height: 7px;
+	width: 7px;
+	flex-shrink: 0;
+	background: var(--color-light-back-darker); //#dde3e9;
+
+	&.success {
+		background: var(--el-color-success)
+	}
+
+}
+
+$action-icon-size: 18px;
+.resource-table {
+	.el-table {
+		
+		.el-table__cell {
+			padding: 10px 0;
+		}
+
+		.cell {
+			line-height: 1
+		}
+	}
+
+}
+
+.resource-table,
+.has-actions {
+
+	.action-icon {
+		cursor: pointer;
+		color: var(--el-table-header-text-color);
+		display: inline-block;
+		line-height: 0;
+
+		&:hover {
+			color: var(--el-color-primary);
+
+			&.danger {
+				color: var(--el-color-danger);
+			}
+		}
+
+		&.delete {
+			color: var(--el-color-danger);
+		}
+
+		&.button {
+			margin: 0 10px 0 0;
+		}
+
+	}
+
+	.el-icon {
+		width: $action-icon-size;
+		height: $action-icon-size;
+
+		svg {
+			width: $action-icon-size;
+			height: $action-icon-size;
+		}
+	}
+}

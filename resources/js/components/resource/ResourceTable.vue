@@ -12,9 +12,11 @@
 			<template v-for="(column, key) in visibleColumns">
 				<Column :id="key" :props="column"/>
 			</template>
+
 			<el-table-column
+				v-if="editUrl"
 				width="100"
-				header-align="right" class="test2">
+				header-align="right">
 
 				<template #header >
 					<el-dropdown trigger="click" class="!align-middle">
@@ -28,7 +30,7 @@
 				</template>
 
 				<template #default="scope">
-					<RowActions :id="scope.row.id" @action="handleAction"/>
+					<RowActions :id="scope.row.id" @edit="handleEdit" @delete="handleDelete" />
 				</template>
 
 			</el-table-column>
@@ -51,7 +53,7 @@ const props = defineProps({
 	data: Array,
 	tableProps: Object,
 	columns: Object,
-	editUrl: String
+	editUrl: String,
 })
 
 // Handle column setup and visibility
@@ -72,22 +74,20 @@ const handleSortChange = ({ prop, order }) => {
 }
 
 // Handle Edit
-const handleAction = ({ action, id }) => {
-
-	if (action == 'edit') {
-		Inertia.visit(`${props.editUrl}/${id}`)
-	}
+const handleEdit = (id) => {
+	Inertia.visit(`${props.editUrl}/${id}`)
 }
+
+// Handle Delete
+const handleDelete = (id) => {
+	//
+}
+
 // Repaint table when sidebar is exposed
 const tableKey = ref(0)
 Invicta.on('close-sidebar-submenus', () => {
 	if (!document.querySelector('body').classList.contains('sidebar-mini')) {
-		console.log('I should repaint')
 		tableKey.value = Date.now()
 	}
 })
 </script>
-
-<style lang="scss">
-
-</style>

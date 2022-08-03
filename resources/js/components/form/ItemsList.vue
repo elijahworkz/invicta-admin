@@ -9,8 +9,8 @@
 		<template #item="{element, index}">
 			<div class="flex items-center justify-start mb-2 border rounded-sm has-actions">
 				<DragHandle v-if="sortable" class="text-gray-300 hover:text-gray-400"/>
-				<div class="px-2">{{ element[titleField] }}</div>
-				<RowActions :id="index" @action="removeRow" class="ml-auto" />
+				<component :is="ItemListComponent" :item="element" :title-field="titleField" />
+				<RowActions :id="index" @delete="removeRow" class="ml-auto" />
 			</div>
 		</template>
 		<template #footer>
@@ -21,7 +21,12 @@
 	</draggable>
 	  
 	<Drawer v-if="drawer" @close="drawer = false">
-		<ItemsSelector :exclude="excludeItems" :request-url="itemsUrl" :title-field="titleField" @update="updateItems" />
+		<ItemsSelector 
+			:exclude="excludeItems"
+			:request-url="itemsUrl"
+			:title-field="titleField"
+			@update="updateItems" 
+			@cancel="drawer = false" />
 	</Drawer>
 </template>
 
@@ -30,6 +35,7 @@ import { ref, computed } from 'vue'
 import draggable from 'vuedraggable'
 import DragHandle from '@/components/shared/DragHandle.vue'
 import RowActions from '@/components/shared/RowActions.vue'
+import ItemListItem from './ItemListItem.vue'
 import ItemsSelector from './ItemsSelector.vue'
 import { Link } from '@element-plus/icons-vue'
 
@@ -40,23 +46,32 @@ const props = defineProps({
 		required: true
 	},
 	itemsUrl: String,
-	titleField: String,
+	fieldData: Object,
 	sortable: Boolean
 })
 const emit = defineEmits(['updated'])
 
 const drawer = ref(false)
+const { titleField } = props.fieldData
+const ItemListComponent = computed(() => {
 
-function removeRow({id}) {
-	props.list.splice(id, 1)
-	emit('updated', props.list)
-}
+	if (props.fieldData.itemComponent && Invicta.componentExists(props.fieldData.itemComponent)) {
+		return props.fieldData.itemComponent
+	}
+	return ItemListItem
+})
 
 const excludeItems = computed(() => {
 	return props.list.map(item => {
 		return item.id
 	})
 })
+
+function removeRow({id}) {
+	props.list.splice(id, 1)
+	emit('updated', props.list)
+}
+
 
 const updateItems = (selected) => {
 	drawer.value = false

@@ -25,15 +25,6 @@
 				:columns="resource.columns"
 				:edit-url="resource.meta.path"
 				@select="handleSelect" />
-		
-<!--  			<ResourceTable 
-				:rows="resource.data" 
-				:table-props="resource.table" 
-				:columns="resource.columns"
-				:sort-order="sortOrder"
-				:sort-by="sortBy"
-				:edit-url="resource.meta.path"
-				@select="handleSelect" /> -->
 
 		</el-card>
 					<div class="flex items-center justify-between pt-3">

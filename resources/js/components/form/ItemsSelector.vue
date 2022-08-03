@@ -1,15 +1,20 @@
 <template>
-	<div class="w-full">
+	<div class="w-full flex flex-col">
 		<header class="p-4">
 			<Search />
 		</header>
 		
 		<main>
-			<el-scrollbar>
+			<div class="flex items-center justify-center h-full" v-if="loading">
+				<Loading />
+			</div>
+
+			<el-scrollbar v-else>
 				<ResourceTable 
 					:data="itemsResource.resource"
 					:columns="columns"
 					@select="handleSelect"
+					max-height="90%"
 				/>
 			</el-scrollbar>
 		</main>
@@ -25,6 +30,7 @@
 				@update:page-size="changePerPage"
 				@update:current-page="changePage"
 			/>
+			<el-button class="ml-auto mr-2" text @click="$emit('cancel')">Cancel</el-button>
 			<el-button type="primary" @click="$emit('update', selectedItems)">Select</el-button>
 		</footer>
 	</div>
@@ -34,6 +40,7 @@
 import { ref, onMounted, computed } from 'vue'
 import ResourceTable from '@/components/resource/ResourceTable.vue'
 import Search from '@/components/resource/Search.vue'
+import Loading from '@/components/shared/Loading.vue'
 import { useResource } from '@/services'
 
 const props = defineProps({
@@ -42,8 +49,8 @@ const props = defineProps({
 	titleField: String,
 })
 
+const loading = ref(false)
 const itemsResource = useResource()
-const resource = itemsResource.resource
 
 const columns = {
 	id: { label: 'ID', sortable: true, align: 'center', width: 70 },
@@ -52,7 +59,9 @@ const columns = {
 }
 
 onMounted(() => {
-	console.log('looking', props.requestUrl)
+
+	loading.value = true
+
 	let params = {
 		paginate: true,
 		title: props.titleField,
@@ -62,6 +71,7 @@ onMounted(() => {
 	Invicta.axios.get(props.requestUrl, { params })
 		.then(({data}) => {
 			itemsResource.init(props.requestUrl, data)
+			loading.value = false
 		})
 })
 
