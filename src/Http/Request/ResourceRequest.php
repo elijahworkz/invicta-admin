@@ -35,7 +35,7 @@ class ResourceRequest extends InvictaRequest
                 ],
                 'columns' => $resourceClass->indexColumns(),
                 'table' => $resourceClass->indexTableSettings(),
-                'slug' => $resourceClass->slug,
+                'handle' => $resourceClass->handle,
             ]);
     }
 
@@ -48,7 +48,9 @@ class ResourceRequest extends InvictaRequest
             'item' => $item,
             'meta' => [
                 'id' => $item->id,
-                'slug' => $resourceClass->slug,
+                'handle' => $resourceClass->handle,
+                'indexUrl' => $resourceClass->route(),
+                'indexTitle' => $resourceClass->menuTitle(),
                 'title_field' => $resourceClass->itemTitle,
             ],
             'blueprint' => $resourceClass->getBlueprint(),
@@ -57,9 +59,11 @@ class ResourceRequest extends InvictaRequest
 
     public function resourceRelated()
     {
-        $resourceClass = $this->resourceClass();
-        $relationship = $this->route('related');
+        return $this->resourceClass()->relatedQuery($this->route('related'));
+    }
 
-        return $resourceClass->relatedQuery($relationship);
+    public function validate()
+    {
+        return request()->validate($this->resourceClass()->validationRules());
     }
 }

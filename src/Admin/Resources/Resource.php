@@ -46,7 +46,7 @@ class Resource extends JsonResource
      */
     public $itemTitle = 'id';
 
-    public $slug = 'base';
+    public $handle = 'base';
 
     public $icon = 'resource';
 
@@ -60,7 +60,7 @@ class Resource extends JsonResource
 
     public function route()
     {
-        return $this->routePrefix.$this->slug;
+        return Str::start($this->routePrefix.$this->handle, config('invicta.path'));
     }
 
     public function icon()

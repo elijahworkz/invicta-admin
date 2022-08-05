@@ -33,7 +33,8 @@ class InvictaAdminController extends Controller
 
     public function update(ResourceRequest $request)
     {
-        // code...
+        // what do we need...
+        $validated = $request->validate();
     }
 
     public function destroy(ResourceRequest $request)

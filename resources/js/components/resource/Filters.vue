@@ -37,7 +37,7 @@ onMounted(() => {
 		console.log(requestFilters)
 	}
 
-	Invicta.axios.get(`/resource/${resource.slug}/filters`)
+	Invicta.axios.get(`/resource/${resource.handle}/filters`)
 		.then(({data}) => {
 
 			if (data.length) {

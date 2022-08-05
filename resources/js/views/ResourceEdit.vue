@@ -3,13 +3,27 @@
 	<div class="py-6 px-10">
 		<el-form
 			class="invicta-form"
-			label-position="top"
-			:model="resourceForm.data">
+			label-position="top">
 		<div class="flex items-end justify-between mb-4">
 			<div>
+				<Link :href="resource.meta.indexUrl" class="breadcrumb"><el-icon><ArrowLeft /></el-icon> {{ resource.meta.indexTitle }}</Link>
 				<h1 class="mb-1">{{ resourceForm.title }}</h1>
 			</div>
-			<el-button type="primary" size="large">Update</el-button>
+			<div class="resource-actions">
+				<el-button-group>
+					<el-button type="primary" @click="submit" :disabled="resourceForm.form.processing">{{ postSubmitData.text }}</el-button>
+					<el-popover>
+						<template #reference>
+							<el-button class="p-2" type="primary" :icon="postSubmitData.icon"></el-button>
+						</template>
+						<el-radio-group v-model="postSubmitAction">
+							<el-radio label="back">Go back to Index</el-radio>
+							<el-radio label="stay">Continue Editing</el-radio>
+							<el-radio label="create">Add New Item</el-radio>
+						</el-radio-group>
+					</el-popover>
+				</el-button-group>
+			</div>
 		</div>
 		<el-row :gutter="hasSidebar ? 20 : 0">
 			<el-col :span="hasSidebar ? 18 : 24">
@@ -47,10 +61,12 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import has from 'lodash/has'
+import { useForm, usePage } from '@inertiajs/inertia-vue3'
 import { useResourceForm } from '@/services/form'
 import FormField from '@/components/form/FormField.vue'
+import { Back, ArrowLeft, Plus, ArrowDown } from '@element-plus/icons-vue'
 
 const props = defineProps({
 	resource: Object
@@ -58,6 +74,18 @@ const props = defineProps({
 
 const { blueprint } = props.resource
 const resourceForm = useResourceForm()
+
+const postSubmitAction = ref('back')
+const postSubmitData = computed(() => {
+	switch (postSubmitAction.value) {
+		case 'back':
+			return { icon: ArrowLeft, text: 'Update & Back'}
+		case 'stay':
+			return { icon: ArrowDown, text: 'Update & Stay'}
+		case 'create':
+			return { icon: Plus, text: 'Update & New'}
+	}
+})
 
 const blueprint_back = {
 	settings: {
@@ -244,17 +272,30 @@ const blueprint_back = {
 	}
 }
 
-resourceForm.init(props.resource)
-
-// const rules = resourceForm.rules
 const hasSections = has(blueprint, 'sections')
 const activeTab = hasSections && blueprint.sections.length
 	? ref(blueprint.sections[0].id)
 	: null
 const hasSidebar = has(blueprint, 'sidebar');
 
+resourceForm.init(props.resource)
+
+const { pageUrl } = usePage().props.value
+
+const submit = () => {
+
+	// const form = useForm(resourceForm.data)
+	resourceForm.form.post(pageUrl)
+}
+
 </script>
 
 <style lang="scss">
-
+.resource-actions {
+	.el-button-group {
+		.el-tooltip__trigger {
+			padding: 8px;
+		}
+	}
+}
 </style>

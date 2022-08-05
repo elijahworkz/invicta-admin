@@ -24,7 +24,7 @@ const props = defineProps({
 })
 
 const loading = ref(false)
-const relatedUrl = `/resource/${resourceForm.meta.slug}/relationship/${props.data.id}`
+const relatedUrl = `/resource/${resourceForm.meta.handle}/relationship/${props.data.id}`
 const relationship = props.path.split('.').pop() // determine relationship from the path
 const sortable = props.path !== relationship // if path and relationsip don't match - probably needs sorting
 

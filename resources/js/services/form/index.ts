@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia'
 import get from 'lodash/get'
 import set from 'lodash/set'
+import { useForm, usePage } from '@inertiajs/inertia-vue3'
+import { isArray } from 'lodash'
 
 interface IResourceItem {
 	[key: string]: any
@@ -9,7 +11,8 @@ interface IResourceItem {
 export const useResourceForm = defineStore('resourceForm', {
 	state: () => {
 		return <IResourceItem>{
-			data: {},
+			form: null,
+			// data: {},
 			meta: {},
 			blueprint: {},
 			dirty: false
@@ -17,8 +20,9 @@ export const useResourceForm = defineStore('resourceForm', {
 	},
 	actions: {
 		init(resource: IResourceItem) {
-			this.data = resource.item
+			// this.data = resource.item
 			this.meta = resource.meta
+			this.form = useForm(resource.item)
 			// this.data = Object.prototype.hasOwnProperty.call(resource, 'data')
 			// 	? resource.data
 			// 	: resource
@@ -28,27 +32,20 @@ export const useResourceForm = defineStore('resourceForm', {
 			return this.dirty
 		},
 		get(id: string): any {
-			return get(this.data, id)
+			return get(this.form, id)
 		},
 		set(id: string, value: any) {
-			set(this.data, id, value)
+			set(this.form, id, value)
 			this.dirty = true
-		}
+		},
 	},
 	getters: {
 		title(): string {
-			return get(this.data, this.meta.title_field)
+			return get(this.form, this.meta.title_field)
 		},
 		id(): any {
-			return get(this.data, 'id')
+			return get(this.form, 'id')
 		},
-		rules() {
-			return {
-				email: {
-					required: true
-				}
-			}
-		}
 	}
 })
 
@@ -58,10 +55,11 @@ export function getFields(fields: any[]): object {
 		if (item.fields) {
 			let nested = getFields(item.fields)
 			return {...obj, ...nested}
-		} else {
+		} else if (item.id) {
 			obj[item.id] = ''
 			return obj
 		}
+		return obj
 	},{})
 }
 
