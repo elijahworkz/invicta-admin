@@ -18,9 +18,8 @@ class LoginController extends Controller
     public function create()
     {
         return Inertia::render('Invicta.Login', [
-            'loginUrl' => route('invicta.login'),
+            'storeUrl' => route('invicta.login'),
             'resetUrl' => config('invicta.auth.enable_password_reset') ? route('invicta.password.forgot') : null,
-            'status' => session('status'),
         ]);
     }
 

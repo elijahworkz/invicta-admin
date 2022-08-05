@@ -35,5 +35,11 @@
 				font-size: 1.6rem;
 			}
 		}
+
+		&-auth {
+			@extend .app-branding;
+			margin: 0 0 15px 0;
+			font-size: 32px;
+		}
 	}
 }

@@ -88,3 +88,15 @@
 		gap: 20px;
 	}
 }
+
+.el-form-item {
+	&.justify-center {
+		.el-form-item__content {
+			justify-content: center;
+		}
+	}
+}
+
+.auth-card {
+	width: 400px;
+}
