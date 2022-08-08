@@ -48,7 +48,7 @@ export default {
 import {useForm} from '@inertiajs/inertia-vue3'
 
 const props = defineProps({
-	storeUrl: String,
+	actionUrl: String,
 	resetUrl: String,
 })
 
@@ -61,7 +61,7 @@ const form = useForm({
 const appName = Invicta.getConfig('appName')
 
 const submit = () => {
-	form.post(props.storeUrl, {
+	form.post(props.actionUrl, {
 		onFinish: () => form.reset('password')
 	})
 }
