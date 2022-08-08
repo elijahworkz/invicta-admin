@@ -11,6 +11,11 @@
             "src/helpers.php"
         ]
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Eteacher\\InvictaAdmin\\Tests\\": "tests"
+        }
+    },
     "authors": [
         {
             "name": "Ilya Gromov",
@@ -32,7 +37,9 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.8",
-        "phpro/grumphp": "^1.12"
+        "phpro/grumphp": "^1.12",
+        "phpunit/phpunit": "^9.5",
+        "orchestra/testbench": "^7.0"
     },
     "config": {
         "allow-plugins": {
@@ -41,6 +48,8 @@
     },
     "scripts": {
         "check-style": "php-cs-fixer fix --dry-run --diff",
-        "fix-style": "php-cs-fixer fix"
+        "fix-style": "php-cs-fixer fix",
+        "test": "vendor/bin/phpunit",
+        "test-f": "vendor/bin/phpunit --filter"
     }
 }
