@@ -25,16 +25,13 @@ export const useResourceForm = defineStore('resourceForm', {
 
 			let formData = this.prepareFields(resource.blueprint)
 			this.form = useForm(formData)
-			// this.data = Object.prototype.hasOwnProperty.call(resource, 'data')
-			// 	? resource.data
-			// 	: resource
-			// this.blueprint = 
 		},
 		isDirty() {
 			return this.dirty
 		},
 		get(id: string, defaultValue?: any): any {
-			return get(this.form, id, defaultValue)
+			let result = get(this.form, id, defaultValue)
+			return !result && defaultValue ? defaultValue : result
 		},
 		set(id: string, value: any) {
 			set(this.form, id, value)

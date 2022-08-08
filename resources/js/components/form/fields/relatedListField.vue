@@ -37,6 +37,7 @@ const listValue = computed(() => {
 		let sortedList = sortedIds.map(id => related.find(item => item.id === id))
 		related = sortedList
 	}
+		console.log('I get some problem here', related)
 	return related
 })
 
