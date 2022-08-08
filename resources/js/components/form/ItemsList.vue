@@ -75,7 +75,9 @@ function removeRow({id}) {
 
 const updateItems = (selected) => {
 	drawer.value = false
-	let updated = [...props.list, ...selected]
+	let updated = props.list
+		? [...props.list, ...selected]
+		: selected
 	emit('updated', updated)
 }
 </script>

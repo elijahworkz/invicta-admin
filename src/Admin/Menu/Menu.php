@@ -41,7 +41,7 @@ class Menu
     {
         $resource = App::make($resourceClass);
 
-        ResourceRegistrar::put($resource->handle, $resource);
+        ResourceRegistrar::put($resource->handle(), $resource);
 
         return $this->createItem($resource->menuTitle())
             ->resource()

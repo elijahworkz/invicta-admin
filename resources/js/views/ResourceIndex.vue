@@ -6,7 +6,7 @@
 				<h1 class="mb-1">{{ resource.title }}</h1>
 				<Search :currentSearch="resource.meta.search"/>
 			</div>
-			<el-button type="primary" size="large">Create User</el-button>
+			<Link :href="`${resource.meta.path}/create`" class="el-button el-button--primary">Create new</Link>
 		</div>
 		<el-card body-style="padding: 0px">
 		<div class="flex items-center justify-start p-3">

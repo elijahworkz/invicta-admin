@@ -27,7 +27,11 @@ export const useFieldCondition = (field: IFormField) => {
             return passesIncludesCondition(loperand, roperand)
         }
 
-        return eval(`${loperand} ${operator} ${roperand}`)
+        let expression = `${loperand} ${operator} ${roperand}`
+
+        console.log('condition expression', expression)
+
+        return eval(expression)
     })
 }
 
@@ -49,9 +53,13 @@ function prepareOperand(operand: any, operator: string) {
 function prepareOperator(operator: string) {
     switch (operator) {
         case '==':
+        case 'equal':
         case 'equals':
         case 'is':
             return '=='
+        case 'not equals':
+        case 'not equal':
+            return '!=='
         case '>':
         case 'more':
         case 'more than':

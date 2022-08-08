@@ -74,7 +74,7 @@ trait CanEditItems
                     'title' => $title,
                     'exclude' => $exclude,
                 ],
-                'handle' => $this->handle,
+                'handle' => $this->handle(),
             ]);
     }
 }

@@ -1,13 +1,15 @@
 <?php
 
-use Eteacher\InvictaAdmin\Http\Controllers\InvictaAdminController;
+use Eteacher\InvictaAdmin\Http\Controllers\ResourceController;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-Route::controller(InvictaAdminController::class)->group(function () {
+Route::controller(ResourceController::class)->group(function () {
     Route::get('/', 'home')->name('home');
 
     Route::get('/resource/{resource}', 'index');
+    Route::get('/resource/{resource}/create', 'create');
+    Route::post('/resource/{resource}', 'store');
     Route::get('/resource/{resource}/{item}', 'edit');
     Route::post('/resource/{resource}/{item}', 'update');
     Route::delete('/resource/{resource}/{item}', 'destroy');
