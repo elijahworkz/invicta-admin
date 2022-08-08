@@ -46,11 +46,11 @@ export default {
 
 <script setup>
 
-import {computed, defineProps} from 'vue'
-import {useForm, usePage} from "@inertiajs/inertia-vue3";
+import {defineProps} from 'vue'
+import {useForm} from "@inertiajs/inertia-vue3";
 
 const props = defineProps({
-	storeUrl: String,
+	actionUrl: String,
 	email: String,
 	token: String
 })
@@ -62,10 +62,10 @@ const form = useForm({
 	password_confirmation: ''
 })
 
-const appName = computed(() => usePage().props.value.appName)
+const appName = Invicta.getConfig('appName')
 
 const submit = () => {
-	form.post(props.storeUrl, {
+	form.post(props.actionUrl, {
 		onFinish: () => form.reset('password', 'password_confirmation')
 	})
 }

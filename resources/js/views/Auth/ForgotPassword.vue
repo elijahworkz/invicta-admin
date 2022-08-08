@@ -6,10 +6,10 @@
 		<h1 class="app-branding-auth">{{ appName }}</h1>
 
 		<el-card class="auth-card">
-			<div class="info">
-				<h2 class="title">Forgot Your Password?</h2>
+			<header class="mb-4">
+				<div class="text-center mb-2 text-xl">Forgot Your Password?</div>
 				<p>Enter your email address so we can send a reset password link.</p>
-			</div>
+			</header>
 
 			<div v-if="$page.props.flash.message" class="mb-4 font-medium text-sm text-green-600">
 				{{ $page.props.flash.message }}
@@ -45,11 +45,11 @@ export default {
 
 <script setup>
 
-import {computed, defineProps} from 'vue'
-import {useForm, usePage} from "@inertiajs/inertia-vue3";
+import {defineProps} from 'vue'
+import {useForm} from "@inertiajs/inertia-vue3";
 
 const props = defineProps({
-	storeUrl: String,
+	actionUrl: String,
 	status: String
 })
 
@@ -58,10 +58,10 @@ const form = useForm({
 	email: ''
 })
 
-const appName = computed(() => usePage().props.value.appName)
+const appName = Invicta.getConfig('appName')
 
 const submit = () => {
-	form.post(props.storeUrl, {
+	form.post(props.actionUrl, {
 		onFinish: () => {
 			form.reset('email')
 		}
@@ -71,15 +71,4 @@ const submit = () => {
 </script>
 
 <style lang="scss">
-
-.info {
-	text-align: center;
-	margin: 0 0 15px 0;
-
-	.title {
-		font-size: 20px;
-		margin: 0 0 5px 0;
-	}
-}
-
 </style>

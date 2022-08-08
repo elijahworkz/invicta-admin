@@ -45,8 +45,7 @@ export default {
 
 <script setup>
 
-import {computed} from 'vue'
-import {useForm, usePage} from '@inertiajs/inertia-vue3'
+import {useForm} from '@inertiajs/inertia-vue3'
 
 const props = defineProps({
 	storeUrl: String,
@@ -59,7 +58,7 @@ const form = useForm({
 	remember: false
 })
 
-const appName = computed(() => usePage().props.value.appName)
+const appName = Invicta.getConfig('appName')
 
 const submit = () => {
 	form.post(props.storeUrl, {

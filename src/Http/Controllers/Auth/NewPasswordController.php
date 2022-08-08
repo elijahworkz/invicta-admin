@@ -24,7 +24,7 @@ class NewPasswordController extends Controller
         return Inertia::render('Invicta.ResetPassword', [
             'email' => $request->email,
             'token' => $request->route('token'),
-            'storeUrl' => route('invicta.password.update'),
+            'actionUrl' => route('invicta.password.update'),
         ]);
     }
 
