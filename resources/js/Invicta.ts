@@ -48,6 +48,7 @@ class Invicta
 			'Invicta.ResetPassword': () => import('./views/Auth/ResetPassword.vue'),
 			'Invicta.Home': () => import('./views/Home.vue'),
 			'Invicta.Resource': () => import('./views/ResourceIndex.vue'),
+			'Invicta.Resource.Create': () => import('./views/ResourceCreate.vue'),
 			'Invicta.Resource.Edit': () => import('./views/ResourceEdit.vue'),
 		}
 	}
@@ -81,8 +82,7 @@ class Invicta
 
 					return page
 				}
-			}),
-			checkComponent: (name: string) => this.$options[name]
+			})
 		})
 
 		this.app.use(plugin)

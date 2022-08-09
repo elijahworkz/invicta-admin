@@ -38,7 +38,7 @@ const fieldProps = props.data.props
 const resourceForm = useResourceForm()
 
 const titleField = props.data.titleField
-const relatedUrl = `/resource/${resourceForm.meta.slug}/relationship/${props.data.id}`
+const relatedUrl = `/resource/${resourceForm.meta.handle}/relationship/${props.data.id}`
 
 const relatedOptions = ref([])
 const relatedFromValue = ref([])

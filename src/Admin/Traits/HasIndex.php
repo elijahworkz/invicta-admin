@@ -58,7 +58,7 @@ trait HasIndex
             $query = $query->with($this->indexWith);
         }
 
-        $result = $query->orderBy($this->slug.'.'.$sortBy, $sortOrder)->paginate($perPage);
+        $result = $query->orderBy($this->handle().'.'.$sortBy, $sortOrder)->paginate($perPage);
 
         return $result->withQueryString();
     }

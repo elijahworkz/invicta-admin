@@ -21,7 +21,7 @@ class ResourceRequest extends InvictaRequest
         return $resourceClass->resourceModel($itemId);
     }
 
-    public function resource()
+    public function resourceList()
     {
         $resourceClass = $this->resourceClass();
         $resource = $resourceClass->resource();
@@ -35,8 +35,23 @@ class ResourceRequest extends InvictaRequest
                 ],
                 'columns' => $resourceClass->indexColumns(),
                 'table' => $resourceClass->indexTableSettings(),
-                'slug' => $resourceClass->slug,
+                'handle' => $resourceClass->handle(),
             ]);
+    }
+
+    public function createNew()
+    {
+        $resourceClass = $this->resourceClass();
+
+        return [
+            'meta' => [
+                'handle' => $resourceClass->handle(),
+                'indexUrl' => $resourceClass->route(),
+                'indexTitle' => $resourceClass->menuTitle(),
+                'title_field' => $resourceClass->itemTitle,
+            ],
+            'blueprint' => $resourceClass->getBlueprint(),
+        ];
     }
 
     public function resourceItem()
@@ -48,7 +63,9 @@ class ResourceRequest extends InvictaRequest
             'item' => $item,
             'meta' => [
                 'id' => $item->id,
-                'slug' => $resourceClass->slug,
+                'handle' => $resourceClass->handle(),
+                'indexUrl' => $resourceClass->route(),
+                'indexTitle' => $resourceClass->menuTitle(),
                 'title_field' => $resourceClass->itemTitle,
             ],
             'blueprint' => $resourceClass->getBlueprint(),
@@ -57,9 +74,35 @@ class ResourceRequest extends InvictaRequest
 
     public function resourceRelated()
     {
-        $resourceClass = $this->resourceClass();
-        $relationship = $this->route('related');
+        return $this->resourceClass()->relatedQuery($this->route('related'));
+    }
 
-        return $resourceClass->relatedQuery($relationship);
+    public function validate()
+    {
+        $resourceClass = $this->resourceClass();
+        $item = $this->resourceModel($resourceClass);
+        $canMassUpdate = count($item->getFillable());
+
+        $validated = request()->validate($resourceClass->validationRules());
+
+        foreach ($validated as $field => $value) {
+
+            // check if relationship
+            if (method_exists($item, $field)) {
+                // deal with relationship updates
+                $resourceClass->updateRelationship($item, $field, $value);
+                unset($validated[$field]);
+            }
+
+            if (! $canMassUpdate) {
+                $item[$field] = $value;
+            }
+        }
+
+        if (! $canMassUpdate) {
+            $item->save();
+        } else {
+            $item->update($validated);
+        }
     }
 }

@@ -34,6 +34,11 @@ trait CanEditItems
         return null;
     }
 
+    public function validationRules()
+    {
+        //
+    }
+
     public function relatedQuery($relationship)
     {
         $paginate = request()->query('paginate', false);
@@ -69,7 +74,7 @@ trait CanEditItems
                     'title' => $title,
                     'exclude' => $exclude,
                 ],
-                'slug' => $this->slug,
+                'handle' => $this->handle(),
             ]);
     }
 }
