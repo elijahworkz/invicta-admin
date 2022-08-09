@@ -6,7 +6,7 @@
 				<h1 class="mb-1">{{ resource.title }}</h1>
 				<Search :currentSearch="resource.meta.search"/>
 			</div>
-			<el-button type="primary" size="large">Create User</el-button>
+			<Link :href="`${resource.meta.path}/create`" class="el-button el-button--primary">Create new</Link>
 		</div>
 		<el-card body-style="padding: 0px">
 		<div class="flex items-center justify-start p-3">
@@ -25,15 +25,6 @@
 				:columns="resource.columns"
 				:edit-url="resource.meta.path"
 				@select="handleSelect" />
-		
-<!--  			<ResourceTable 
-				:rows="resource.data" 
-				:table-props="resource.table" 
-				:columns="resource.columns"
-				:sort-order="sortOrder"
-				:sort-by="sortBy"
-				:edit-url="resource.meta.path"
-				@select="handleSelect" /> -->
 
 		</el-card>
 					<div class="flex items-center justify-between pt-3">

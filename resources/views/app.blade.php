@@ -29,7 +29,8 @@
     <style>
         body {
             background: #f3f7fa;
-            color: #4a596a;
+            color: #3c4b5f;
+            overflow: hidden;
         }
         body:not(.app-ready) {
             padding: 0;

@@ -4,9 +4,9 @@
 			<svg width="12" viewBox="0 0 24 24"><circle cx="3" cy="12" r="3"/><circle cx="12" cy="12" r="3"/><circle cx="21" cy="12" r="3"/></svg>
 		</span>
 		<div class="actions-wrap">
-			<div class="action-buttons opacity-80">
-				<el-icon class="action-icon"><Edit/></el-icon>
-				<el-icon class="action-icon"><Delete/></el-icon>
+			<div class="action-buttons flex items-center">
+				<el-icon class="action-icon button" @click="$emit('edit', id)"><Edit/></el-icon>
+				<el-icon class="action-icon button" @click="$emit('delete', id)"><Delete/></el-icon>
 <!-- 				<el-button-group size="small">
 					<el-button text :icon="Edit" title="Edit" @click="$emit('action', { action: 'edit', id })" />
 					<el-button text :icon="Delete" title="Delete" @click="$emit('action', { action: 'delete', id })"/>

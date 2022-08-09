@@ -12,7 +12,7 @@
 			<div class="resource-actions">
 				<el-button-group>
 					<el-button type="primary" @click="submit" :disabled="resourceForm.form.processing">{{ postSubmitData.text }}</el-button>
-					<el-popover>
+					<el-popover title="After Saving">
 						<template #reference>
 							<el-button class="p-2" type="primary" :icon="postSubmitData.icon"></el-button>
 						</template>
@@ -67,7 +67,6 @@ import { useForm, usePage } from '@inertiajs/inertia-vue3'
 import { useResourceForm } from '@/services/form'
 import FormField from '@/components/form/FormField.vue'
 import { Back, ArrowLeft, Plus, ArrowDown } from '@element-plus/icons-vue'
-import pick from 'lodash/pick'
 
 const props = defineProps({
 	resource: Object
@@ -80,11 +79,11 @@ const postSubmitAction = ref('back')
 const postSubmitData = computed(() => {
 	switch (postSubmitAction.value) {
 		case 'back':
-			return { icon: ArrowLeft, text: 'Update & Back'}
+			return { icon: ArrowLeft, text: 'Save & Back'}
 		case 'stay':
-			return { icon: ArrowDown, text: 'Update & Stay'}
+			return { icon: ArrowDown, text: 'Save & Stay'}
 		case 'create':
-			return { icon: Plus, text: 'Update & New'}
+			return { icon: Plus, text: 'Save & New'}
 	}
 })
 
@@ -272,42 +271,6 @@ const blueprint_back = {
 		]
 	}
 }
-
-function getFields(fields) {
-
-	return fields.reduce((arr, item) => {
-
-		if (item.id) {
-			arr.push(item.id)
-			return arr
-		}
-		return arr
-	},[])
-}
-
-function parseBlueprint(blueprint) {
-
-	let fields = []
-	if (blueprint.fields) {
-		fields = getFields(blueprint.fields)
-	} 
-	if (blueprint.sidebar && blueprint.sidebar.fields) {
-		fields = [...fields, ...getFields(blueprint.sidebar.fields)]
-	}
-
-	if (blueprint.sections) {
-		blueprint.sections.forEach(section => {
-			if (section.fields) {
-				fields = [...fields, ...getFields(section.fields)]
-			}
-		})
-	}
-
-	return fields
-}
-
-const test = parseBlueprint(blueprint_back)
-console.log('trying to get fields', test)
 
 const hasSections = has(blueprint, 'sections')
 const activeTab = hasSections && blueprint.sections.length

@@ -12,7 +12,7 @@ class AuthPublishCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'invicta:auth';
+    protected $signature = 'invicta:auth {--group-only}';
 
     /**
      * The console command description.
@@ -28,16 +28,24 @@ class AuthPublishCommand extends Command
      */
     public function handle()
     {
-        $this->comment('Publishing Invicta Auth Migrations...');
-        $this->callSilent('vendor:publish', ['--tag' => 'invicta-auth']);
+        $groupOnly = $this->option('group-only');
 
-        $this->call('migrate');
+        if ($groupOnly) {
+            $this->comment('Creating super admin group');
+            $this->createSuperAdminGroup();
+            $this->info('Super admin group created.');
+        } else {
+            $this->comment('Publishing Invicta Auth Migrations...');
+            $this->callSilent('vendor:publish', ['--tag' => 'invicta-auth']);
 
-        $this->createSuperAdminGroup();
+            $this->call('migrate');
 
-        $this->info('Invicta successfully published migrations.');
-        $this->newLine(1);
-        $this->info('Please add `IsInvictaUser` trait to your User model.');
+            $this->createSuperAdminGroup();
+
+            $this->info('Invicta successfully published migrations.');
+            $this->newLine(1);
+            $this->info('Please add `IsInvictaUser` trait to your User model.');
+        }
     }
 
     protected function createSuperAdminGroup()

@@ -5,7 +5,6 @@ namespace Eteacher\InvictaAdmin\Admin\Menu;
 use BadMethodCallException;
 use Eteacher\InvictaAdmin\Admin\Traits\Makeable;
 use Eteacher\InvictaAdmin\InvictaAdmin;
-use Illuminate\Support\Str;
 
 class MenuItem
 {
@@ -105,13 +104,9 @@ class MenuItem
         //
         //
 
-        $url = $this->inertia
-            ? Str::start($this->url, config('invicta.path'))
-            : $this->url;
-
         return [
             'name' => $this->name,
-            'url' => $url,
+            'url' => $this->url,
             'icon' => $this->icon,
             'badge' => $this->badge,
             'inertia' => $this->inertia,

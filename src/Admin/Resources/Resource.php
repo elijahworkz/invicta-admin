@@ -5,13 +5,14 @@ namespace Eteacher\InvictaAdmin\Admin\Resources;
 use Eteacher\InvictaAdmin\Admin\Traits\CanEditItems;
 use Eteacher\InvictaAdmin\Admin\Traits\HasFilters;
 use Eteacher\InvictaAdmin\Admin\Traits\HasIndex;
+use Eteacher\InvictaAdmin\Admin\Traits\UpdatesRelationships;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 
 class Resource extends JsonResource
 {
-    use HasIndex, HasFilters, CanEditItems;
+    use HasIndex, HasFilters, CanEditItems, UpdatesRelationships;
 
     /**
      * The underlying resource model.
@@ -23,7 +24,7 @@ class Resource extends JsonResource
      *
      * @var string
      */
-    public $indexWith = '';
+    public $indexWith;
 
     /**
      * List of relationships that should be eager loaded on edit.
@@ -40,17 +41,17 @@ class Resource extends JsonResource
     public $menuTitle = null;
 
     /**
-     * The single value that should be used to represent the resource when being displayed.
+     * The column name that should be used to represent the resource when being displayed.
      *
      * @var string
      */
     public $itemTitle = 'id';
 
-    public $slug = 'base';
-
     public $icon = 'resource';
 
     public $search = [];
+
+    protected $handle = 'base';
 
     protected $routePrefix = '/resource/';
 
@@ -58,9 +59,14 @@ class Resource extends JsonResource
     {
     }
 
+    public function handle()
+    {
+        return $this->handle;
+    }
+
     public function route()
     {
-        return $this->routePrefix.$this->slug;
+        return Str::start($this->routePrefix.$this->handle(), config('invicta.path'));
     }
 
     public function icon()
