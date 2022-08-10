@@ -13,6 +13,16 @@ class ResourceController extends Controller
         return $request->resource();
     }
 
+    public function create(ResourceRequest $request)
+    {
+        return $request->createNew();
+    }
+
+    public function edit(ResourceRequest $request)
+    {
+        return $request->resourceItem();
+    }
+
     public function filters(ResourceRequest $request)
     {
         // we need to grab resource class
@@ -27,5 +37,10 @@ class ResourceController extends Controller
     public function related(ResourceRequest $request)
     {
         return $request->resourceRelated();
+    }
+
+    public function items(ResourceRequest $request)
+    {
+        return $request->resourceItems();
     }
 }

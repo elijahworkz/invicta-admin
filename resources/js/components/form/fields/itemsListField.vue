@@ -1,0 +1,42 @@
+<template>
+	<FieldBase :field-props="props" class="related-field">
+		<ItemsList
+			:list="listValue"
+			:sortable="true"
+			:items-url="itemsUrl"
+			:field-data="data"
+			:resource="data.resource"
+			:options="{ addItems: true, createItems: true, actions: ['edit', 'delete']}"
+			@updated="updateRelated"
+		/>
+	</FieldBase>
+</template>
+
+<script setup>
+import { ref, computed } from 'vue'
+import FieldBase from '@/components/form/FieldBase.vue'
+import ItemsList from '@/components/form/ItemsList.vue'
+import { useResourceForm } from '@/services/form'
+
+const resourceForm = useResourceForm()
+
+const props = defineProps({
+	data: Object,
+	path: String
+})
+
+// const encodedModel = btoa(JSON.stringify(props.data.model))
+const itemsUrl = `/resource/${props.data.resource}/items`
+
+/* Build list to display */
+const listValue = computed(() => {
+	return resourceForm.get(props.path, [])
+})
+
+
+/* Update related value and possibly elsewhere */
+function updateRelated(value) {
+	resourceForm.set(props.path, value)
+}
+
+</script>

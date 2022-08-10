@@ -1,11 +1,13 @@
 <template>
 	<div class="resource-table">
 		<el-table
+			ref="resourceTableRef"
 			:data="data"
 			v-bind="tableProps"
 			@select="$emit('select', $event)"
 			@select-all="$emit('select', $event)"
 			@sort-change="handleSortChange"
+			@row-click="handleRowClick"
 			:key="tableKey">
 			<el-table-column type="selection" fixed />
 
@@ -30,7 +32,7 @@
 				</template>
 
 				<template #default="scope">
-					<RowActions :id="scope.row.id" @edit="handleEdit" @delete="handleDelete" />
+					<RowActions :id="scope.row.id" :actions="['edit', 'delete']" @edit="handleEdit" @delete="handleDelete" />
 				</template>
 
 			</el-table-column>
@@ -56,6 +58,8 @@ const props = defineProps({
 	editUrl: String,
 })
 
+const resourceTableRef = ref()
+
 // Handle column setup and visibility
 const columnTree = map(props.columns, (item, index) => {
 	return { label: item.label, value: index, checked: item.hidden ? false : true }
@@ -71,6 +75,11 @@ const visibleColumns = computed(() => {
 // Handle sorting
 const handleSortChange = ({ prop, order }) => {
 	Invicta.emit('sort-change', { prop, order })
+}
+
+// Handle Row click
+const handleRowClick = (row, column, event) => {
+	resourceTableRef.value.toggleRowSelection(row, undefined)
 }
 
 // Handle Edit

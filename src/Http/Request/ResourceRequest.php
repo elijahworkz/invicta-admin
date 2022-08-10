@@ -16,9 +16,8 @@ class ResourceRequest extends InvictaRequest
     protected function resourceModel($resourceClass = null)
     {
         $resourceClass = $resourceClass ? $resourceClass : $this->resourceClass();
-        $itemId = $this->route('item');
 
-        return $resourceClass->resourceModel($itemId);
+        return $resourceClass->resourceModel($this->route('item'));
     }
 
     public function resourceList()
@@ -77,6 +76,11 @@ class ResourceRequest extends InvictaRequest
         return $this->resourceClass()->relatedQuery($this->route('related'));
     }
 
+    public function resourceItems()
+    {
+        return $this->resourceClass()->itemsQuery();
+    }
+
     public function validate()
     {
         $resourceClass = $this->resourceClass();
@@ -89,6 +93,7 @@ class ResourceRequest extends InvictaRequest
 
             // check if relationship
             if (method_exists($item, $field)) {
+
                 // deal with relationship updates
                 $resourceClass->updateRelationship($item, $field, $value);
                 unset($validated[$field]);

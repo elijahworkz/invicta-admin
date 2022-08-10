@@ -2,9 +2,10 @@
 
 namespace Eteacher\InvictaAdmin\Admin\Traits;
 
+use Eteacher\InvictaAdmin\Http\Resources\ResourceCollection;
 use Illuminate\Support\Facades\App;
 
-trait HasIndex
+trait ListsItems
 {
     /**
      * Overwrite these settings to customize index table
@@ -85,5 +86,47 @@ trait HasIndex
         self::decodeFilters($filters);
 
         return self::filteredQuery($query);
+    }
+
+    public function itemsQuery($query = null)
+    {
+        if (! $query) {
+            $query = App::make($this->model);
+        }
+
+        $paginate = request()->query('paginate', false);
+
+        $title = request()->query('title', 'title');
+
+        if ($search = request()->query('search', false)) {
+            $query = $query->where($title, 'like', '%'.$search.'%');
+        }
+
+        if (! $paginate) {
+            return $query->pluck($title, 'id');
+        }
+
+        $perPage = request()->query('per_page', 10);
+        $sortBy = request()->query('sort_by', 'id');
+        $sortBy = $sortBy == 'title' ? $title : $sortBy;
+        $sortOrder = request()->query('sort_order', 'desc');
+        $exclude = request()->query('exclude', []);
+
+        $result = $query
+            ->select('id', "{$title} as title", 'created_at')
+            ->whereNotIn('id', $exclude)
+            ->orderBy($sortBy, $sortOrder)
+            ->paginate($perPage)
+            ->withQueryString();
+
+        return ResourceCollection::collection($result)
+            ->additional([
+                'params' => [
+                    'paginate' => true,
+                    'title' => $title,
+                    'exclude' => $exclude,
+                ],
+                'handle' => $this->handle(),
+            ]);
     }
 }

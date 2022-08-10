@@ -4,7 +4,7 @@ namespace Eteacher\InvictaAdmin\Admin\Resources;
 
 use Eteacher\InvictaAdmin\Admin\Traits\CanEditItems;
 use Eteacher\InvictaAdmin\Admin\Traits\HasFilters;
-use Eteacher\InvictaAdmin\Admin\Traits\HasIndex;
+use Eteacher\InvictaAdmin\Admin\Traits\ListsItems;
 use Eteacher\InvictaAdmin\Admin\Traits\UpdatesRelationships;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\App;
@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 
 class Resource extends JsonResource
 {
-    use HasIndex, HasFilters, CanEditItems, UpdatesRelationships;
+    use ListsItems, HasFilters, CanEditItems, UpdatesRelationships;
 
     /**
      * The underlying resource model.

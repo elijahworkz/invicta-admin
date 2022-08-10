@@ -11,15 +11,11 @@ const path = require('path')
 export default defineConfig({
 	server: serverConfig,
 	plugins: [
-		laravel(['resources/js/main.ts']),
-		vue({
-			template: {
-				transformAssetsUrls: {
-					base: null,
-					includeAbsolute: false,
-				}
-			}
+		laravel({
+			input: ['resources/js/main.ts'],
+			buildDirectory: '/vendor/invicta/'
 		}),
+		vue(),
 		AutoImport({
 			resolvers: [ElementPlusResolver()],
 		}),
