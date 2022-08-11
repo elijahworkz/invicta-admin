@@ -16,5 +16,5 @@ Route::controller(ResourceController::class)->group(function () {
 
     Route::get('/test', function (Request $request) {
         return Inertia::render('Student');
-    });
+    })->name('test');
 });
