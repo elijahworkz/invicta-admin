@@ -39,7 +39,10 @@ class ResourceController extends Controller
 
         // should deal with redirects here
         if (request()->input('postSubmitAction') == 'back') {
-            return Redirect::route('invicta.resource.index', ['resource' => $handle])->with('message', 'Form updated');
+            return Redirect::route('invicta.resource.index', ['resource' => $handle])->with('message', [
+                'type' => 'success',
+                'title' => 'Updated',
+            ]);
         }
     }
 

@@ -14,9 +14,10 @@ import { Link } from '@inertiajs/inertia-vue3'
 import SvgIcon from '@/components/shared/SvgIcon.vue'
 import CheckTree from '@/components/shared/CheckTree.vue'
 import Drawer from '@/components/shared/Drawer.vue'
+import { ElNotification } from 'element-plus'
 import 'element-plus/es/components/message/style/index'
 import 'element-plus/es/components/notification/style/index'
-import 'element-plus/es/components/table-v2/style/index'
+
 
 // Layouts
 import MainLayout from '@/layouts/MainLayout.vue'
@@ -166,6 +167,10 @@ class Invicta
 	// Emits mitt events
 	emit(name: string, data?: unknown) {
 		this.eventBus.emit(name, data)
+	}
+
+	message(args: Object) {
+		ElNotification(args)
 	}
 
 	log(message: string, payload: any = null): void {
