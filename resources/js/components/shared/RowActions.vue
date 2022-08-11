@@ -5,12 +5,12 @@
 		</span>
 		<div class="actions-wrap">
 			<div class="action-buttons flex items-center">
-				<el-icon class="action-icon button" @click="$emit('edit', id)"><Edit/></el-icon>
-				<el-icon class="action-icon button" @click="$emit('delete', id)"><Delete/></el-icon>
-<!-- 				<el-button-group size="small">
-					<el-button text :icon="Edit" title="Edit" @click="$emit('action', { action: 'edit', id })" />
-					<el-button text :icon="Delete" title="Delete" @click="$emit('action', { action: 'delete', id })"/>
-				</el-button-group> -->
+				<el-icon 
+					v-for="action in actions"
+					class="action-icon button" 
+					@click="$emit(action, id)">
+						<component :is="actionIcon(action)"/>
+				</el-icon>
 			</div>
 		</div>
 	</div>
@@ -21,10 +21,20 @@ import { ref } from 'vue'
 import { Edit, Delete } from '@element-plus/icons-vue'
 
 defineProps({
-	id: Number
+	id: Number,
+	actions: Array
 })
 
 const open = ref(false)
+
+const actionIcon = (action) => {
+	switch (action) {
+		case 'edit':
+			return Edit
+		case 'delete':
+			return Delete
+	}
+}
 </script>
 
 <style lang="scss">

@@ -24,17 +24,17 @@ const align = (props, header = false) => props.boolean ? 'center' : (header ? pr
 </script>
 
 <style lang="scss">
-.icon-status {
-	border-radius: 7px;
-	display: inline-block;
-	height: 7px;
-	width: 7px;
-	flex-shrink: 0;
-	background: var(--color-light-back-darker); //#dde3e9;
+// .icon-status {
+// 	border-radius: 7px;
+// 	display: inline-block;
+// 	height: 7px;
+// 	width: 7px;
+// 	flex-shrink: 0;
+// 	background: var(--color-light-back-darker); //#dde3e9;
 
-	&.success {
-		background: var(--el-color-success)
-	}
+// 	&.success {
+// 		background: var(--el-color-success)
+// 	}
 
-}
+// }
 </style>
