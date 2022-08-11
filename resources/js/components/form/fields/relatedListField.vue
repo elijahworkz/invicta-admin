@@ -5,6 +5,8 @@
 			:sortable="sortable"
 			:items-url="relatedUrl"
 			:field-data="data"
+			:resource="relationship"
+			:options="{ addItems: false, createItems: true, actions: ['edit']}"
 			@updated="updateRelated"
 		/>
 	</FieldBase>
@@ -23,7 +25,6 @@ const props = defineProps({
 	path: String
 })
 
-const loading = ref(false)
 const relatedUrl = `/resource/${resourceForm.meta.handle}/relationship/${props.data.id}`
 const relationship = props.path.split('.').pop() // determine relationship from the path
 const sortable = props.path !== relationship // if path and relationsip don't match - probably needs sorting
@@ -37,7 +38,6 @@ const listValue = computed(() => {
 		let sortedList = sortedIds.map(id => related.find(item => item.id === id))
 		related = sortedList
 	}
-		console.log('I get some problem here', related)
 	return related
 })
 
@@ -53,10 +53,9 @@ function updateRelated(value) {
 </script>
 
 <style lang="scss">
-.related-field {
-	.el-select,
-	.items-stack {
-		width: 100%;
-	}
-}
+// .related-field {
+// 	.items-stack {
+// 		width: 100%;
+// 	}
+// }
 </style>

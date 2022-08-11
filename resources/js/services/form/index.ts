@@ -11,6 +11,7 @@ interface IResourceItem {
 export const useResourceForm = defineStore('resourceForm', {
 	state: () => {
 		return <IResourceItem>{
+			mode: 'create',
 			form: null,
 			data: null,
 			meta: {},
@@ -20,11 +21,12 @@ export const useResourceForm = defineStore('resourceForm', {
 	},
 	actions: {
 		init(resource: IResourceItem) {
-			this.data = resource.item
+			this.data = resource.item ? resource.item : null
 			this.meta = resource.meta
+			this.mode = this.data ? 'edit' : 'create'
 
 			let formData = this.prepareFields(resource.blueprint)
-			this.form = useForm(formData)
+			this.form = formData //useForm(formData)
 		},
 		isDirty() {
 			return this.dirty
@@ -100,7 +102,9 @@ export const useResourceForm = defineStore('resourceForm', {
 	},
 	getters: {
 		title(): string {
-			return get(this.form, this.meta.title_field)
+			return this.mode == 'edit'
+				? get(this.form, this.meta.title_field)
+				: `Create New`
 		},
 		id(): any {
 			return get(this.form, 'id')
@@ -108,16 +112,16 @@ export const useResourceForm = defineStore('resourceForm', {
 	}
 })
 
-// export function getAllFields(fields: any[]): object {
+export function getFields(fields: any[]): object {
 
-// 	return fields.reduce((obj, item) => {
-// 		if (item.fields) {
-// 			let nested = getAllFields(item.fields)
-// 			return {...obj, ...nested}
-// 		} else if (item.id) {
-// 			obj[item.id] = ''
-// 			return obj
-// 		}
-// 		return obj
-// 	},{})
-// }
+	return fields.reduce((obj, item) => {
+		if (item.fields) {
+			let nested = getFields(item.fields)
+			return {...obj, ...nested}
+		} else if (item.id) {
+			obj[item.id] = ''
+			return obj
+		}
+		return obj
+	},{})
+}

@@ -34,7 +34,7 @@ class ConsoleServiceProvider extends ServiceProvider
         ], 'invicta-config');
 
         $this->publishes([
-            __DIR__.'/../../public/build' => public_path('vendor/invicta'),
+            __DIR__.'/../../public/vendor' => public_path('vendor'),
         ], 'invicta-assets');
 
         if (! class_exists('CreateInvictaAuthTables')) {

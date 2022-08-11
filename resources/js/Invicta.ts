@@ -48,7 +48,7 @@ class Invicta
 			'Invicta.ResetPassword': () => import('./views/Auth/ResetPassword.vue'),
 			'Invicta.Home': () => import('./views/Home.vue'),
 			'Invicta.Resource': () => import('./views/ResourceIndex.vue'),
-			'Invicta.Resource.Create': () => import('./views/ResourceCreate.vue'),
+			'Invicta.Resource.Create': () => import('./views/ResourceEdit.vue'),
 			'Invicta.Resource.Edit': () => import('./views/ResourceEdit.vue'),
 		}
 	}
@@ -73,11 +73,20 @@ class Invicta
 				initialPage: JSON.parse(inertiaData),
 				titleCallback: (title: string) => `${title} - ${this.getConfig('appName')}`,
 				resolveComponent: async (name) => {
+					let page = this.pages[name]
 
-					const page = name.includes('Invicta.')
-						? (await this.pages[name]()).default
-						: this.pages[name]
+					if (typeof page === 'undefined') {
+						throw new Error(`Page not found: ${name}`)
+					}
+					// page = typeof page === 'function' ? page() : page
+					// const page = name.includes('Invicta.')
+					// 	? (await this.pages[name]()).default
+					// 	: this.pages[name]
 
+					page = typeof page === 'function'
+						? (await page()).default
+						: page
+						
 					page.layout ??= MainLayout
 
 					return page

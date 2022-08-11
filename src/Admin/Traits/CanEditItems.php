@@ -2,7 +2,6 @@
 
 namespace Eteacher\InvictaAdmin\Admin\Traits;
 
-use Eteacher\InvictaAdmin\Http\Resources\ResourceCollection;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
@@ -36,45 +35,55 @@ trait CanEditItems
 
     public function validationRules()
     {
-        //
+        $rules = [];
+
+        if ($blueprint = $this->getBlueprint()) {
+            if (isset($blueprint['fields'])) {
+                $rules = $this->parseFields($blueprint['fields'], 'parseValidation');
+            }
+
+            if (isset($blueprint['sidebar']) && isset($blueprint['sidebar']['fields'])) {
+                $rules = array_merge($rules, $this->parseFields($blueprint['sidebar']['fields'], 'parseValidation'));
+            }
+
+            if (isset($blueprint['sections'])) {
+                foreach ($blueprint['sections'] as $section) {
+                    if (isset($section['fields'])) {
+                        $rules = array_merge($rules, $this->parseFields($section['fields'], 'parseValidation'));
+                    }
+                }
+            }
+        }
+
+        return $rules;
+    }
+
+    private function parseValidation($field)
+    {
+        return isset($field['validation'])
+            ? $field['validation']
+            : 'nullable';
+    }
+
+    private function parseFields($fields, $callable)
+    {
+        $resourceFields = [];
+
+        return collect($fields)->reduce(function ($carry, $field) use ($callable) {
+            if (isset($field['id'])) {
+                $carry[$field['id']] = $this->$callable($field);
+
+                return $carry;
+            }
+
+            return $carry;
+        }, []);
     }
 
     public function relatedQuery($relationship)
     {
-        $paginate = request()->query('paginate', false);
-
-        $title = request()->query('title', 'title');
         $related = App::make($this->model)->$relationship()->getRelated();
 
-        if ($search = request()->query('search', false)) {
-            $related = $related->where($title, 'like', '%'.$search.'%');
-        }
-
-        if (! $paginate) {
-            return $related->pluck($title, 'id');
-        }
-
-        $perPage = request()->query('per_page', 10);
-        $sortBy = request()->query('sort_by', 'id');
-        $sortBy = $sortBy == 'title' ? $title : $sortBy;
-        $sortOrder = request()->query('sort_order', 'desc');
-        $exclude = request()->query('exclude', []);
-
-        $result = $related
-            ->select('id', "{$title} as title", 'created_at')
-            ->whereNotIn('id', $exclude)
-            ->orderBy($sortBy, $sortOrder)
-            ->paginate($perPage)
-            ->withQueryString();
-
-        return ResourceCollection::collection($result)
-            ->additional([
-                'params' => [
-                    'paginate' => true,
-                    'title' => $title,
-                    'exclude' => $exclude,
-                ],
-                'handle' => $this->handle(),
-            ]);
+        return $this->itemsQuery($related);
     }
 }
