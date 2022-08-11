@@ -3,6 +3,10 @@
 	<el-space direction="vertical">
 		<h1 class="app-branding-auth">{{ appName }}</h1>
 		<el-card class="auth-card">
+			<div class="mb-2" v-if="$page.props.flash.message">
+				<el-alert class="mb-4" :title="$page.props.flash.message" type="success" />
+			</div>
+
 			<el-form
 				:model="form"
 				label-position="top"

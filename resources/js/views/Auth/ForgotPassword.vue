@@ -11,8 +11,8 @@
 				<p>Enter your email address so we can send a reset password link.</p>
 			</header>
 
-			<div v-if="$page.props.flash.message" class="mb-4 font-medium text-sm text-green-600">
-				{{ $page.props.flash.message }}
+			<div v-if="$page.props.flash.message" class="mb-2">
+				<el-alert :title="$page.props.flash.message" type="success" />
 			</div>
 
 			<el-form
