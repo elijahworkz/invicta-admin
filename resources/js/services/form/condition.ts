@@ -4,9 +4,10 @@ import get from 'lodash/get'
 import isString from 'lodash/isString'
 import { IFormField } from '@/interfaces'
 
-const resourceForm = useResourceForm()
 
-export const useFieldCondition = (field: IFormField) => {
+export const useFieldCondition = (field: IFormField, formId: string) => {
+
+    const resourceForm = useResourceForm(formId)
 
     return computed(() => {
         let condition = get(field, 'if', null)

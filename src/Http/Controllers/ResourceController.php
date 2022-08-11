@@ -3,6 +3,7 @@
 namespace Eteacher\InvictaAdmin\Http\Controllers;
 
 use Eteacher\InvictaAdmin\Http\Request\ResourceRequest;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class ResourceController extends Controller
@@ -34,8 +35,12 @@ class ResourceController extends Controller
 
     public function update(ResourceRequest $request)
     {
-        // validate
-        $validated = $request->validate();
+        $handle = $request->resourceUpdate();
+
+        // should deal with redirects here
+        if (request()->input('postSubmitAction') == 'back') {
+            return Redirect::route('invicta.resource.index', ['resource' => $handle])->with('message', 'Form updated');
+        }
     }
 
     public function destroy(ResourceRequest $request)

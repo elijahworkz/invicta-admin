@@ -1,5 +1,5 @@
 <template>
-	<FieldBase :field-props="props" class="related-field">
+	<FieldBase :form-id="formId" :field-props="props" class="related-field">
 		<el-select
 			v-model="fieldValue"
 			valueKey="id"
@@ -25,6 +25,7 @@ import map from 'lodash/map'
 import get from 'lodash/get'
 
 const props = defineProps({
+	formId: String,
 	data: Object,
 	path: String
 })
@@ -35,7 +36,7 @@ const field = useFormField(props)
 const fieldValue = field.value([])
 const fieldProps = props.data.props
 
-const resourceForm = useResourceForm()
+const resourceForm = useResourceForm(props.formId)
 
 const titleField = props.data.titleField
 const relatedUrl = `/resource/${resourceForm.meta.handle}/relationship/${props.data.id}`

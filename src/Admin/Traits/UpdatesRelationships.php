@@ -9,9 +9,10 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 trait UpdatesRelationships
 {
-    public function updateRelationship($model, $relationship, $value)
+    public function updateRelationship($model, $related, $value)
     {
-        $type = $model->$relationship();
+        $relationship = $model->$related();
+        $foreignKey = $relationship->getForeignKeyName();
 
         // normalize the value into single array of ids or single id
         if (is_array($value)) {
@@ -22,14 +23,12 @@ trait UpdatesRelationships
                 })->all();
         }
 
-        if ($type instanceof HasOne) {
-            $foreignKey = $model->$relationship()->getForeignKeyName();
-            $model->$relationship()->update([$foreignKey => $value]);
+        if ($relationship instanceof HasOne) {
+            $relationship->update([$foreignKey => $value]);
         }
 
-        if ($type instanceof BelongsTo) {
-            $model->$relationship = $value;
-            $model->save();
+        if ($relationship instanceof BelongsTo) {
+            $model->$foreignKey = $value;
         }
 
         // We don't allow HasMany relationship to be updated this way
@@ -39,8 +38,8 @@ trait UpdatesRelationships
         //     $model->$relationship()->getRelated()->whereIn('id', $value)->update([$foreignKey => $model->id]);
         // }
 
-        if ($type instanceof BelongsToMany) {
-            $model->$relationship()->sync($value);
+        if ($relationship instanceof BelongsToMany) {
+            $relationship->sync($value);
         }
     }
 }

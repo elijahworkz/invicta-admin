@@ -41,12 +41,15 @@ class ResourceRequest extends InvictaRequest
     public function createNew()
     {
         $resourceClass = $this->resourceClass();
+        $handle = $resourceClass->handle();
 
         return [
             'meta' => [
-                'handle' => $resourceClass->handle(),
+                'handle' => $handle,
+                'actionUrl' => route('invicta.resource.store', ['resource' => $handle]),
                 'indexUrl' => $resourceClass->route(),
                 'indexTitle' => $resourceClass->menuTitle(),
+                'createTitle' => $resourceClass->createTitle(),
                 'title_field' => $resourceClass->itemTitle,
             ],
             'blueprint' => $resourceClass->getBlueprint(),
@@ -56,13 +59,15 @@ class ResourceRequest extends InvictaRequest
     public function resourceItem()
     {
         $resourceClass = $this->resourceClass();
-        $item = $this->resourceModel($resourceClass);
-        // return new $resourceClass($resourceClass->resourceItem($item));
+        $item = $resourceClass->resourceModel($this->route('item'));
+        $handle = $resourceClass->handle();
+
         return [
             'item' => $item,
             'meta' => [
                 'id' => $item->id,
-                'handle' => $resourceClass->handle(),
+                'handle' => $handle,
+                'actionUrl' => route('invicta.resource.update', ['resource' => $handle, 'item' => $item->id]),
                 'indexUrl' => $resourceClass->route(),
                 'indexTitle' => $resourceClass->menuTitle(),
                 'title_field' => $resourceClass->itemTitle,
@@ -81,10 +86,10 @@ class ResourceRequest extends InvictaRequest
         return $this->resourceClass()->itemsQuery();
     }
 
-    public function validate()
+    public function resourceUpdate()
     {
         $resourceClass = $this->resourceClass();
-        $item = $this->resourceModel($resourceClass);
+        $item = $resourceClass->resourceModel($this->route('item'), false);
         $canMassUpdate = count($item->getFillable());
 
         $validated = request()->validate($resourceClass->validationRules());
@@ -93,13 +98,9 @@ class ResourceRequest extends InvictaRequest
 
             // check if relationship
             if (method_exists($item, $field)) {
-
-                // deal with relationship updates
                 $resourceClass->updateRelationship($item, $field, $value);
                 unset($validated[$field]);
-            }
-
-            if (! $canMassUpdate) {
+            } elseif (! $canMassUpdate) {
                 $item[$field] = $value;
             }
         }
@@ -109,5 +110,7 @@ class ResourceRequest extends InvictaRequest
         } else {
             $item->update($validated);
         }
+
+        return $resourceClass->handle();
     }
 }

@@ -4,7 +4,7 @@
 			<SvgIcon :icon="mdiMenuOpen" />
 		</span>
 		<div class="app-branding">Invicta Admin</div>
-
+		{{ $page.props.flash.message }}
 		<div class="ml-auto">
 			<Link href="/admin/logout" method="post" as="button">Logout</Link>
 		</div>
