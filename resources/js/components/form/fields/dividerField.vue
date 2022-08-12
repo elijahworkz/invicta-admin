@@ -12,6 +12,7 @@ import get from 'lodash/get'
 import isString from 'lodash/isString'
 
 const props = defineProps({
+	formId: String,
 	data: Object,
 	path: String
 })

@@ -1,5 +1,5 @@
 <template>
-	<FieldBase :field-props="props" class="related-field">
+	<FieldBase :form-id="formId" :field-props="props" class="related-field">
 		<ItemsList
 			:list="listValue"
 			:sortable="sortable"
@@ -18,12 +18,13 @@ import FieldBase from '@/components/form/FieldBase.vue'
 import ItemsList from '@/components/form/ItemsList.vue'
 import { useResourceForm } from '@/services/form'
 
-const resourceForm = useResourceForm()
-
 const props = defineProps({
+	formId: String,
 	data: Object,
 	path: String
 })
+
+const resourceForm = useResourceForm(props.formId)
 
 const relatedUrl = `/resource/${resourceForm.meta.handle}/relationship/${props.data.id}`
 const relationship = props.path.split('.').pop() // determine relationship from the path
@@ -51,11 +52,3 @@ function updateRelated(value) {
 }
 
 </script>
-
-<style lang="scss">
-// .related-field {
-// 	.items-stack {
-// 		width: 100%;
-// 	}
-// }
-</style>

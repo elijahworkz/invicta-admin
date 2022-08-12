@@ -3,6 +3,7 @@
 namespace Eteacher\InvictaAdmin\Http\Controllers;
 
 use Eteacher\InvictaAdmin\Http\Request\ResourceRequest;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class ResourceController extends Controller
@@ -19,23 +20,39 @@ class ResourceController extends Controller
 
     public function create(ResourceRequest $request)
     {
-        return Inertia::render('Invicta.Resource.Create', ['resource' => $request->createNew()]);
+        return Inertia::render('Invicta.Resource.Create', ['resource' => $request->createItem()]);
     }
 
     public function edit(ResourceRequest $request)
     {
-        return Inertia::render('Invicta.Resource.Edit', ['resource' => $request->resourceItem()]);
+        return Inertia::render('Invicta.Resource.Edit', ['resource' => $request->editItem()]);
     }
 
-    public function store()
+    public function store(ResourceRequest $request)
     {
-        // code...
+        return $this->processItem($request, 'storeItem');
     }
 
     public function update(ResourceRequest $request)
     {
-        // validate
-        $validated = $request->validate();
+        return $this->processItem($request, 'updateItem');
+    }
+
+    protected function processItem($request, $action)
+    {
+        $handle = $request->$action();
+
+        $message = [
+            'type' => 'success',
+            'title' => $action == 'storeItem' ? 'Saved' : 'Updated',
+        ];
+
+        // should deal with redirects here
+        if (request()->input('postSubmitAction') == 'back') {
+            return Redirect::route('invicta.resource.index', ['resource' => $handle])->with('message', $message);
+        } else {
+            return Redirect::back()->with('message', $message);
+        }
     }
 
     public function destroy(ResourceRequest $request)

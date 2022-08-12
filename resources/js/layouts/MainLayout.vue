@@ -12,13 +12,26 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed, watch } from 'vue'
 import { Inertia } from '@inertiajs/inertia'
+import { usePage } from '@inertiajs/inertia-vue3'
 import Loading from '@/components/shared/Loading.vue'
 import Header from '@/components/app/Header.vue'
 import Sidebar from '@/components/app/Sidebar.vue'
 
 onMounted(() => document.body.classList.add('app-ready'))
+
+const notification = computed(() => usePage().props.value.flash.message)
+
+console.log(notification)
+
+watch(notification, (value) => {
+	Invicta.message({
+		type: value.type,
+		title: value.title,
+		message: value.message
+	})
+})
 
 const loading = ref(false)
 

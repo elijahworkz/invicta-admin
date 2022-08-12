@@ -2,7 +2,11 @@
 	<label class="el-form-item__label" v-if="!seamless">{{ label() }}</label>
 	<span class="info info-top" v-if="!seamless && info">{{ info }}</span>
 	<div :class="{'seamless': seamless}" class="group fieldset">
-		<FormField v-for="field in data.fields" :field-data="field" :data-path="groupPath(field.id)" />
+		<FormField 
+			v-for="field in data.fields" 
+			:form-id="formId" 
+			:field-data="field" 
+			:data-path="groupPath(field.id)" />
 	</div>
 </template>
 
@@ -11,6 +15,7 @@ import FormField from '@/components/form/FormField.vue'
 import { useFormField } from '@/services/form/field'
 
 const props = defineProps({
+	formId: String,
 	data: Object,
 	path: String
 })

@@ -1,5 +1,9 @@
 <template>
-	<FormField v-for="field in data.fields" :field-data="field" :data-path="fixedPath(field.id)" />
+	<FormField 
+		v-for="field in data.fields" 
+		:form-id="formId" 
+		:field-data="field" 
+		:data-path="fixedPath(field.id)" />
 </template>
 
 <script setup>
@@ -7,6 +11,7 @@ import { computed } from 'vue'
 import FormField from '@/components/form/FormField.vue'
 
 const props = defineProps({
+	formId: String,
 	data: Object,
 	path: String
 })

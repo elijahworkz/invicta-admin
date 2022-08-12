@@ -15,11 +15,12 @@
 import { useFormField } from '@/services/form/field'
 
 const props = defineProps({
+	formId: String,
 	fieldProps: Object
 })
 
 const { id } = props.fieldProps.data
-const field = useFormField(props.fieldProps)
+const field = useFormField(props.fieldProps, props.formId)
 
 const info = field.get('info', false)
 const infoPosition = field.get('info_position', 'top')

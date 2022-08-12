@@ -23,11 +23,6 @@ const drawerBody = ref(null)
 onMounted(() => show.value = true)
 
 onClickOutside(drawerBody, (event) => {
-	// console.log(event)
 	emit('close', true)
 })
 </script>
-
-<style lang="scss">
-
-</style>
