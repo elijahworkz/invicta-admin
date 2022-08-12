@@ -15,12 +15,12 @@ class ResourceController extends Controller
 
     public function create(ResourceRequest $request)
     {
-        return $request->createNew();
+        return $request->createItem();
     }
 
     public function edit(ResourceRequest $request)
     {
-        return $request->resourceItem();
+        return $request->editItem();
     }
 
     public function filters(ResourceRequest $request)

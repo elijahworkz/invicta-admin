@@ -98,13 +98,18 @@ class Resource extends JsonResource
         return $this->resource;
     }
 
-    public function resourceModel($id, $with = true)
+    public function findModel($id, $with = true)
     {
         if ($with && $this->editWith) {
-            return App::make($this->model)->where('id', $id)->with($this->editWith)->first();
+            return $this->model()->where('id', $id)->with($this->editWith)->first();
         }
 
-        return App::make($this->model)->find($id);
+        return $this->model()->find($id);
+    }
+
+    public function model()
+    {
+        return App::make($this->model);
     }
 
     public function toArray($request)

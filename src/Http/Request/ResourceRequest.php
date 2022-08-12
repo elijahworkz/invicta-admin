@@ -13,13 +13,6 @@ class ResourceRequest extends InvictaRequest
         return ResourceRegistrar::get($handle);
     }
 
-    protected function resourceModel($resourceClass = null)
-    {
-        $resourceClass = $resourceClass ? $resourceClass : $this->resourceClass();
-
-        return $resourceClass->resourceModel($this->route('item'));
-    }
-
     public function resourceList()
     {
         $resourceClass = $this->resourceClass();
@@ -38,7 +31,7 @@ class ResourceRequest extends InvictaRequest
             ]);
     }
 
-    public function createNew()
+    public function createItem()
     {
         $resourceClass = $this->resourceClass();
         $handle = $resourceClass->handle();
@@ -56,10 +49,10 @@ class ResourceRequest extends InvictaRequest
         ];
     }
 
-    public function resourceItem()
+    public function editItem()
     {
         $resourceClass = $this->resourceClass();
-        $item = $resourceClass->resourceModel($this->route('item'));
+        $item = $resourceClass->findModel($this->route('item'));
         $handle = $resourceClass->handle();
 
         return [
@@ -86,31 +79,45 @@ class ResourceRequest extends InvictaRequest
         return $this->resourceClass()->itemsQuery();
     }
 
-    public function resourceUpdate()
+    public function storeItem()
     {
         $resourceClass = $this->resourceClass();
-        $item = $resourceClass->resourceModel($this->route('item'), false);
-        $canMassUpdate = count($item->getFillable());
+        $item = $resourceClass->model();
 
+        $this->processItem($resourceClass, $item, 'update');
+
+        return $resourceClass->handle();
+    }
+
+    public function updateItem()
+    {
+        $resourceClass = $this->resourceClass();
+        $item = $resourceClass->findModel($this->route('item'), false);
+
+        $this->processItem($resourceClass, $item, 'update');
+
+        return $resourceClass->handle();
+    }
+
+    protected function processItem($resourceClass, $item, $action)
+    {
+        $massAssign = count($item->getFillable());
         $validated = request()->validate($resourceClass->validationRules());
 
         foreach ($validated as $field => $value) {
-
             // check if relationship
             if (method_exists($item, $field)) {
                 $resourceClass->updateRelationship($item, $field, $value);
                 unset($validated[$field]);
-            } elseif (! $canMassUpdate) {
+            } elseif (! $massAssign) {
                 $item[$field] = $value;
             }
         }
 
-        if (! $canMassUpdate) {
+        if (! $massAssign) {
             $item->save();
         } else {
-            $item->update($validated);
+            $item->$action($validated);
         }
-
-        return $resourceClass->handle();
     }
 }
