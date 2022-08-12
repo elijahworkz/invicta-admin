@@ -2,11 +2,31 @@
 	<el-form
 		class="invicta-form"
 		label-position="top">
-
 		<div class="flex items-end justify-between mb-4">
-			<slot name="form-title"/>
+			<div>
+				<Link v-if="breadcrumb"
+					:href="breadcrumb.url" 
+					class="breadcrumb">
+					<el-icon><ArrowLeft /></el-icon> {{ breadcrumb.text }}</Link>
+				<h1 class="mb-1">{{ resourceForm.title }}</h1>
+			</div>
 			<div class="resource-actions">
 				<slot name="form-actions"/>
+				<el-button-group>
+					<el-button 
+						type="primary" 
+						@click="submit"
+						:disabled="resourceForm.form.processing">{{ postSubmitData[postSubmitAction].button }}</el-button>
+					<el-popover title="After Saving" :teleported="false">
+						<template #reference>
+							<el-button type="primary" :icon="postSubmitData[postSubmitAction].icon"></el-button>
+						</template>
+						<el-radio-group v-model="postSubmitAction">
+							<el-radio v-for="action in postSubmitActions"
+								:label="action">{{ postSubmitData[action].option}}</el-radio>
+						</el-radio-group>
+					</el-popover>
+				</el-button-group>
 			</div>
 		</div>
 
@@ -22,13 +42,21 @@
 							:label="section.title"
 							:name="section.id">
 							<div class="fieldset" v-if="section.fields">
-								<FormField v-for="(field, index) in section.fields" :field-data="field" :data-path="field.id"/>
+								<FormField 
+									v-for="(field, index) in section.fields" 
+									:form-id="formId"
+									:field-data="field" 
+									:data-path="field.id"/>
 							</div>
 					</el-tab-pane>
 					</el-tabs>
 					<div v-else>
 						<div class="fieldset" v-if="blueprint.fields">
-							<FormField v-for="(field, index) in blueprint.fields" :field-data="field" :data-path="field.id"/>
+							<FormField 
+								v-for="(field, index) in blueprint.fields"
+								:form-id="formId"
+								:field-data="field" 
+								:data-path="field.id"/>
 						</div>
 					</div>
 				</el-card>
@@ -36,7 +64,11 @@
 			<el-col v-if="hasSidebar" :span="6">
 				<el-card>
 					<div class="fieldset" v-if="blueprint.sidebar.fields">
-						<FormField v-for="(field, index) in blueprint.sidebar.fields" :field-data="field" :data-path="field.id"/>
+						<FormField 
+							v-for="(field, index) in blueprint.sidebar.fields"
+							:form-id="formId"
+							:field-data="field" 
+							:data-path="field.id"/>
 					</div>
 				</el-card>
 			</el-col>
@@ -46,17 +78,55 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
+import { useResourceForm } from '@/services/form'
 import has from 'lodash/has'
 import FormField from './FormField.vue'
+import { ArrowLeft, Close, Plus, ArrowDown } from '@element-plus/icons-vue'
 
 const props = defineProps({
-	blueprint: Object
+	formId: String,
+	resource: Object,
+	breadcrumb: Object,
+	actionUrl: String,
+	postSubmitActions: {
+		type: Array,
+		default: ['back', 'edit', 'create']
+	}
 })
 
-const { blueprint } = props
+const resourceForm = useResourceForm(props.formId)
+resourceForm.init(props.resource, props.actionUrl)
+
+/* Layout setup */
+const { blueprint } = props.resource
 const hasSections = has(blueprint, 'sections')
 const activeTab = hasSections && blueprint.sections.length
 	? ref(blueprint.sections[0].id)
 	: null
 const hasSidebar = has(blueprint, 'sidebar');
+
+/* Post Submit options setup */
+const postSubmitAction = ref(props.postSubmitActions[0])
+const postSubmitData = {
+	back: { icon: ArrowLeft, button: 'Save & Back', option: 'Go back'},
+	close: { icon: Close, button: 'Save & Close', option: 'Close Form'},
+	edit: { icon: ArrowDown, button: 'Save & Stay', option: 'Continue Editing'},
+	create: { icon: Plus, button: 'Save & New', option: 'Add New Item'},
+}
+
+const submit = () => {
+	resourceForm.submit(postSubmitAction.value)
+}
 </script>
+
+<style lang="scss">
+.resource-actions {
+	.el-button-group {
+		.el-tooltip__trigger.el-button {
+			padding: 8px;
+			border-top-right-radius: var(--el-border-radius-base);
+			border-bottom-right-radius: var(--el-border-radius-base);
+		}
+	}
+}
+</style>

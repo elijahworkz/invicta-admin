@@ -86,6 +86,11 @@ class Resource extends JsonResource
             : Str::of($this->model)->classBasename()->plural();
     }
 
+    public function createTitle()
+    {
+        return Str::of($this->model)->classBasename()->prepend('New ');
+    }
+
     public function resource()
     {
         $this->resource = $this->indexQuery();
@@ -93,13 +98,18 @@ class Resource extends JsonResource
         return $this->resource;
     }
 
-    public function resourceModel($id)
+    public function findModel($id, $with = true)
     {
-        if ($this->editWith) {
-            return App::make($this->model)->where('id', $id)->with($this->editWith)->first();
+        if ($with && $this->editWith) {
+            return $this->model()->where('id', $id)->with($this->editWith)->first();
         }
 
-        return App::make($this->model)->find($id);
+        return $this->model()->find($id);
+    }
+
+    public function model()
+    {
+        return App::make($this->model);
     }
 
     public function toArray($request)

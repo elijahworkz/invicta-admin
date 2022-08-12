@@ -40,12 +40,12 @@
 			:request-url="itemsUrl"
 			:title-field="titleField"
 			@update="updateItems" 
-			@cancel="drawer = false" />
+			@cancel="drawer.state = false" />
 
-		<ResourceForm
+		<ItemsForm
 			v-if="drawer.context == 'form'"
 			:request-url="formUrl"
-			/>
+			@cancel="drawer.state = false" />
 	</Drawer>
 </template>
 
@@ -56,7 +56,7 @@ import DragHandle from '@/components/shared/DragHandle.vue'
 import RowActions from '@/components/shared/RowActions.vue'
 import ItemListItem from './ItemListItem.vue'
 import ItemsSelector from './ItemsSelector.vue'
-import ResourceForm from './ResourceForm.vue'
+import ItemsForm from './ItemsForm.vue'
 import { Plus, Link } from '@element-plus/icons-vue'
 
 const props = defineProps({

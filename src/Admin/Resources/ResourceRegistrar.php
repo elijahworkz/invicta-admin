@@ -10,7 +10,9 @@ class ResourceRegistrar
 
     public static function get($handle)
     {
-        return static::$items[$handle] ?? null;
+        return isset(static::$items[$handle])
+            ? static::$items[$handle]
+            : abort(404);
     }
 
     public static function put($handle, $resource)

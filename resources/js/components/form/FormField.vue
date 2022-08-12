@@ -1,6 +1,10 @@
 <template>
 	<FieldRow v-if="showField" :field-data="fieldData">
-		<component :is="fieldComponent" :data="fieldData" :path="dataPath"></component>
+		<component 
+			:is="fieldComponent" 
+			:form-id="formId"
+			:data="fieldData" 
+			:path="dataPath"/>
 	</FieldRow>
 </template>
 
@@ -10,13 +14,14 @@ import { useFieldCondition } from '@/services/form/condition'
 import FieldRow from '@/components/form/FieldRow.vue'
 
 const props = defineProps({
+	formId: String,
 	fieldData: Object,
 	dataPath: String
 })
 
 let fieldComponent = shallowRef('textField')
 
-const showField = useFieldCondition(props.fieldData)
+const showField = useFieldCondition(props.fieldData, props.formId)
 if (showField) {
 
 	if (Invicta.componentExists(props.fieldData.type)) {

@@ -1,14 +1,13 @@
 import { defineStore } from 'pinia'
 import get from 'lodash/get'
 import set from 'lodash/set'
-import { useForm, usePage } from '@inertiajs/inertia-vue3'
-import { isArray } from 'lodash'
+import { useForm } from '@inertiajs/inertia-vue3'
 
 interface IResourceItem {
 	[key: string]: any
 }
 
-export const useResourceForm = defineStore('resourceForm', {
+export const useResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 	state: () => {
 		return <IResourceItem>{
 			mode: 'create',
@@ -16,17 +15,19 @@ export const useResourceForm = defineStore('resourceForm', {
 			data: null,
 			meta: {},
 			blueprint: {},
+			actionUrl: null,
 			dirty: false
 		}
 	},
 	actions: {
-		init(resource: IResourceItem) {
+		init(resource: IResourceItem, actionUrl: string) {
 			this.data = resource.item ? resource.item : null
 			this.meta = resource.meta
 			this.mode = this.data ? 'edit' : 'create'
+			this.actionUrl = actionUrl
 
 			let formData = this.prepareFields(resource.blueprint)
-			this.form = formData //useForm(formData)
+			this.form = useForm(formData)
 		},
 		isDirty() {
 			return this.dirty
@@ -66,8 +67,6 @@ export const useResourceForm = defineStore('resourceForm', {
 					if (item.fields) {
 						// check for related fields nested into other fields
 						let nested = getRelatedField(item.fields)
-						console.log('got nested', nested, {...obj, ...nested})
-
 						return {...obj, ...nested}
 					} else if (item.id) {
 						let value = this.data
@@ -98,19 +97,33 @@ export const useResourceForm = defineStore('resourceForm', {
 			}
 
 			return fields			
+		},
+		submit(postSubmitAction: string) {
+			this.form
+				.transform((data) => ({
+					...data,
+					postSubmitAction,
+				}))
+				.post(this.actionUrl, {
+					onSuccess: () => {
+						if (postSubmitAction == 'create') {
+							this.form.reset()
+						}
+					}
+				})
 		}
 	},
 	getters: {
 		title(): string {
 			return this.mode == 'edit'
 				? get(this.form, this.meta.title_field)
-				: `Create New`
+				: this.meta.createTitle
 		},
 		id(): any {
 			return get(this.form, 'id')
 		},
 	}
-})
+})()
 
 export function getFields(fields: any[]): object {
 

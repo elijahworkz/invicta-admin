@@ -26,8 +26,7 @@
 				:edit-url="resource.meta.path"
 				@select="handleSelect" />
 
-		</el-card>
-					<div class="flex items-center justify-between pt-3">
+					<div class="flex items-center justify-between p-3 mt-2">
 				<div>Total: <strong>{{ resource.meta.total }}</strong></div>
 				<el-pagination 
 					background 
@@ -40,6 +39,7 @@
 					@update:current-page="changePage"
 				/>
 			</div>
+		</el-card>
 	</div>
 </template>
 

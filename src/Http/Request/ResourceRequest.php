@@ -13,13 +13,6 @@ class ResourceRequest extends InvictaRequest
         return ResourceRegistrar::get($handle);
     }
 
-    protected function resourceModel($resourceClass = null)
-    {
-        $resourceClass = $resourceClass ? $resourceClass : $this->resourceClass();
-
-        return $resourceClass->resourceModel($this->route('item'));
-    }
-
     public function resourceList()
     {
         $resourceClass = $this->resourceClass();
@@ -38,31 +31,36 @@ class ResourceRequest extends InvictaRequest
             ]);
     }
 
-    public function createNew()
+    public function createItem()
     {
         $resourceClass = $this->resourceClass();
+        $handle = $resourceClass->handle();
 
         return [
             'meta' => [
-                'handle' => $resourceClass->handle(),
+                'handle' => $handle,
+                'actionUrl' => route('invicta.resource.store', ['resource' => $handle]),
                 'indexUrl' => $resourceClass->route(),
                 'indexTitle' => $resourceClass->menuTitle(),
+                'createTitle' => $resourceClass->createTitle(),
                 'title_field' => $resourceClass->itemTitle,
             ],
             'blueprint' => $resourceClass->getBlueprint(),
         ];
     }
 
-    public function resourceItem()
+    public function editItem()
     {
         $resourceClass = $this->resourceClass();
-        $item = $this->resourceModel($resourceClass);
-        // return new $resourceClass($resourceClass->resourceItem($item));
+        $item = $resourceClass->findModel($this->route('item'));
+        $handle = $resourceClass->handle();
+
         return [
             'item' => $item,
             'meta' => [
                 'id' => $item->id,
-                'handle' => $resourceClass->handle(),
+                'handle' => $handle,
+                'actionUrl' => route('invicta.resource.update', ['resource' => $handle, 'item' => $item->id]),
                 'indexUrl' => $resourceClass->route(),
                 'indexTitle' => $resourceClass->menuTitle(),
                 'title_field' => $resourceClass->itemTitle,
@@ -81,33 +79,45 @@ class ResourceRequest extends InvictaRequest
         return $this->resourceClass()->itemsQuery();
     }
 
-    public function validate()
+    public function storeItem()
     {
         $resourceClass = $this->resourceClass();
-        $item = $this->resourceModel($resourceClass);
-        $canMassUpdate = count($item->getFillable());
+        $item = $resourceClass->model();
 
+        $this->processItem($resourceClass, $item, 'update');
+
+        return $resourceClass->handle();
+    }
+
+    public function updateItem()
+    {
+        $resourceClass = $this->resourceClass();
+        $item = $resourceClass->findModel($this->route('item'), false);
+
+        $this->processItem($resourceClass, $item, 'update');
+
+        return $resourceClass->handle();
+    }
+
+    protected function processItem($resourceClass, $item, $action)
+    {
+        $massAssign = count($item->getFillable());
         $validated = request()->validate($resourceClass->validationRules());
 
         foreach ($validated as $field => $value) {
-
             // check if relationship
             if (method_exists($item, $field)) {
-
-                // deal with relationship updates
                 $resourceClass->updateRelationship($item, $field, $value);
                 unset($validated[$field]);
-            }
-
-            if (! $canMassUpdate) {
+            } elseif (! $massAssign) {
                 $item[$field] = $value;
             }
         }
 
-        if (! $canMassUpdate) {
+        if (! $massAssign) {
             $item->save();
         } else {
-            $item->update($validated);
+            $item->$action($validated);
         }
     }
 }

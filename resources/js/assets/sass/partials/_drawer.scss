@@ -20,13 +20,11 @@
 			box-shadow: var(--el-box-shadow-dark);
 			overflow: hidden;
 			transition: all var(--el-transition-duration);
-			background: #fff;
+			background: var(--color-primary-back);
 
 			main {
 				overflow: hidden;
 				flex: 1;
-				border-top: 1px solid var(--el-border-color-lighter);
-				border-bottom: 1px solid var(--el-border-color-lighter);
 			}
 		}
 

@@ -1,5 +1,5 @@
 <template>
-	<FieldBase :field-props="props" class="related-field">
+	<FieldBase :form-id="formId" :field-props="props" class="related-field">
 		<ItemsList
 			:list="listValue"
 			:sortable="true"
@@ -18,12 +18,14 @@ import FieldBase from '@/components/form/FieldBase.vue'
 import ItemsList from '@/components/form/ItemsList.vue'
 import { useResourceForm } from '@/services/form'
 
-const resourceForm = useResourceForm()
 
 const props = defineProps({
+	formId: String,
 	data: Object,
 	path: String
 })
+
+const resourceForm = useResourceForm(props.formId)
 
 // const encodedModel = btoa(JSON.stringify(props.data.model))
 const itemsUrl = `/resource/${props.data.resource}/items`
