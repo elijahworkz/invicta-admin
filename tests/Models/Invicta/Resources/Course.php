@@ -5,29 +5,23 @@ namespace Eteacher\InvictaAdmin\Tests\Models\Invicta\Resources;
 use Eteacher\InvictaAdmin\Admin\Components\Column;
 use Eteacher\InvictaAdmin\Admin\Resources\Resource;
 
-class Student extends Resource
+class Course extends Resource
 {
     /**
      * The underlying resource model.
      */
-    public $model = 'Eteacher\InvictaAdmin\Tests\Models\Student';
+    public $model = 'Eteacher\InvictaAdmin\Tests\Models\Course';
 
-    public $title = 'Students';
+    public $title = 'Courses';
 
-    public $slug = 'students';
+    public $slug = 'courses';
 
-    protected $handle = 'students';
-
-    public $icon = 'users';
-
-    public $search = ['email'];
-
-    public $eagerLoad = '';
+    protected $handle = 'courses';
 
     public function indexResource($request, $fluent = false)
     {
         return [
-            'email' => $this->email,
+            'title' => $this->title,
             'created_at' => $this->created_at,
         ];
     }
@@ -35,7 +29,6 @@ class Student extends Resource
     public function columns()
     {
         return [
-            'email' => Column::make('Email')->resizable(true)->align('center'),
             'created_at' => Column::make('Date')->width(120)->sortable(true),
         ];
     }

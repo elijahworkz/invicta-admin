@@ -29,6 +29,11 @@ class Student extends Authenticatable
         'password',
     ];
 
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class)->withPivot('status')->withTimestamps();
+    }
+
     protected static function newFactory()
     {
         return StudentFactory::new();

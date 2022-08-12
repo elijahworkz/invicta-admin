@@ -3,12 +3,14 @@
 namespace Eteacher\InvictaAdmin\Tests;
 
 use Eteacher\InvictaAdmin\InvictaServiceProvider;
+use Eteacher\InvictaAdmin\Providers\InvictaBaseServiceProvider;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {
     protected function getPackageProviders($app)
     {
         return [
+            InvictaBaseServiceProvider::class,
             InvictaServiceProvider::class,
         ];
     }

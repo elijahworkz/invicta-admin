@@ -2,7 +2,6 @@
 
 namespace Eteacher\InvictaAdmin\Tests\Models;
 
-use Eteacher\InvictaAdmin\Admin\Traits\IsInvictaUser;
 use Eteacher\InvictaAdmin\Tests\Models\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -10,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, IsInvictaUser;
+    use HasFactory, Notifiable;
     /**
      * The attributes that are mass assignable.
      *

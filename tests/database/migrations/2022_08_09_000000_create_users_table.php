@@ -18,32 +18,33 @@ return new class extends Migration {
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->integer('faculty_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
 
-        //		$tables = config('invicta.auth_tables');
-//
-        //		Schema::create($tables['groups'], function (Blueprint $table) {
-        //			$table->id();
-        //			$table->string('name');
-        //			$table->string('title');
-        //			$table->boolean('is_super')->default(false);
-        //			$table->timestamps();
-        //		});
-//
-        //		Schema::create($tables['group_user'], function (Blueprint $table) use ($tables) {
-        //			$table->foreignId('user_id')->constrained()->onDelete('cascade');
-        //			$table->foreignId('group_id')->constrained($tables['groups'])->onDelete('cascade');
-        //			$table->primary(['user_id', 'group_id']);
-        //		});
-//
-        //		Schema::create($tables['permissions'], function (Blueprint $table) use ($tables) {
-        //			$table->id();
-        //			$table->foreignId('group_id')->contrained($tables['groups'])->onDelete('cascade');
-        //			$table->string('ability');
-        //			$table->timestamps();
-        //		});
+        $tables = config('invicta.auth_tables');
+
+        Schema::create($tables['groups'], function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('title');
+            $table->boolean('is_super')->default(false);
+            $table->timestamps();
+        });
+
+        Schema::create($tables['group_user'], function (Blueprint $table) use ($tables) {
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('group_id')->constrained($tables['groups'])->onDelete('cascade');
+            $table->primary(['user_id', 'group_id']);
+        });
+
+        Schema::create($tables['permissions'], function (Blueprint $table) use ($tables) {
+            $table->id();
+            $table->foreignId('group_id')->contrained($tables['groups'])->onDelete('cascade');
+            $table->string('ability');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -54,9 +55,9 @@ return new class extends Migration {
     public function down()
     {
         Schema::dropIfExists('users');
-        //		$tables = config('invicta.auth_tables');
-        //		Schema::dropIfExists($tables['groups']);
-        //		Schema::dropIfExists($tables['group_user']);
-        //		Schema::dropIfExists($tables['permissions']);
+        $tables = config('invicta.auth_tables');
+        Schema::dropIfExists($tables['groups']);
+        Schema::dropIfExists($tables['group_user']);
+        Schema::dropIfExists($tables['permissions']);
     }
 };
