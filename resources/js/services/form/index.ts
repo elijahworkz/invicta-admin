@@ -14,7 +14,6 @@ export const useResourceForm = (id: string) => defineStore(`resourceForm-${id}`,
 			form: null,
 			data: null,
 			meta: {},
-			blueprint: {},
 			actionUrl: null,
 			dirty: false
 		}
@@ -64,18 +63,24 @@ export const useResourceForm = (id: string) => defineStore(`resourceForm-${id}`,
 
 			const getFields = (fields: any[]): object => {
 				return fields.reduce((obj, item) => {
-					if (item.fields) {
-						// check for related fields nested into other fields
-						let nested = getRelatedField(item.fields)
-						return {...obj, ...nested}
-					} else if (item.id) {
+					if (item.id) {
 						let value = this.data
-							? get(this.data, item.id)
+							? (item.id in this.data ? this.data[item.id] : null)
 							: null
 
+
 						obj[item.id] = value
+
+						if (item.fields) {
+							// check for related fields nested into other fields
+							let nested = getRelatedField(item.fields)
+							console.log('got something', nested)
+							obj = {...obj, ...nested}
+						}
 						return obj
 					}
+
+
 					return obj
 				},{})
 			}
