@@ -34,11 +34,11 @@ const loading = ref(false)
 
 const field = useFormField(props)
 const fieldValue = field.value([])
-const fieldProps = props.data.props
 
 const resourceForm = useResourceForm(props.formId)
 
-const titleField = props.data.titleField
+const titleField = get(props.data, 'titleField', 'title')
+const remote = get(props.data, 'remote', false)
 const relatedUrl = `/resource/${resourceForm.meta.handle}/relationship/${props.data.id}`
 
 const relatedOptions = ref([])
@@ -46,7 +46,7 @@ const relatedFromValue = ref([])
 
 onMounted(() => {
 	
-	if (fieldProps.remote) {
+	if (remote) {
 
 		relatedFromValue.value = relatedOptions.value = map(fieldValue.value, (item) => {
 			return { key: item.id, value: { id: item.id, name: item[titleField] }, label: item[titleField] }

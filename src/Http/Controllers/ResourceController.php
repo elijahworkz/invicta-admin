@@ -30,27 +30,28 @@ class ResourceController extends Controller
 
     public function store(ResourceRequest $request)
     {
-        $handle = $request->storeItem();
-
-        // should deal with redirects here
-        if (request()->input('postSubmitAction') == 'back') {
-            return Redirect::route('invicta.resource.index', ['resource' => $handle])->with('message', [
-                'type' => 'success',
-                'title' => 'Saved',
-            ]);
-        }
+        return $this->processItem($request, 'storeItem');
     }
 
     public function update(ResourceRequest $request)
     {
-        $handle = $request->updateItem();
+        return $this->processItem($request, 'updateItem');
+    }
+
+    protected function processItem($request, $action)
+    {
+        $handle = $request->$action();
+
+        $message = [
+            'type' => 'success',
+            'title' => $action == 'storeItem' ? 'Saved' : 'Updated',
+        ];
 
         // should deal with redirects here
         if (request()->input('postSubmitAction') == 'back') {
-            return Redirect::route('invicta.resource.index', ['resource' => $handle])->with('message', [
-                'type' => 'success',
-                'title' => 'Updated',
-            ]);
+            return Redirect::route('invicta.resource.index', ['resource' => $handle])->with('message', $message);
+        } else {
+            return Redirect::back()->with('message', $message);
         }
     }
 

@@ -28,7 +28,3 @@ watch(() => props.disabled, (disabled) => {
 	}
 })
 </script>
-
-<style lang="scss">
-
-</style>

@@ -3,8 +3,10 @@
 namespace Eteacher\InvictaAdmin\Admin\Menu;
 
 use BadMethodCallException;
+use Eteacher\InvictaAdmin\Admin\Resources\ResourceRegistrar;
 use Eteacher\InvictaAdmin\Admin\Traits\Makeable;
 use Eteacher\InvictaAdmin\InvictaAdmin;
+use Illuminate\Support\Facades\App;
 
 class MenuItem
 {
@@ -28,6 +30,9 @@ class MenuItem
 
     protected $resource = false;
 
+    /**
+     *  Make new Menu Item.
+     */
     public function __construct(public $name)
     {
     }
@@ -82,11 +87,25 @@ class MenuItem
         return $this;
     }
 
-    public function resource()
+    public static function resource($resourceClass)
+    {
+        $resource = App::make($resourceClass);
+        ResourceRegistrar::put($resource->handle(), $resource);
+
+        return (new static($resource->menuTitle()))
+            ->route($resource->route())
+            ->icon($resource->icon())
+            ->badge($resource->badge());
+    }
+
+    public function resourceTest($resourceClass)
     {
         $this->resource = true;
 
-        return $this;
+        return self::make($resource->menuTitle())
+            ->route($resource->route())
+            ->icon($resource->icon())
+            ->badge($resource->badge());
     }
 
     public function children(array $items)
