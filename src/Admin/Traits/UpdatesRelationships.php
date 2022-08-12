@@ -9,10 +9,11 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 trait UpdatesRelationships
 {
+    protected $syncItems = [];
+
     public function updateRelationship($model, $related, $value)
     {
         $relationship = $model->$related();
-        $foreignKey = $relationship->getForeignKeyName();
 
         // normalize the value into single array of ids or single id
         if (is_array($value)) {
@@ -23,11 +24,12 @@ trait UpdatesRelationships
                 })->all();
         }
 
-        if ($relationship instanceof HasOne) {
-            $relationship->update([$foreignKey => $value]);
-        }
+        // if ($relationship instanceof HasOne) {
+        //     $relationship->update([$foreignKey => $value]);
+        // }
 
         if ($relationship instanceof BelongsTo) {
+            $foreignKey = $relationship->getForeignKeyName();
             $model->$foreignKey = $value;
         }
 
@@ -39,7 +41,16 @@ trait UpdatesRelationships
         // }
 
         if ($relationship instanceof BelongsToMany) {
-            $relationship->sync($value);
+            $this->syncItems[$related] = [$relationship, $value];
+        }
+    }
+
+    public function syncRelationship()
+    {
+        foreach ($this->syncItems as [$relationship, $value]) {
+            if ($relationship instanceof BelongsToMany) {
+                $relationship->sync($value);
+            }
         }
     }
 }

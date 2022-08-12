@@ -1,7 +1,7 @@
 .invicta-form {
 	max-width: 1060px;
 	margin: 0 auto;
-	
+
 	.el-card__body {
 		padding: 20px 0;
 	}
@@ -89,5 +89,19 @@
 	.inline-fields {
 		display: flex;
 		gap: 20px;
+	}
+}
+
+/* Field Adjustments */
+.el-form-item {
+
+	&.inline-label {
+		display: flex !important;
+		align-items: center;
+		justify-content: space-between;
+
+		.el-form-item__label {
+			margin-bottom: 0 !important;
+		}
 	}
 }

@@ -1,7 +1,7 @@
 <template>
 	<el-form
 		class="invicta-form"
-		label-position="top">
+		v-bind="formSettings">
 		<div class="flex items-end justify-between mb-4">
 			<div>
 				<Link v-if="breadcrumb"
@@ -80,6 +80,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useResourceForm } from '@/services/form'
 import has from 'lodash/has'
+import get from 'lodash/get'
 import FormField from './FormField.vue'
 import { ArrowLeft, Close, Plus, ArrowDown } from '@element-plus/icons-vue'
 
@@ -99,6 +100,8 @@ resourceForm.init(props.resource, props.actionUrl)
 
 /* Layout setup */
 const { blueprint } = props.resource
+const formSettings = get(blueprint.settings, 'form', {'label-position': 'top'})
+
 const hasSections = has(blueprint, 'sections')
 const activeTab = hasSections && blueprint.sections.length
 	? ref(blueprint.sections[0].id)

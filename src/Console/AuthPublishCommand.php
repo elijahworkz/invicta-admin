@@ -53,7 +53,7 @@ class AuthPublishCommand extends Command
         $groupTable = config('invicta.auth_tables.groups');
 
         DB::table($groupTable)->insert([
-            'name' => 'super_admin',
+            'handle' => 'super_admin',
             'title' => 'Super Admins',
             'is_super' => true,
         ]);
