@@ -5,7 +5,7 @@
 			valueKey="id"
 			:remote-method="getRemote"
 			:loading="loading"
-			v-bind="fieldProps">
+			v-bind="data.props">
 				<el-option
 					v-for="item in relatedOptions"
 					:key="item.key"

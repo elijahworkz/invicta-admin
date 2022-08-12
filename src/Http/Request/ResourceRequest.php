@@ -84,7 +84,7 @@ class ResourceRequest extends InvictaRequest
         $resourceClass = $this->resourceClass();
         $item = $resourceClass->model();
 
-        $this->processItem($resourceClass, $item, 'update');
+        $this->processItem($resourceClass, $item, 'create');
 
         return $resourceClass->handle();
     }
@@ -119,5 +119,8 @@ class ResourceRequest extends InvictaRequest
         } else {
             $item->$action($validated);
         }
+
+        // We run sync after saving to ensure that we have Ids
+        $resourceClass->syncRelationship();
     }
 }

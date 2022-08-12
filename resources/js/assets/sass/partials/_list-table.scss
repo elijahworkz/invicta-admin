@@ -25,6 +25,15 @@ $action-icon-size: 18px;
 		}
 	}
 
+	img {
+		max-width: 100%;
+		height: auto;
+
+		&.avatar {
+			width: 2rem;
+			height: 2rem;
+		}
+	}
 }
 
 .resource-table,

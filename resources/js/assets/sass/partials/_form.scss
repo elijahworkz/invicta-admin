@@ -1,7 +1,7 @@
 .invicta-form {
 	max-width: 1060px;
 	margin: 0 auto;
-	
+
 	.el-card__body {
 		padding: 20px 0;
 	}
@@ -92,14 +92,16 @@
 	}
 }
 
+/* Field Adjustments */
 .el-form-item {
-	&.justify-center {
-		.el-form-item__content {
-			justify-content: center;
+
+	&.inline-label {
+		display: flex !important;
+		align-items: center;
+		justify-content: space-between;
+
+		.el-form-item__label {
+			margin-bottom: 0 !important;
 		}
 	}
-}
-
-.auth-card {
-	width: 400px;
 }

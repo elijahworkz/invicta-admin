@@ -23,14 +23,14 @@ onMounted(() => document.body.classList.add('app-ready'))
 
 const notification = computed(() => usePage().props.value.flash.message)
 
-console.log(notification)
-
 watch(notification, (value) => {
-	Invicta.message({
-		type: value.type,
-		title: value.title,
-		message: value.message
-	})
+	if (value) {
+		Invicta.message({
+			type: 'type' in value ? value.type : 'info',
+			title: 'title' in value ? value.title : null,
+			message: 'message' in value ? value.message : null
+		})
+	}
 })
 
 const loading = ref(false)
