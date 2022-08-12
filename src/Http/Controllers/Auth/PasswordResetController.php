@@ -18,7 +18,7 @@ class PasswordResetController extends Controller
     public function create()
     {
         return Inertia::render('Invicta.ForgotPassword', [
-            'status' => session('status'),
+            'actionUrl' => route('invicta.password.email'),
         ]);
     }
 
@@ -44,7 +44,7 @@ class PasswordResetController extends Controller
         );
 
         if ($status == Password::RESET_LINK_SENT) {
-            return back()->with('status', __($status));
+            return back()->with('message', __($status));
         }
 
         throw ValidationException::withMessages([
