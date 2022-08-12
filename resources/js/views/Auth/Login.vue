@@ -1,35 +1,42 @@
 <template>
 	<Head title="Login"/>
-	
-	<el-form
-		ref="loginForm"
-		:model="form"
-		:rules="rules"
-		label-position="top"
-		status-icon
-	>
-		<el-form-item label="Email" prop="email">
-			<el-input v-model="form.email" />
-		</el-form-item>
+	<el-space direction="vertical">
+		<h1 class="app-branding-auth">{{ appName }}</h1>
+		<el-card class="auth-card">
+			<div class="mb-2" v-if="$page.props.flash.message">
+				<el-alert class="mb-4" :title="$page.props.flash.message" type="success" />
+			</div>
 
-		<el-form-item label="Password" prop="password">
-			<el-input type="password" v-model="form.password" show-password />
-		</el-form-item>
+			<el-form
+				:model="form"
+				label-position="top"
+				@submit.prevent="submit"
+			>
+				<el-form-item label="Email" prop="email">
+					<el-input v-model="form.email" autofocus autocomplete="username"/>
+					<div class="el-form-item__error" v-if="form.errors.email" v-text="form.errors.email"></div>
+				</el-form-item>
 
-		<el-form-item label="Remember me">
-			<el-checkbox v-model="remember" />
-		</el-form-item>
 
-		<div v-if="form.errors.email" v-text="form.errors.email" class="text-crimson"></div>
+				<el-form-item label="Password" prop="password">
+					<el-input type="password" v-model="form.password" show-password autocomplete="current-password"/>
+					<div class="el-form-item__error" v-if="form.errors.password" v-text="form.errors.password"></div>
+				</el-form-item>
 
-		<div class="flex items-center justify-end mt-4">
-			<Link v-if="resetUrl" :href="resetUrl" class="underline text-sm text-gray-600 hover:text-gray-900">Forgot your password?</Link>
 
-			<el-form-item>
-				<el-button @click="submit(loginForm)">Log in</el-button>
-			</el-form-item>
-		</div>
-	</el-form>
+				<el-form-item class="form-footer">
+					<el-checkbox v-model="remember" label="Remember me"/>
+
+					<el-button type="primary" native-type="submit">Log in</el-button>
+
+				</el-form-item>
+			</el-form>
+		</el-card>
+
+		<Link v-if="resetUrl" :href="resetUrl" class="underline text-sm text-gray-600 hover:text-gray-900">Forgot your
+			password?
+		</Link>
+	</el-space>
 </template>
 
 <script>
@@ -41,12 +48,12 @@ export default {
 </script>
 
 <script setup>
-import { useForm } from '@inertiajs/inertia-vue3'
+
+import {useForm} from '@inertiajs/inertia-vue3'
 
 const props = defineProps({
-	loginUrl: String,
+	actionUrl: String,
 	resetUrl: String,
-	status: String,
 })
 
 const form = useForm({
@@ -55,10 +62,24 @@ const form = useForm({
 	remember: false
 })
 
+const appName = Invicta.getConfig('appName')
+
 const submit = () => {
-	form.post(props.loginUrl)
+	form.post(props.actionUrl, {
+		onFinish: () => form.reset('password')
+	})
 }
 </script>
+
 <style lang="scss">
+
+form {
+	.form-footer {
+		.el-form-item__content {
+			justify-content: space-between;
+		}
+
+	}
+}
 
 </style>

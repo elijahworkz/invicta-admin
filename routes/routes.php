@@ -6,10 +6,13 @@ Route::middleware(['invicta'])
     ->name('invicta.')
     ->prefix(config('invicta.path'))
     ->group(function () {
+        Route::get('/guest', function (Request $request) {
+            dd('fsdfsdf');
+        })->name('guest');
 
         // Authorization routess
         if (config('invicta.auth.enable_login_form')) {
-            Route::middleware(['guest:invicta'])
+            Route::middleware(['guest:'.config('invicta.auth.guard')])
                 ->prefix('auth')
                 ->group(__DIR__.'/auth.php');
 
@@ -17,7 +20,7 @@ Route::middleware(['invicta'])
         }
 
         // Application routes
-        Route::middleware(['invicta.auth', 'can:viewInvicta'])
+        Route::middleware(['invicta.auth'])
             ->group(__DIR__.'/admin.php');
     });
 
