@@ -103,11 +103,12 @@ class ResourceRequest extends InvictaRequest
     {
         $massAssign = count($item->getFillable());
         $validated = request()->validate($resourceClass->validationRules());
+        $relatedFields = [];
 
         foreach ($validated as $field => $value) {
             // check if relationship
             if (method_exists($item, $field)) {
-                $resourceClass->updateRelationship($item, $field, $value);
+                $relatedFields[$field] = $value;
                 unset($validated[$field]);
             } elseif (! $massAssign) {
                 $item[$field] = $value;
@@ -117,10 +118,11 @@ class ResourceRequest extends InvictaRequest
         if (! $massAssign) {
             $item->save();
         } else {
-            $item->$action($validated);
+            $item = $item->$action($validated);
         }
 
-        // We run sync after saving to ensure that we have Ids
-        $resourceClass->syncRelationship();
+        foreach ($relatedFields as $field => $value) {
+            $resourceClass->updateRelationship($item, $field, $value);
+        }
     }
 }
