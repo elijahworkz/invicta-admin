@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import get from 'lodash/get'
 import set from 'lodash/set'
 import { useForm } from '@inertiajs/inertia-vue3'
+import { pickBy } from 'lodash'
 
 interface IResourceItem {
 	[key: string]: any
@@ -106,7 +107,7 @@ export const useResourceForm = (id: string) => defineStore(`resourceForm-${id}`,
 		submit(postSubmitAction: string) {
 			this.form
 				.transform((data) => ({
-					...data,
+					...pickBy(data),
 					postSubmitAction,
 				}))
 				.post(this.actionUrl, {
