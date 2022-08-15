@@ -6,7 +6,7 @@
 			:items-url="relatedUrl"
 			:field-data="data"
 			:resource="relationship"
-			:options="{ addItems: false, createItems: true, actions: ['edit']}"
+			:options="data.options"
 			@updated="updateRelated"
 		/>
 	</FieldBase>
