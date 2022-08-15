@@ -17,7 +17,7 @@ class Group extends Resource
 
     public $editWith = ['users:id,name'];
 
-    public $icon = 'resource';
+    public $icon = 'user-group';
 
     public $search = ['title'];
 

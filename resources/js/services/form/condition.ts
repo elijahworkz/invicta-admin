@@ -10,15 +10,17 @@ export const useFieldCondition = (field: IFormField, formId: string) => {
     const resourceForm = useResourceForm(formId)
 
     return computed(() => {
+
         let condition = get(field, 'if', null)
 
         if (! condition)
             return true
-        
         let target = resourceForm.get(condition.id)
 
-        if (! target)
-            return true
+        console.log('target', target, condition.id);
+
+        // if (! target)
+        //     return true
 
         let operator = prepareOperator(condition.operator)
         let loperand = prepareOperand(target, operator)
@@ -80,6 +82,8 @@ function prepareOperator(operator: string) {
         case 'includes':
         case 'contains':
             return 'includes'
+        default:
+            return operator
     }
     return operator
 }

@@ -72,6 +72,10 @@ class User extends Resource
             ],
             'fields' => [
                 [
+                    'id' => 'id',
+                    'type' => 'hidden',
+                ],
+                [
                     'id' => 'name',
                     'type' => 'text',
                     'validation' => 'required',
@@ -98,6 +102,11 @@ class User extends Resource
                             'inactive-value' => 0,
                             'active-text' => 'Active',
                             'inactive-text' => 'Inactive',
+                        ],
+                        'if' => [
+                            'id' => 'id',
+                            'operator' => '!=',
+                            'value' => null,
                         ],
                     ],
                     [

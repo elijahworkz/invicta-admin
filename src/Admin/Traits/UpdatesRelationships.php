@@ -9,8 +9,6 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 trait UpdatesRelationships
 {
-    protected $syncItems = [];
-
     public function updateRelationship($model, $related, $value)
     {
         $relationship = $model->$related();
@@ -31,6 +29,7 @@ trait UpdatesRelationships
         if ($relationship instanceof BelongsTo) {
             $foreignKey = $relationship->getForeignKeyName();
             $model->$foreignKey = $value;
+            $model->save();
         }
 
         // We don't allow HasMany relationship to be updated this way
@@ -41,16 +40,7 @@ trait UpdatesRelationships
         // }
 
         if ($relationship instanceof BelongsToMany) {
-            $this->syncItems[$related] = [$relationship, $value];
-        }
-    }
-
-    public function syncRelationship()
-    {
-        foreach ($this->syncItems as [$relationship, $value]) {
-            if ($relationship instanceof BelongsToMany) {
-                $relationship->sync($value);
-            }
+            $relationship->sync($value);
         }
     }
 }
