@@ -8,7 +8,9 @@
 			@select-all="$emit('select', $event)"
 			@sort-change="handleSortChange"
 			@row-click="handleRowClick"
-			:key="tableKey">
+			:key="tableKey"
+			v-loading="loading">
+			
 			<el-table-column type="selection" fixed />
 
 			<template v-for="(column, key) in visibleColumns">
@@ -98,5 +100,16 @@ Invicta.on('close-sidebar-submenus', () => {
 	if (!document.querySelector('body').classList.contains('sidebar-mini')) {
 		tableKey.value = Date.now()
 	}
+})
+
+// Set loading state
+const loading = ref(false)
+Inertia.on('start', () => {
+	loading.value = true
+})
+
+Inertia.on('finish', () => {
+	loading.value = false
+	// loading.close()
 })
 </script>

@@ -4,13 +4,15 @@
 			<draggable 
 				v-model="modelValue" 
 				handle=".handle" 
-				item-key="index" 
+				item-key="index"
+				:disabled="disableDraggable"
 				@update="() => $emit('update:modelValue', modelValue)">
 				<template #item="{element, index}">
 					<el-collapse-item :name="index">
 						<template #title>
-							<SvgIcon class="handle mr-2 cursor-grab" :icon="mdiDragVertical" />
-							<span>{{ itemTitle(element, index) }}</span>
+							<!-- <SvgIcon v-if="!disableDraggable" class="handle cursor-grab" :icon="mdiDragVertical" /> -->
+							<DragHandle v-if="!disableDraggable" class="handle cursor-grab" />
+							<span class="ml-2">{{ itemTitle(element, index) }}</span>
 							<div class="delete-row-button ml-auto mr-4">
 								<el-button type="danger" text :icon="Close" size="small" @click="removeRow(index)"></el-button>
 							</div>
@@ -34,6 +36,7 @@
 <script setup>
 import clone from 'lodash/clone'
 import draggable from 'vuedraggable'
+import DragHandle from '@/components/shared/DragHandle.vue'
 import { mdiDragVertical } from '@mdi/js'
 import { Close } from '@element-plus/icons-vue'
 
@@ -62,6 +65,10 @@ const props = defineProps({
 	panelClass: {
 		type: String,
 		default: ''
+	},
+	disableDraggable: {
+		type: Boolean,
+		default: false
 	}
 })
 

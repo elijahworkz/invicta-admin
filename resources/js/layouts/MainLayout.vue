@@ -3,7 +3,6 @@
 	<div class="app-body">
 	<aside class="app-sidebar"><Sidebar/></aside>
 	<main class="app-main">
-		<!-- <div v-if="loading" class="flex items-center justify-center h-full"><Loading/></div> -->
 		<el-scrollbar>
 			<slot/>
 		</el-scrollbar>
@@ -12,10 +11,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed, watch } from 'vue'
-import { Inertia } from '@inertiajs/inertia'
+import { onMounted, computed, watch } from 'vue'
 import { usePage } from '@inertiajs/inertia-vue3'
-import Loading from '@/components/shared/Loading.vue'
 import Header from '@/components/app/Header.vue'
 import Sidebar from '@/components/app/Sidebar.vue'
 
@@ -31,16 +28,5 @@ watch(notification, (value) => {
 			message: 'message' in value ? value.message : null
 		})
 	}
-})
-
-const loading = ref(false)
-
-// const user = Invicta.getConfig('auth')
-Inertia.on('start', () => {
-	loading.value = true
-})
-
-Inertia.on('finish', () => {
-	loading.value = false
 })
 </script>

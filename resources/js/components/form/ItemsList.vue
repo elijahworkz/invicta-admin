@@ -4,7 +4,7 @@
 		:disabled="!sortable"
 		handle=".drag-handle" 
 		item-key="index"
-		class="items-stack"
+		class="items-stack w-full"
 		@update="$emit('updated', list)">
 		<template #item="{element, index}">
 			<div class="flex items-center justify-start mb-2 border rounded-sm has-actions">

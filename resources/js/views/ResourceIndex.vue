@@ -1,16 +1,16 @@
 <template>
 	<Head :title="resource.title"/>
 	<div class="py-6 px-10">
-		<div class="flex items-end justify-between mb-4">
+		<div class="flex items-end justify-start mb-4">
 			<div>
 				<h1 class="mb-1">{{ resource.title }}</h1>
-				<Search :currentSearch="resource.meta.search"/>
+				<Search :currentSearch="resource.meta.search" />
 			</div>
-			<Link :href="`${resource.meta.path}/create`" class="el-button el-button--primary">Create new</Link>
+			<Link :href="`${resource.meta.path}/create`" class="ml-auto el-button el-button--primary">Create new</Link>
 		</div>
 		<el-card body-style="padding: 0px">
 		<div class="flex items-center justify-start p-3">
-			<div class="mr-4">Total: <strong>{{ resource.meta.total }}</strong></div>
+			<div>Total: <strong>{{ resource.meta.total }}</strong></div>
 			<div><FilterBadges :badges="resource.meta.filterBadges" /></div>
 			<div class="ml-auto"><Filters/></div>
 			<div v-if="rowsSelected" class="ml-3" title="Delete Selected">

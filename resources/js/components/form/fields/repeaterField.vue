@@ -5,6 +5,7 @@
 		item-name="row" 
 		:item-title="getTitle" 
 		:default-row="defaultRow"
+		:disable-draggable="disableDraggable"
 		panel-class="group">
 
 		<template v-slot:default="slotProps">
@@ -26,7 +27,6 @@ import RepeaterBase from '@/components/form/RepeaterBase.vue'
 import FormField from '@/components/form/FormField.vue'
 import { useResourceForm, getFields } from '@/services/form'
 import { useFormField } from '@/services/form/field'
-import get from 'lodash/get'
 
 const props = defineProps({
 	formId: String,
@@ -36,6 +36,8 @@ const props = defineProps({
 const { data, path } = props
 const resourceForm = useResourceForm(props.formId)
 const field = useFormField(props)
+
+const disableDraggable = !field.get('draggable', true)
 
 // let's create default from the fields we got
 const defaultRow = computed(() => getFields(data.fields))

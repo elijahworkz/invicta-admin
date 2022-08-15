@@ -1,6 +1,6 @@
 <template>
 	<el-form
-		class="invicta-form"
+		class="invicta-form w-2/3"
 		v-bind="formSettings">
 		<div class="flex items-end justify-between mb-4">
 			<div>
@@ -102,10 +102,17 @@ resourceForm.init(props.resource, props.actionUrl)
 const { blueprint } = props.resource
 const formSettings = get(blueprint.settings, 'form', {'label-position': 'top'})
 
+// Setup sections and active tab
 const hasSections = has(blueprint, 'sections')
-const activeTab = hasSections && blueprint.sections.length
-	? ref(blueprint.sections[0].id)
-	: null
+let activeTab = null
+
+if (hasSections && blueprint.sections.length) {
+	if ('tabs' in blueprint.settings && 'active' in blueprint.settings.tabs) {
+		activeTab = ref(blueprint.settings.tabs.active)
+	} else {
+		activeTab = ref(blueprint.sections[0].id)
+	}
+}
 const hasSidebar = has(blueprint, 'sidebar');
 
 /* Post Submit options setup */
