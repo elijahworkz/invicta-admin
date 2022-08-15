@@ -64,6 +64,12 @@ class Group extends Resource
                 [
                     'id' => 'users',
                     'type' => 'relatedList',
+                    'titleField' => 'name',
+                    'options' => [
+                        'addItems' => true,
+                        'createItems' => true,
+                        'actions' => ['edit', 'delete'],
+                    ],
                 ],
             ],
         ];
