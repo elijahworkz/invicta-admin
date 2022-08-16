@@ -11,17 +11,12 @@
 				<tr v-for="(item, index) in editableValue">
 					<td class="w-1/4">
 						<input v-model="item.key">
-							<!-- <template #prepend>{{ data.keyLabel || 'Key' }}</template> -->
-						<!-- </el-input> -->
 					</td>
 					<td>
 						<input v-model="item.value">
-							<!-- <template #prepend>{{ data.valueLabel || 'Value' }}</template> -->
-						<!-- </el-input> -->
 					</td>
 					<td class="action">
 						<el-button text @click="removeRow(index)" :icon="Delete" />
-						<!-- <el-icon @click="removeRow(index)" class="action-icon"><Delete /></el-icon> -->
 					</td>
 				</tr>
 			</tbody>
