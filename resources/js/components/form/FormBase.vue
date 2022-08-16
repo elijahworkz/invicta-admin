@@ -61,7 +61,7 @@
 					</div>
 				</el-card>
 			</el-col>
-			<el-col v-if="hasSidebar" :span="6">
+			<el-col v-if="hasSidebar" :span="6" class="sidebar">
 				<el-card>
 					<div class="fieldset" v-if="blueprint.sidebar.fields">
 						<FormField 

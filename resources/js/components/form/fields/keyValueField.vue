@@ -1,44 +1,44 @@
 <template>
-	<draggable 
-		:list="list"
-		:disabled="!sortable"
-		handle=".drag-handle" 
-		item-key="index"
-		class="items-stack w-full"
-		@update="$emit('updated', list)">
-		<template #item="{element, index}">
-			<div class="flex items-center justify-start mb-2 border rounded-sm has-actions">
-				<DragHandle v-if="sortable" class="text-gray-300 hover:text-gray-400"/>
-
-				<component 
-					:is="ItemListComponent" 
-					:item="element" 
-					:title-field="titleField"
-					@edit="handleEditItem" />
-
-				<RowActions 
-					v-if="options.actions.length"
-					:actions="options.actions"
-					:id="element.id"
-					@edit="handleEditItem"
-					@delete="removeRow" 
-					class="ml-auto" />
-			</div>
-		</template>
-		<template #footer>
-			<div class="flex mt-4">
-	   	 		<el-button v-if="options.createItems" type="primary" text bg size="small" :icon="Plus" @click="handleCreateItem">Create new</el-button>
-	   	 		<el-button v-if="options.addItems" type="primary" text bg size="small" :icon="Link" @click="handleAddItem">Add existing</el-button>
-	   	 	</div>
-  		</template>
-	</draggable>
+	<FieldBase :form-id="formId" :field-props="props">
+		<table class="keyValue-table">
+			<thead>
+				<tr>
+					<th>{{ data.keyLabel || 'Key' }}</th>
+					<th colspan="2">{{ data.valueLabel || 'Value' }}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr v-for="(item, index) in editableValue">
+					<td class="w-1/4">
+						<input v-model="item.key">
+							<!-- <template #prepend>{{ data.keyLabel || 'Key' }}</template> -->
+						<!-- </el-input> -->
+					</td>
+					<td>
+						<input v-model="item.value">
+							<!-- <template #prepend>{{ data.valueLabel || 'Value' }}</template> -->
+						<!-- </el-input> -->
+					</td>
+					<td class="action">
+						<el-button text @click="removeRow(index)" :icon="Delete" />
+						<!-- <el-icon @click="removeRow(index)" class="action-icon"><Delete /></el-icon> -->
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="mt-3">
+			<el-button type="primary" @click="addRow">{{ data.addLabel || 'Add' }}</el-button>
+		</div>
+	</FieldBase>
 </template>
 
 <script setup>
-import { reactive, ref, computed } from 'vue'
-import draggable from 'vuedraggable'
-import DragHandle from '@/components/shared/DragHandle.vue'
+import { ref, watch } from 'vue'
+import FieldBase from '@/components/form/FieldBase.vue'
 import { useFormField } from '@/services/form/field'
+import { Delete } from '@element-plus/icons-vue'
+import map from 'lodash/map'
+import isString from 'lodash/isString'
 
 const props = defineProps({
 	formId: String,
@@ -47,22 +47,77 @@ const props = defineProps({
 })
 
 const field = useFormField(props)
-const disableDraggable = !field.get('draggable', true)
+const fieldValue = field.value({})
 
-function addRow() {
-	let row = {}
-	props.list.push(row)
+const editableValue = ref(prepareValue(fieldValue.value))
+
+watch(
+	() => editableValue.value,
+	(newValue, oldValue) => {
+		fieldValue.value = newValue.reduce((obj, item) => {
+			obj[item.key] = item.value
+			return obj
+		}, {})
+	},
+	{ deep: true }
+)
+
+function prepareValue(value) {
+	if (isString(value)) {
+		value = JSON.parse(value)
+	}
+	return map(Object.entries(value), ([key, value]) => ({
+		key: `${key}`,
+		value
+	}))
 }
 
-function removeRow({id}) {
-	props.list.splice(id, 1)
-	emit('updated', props.list)
+function addRow() {
+	let newPair = {key: '', value: ''}
+	editableValue.value.push(newPair)
+}
+
+function removeRow(index) {
+	editableValue.value.splice(index, 1)
 }
 </script>
 
 <style lang="scss">
-[draggable=true] {
-	border-color: var(--el-color-primary-light-7);
-	color: var(--el-color-primary-light-3);
+.keyValue-table {
+	width: 100%;
+	border-collapse: separate;
+	border: 1px solid var(--el-border-color);
+	border-radius: 3px;
+	border-spacing: 0;
+
+	thead {
+		background: var(--el-fill-color-light);
+
+		th {
+			border-bottom-width: 1px;
+		}
+	}
+
+	tr {
+		&:not(:last-child) {
+			th, td {
+				border-bottom-width: 1px;
+			}
+		}
+	}
+	th, td {
+		text-align: start;
+		padding: .25rem .5rem;
+		vertical-align: middle;
+		display: table-cell;
+		
+		&.action {
+			text-align: right;
+		}
+	}
+
+	input {
+		outline: none;
+	}
 }
 </style>
