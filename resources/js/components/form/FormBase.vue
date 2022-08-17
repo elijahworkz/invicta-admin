@@ -115,9 +115,9 @@ if (hasSections && blueprint.sections.length) {
 			activeTab = ref(blueprint.settings.tabs.active)
 		}
 
-		if ('type' in blueprint.settings.tabs) {
-			tabsType = blueprint.settings.tabs.type
-		}
+		tabsType = ('type' in blueprint.settings.tabs)
+			? blueprint.settings.tabs.type
+			: 'card'
 	} else {
 		activeTab = ref(blueprint.sections[0].id)
 	}
