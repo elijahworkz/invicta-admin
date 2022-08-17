@@ -1,20 +1,11 @@
 <template>
-	<FieldBase :form-id="formId" :field-props="props">
-		<el-select
-			v-model="fieldValue"
-			v-bind="data.props">
-				<el-option
-					v-for="item in options"
-					:key="item.value"
-					:value="item.value"
-					:label="item.label"
-				/>
-		</el-select>
+	<FieldBase :form-id="formId" :field-props="props" class="checkbox-group" :class="{'stacked': data.stacked}">
+		<el-checkbox v-for="(item, index) in value" v-model="value[index]" :label="options[index]" />
 	</FieldBase>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'	
+import { ref, onMounted } from 'vue'
 import FieldBase from '@/components/form/FieldBase.vue'
 import { useFormField } from '@/services/form/field'
 
@@ -23,9 +14,9 @@ const props = defineProps({
 	data: Object,
 	path: String
 })
-
 const field = useFormField(props)
-const fieldValue = field.value([])
+const value = field.value()
+
 const options = ref([])
 
 onMounted(() => {
@@ -41,3 +32,14 @@ onMounted(() => {
 	}
 })
 </script>
+
+<style lang="scss">
+.checkbox-group {
+	&.stacked {
+		.el-checkbox {
+			width: 100%;
+		}
+	}
+}
+</style>
+

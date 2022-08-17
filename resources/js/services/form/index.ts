@@ -106,7 +106,7 @@ export const useResourceForm = (id: string) => defineStore(`resourceForm-${id}`,
 		},
 		submit(postSubmitAction: string) {
 			this.form
-				.transform((data) => ({
+				.transform((data: any) => ({
 					...pickBy(data),
 					postSubmitAction,
 				}))

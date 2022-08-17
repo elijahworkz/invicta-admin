@@ -1,5 +1,6 @@
 <template>
-	<label class="el-form-item__label">{{ field.label() }}</label>
+	<FieldBase :form-id="formId" :field-props="props">
+	<!-- <label class="el-form-item__label">{{ field.label() }}</label> -->
 	<component :is="repeaterBase" 
 		v-model="rows" 
 		item-name="row" 
@@ -17,10 +18,12 @@
 
 		</template>
 	</component>
+</FieldBase>
 </template>
 
 <script setup>
 import { computed } from 'vue'
+import FieldBase from '@/components/form/FieldBase.vue'
 import CollapseRepeater from '@/components/form/CollapseRepeater.vue'
 import InlineRepeater from '@/components/form/InlineRepeater.vue'
 import FormField from '@/components/form/FormField.vue'

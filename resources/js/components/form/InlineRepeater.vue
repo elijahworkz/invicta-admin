@@ -58,29 +58,3 @@ function removeRow(index) {
 	props.modelValue.splice(index, 1)
 }
 </script>
-
-<style lang="scss">
-.inline-repeater-field {
-	margin-bottom: 18px;
-
-	.field-row {
-		gap: 10px;
-		&:not(:last-child) {
-			margin: 0 0 18px 0;
-		}
-	}
-
-	.el-form-item {
-		display: flex;
-		align-items: center;
-		margin: 0 !important;
-
-
-		.el-form-item__label {
-			display: inline-block;
-			margin: 0 !important;
-			font-size: 13px;
-		}
-	}
-}
-</style>
