@@ -1,8 +1,9 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Admin\Resources;
+namespace Eteacher\InvictaAdmin\Admin\Models\Resources;
 
 use Eteacher\InvictaAdmin\Admin\Components\Column;
+use Eteacher\InvictaAdmin\Admin\Resources\Resource;
 
 class Group extends Resource
 {
@@ -13,9 +14,9 @@ class Group extends Resource
      *
      * @var string
      */
-    public $itemTitle = 'id';
+    public $itemTitle = 'title';
 
-    public $editWith = ['users:id,name'];
+    public $editWith = ['users:id,name', 'permissions'];
 
     public $icon = 'user-group';
 

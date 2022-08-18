@@ -118,7 +118,8 @@ class ResourceRequest extends InvictaRequest
         if (! $massAssign) {
             $item->save();
         } else {
-            $item = $item->$action($validated);
+            $result = $item->$action($validated);
+            $item = $item->id ? $item : $result;
         }
 
         foreach ($relatedFields as $field => $value) {

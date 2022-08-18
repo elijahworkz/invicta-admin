@@ -1,10 +1,11 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Admin\Resources;
+namespace Eteacher\InvictaAdmin\Admin\Models\Resources;
 
-use App\Invicta\Filters\GroupFilter;
 use Carbon\Carbon;
 use Eteacher\InvictaAdmin\Admin\Components\Column;
+use Eteacher\InvictaAdmin\Admin\Models\Filters\GroupFilter;
+use Eteacher\InvictaAdmin\Admin\Resources\Resource;
 
 class User extends Resource
 {
@@ -88,6 +89,7 @@ class User extends Resource
                 [
                     'id' => 'password',
                     'type' => 'text',
+                    'validation' => 'sometimes|required|min:8',
                 ],
             ],
             'sidebar' => [
