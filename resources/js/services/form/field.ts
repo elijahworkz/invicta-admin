@@ -5,7 +5,6 @@ import has from 'lodash/has'
 import get from 'lodash/get'
 import startCase from 'lodash/startCase'
 
-
 export const useFormField = (props: { formId: string, data: IFormField, path: string }) => {
     
     const resourceForm = useResourceForm(props.formId)

@@ -1,6 +1,7 @@
 <template>
-	<label class="el-form-item__label">{{ field.label() }}</label>
-	<RepeaterBase 
+	<FieldBase :form-id="formId" :field-props="props">
+	<!-- <label class="el-form-item__label">{{ field.label() }}</label> -->
+	<component :is="repeaterBase" 
 		v-model="rows" 
 		item-name="row" 
 		:item-title="getTitle" 
@@ -9,7 +10,6 @@
 		panel-class="group">
 
 		<template v-slot:default="slotProps">
-
 			<FormField 
 				v-for="field in data.fields"
 				:form-id="formId"
@@ -17,13 +17,15 @@
 				:data-path="dataPath(field.id, slotProps.index)"/>
 
 		</template>
-
-	</RepeaterBase>
+	</component>
+</FieldBase>
 </template>
 
 <script setup>
 import { computed } from 'vue'
-import RepeaterBase from '@/components/form/RepeaterBase.vue'
+import FieldBase from '@/components/form/FieldBase.vue'
+import CollapseRepeater from '@/components/form/CollapseRepeater.vue'
+import InlineRepeater from '@/components/form/InlineRepeater.vue'
 import FormField from '@/components/form/FormField.vue'
 import { useResourceForm, getFields } from '@/services/form'
 import { useFormField } from '@/services/form/field'
@@ -36,6 +38,11 @@ const props = defineProps({
 const { data, path } = props
 const resourceForm = useResourceForm(props.formId)
 const field = useFormField(props)
+
+const repeaterBase = computed(() => {
+	let inline = field.get('inline', false)
+	return inline ? InlineRepeater : CollapseRepeater
+})
 
 const disableDraggable = !field.get('draggable', true)
 

@@ -15,6 +15,10 @@
 $action-icon-size: 18px;
 .resource-table {
 	.el-table {
+
+		thead {
+			color: var(--el-text-color-regular);
+		}
 		
 		.el-table__cell {
 			padding: 10px 0;

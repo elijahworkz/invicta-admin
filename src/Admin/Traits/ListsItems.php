@@ -42,7 +42,7 @@ trait ListsItems
 
     public function indexQuery()
     {
-        $query = App::make($this->model)->query();
+        $query = $this->model()->query();
         $perPage = request()->query('per_page', 10);
         $sortBy = request()->query('sort_by', 'id');
         $sortOrder = request()->query('sort_order', 'desc');
@@ -62,6 +62,24 @@ trait ListsItems
         $result = $query->orderBy($this->handle().'.'.$sortBy, $sortOrder)->paginate($perPage);
 
         return $result->withQueryString();
+    }
+
+    public function resourceOrdered()
+    {
+        $model = $this->model();
+
+        $select = collect($this->indexColumns())
+            ->filter(function ($item) {
+                return ! $item->hidden;
+            })
+            ->keys()
+            ->push($model::orderColumnName())
+            ->all();
+
+        return $model->query()
+            ->select($select)
+            ->ordered()
+            ->get();
     }
 
     protected function applySearch($query, $search)

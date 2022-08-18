@@ -6,7 +6,10 @@
 				<h1 class="mb-1">{{ resource.title }}</h1>
 				<Search :currentSearch="resource.meta.search" />
 			</div>
-			<Link :href="`${resource.meta.path}/create`" class="ml-auto el-button el-button--primary">Create new</Link>
+			<div class="ml-auto">
+				<el-button v-if="resource.sortable"><Link :href="`${resource.meta.path}/reorder`">Reorder</Link></el-button>
+				<el-button type="primary"><Link :href="`${resource.meta.path}/create`">Create new</Link></el-button>
+			</div>
 		</div>
 		<el-card body-style="padding: 0px">
 		<div class="flex items-center justify-start p-3">

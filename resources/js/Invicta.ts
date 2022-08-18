@@ -49,6 +49,7 @@ class Invicta
 			'Invicta.ResetPassword': () => import('./views/Auth/ResetPassword.vue'),
 			'Invicta.Home': () => import('./views/Home.vue'),
 			'Invicta.Resource': () => import('./views/ResourceIndex.vue'),
+			'Invicta.Resource.Reorder': () => import('./views/ResourceReorder.vue'),
 			'Invicta.Resource.Create': () => import('./views/ResourceEdit.vue'),
 			'Invicta.Resource.Edit': () => import('./views/ResourceEdit.vue'),
 			'Invicta.Permission.Edit': () => import('./views/PermissionEdit.vue'),

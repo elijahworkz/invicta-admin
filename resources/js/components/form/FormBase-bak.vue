@@ -1,7 +1,6 @@
 <template>
 	<el-form
-		class="invicta-form"
-		:class="[formSettings.class || 'w-3/4']"
+		class="invicta-form w-2/3"
 		v-bind="formSettings">
 		<div class="flex items-end justify-between mb-4">
 			<div>
@@ -31,13 +30,12 @@
 			</div>
 		</div>
 
-		<div class="form-wrapper" :class="{'card': tabsType == 'card'}">
-			<div class="main-panel" :class="{'el-card is-always-shadow': !hasSections}">
-				<!-- <el-card> -->
+		<el-row :gutter="hasSidebar ? 20 : 0">
+			<el-col :span="hasSidebar ? 18 : 24">
+				<el-card>
 					<el-tabs
 						v-if="hasSections"
 						v-model="activeTab"
-						type="border-card"
 						v-bind="blueprint.settings.tabs">
 						<el-tab-pane 
 							v-for="section in blueprint.sections"
@@ -50,7 +48,7 @@
 									:field-data="field" 
 									:data-path="field.id"/>
 							</div>
-						</el-tab-pane>
+					</el-tab-pane>
 					</el-tabs>
 					<div v-else>
 						<div class="fieldset" v-if="blueprint.fields">
@@ -61,9 +59,9 @@
 								:data-path="field.id"/>
 						</div>
 					</div>
-				<!-- </el-card> -->
-			</div>
-			<div v-if="hasSidebar" class="sidebar">
+				</el-card>
+			</el-col>
+			<el-col v-if="hasSidebar" :span="6" class="sidebar">
 				<el-card>
 					<div class="fieldset" v-if="blueprint.sidebar.fields">
 						<FormField 
@@ -73,8 +71,8 @@
 							:data-path="field.id"/>
 					</div>
 				</el-card>
-			</div>
-		</div>
+			</el-col>
+		</el-row>
 	</el-form>
 </template>
 
@@ -106,18 +104,13 @@ const formSettings = get(blueprint.settings, 'form', {'label-position': 'top'})
 
 // Setup sections and active tab
 const hasSections = has(blueprint, 'sections')
-let activeTab = ref(null)
-let tabsType = null
+let activeTab = null
 
 if (hasSections && blueprint.sections.length) {
-	if ('tabs' in blueprint.settings) {
-		activeTab.value = ('active' in blueprint.settings.tabs)
-			? blueprint.settings.tabs.active
-			: blueprint.sections[0].id
-
-		tabsType = ('type' in blueprint.settings.tabs)
-			? blueprint.settings.tabs.type
-			: 'border-card'
+	if ('tabs' in blueprint.settings && 'active' in blueprint.settings.tabs) {
+		activeTab = ref(blueprint.settings.tabs.active)
+	} else {
+		activeTab = ref(blueprint.sections[0].id)
 	}
 }
 const hasSidebar = has(blueprint, 'sidebar');

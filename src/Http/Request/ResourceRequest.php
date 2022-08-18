@@ -3,6 +3,7 @@
 namespace Eteacher\InvictaAdmin\Http\Request;
 
 use Eteacher\InvictaAdmin\Admin\Resources\ResourceRegistrar;
+use Illuminate\Support\Facades\DB;
 
 class ResourceRequest extends InvictaRequest
 {
@@ -28,7 +29,28 @@ class ResourceRequest extends InvictaRequest
                 'columns' => $resourceClass->indexColumns(),
                 'table' => $resourceClass->indexTableSettings(),
                 'handle' => $resourceClass->handle(),
+                'sortable' => $resourceClass->sortable(),
             ]);
+    }
+
+    public function resourceOrderedList()
+    {
+        $resourceClass = $this->resourceClass();
+        $resource = $resourceClass->resourceOrdered();
+
+        $columns = collect($resourceClass->indexColumns())
+            ->filter(function ($item) {
+                return ! $item->hidden;
+            })
+            ->all();
+
+        return [
+            'data' => $resource,
+            'title' => $resourceClass->menuTitle(),
+            'columns' => $columns,
+            'indexUrl' => $resourceClass->route(),
+            'handle' => $resourceClass->handle(),
+        ];
     }
 
     public function createItem()
@@ -99,10 +121,35 @@ class ResourceRequest extends InvictaRequest
         return $resourceClass->handle();
     }
 
+    public function updateResourceOrder()
+    {
+        $resourceClass = $this->resourceClass();
+        $model = $resourceClass->model();
+        $orderColumn = $model::orderColumnName();
+        $handle = $resourceClass->handle();
+
+        $ids = $cases = [];
+
+        foreach (request()->order as $item) {
+            $ids[] = $item['id'];
+            $cases[] = "WHEN {$item['id']} THEN {$item['order']}";
+        }
+
+        $cases = implode(' ', $cases);
+        $ids = implode(',', $ids);
+
+        $sql = "UPDATE {$handle} SET `{$orderColumn}` = CASE `id` {$cases} END WHERE `id` in ({$ids})";
+
+        DB::update($sql);
+
+        return $handle;
+    }
+
     protected function processItem($resourceClass, $item, $action)
     {
         $massAssign = count($item->getFillable());
         $validated = request()->validate($resourceClass->validationRules());
+
         $relatedFields = [];
 
         foreach ($validated as $field => $value) {
