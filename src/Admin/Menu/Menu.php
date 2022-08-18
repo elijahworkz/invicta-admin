@@ -2,6 +2,7 @@
 
 namespace Eteacher\InvictaAdmin\Admin\Menu;
 
+use Eteacher\InvictaAdmin\Admin\Models\Group;
 use Illuminate\Support\Collection;
 
 class Menu
@@ -30,6 +31,36 @@ class Menu
     public function item($name)
     {
         return $this->createItem($name);
+    }
+
+    /**
+     * Creates Permission Menu Item with group links as children items.
+     *
+     * @return instance of MenuItem::class
+     */
+    public function permissions($name = 'Permissions')
+    {
+        return $this->createItem($name)->icon('shield-key')->children($this->permissionItems());
+    }
+
+    /**
+     * Get Permission children Menu Items.
+     *
+     * @return array where items instance of MenuItem::class
+     */
+    protected function permissionItems()
+    {
+        $groups = Group::orderBy('id', 'desc')->get();
+
+        $groupMenuItems = [];
+
+        foreach ($groups as $group) {
+            $route = config('invicta.path').'/group/'.$group->id.'/permission';
+
+            $groupMenuItems[] = MenuItem::make($group->title)->route($route);
+        }
+
+        return $groupMenuItems;
     }
 
     /**

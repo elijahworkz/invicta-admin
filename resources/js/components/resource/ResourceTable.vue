@@ -6,6 +6,7 @@
 			v-bind="tableProps"
 			@select="$emit('select', $event)"
 			@select-all="$emit('select', $event)"
+			@selection-change="$emit('select', $event)"
 			@sort-change="handleSortChange"
 			@row-click="handleRowClick"
 			:key="tableKey"

@@ -115,6 +115,8 @@ class MenuItem
         }
         // we should get an array of menuItem instances here
         $this->children = $items;
+
+        return $this;
     }
 
     public function render($child = false)

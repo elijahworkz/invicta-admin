@@ -1,5 +1,6 @@
 <?php
 
+use Eteacher\InvictaAdmin\Http\Controllers\PermissionController;
 use Eteacher\InvictaAdmin\Http\Controllers\ResourceController;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -19,4 +20,9 @@ Route::controller(ResourceController::class)->name('resource.')->group(function 
     Route::get('/test', function (Request $request) {
         return Inertia::render('Student');
     })->name('test');
+});
+
+Route::controller(PermissionController::class)->name('permission.')->group(function () {
+    Route::get('/group/{group}/permission', 'edit')->name('edit');
+    Route::post('/group/{group}/permission', 'update')->name('update');
 });

@@ -14,9 +14,9 @@ class Group extends Resource
      *
      * @var string
      */
-    public $itemTitle = 'id';
+    public $itemTitle = 'title';
 
-    public $editWith = ['users:id,name'];
+    public $editWith = ['users:id,name', 'permissions'];
 
     public $icon = 'user-group';
 

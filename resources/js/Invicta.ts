@@ -52,6 +52,7 @@ class Invicta
 			'Invicta.Resource.Reorder': () => import('./views/ResourceReorder.vue'),
 			'Invicta.Resource.Create': () => import('./views/ResourceEdit.vue'),
 			'Invicta.Resource.Edit': () => import('./views/ResourceEdit.vue'),
+			'Invicta.Permission.Edit': () => import('./views/PermissionEdit.vue'),
 		}
 	}
 
