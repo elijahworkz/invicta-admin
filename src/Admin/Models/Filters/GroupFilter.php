@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Invicta\Filters;
+namespace Eteacher\InvictaAdmin\Admin\Models\Filters;
 
 use Eteacher\InvictaAdmin\Admin\Filters\Filter;
 use Eteacher\InvictaAdmin\Admin\Models\Group;

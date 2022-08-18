@@ -100,8 +100,8 @@ const excludeItems = computed(() => {
 	})
 })
 
-function removeRow({id}) {
-	props.list.splice(id, 1)
+function removeRow(id) {
+	props.list.splice(props.list.findIndex(i => i.id == id), 1)
 	emit('updated', props.list)
 }
 
