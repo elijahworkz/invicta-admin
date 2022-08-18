@@ -18,6 +18,11 @@ class ResourceController extends Controller
         return Inertia::render('Invicta.Resource', ['resource' => $request->resourceList()]);
     }
 
+    public function reorder(ResourceRequest $request)
+    {
+        return Inertia::render('Invicta.Resource.Reorder', ['resource' => $request->resourceOrderedList()]);
+    }
+
     public function create(ResourceRequest $request)
     {
         return Inertia::render('Invicta.Resource.Create', ['resource' => $request->createItem()]);
@@ -36,6 +41,16 @@ class ResourceController extends Controller
     public function update(ResourceRequest $request)
     {
         return $this->processItem($request, 'updateItem');
+    }
+
+    public function reorderUpdate(ResourceRequest $request)
+    {
+        $handle = $request->updateResourceOrder();
+
+        return Redirect::route('invicta.resource.index', ['resource' => $handle])->with('message', [
+            'type' => 'success',
+            'title' => 'Order Updated',
+        ]);
     }
 
     protected function processItem($request, $action)

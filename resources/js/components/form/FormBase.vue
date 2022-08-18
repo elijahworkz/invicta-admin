@@ -37,7 +37,7 @@
 					<el-tabs
 						v-if="hasSections"
 						v-model="activeTab"
-						type="card"
+						type="border-card"
 						v-bind="blueprint.settings.tabs">
 						<el-tab-pane 
 							v-for="section in blueprint.sections"
@@ -106,20 +106,18 @@ const formSettings = get(blueprint.settings, 'form', {'label-position': 'top'})
 
 // Setup sections and active tab
 const hasSections = has(blueprint, 'sections')
-let activeTab = null
+let activeTab = ref(null)
 let tabsType = null
 
 if (hasSections && blueprint.sections.length) {
 	if ('tabs' in blueprint.settings) {
-		if ('active' in blueprint.settings.tabs) {
-			activeTab = ref(blueprint.settings.tabs.active)
-		}
+		activeTab.value = ('active' in blueprint.settings.tabs)
+			? blueprint.settings.tabs.active
+			: blueprint.sections[0].id
 
 		tabsType = ('type' in blueprint.settings.tabs)
 			? blueprint.settings.tabs.type
-			: 'card'
-	} else {
-		activeTab = ref(blueprint.sections[0].id)
+			: 'border-card'
 	}
 }
 const hasSidebar = has(blueprint, 'sidebar');

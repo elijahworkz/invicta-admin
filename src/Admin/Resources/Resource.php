@@ -93,9 +93,7 @@ class Resource extends JsonResource
 
     public function resource()
     {
-        $this->resource = $this->indexQuery();
-
-        return $this->resource;
+        return $this->indexQuery();
     }
 
     public function findModel($id, $with = true)
@@ -110,6 +108,11 @@ class Resource extends JsonResource
     public function model()
     {
         return App::make($this->model);
+    }
+
+    public function sortable()
+    {
+        return method_exists($this->model(), 'orderColumnName');
     }
 
     public function toArray($request)

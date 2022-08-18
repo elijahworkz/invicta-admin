@@ -1,8 +1,9 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Admin\Resources;
+namespace Eteacher\InvictaAdmin\Admin\Models\Resources;
 
 use Eteacher\InvictaAdmin\Admin\Components\Column;
+use Eteacher\InvictaAdmin\Admin\Resources\Resource;
 
 class Group extends Resource
 {
