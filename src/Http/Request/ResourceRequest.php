@@ -153,10 +153,13 @@ class ResourceRequest extends InvictaRequest
         $relatedFields = [];
 
         foreach ($validated as $field => $value) {
-            // check if relationship
-            if (method_exists($item, $field)) {
-                $relatedFields[$field] = $value;
-                unset($validated[$field]);
+            // first we check if it's a mutator
+            if (! $item->hasAttributeMutator($field)) {
+                // check if relationship
+                if (method_exists($item, $field)) {
+                    $relatedFields[$field] = $value;
+                    unset($validated[$field]);
+                }
             } elseif (! $massAssign) {
                 $item[$field] = $value;
             }

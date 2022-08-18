@@ -8,7 +8,21 @@ interface IResourceItem {
 	[key: string]: any
 }
 
-export const useResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
+const definedForms = new Map()
+
+export const useResourceForm = (id: string) => {
+	let formId = `resourceForm-${id}`
+	if (!definedForms.has(formId)) {
+		definedForms.set(
+			formId,
+			defineResourceForm(id)
+		)
+	}
+
+	return definedForms.get(formId)
+}
+
+const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 	state: () => {
 		return <IResourceItem>{
 			mode: 'create',
