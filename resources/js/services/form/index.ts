@@ -3,6 +3,7 @@ import get from 'lodash/get'
 import set from 'lodash/set'
 import { useForm } from '@inertiajs/inertia-vue3'
 import { pickBy } from 'lodash'
+import { IFormField } from '@/interfaces'
 
 interface IResourceItem {
 	[key: string]: any
@@ -58,7 +59,6 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 			this.form[id] = this.data[id]
 		},
 		prepareFields(blueprint: IResourceItem) {
-
 			const getRelatedField = (fields: any[]): object => {
 				return fields.reduce((obj, item) => {
 					if (item.fields) {
@@ -79,12 +79,13 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 			const getFields = (fields: any[]): object => {
 				return fields.reduce((obj, item) => {
 					if (item.id) {
+						let _id = 'path' in item ? item.path : item.id
 						let value = this.data
-							? (item.id in this.data ? this.data[item.id] : null)
+							? (_id in this.data ? this.data[_id] : null)
 							: null
 
 
-						obj[item.id] = value
+						obj[_id] = value
 
 						if (item.fields) {
 							// check for related fields nested into other fields

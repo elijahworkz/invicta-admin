@@ -9,13 +9,6 @@
 			padding: 0;
 		}
 	}
-	// .el-tabs__header {
-	// 	padding: 0 20px;
-
-	// 	&.is-top {
-	// 		margin-bottom: 30px;
-	// 	}
-	// }
 
 	.form-wrapper {
 		display: flex;
@@ -23,7 +16,10 @@
 
 		.main-panel {
 			flex: 1;
-			max-width: calc(100% - 320px);
+
+			&.has-sidebar {
+				max-width: calc(100% - 320px);
+			}
 
 			.el-tabs {
 				background: var(--el-fill-color-blank);
@@ -77,7 +73,7 @@
 					}
 
 					> .el-tabs__content {
-						padding: 20px 0 0;
+						padding: 20px 0 10px;
 					}
 				}
 

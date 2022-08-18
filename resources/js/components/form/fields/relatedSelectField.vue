@@ -23,6 +23,7 @@ import { useResourceForm } from '@/services/form'
 import { useFormField } from '@/services/form/field'
 import map from 'lodash/map'
 import get from 'lodash/get'
+import isNumber from 'lodash/isNumber'
 
 const props = defineProps({
 	formId: String,
@@ -82,7 +83,10 @@ function getRelatedOptions(params, remote = false) {
 		.then(({data}) => {
 
 			let remoteOptions = map(data, (label, value) => {
-				return { key: value, value: { id: Number(value), name: label }, label: label }
+				let _value = isNumber(fieldValue.value)
+					? Number(value)
+					: { id: Number(value)}
+				return { key: value, value: _value, label: label }
 			})
 
 			if (remote) {

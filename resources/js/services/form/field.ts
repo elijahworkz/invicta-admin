@@ -12,7 +12,8 @@ export const useFormField = (props: { formId: string, data: IFormField, path: st
     const field: IFormField = props.data
 
     const value = (defaultValue: any = null, cb: Function | null = null) => {
-        const { path } = props
+
+        const { path } = 'path' in props.data ? props.data : props
 
         return computed({
             get() {

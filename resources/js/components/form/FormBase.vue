@@ -32,7 +32,7 @@
 		</div>
 
 		<div class="form-wrapper" :class="{'card': tabsType == 'card'}">
-			<div class="main-panel" :class="{'el-card is-always-shadow': !hasSections}">
+			<div class="main-panel" :class="{'el-card is-always-shadow': !hasSections, 'has-sidebar': hasSidebar}">
 				<!-- <el-card> -->
 					<el-tabs
 						v-if="hasSections"
@@ -118,6 +118,8 @@ if (hasSections && blueprint.sections.length) {
 		tabsType = ('type' in blueprint.settings.tabs)
 			? blueprint.settings.tabs.type
 			: 'border-card'
+	} else {
+		activeTab.value = blueprint.sections[0].id
 	}
 }
 const hasSidebar = has(blueprint, 'sidebar');
