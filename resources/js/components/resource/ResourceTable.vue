@@ -4,8 +4,6 @@
 			ref="resourceTableRef"
 			:data="data"
 			v-bind="tableProps"
-			@select="$emit('select', $event)"
-			@select-all="$emit('select', $event)"
 			@selection-change="$emit('select', $event)"
 			@sort-change="handleSortChange"
 			@row-click="handleRowClick"
@@ -20,7 +18,9 @@
 
 			<el-table-column
 				width="100"
-				header-align="right">
+				header-align="right"
+				column-key="actions"
+				fixed="right">
 
 				<template #header >
 					<el-dropdown trigger="click" class="!align-middle">
@@ -51,7 +51,7 @@ import { SetUp, MoreFilled } from '@element-plus/icons-vue'
 
 import { checked } from '@/utils/functions'
 import Column from './Column.vue'
-import RowActions from '@/components/shared/RowActions.vue'
+import RowActions from './RowActions.vue'
 
 const props = defineProps({
 	data: Array,
@@ -81,7 +81,9 @@ const handleSortChange = ({ prop, order }) => {
 
 // Handle Row click
 const handleRowClick = (row, column, event) => {
-	resourceTableRef.value.toggleRowSelection(row, undefined)
+	if (!column.columnKey && column.columnKey != 'actions') {
+		resourceTableRef.value.toggleRowSelection(row, undefined)
+	}
 }
 
 // Handle Edit

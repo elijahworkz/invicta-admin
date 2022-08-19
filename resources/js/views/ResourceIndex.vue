@@ -13,10 +13,10 @@
 		</div>
 		<el-card body-style="padding: 0px">
 		<div class="flex items-center justify-start p-3">
-			<div>Total: <strong>{{ resource.meta.total }}</strong></div>
+			<div class="mr-2">Total: <strong>{{ resource.meta.total }}</strong></div>
 			<div><FilterBadges :badges="resource.meta.filterBadges" /></div>
-			<div class="ml-auto"><Filters/></div>
-			<div v-if="rowsSelected" class="ml-3" title="Delete Selected">
+			<div class="ml-auto"><Filters :resource-handle="resource.handle" :filters="resource.meta.filters" /></div>
+			<div v-if="selectedRows.length" class="ml-3" title="Delete Selected">
 				<el-button type="danger" text bg :icon="Delete" />
 			</div>
 		</div>
@@ -70,13 +70,9 @@ resourceIndex.init(pageUrl)
 const changePerPage = (event) => Invicta.emit('page-size-change', event)
 const changePage = (event) => Invicta.emit('page-change', event)
 
-const rowsSelected = ref(false)
+const selectedRows = ref(false)
 const handleSelect = (selection) => { 
 	console.log('have selection', selection)
-	rowsSelected.value = selection.length ? true : false
+	selectedRows.value = selection
 }
 </script>
-
-<style lang="scss">
-
-</style>

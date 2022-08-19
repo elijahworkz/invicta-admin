@@ -1,7 +1,7 @@
 <template>
-	<el-popover placement="bottom-end" :width="200" trigger="click" v-if="filters.length">
+	<el-popover placement="bottom-end" :width="200" trigger="click" v-if="actions.length">
 		<template #reference>
-        	<el-button :type="filterButtonType">
+        	<el-button type="primary">
 				<el-icon><Filter /></el-icon><el-icon class="el-icon--right"><arrow-down /></el-icon>
 			</el-button>
 		</template>
@@ -20,36 +20,29 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
-import SelectFilter from './SelectFilter.vue'
-import { Filter, ArrowDown } from '@element-plus/icons-vue'
+import { ref, onMounted } from 'vue'
+import { usePage } from '@inertiajs/inertia-vue3'
 import filterFn from 'lodash/filter'
+import { Filter, ArrowDown } from '@element-plus/icons-vue'
+import SelectFilter from './SelectFilter.vue'
 
-const props = defineProps({
-	resourceHandle: String,
-	filters: String
-})
-
-const filters = ref([])
+const { resource } = usePage().props.value
+const actions = ref([])
 const requestFilters = ref(null)
-const filterButtonType = computed(() => {
-
-	return props.filters ? 'primary' : 'default'
-})
 
 onMounted(() => {
 	
-	if (props.filters) {
-		requestFilters.value = JSON.parse(atob(props.filters))
+	if (Object.prototype.hasOwnProperty.call(resource.meta, 'filters')) {
+		requestFilters.value = JSON.parse(atob(resource.meta.filters))
 		console.log(requestFilters)
 	}
 
-	Invicta.axios.get(`/resource/${props.resourceHandle}/filters`)
+	Invicta.axios.get(`/resource/${resource.handle}/filters`)
 		.then(({data}) => {
 
 			if (data.length) {
 				filters.value = data.map(filter => {
-					let initialValue = ''
+					let initialValue = []
 
 					if (requestFilters.value) {
 						initialValue = filterFn(requestFilters.value, (item, key) => {
