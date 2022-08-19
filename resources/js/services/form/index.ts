@@ -59,15 +59,20 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 			this.form[id] = this.data[id]
 		},
 		prepareFields(blueprint: IResourceItem) {
+			const getFieldData = (field: any) => {
+				let id = 'path' in field ? field.path : field.id
+				return this.data
+					? (id in this.data ? this.data[id] : null)
+					: null
+			}
+
 			const getRelatedField = (fields: any[]): object => {
 				return fields.reduce((obj, item) => {
 					if (item.fields) {
 						let nested = getRelatedField(item.fields)
 						return {...obj, ...nested}
 					} else if (item.id && item.type.includes('related')) {
-						let value = this.data
-							? get(this.data, item.id)
-							: null
+						let value = getFieldData(item)
 
 						obj[item.id] = value
 						return obj
@@ -80,9 +85,7 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 				return fields.reduce((obj, item) => {
 					if (item.id) {
 						let _id = 'path' in item ? item.path : item.id
-						let value = this.data
-							? (_id in this.data ? this.data[_id] : null)
-							: null
+						let value = getFieldData(item)
 
 
 						obj[_id] = value
@@ -90,12 +93,13 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 						if (item.fields) {
 							// check for related fields nested into other fields
 							let nested = getRelatedField(item.fields)
-							console.log('got something', nested)
 							obj = {...obj, ...nested}
 						}
 						return obj
+					} else if (item.type == 'row') {
+						let rowFields = getFields(item.fields)
+						obj = {...obj, ...rowFields}
 					}
-
 
 					return obj
 				},{})

@@ -45,7 +45,7 @@ class Resource extends JsonResource
      *
      * @var string
      */
-    public $itemTitle = 'id';
+    public $titleField = 'id';
 
     public $icon = 'resource';
 

@@ -27,6 +27,12 @@ $action-icon-size: 18px;
 		.cell {
 			line-height: 1
 		}
+
+		.edit-link {
+			&:hover {
+				color: var(--el-color-primary);
+			}
+		}
 	}
 
 	img {
@@ -42,10 +48,9 @@ $action-icon-size: 18px;
 
 .resource-table,
 .has-actions {
-
+	
 	.action-icon {
 		cursor: pointer;
-		color: var(--el-table-header-text-color);
 		display: inline-block;
 		line-height: 0;
 
@@ -75,5 +80,35 @@ $action-icon-size: 18px;
 			width: $action-icon-size;
 			height: $action-icon-size;
 		}
+	}
+}
+
+.actions-wrap {
+	position: absolute;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	height: 100%;
+	opacity: 0;
+	transition: all .2s;
+	padding: 0 0 0 30px;
+
+	.hover-row  & {
+		background: linear-gradient(90deg, rgba(255,255,255,0) 0%, var(--el-fill-color-light) 5%);
+		opacity: 1;
+	}
+	.has-actions:hover & {
+		opacity: 1;
+	}
+
+	.action-buttons,
+	.el-button-group {
+		display: flex;
+		height: 100%;
+		align-items: center;
+	}
+
+	.el-button--small {
+		padding: 5px 8px;
 	}
 }

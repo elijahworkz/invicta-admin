@@ -65,7 +65,7 @@ class ResourceRequest extends InvictaRequest
                 'indexUrl' => $resourceClass->route(),
                 'indexTitle' => $resourceClass->menuTitle(),
                 'createTitle' => $resourceClass->createTitle(),
-                'title_field' => $resourceClass->itemTitle,
+                'title_field' => $resourceClass->titleField,
             ],
             'blueprint' => $resourceClass->getBlueprint(),
         ];
@@ -85,7 +85,7 @@ class ResourceRequest extends InvictaRequest
                 'actionUrl' => route('invicta.resource.update', ['resource' => $handle, 'item' => $item->id]),
                 'indexUrl' => $resourceClass->route(),
                 'indexTitle' => $resourceClass->menuTitle(),
-                'title_field' => $resourceClass->itemTitle,
+                'title_field' => $resourceClass->titleField,
             ],
             'blueprint' => $resourceClass->getBlueprint(),
         ];

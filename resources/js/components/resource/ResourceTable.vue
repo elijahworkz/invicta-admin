@@ -15,11 +15,10 @@
 			<el-table-column type="selection" fixed />
 
 			<template v-for="(column, key) in visibleColumns">
-				<Column :id="key" :props="column"/>
+				<Column :id="key" :props="column" :edit-url="editUrl" />
 			</template>
 
 			<el-table-column
-				v-if="editUrl"
 				width="100"
 				header-align="right">
 

@@ -36,36 +36,3 @@ const actionIcon = (action) => {
 	}
 }
 </script>
-
-<style lang="scss">
-.actions-wrap {
-	position: absolute;
-	right: 0;
-	top: 0;
-	bottom: 0;
-	height: 100%;
-	opacity: 0;
-	transition: all .2s;
-	padding: 0 0 0 30px;
-
-	.hover-row  & {
-		background: linear-gradient(90deg, rgba(255,255,255,0) 0%, var(--el-fill-color-light) 5%);
-		opacity: 1;
-	}
-	.has-actions:hover & {
-		background: #fff;
-		opacity: 1;
-	}
-
-	.action-buttons,
-	.el-button-group {
-		display: flex;
-		height: 100%;
-		align-items: center;
-	}
-
-	.el-button--small {
-		padding: 5px 8px;
-	}
-}
-</style>
