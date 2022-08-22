@@ -1,6 +1,6 @@
 <template>
 	<div class="actions flex items-center justify-end">
-		<el-popover placement="bottom-end" trigger="click">
+		<el-popover placement="bottom-end" trigger="click" v-if="actions.length">
 			<template #reference>
 				<span title="More actions" class="action-icon">
 					<SvgIcon :icon="mdiDotsHorizontal" :width="18" />
@@ -8,10 +8,7 @@
 			</template>
 			<template #default>
 				<ul>
-					<li>Custom Action</li>
-					<li>Custom Action</li>
-					<li>Custom Action</li>
-					<li>Custom Action</li>
+					<li v-for="action in actions">{{ action }}</li>
 				</ul>
 			</template>
 		</el-popover>			
@@ -28,6 +25,7 @@ import { Delete, Edit } from '@element-plus/icons-vue'
 import { mdiDotsHorizontal } from '@mdi/js'
 
 defineProps({
-	id: Number
+	id: Number,
+	actions: Array
 })
 </script>

@@ -24,7 +24,7 @@ class Filter implements JsonSerializable
      *
      * @return string
      */
-    public function name()
+    protected function name()
     {
         return $this->name ?: Str::headline(Str::of($this->key())->classBasename());
     }
@@ -44,7 +44,7 @@ class Filter implements JsonSerializable
      *
      * @return string
      */
-    public function key()
+    protected function key()
     {
         return get_class($this);
     }

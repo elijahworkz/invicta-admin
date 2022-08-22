@@ -1,61 +1,57 @@
 <template>
-	<el-popover placement="bottom-end" :width="200" trigger="click" v-if="actions.length">
-		<template #reference>
-        	<el-button type="primary">
-				<el-icon><Filter /></el-icon><el-icon class="el-icon--right"><arrow-down /></el-icon>
-			</el-button>
+	<el-dropdown trigger="click" @command="handleCommand" class="mr-2">
+		<el-button>
+			Actions <el-icon class="el-icon--right"><ArrowDown /></el-icon>
+		</el-button>
+		<template #dropdown>
+			<el-dropdown-item
+				v-for="action in actions"
+				:command="action">
+				{{ action }}
+			</el-dropdown-item>
 		</template>
-		<template #default>
-			<template v-for="filter in filters">
-				<h4>{{ filter.name }}</h4>
-				<SelectFilter
-					class="mb-4"
-					:handle="filter.class"
-					:filter-options="filter.options"
-					:initial-value="filter.initialValue"
-				/>
-			</template>
+	</el-dropdown>
+	<el-dialog
+		v-model="actionModal"
+		:title="actionName">
+		Are you sure you want to run this action?
+		<template #footer>
+				<el-button @click="actionModal = false">Cancel</el-button>
+				<el-button type="primary" @click="actionModal = false">Run Action</el-button>
 		</template>
-    </el-popover>
+	</el-dialog>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { usePage } from '@inertiajs/inertia-vue3'
-import filterFn from 'lodash/filter'
-import { Filter, ArrowDown } from '@element-plus/icons-vue'
-import SelectFilter from './SelectFilter.vue'
+import { ref, computed } from 'vue'
+import { ArrowDown } from '@element-plus/icons-vue'
 
-const { resource } = usePage().props.value
-const actions = ref([])
-const requestFilters = ref(null)
-
-onMounted(() => {
-	
-	if (Object.prototype.hasOwnProperty.call(resource.meta, 'filters')) {
-		requestFilters.value = JSON.parse(atob(resource.meta.filters))
-		console.log(requestFilters)
-	}
-
-	Invicta.axios.get(`/resource/${resource.handle}/filters`)
-		.then(({data}) => {
-
-			if (data.length) {
-				filters.value = data.map(filter => {
-					let initialValue = []
-
-					if (requestFilters.value) {
-						initialValue = filterFn(requestFilters.value, (item, key) => {
-							console.log(filter.class, key, item)
-							return filter.class == key
-						})[0]
-						console.log(initialValue)
-					}
-					filter.initialValue = initialValue
-					return filter
-				})
-			}
-			filters.value = data
-		})
+const props = defineProps({
+	actions: Array,
+	rows: Array,
+	actionsUrl: String
 })
+
+const actionModal = ref(false)
+const actionName = ref('Action')
+
+const ids = computed(() => {
+	return props.rows.map(row => row.id)
+})
+
+const handleCommand = (command) => {
+	actionModal.value = true
+	actionName.value = command.name
+	console.log('have command', command)
+
+}
+
+const processAction = (actionClass) => {
+	let data = {
+		class: actionClass,
+		ids,
+		fields
+	}
+	Invicta.axios.post(actionsUrl, data)
+}
 </script>

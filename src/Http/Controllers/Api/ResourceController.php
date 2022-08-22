@@ -4,7 +4,6 @@ namespace Eteacher\InvictaAdmin\Http\Controllers\Api;
 
 use Eteacher\InvictaAdmin\Http\Controllers\Controller;
 use Eteacher\InvictaAdmin\Http\Request\ResourceRequest;
-use Illuminate\Http\Request;
 
 class ResourceController extends Controller
 {
@@ -25,13 +24,12 @@ class ResourceController extends Controller
 
     public function filters(ResourceRequest $request)
     {
-        // we need to grab resource class
-        return response()->json($request->resourceClass()->filters());
+        return $request->resourceClass()->filters();
     }
 
-    public function actions(Request $request, $resource)
+    public function actions(ResourceRequest $request)
     {
-        // code...
+        return $request->resourceClass()->actions();
     }
 
     public function related(ResourceRequest $request)
@@ -42,5 +40,12 @@ class ResourceController extends Controller
     public function items(ResourceRequest $request)
     {
         return $request->resourceItems();
+    }
+
+    public function handleActions(ResourceRequest $request)
+    {
+        // We need to get list of models by ids (collection of models),
+        // We need to get field values if there were any
+        // We need to pass both to handle method on the action class
     }
 }

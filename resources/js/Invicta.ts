@@ -17,6 +17,7 @@ import Drawer from '@/components/shared/Drawer.vue'
 import { ElNotification } from 'element-plus'
 import 'element-plus/es/components/message/style/index'
 import 'element-plus/es/components/notification/style/index'
+import 'element-plus/es/components/button-group/style/index'
 
 
 // Layouts
