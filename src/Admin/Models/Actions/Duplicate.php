@@ -14,4 +14,9 @@ class Duplicate extends Action
             $model->repicate();
         }
     }
+
+    public function fields()
+    {
+        return [];
+    }
 }

@@ -12,6 +12,26 @@ class Action implements JsonSerializable
     public $inline = false;
 
     /**
+     * Perform action on the given models.
+     *
+     * @return mixed
+     */
+    public function handle($fields, $models)
+    {
+        // code...
+    }
+
+    /**
+     * Get blueprint with fields if neccessary.
+     *
+     * @return array
+     */
+    public function fields($value = '')
+    {
+        return [];
+    }
+
+    /**
      * Get the displayable name of the action.
      *
      * @return string
@@ -51,6 +71,7 @@ class Action implements JsonSerializable
         return [
             'class' => $this->key(),
             'name' => $this->name(),
+            'fields' => $this->fields(),
             'inline' => $this->inline(),
         ];
     }
