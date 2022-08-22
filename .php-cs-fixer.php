@@ -3,6 +3,7 @@
 $finder = PhpCsFixer\Finder::create()
     ->exclude('vendor')
     ->exclude('public')
+    ->exclude('src/Console/stubs')
     ->in(__DIR__)
 ;
 
