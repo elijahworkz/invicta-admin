@@ -44,8 +44,6 @@ class ResourceController extends Controller
 
     public function handleActions(ResourceRequest $request)
     {
-        // We need to get list of models by ids (collection of models),
-        // We need to get field values if there were any
-        // We need to pass both to handle method on the action class
+        return response()->json($request->processAction());
     }
 }

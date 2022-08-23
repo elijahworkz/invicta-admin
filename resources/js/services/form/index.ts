@@ -123,6 +123,13 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 
 			return fields			
 		},
+		formData() {
+			return this.form
+				.transform((data: any) => ({
+					...pickBy(data)
+				}))
+				.data()
+		},
 		submit(postSubmitAction: string) {
 			this.form
 				.transform((data: any) => ({
@@ -146,7 +153,7 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 		},
 		id(): any {
 			return get(this.form, 'id')
-		},
+		}
 	}
 })()
 

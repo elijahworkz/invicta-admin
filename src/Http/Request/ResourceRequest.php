@@ -2,8 +2,11 @@
 
 namespace Eteacher\InvictaAdmin\Http\Request;
 
+use Eteacher\InvictaAdmin\Admin\Actions\ActionJob;
 use Eteacher\InvictaAdmin\Admin\Resources\ResourceRegistrar;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Fluent;
 
 class ResourceRequest extends InvictaRequest
 {
@@ -101,26 +104,6 @@ class ResourceRequest extends InvictaRequest
         return $this->resourceClass()->itemsQuery();
     }
 
-    public function storeItem()
-    {
-        $resourceClass = $this->resourceClass();
-        $item = $resourceClass->model();
-
-        $this->processItem($resourceClass, $item, 'create');
-
-        return $resourceClass->handle();
-    }
-
-    public function updateItem()
-    {
-        $resourceClass = $this->resourceClass();
-        $item = $resourceClass->findModel($this->route('item'), false);
-
-        $this->processItem($resourceClass, $item, 'update');
-
-        return $resourceClass->handle();
-    }
-
     public function updateResourceOrder()
     {
         $resourceClass = $this->resourceClass();
@@ -143,6 +126,50 @@ class ResourceRequest extends InvictaRequest
         DB::update($sql);
 
         return $handle;
+    }
+
+    public function processAction()
+    {
+        $resource = $this->resourceClass();
+        $models = $resource->model()->whereIn('id', request()->selected)->get();
+        $action = App::make(request()->class);
+        $fields = new Fluent(request()->fields);
+
+        if ($action->shouldQueue) {
+            ActionJob::dispatch($action, $models, $fields);
+
+            return ['message' => [
+                'type' => 'success',
+                'title' => 'Action was added to the queue',
+            ]];
+        }
+
+        $action->handle($fields, $models);
+
+        return ['message' => [
+            'type' => 'success',
+            'title' => 'Action Run successfully',
+        ]];
+    }
+
+    public function storeItem()
+    {
+        $resourceClass = $this->resourceClass();
+        $item = $resourceClass->model();
+
+        $this->processItem($resourceClass, $item, 'create');
+
+        return $resourceClass->handle();
+    }
+
+    public function updateItem()
+    {
+        $resourceClass = $this->resourceClass();
+        $item = $resourceClass->findModel($this->route('item'), false);
+
+        $this->processItem($resourceClass, $item, 'update');
+
+        return $resourceClass->handle();
     }
 
     protected function processItem($resourceClass, $item, $action)

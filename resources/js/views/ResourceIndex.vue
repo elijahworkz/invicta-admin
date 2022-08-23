@@ -12,20 +12,22 @@
 			</div>
 		</div>
 		<el-card body-style="padding: 0px">
-		<div class="flex items-center justify-start p-3">
-			<div class="mr-2">Total: <strong>{{ resource.meta.total }}</strong></div>
-			<div><FilterBadges :badges="resource.meta.filterBadges" /></div>
-			<div class="ml-auto flex items-center">
-				<Actions 
-					v-if="bulkActions.length && selectedRows.length"
-					:actions="bulkActions"  
-				/>
-				<Filters :resource-handle="resource.handle" :filters="resource.meta.filters" />
-				<div v-if="selectedRows.length" class="ml-3" title="Delete Selected">
-					<el-button :icon="Delete" @click="handleBulkDelete" />
+
+			<div class="flex items-center justify-start p-3">
+				<div class="mr-2">Total: <strong>{{ resource.meta.total }}</strong></div>
+				<div><FilterBadges :badges="resource.meta.filterBadges" /></div>
+				<div class="ml-auto flex items-center">
+					<Actions 
+						v-if="bulkActions.length && selectedRows.length"
+						:actions="bulkActions"
+						:selected="selectedRows"
+					/>
+					<Filters :resource-handle="resource.handle" :filters="resource.meta.filters" />
+					<div v-if="selectedRows.length" class="ml-3" title="Delete Selected">
+						<el-button :icon="Delete" @click="handleBulkDelete" />
+					</div>
 				</div>
 			</div>
-		</div>
 
 			<ResourceTable 
 				:key="resource.slug"
@@ -53,10 +55,7 @@
 		</el-card>
 	</div>
 
-	<ActionsModal
-		:selected="selectedRows"
-		:actions-url="actionsUrl"
-	/>
+	<ActionsModal :actions-url="actionsUrl"	/>
 </template>
 
 <script setup>
@@ -133,4 +132,9 @@ const handleBulkDelete = () => {
 		handleDelete(selectedRows.value)
 	}
 }
+
+Invicta.on('refresh-resource', () => {
+	console.log('you want to refresh')
+	Inertia.reload()
+})
 </script>

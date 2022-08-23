@@ -11,6 +11,10 @@ class Action implements JsonSerializable
 
     public $inline = false;
 
+    public $dangerous = false;
+
+    public $shouldQueue = false;
+
     /**
      * Perform action on the given models.
      *
@@ -26,7 +30,7 @@ class Action implements JsonSerializable
      *
      * @return array
      */
-    public function fields($value = '')
+    public function fields()
     {
         return [];
     }
@@ -62,6 +66,16 @@ class Action implements JsonSerializable
     }
 
     /**
+     * Get dangerous attribute for the action.
+     *
+     * @return bool
+     */
+    protected function dangerous()
+    {
+        return $this->dangerous;
+    }
+
+    /**
      * Prepare the action for JSON serialization.
      *
      * @return array<string, mixed>
@@ -73,6 +87,7 @@ class Action implements JsonSerializable
             'name' => $this->name(),
             'fields' => $this->fields(),
             'inline' => $this->inline(),
+            'dangerous' => $this->dangerous(),
         ];
     }
 }
