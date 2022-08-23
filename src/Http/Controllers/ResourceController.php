@@ -8,11 +8,6 @@ use Inertia\Inertia;
 
 class ResourceController extends Controller
 {
-    public function home()
-    {
-        return Inertia::render('Invicta.Home', []);
-    }
-
     public function index(ResourceRequest $request)
     {
         return Inertia::render('Invicta.Resource', ['resource' => $request->resourceList()]);
@@ -72,6 +67,12 @@ class ResourceController extends Controller
 
     public function destroy(ResourceRequest $request)
     {
-        // ResourceRequest $request
+        $resource = $request->resourceClass();
+        $resource->model()->whereIn('id', request()->selected)->delete();
+
+        return Redirect::back()->with('message', [
+            'type' => 'success',
+            'title' => 'Selected '.$resource->handle().' deleted',
+        ]);
     }
 }

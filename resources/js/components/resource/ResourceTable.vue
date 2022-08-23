@@ -34,7 +34,7 @@
 				</template>
 
 				<template #default="scope">
-					<RowActions :id="scope.row.id" :actions="actions" @edit="handleEdit" @delete="handleDelete" />
+					<RowActions :id="scope.row.id" :actions="actions" @edit="handleEdit" @delete="$emit('delete', $event)" />
 				</template>
 
 			</el-table-column>
@@ -90,11 +90,6 @@ const handleRowClick = (row, column, event) => {
 // Handle Edit
 const handleEdit = (id) => {
 	Inertia.visit(`${props.editUrl}/${id}`)
-}
-
-// Handle Delete
-const handleDelete = (id) => {
-	//
 }
 
 // Repaint table when sidebar is exposed
