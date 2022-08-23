@@ -3,13 +3,36 @@
 namespace Eteacher\InvictaAdmin\Admin\Traits;
 
 use Eteacher\InvictaAdmin\Admin\Models\Group;
+use Eteacher\InvictaAdmin\Admin\Models\Permission;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Foundation\Auth\Access\Authorizable;
 
 trait IsInvictaUser
 {
+    use Authorizable;
+
+    protected $permissions = null;
+
+    protected $super = null;
+
     public function isSuper(): bool
     {
-        return $this->groups()->where('group_id', 1)->count();
+        $super = $this->super();
+
+        if (is_null($super)) {
+            $super = $this->super(boolval($this->groups()->where('group_id', 1)->count()));
+        }
+
+        return $super;
+    }
+
+    public function super($super = null)
+    {
+        if (! is_null($super)) {
+            $this->super = $super;
+        }
+
+        return $this->super;
     }
 
     public function groups(): BelongsToMany
@@ -40,8 +63,36 @@ trait IsInvictaUser
         $this->groups()->detach($group_id);
     }
 
-    public function hasPermission()
+    public function permissions()
     {
-        // code...
+        if (! $this->permissions) {
+            $this->permissions = $this->getPermissions();
+        }
+
+        return $this->permissions;
+    }
+
+    protected function getPermissions()
+    {
+        $groupIds = $this->groups()->pluck('id');
+
+        $permissions = Permission::select('ability')->whereIn('group_id', $groupIds)->groupBy('ability');
+
+        return $permissions->count() ? $permissions->pluck('ability') : collect([]);
+    }
+
+    public function hasPermission($permissions)
+    {
+        $groupsPermissions = $this->permissions();
+
+        if (! $groupsPermissions->count()) {
+            return false;
+        }
+
+        if (is_array($permissions)) {
+            return $groupsPermissions->contains(fn ($val) => in_array($val, $permissions));
+        }
+
+        return $groupsPermissions->contains($permissions);
     }
 }

@@ -35,7 +35,7 @@
 				</template>
 
 				<template #default="scope">
-					<RowActions :id="scope.row.id" :actions="['edit', 'delete']" @edit="handleEdit" @delete="handleDelete" />
+					<RowActions :id="scope.row.id" :actions="['edit', 'delete']" :can="can" @edit="handleEdit" @delete="handleDelete" />
 				</template>
 
 			</el-table-column>
@@ -59,6 +59,7 @@ const props = defineProps({
 	tableProps: Object,
 	columns: Object,
 	editUrl: String,
+	can: Object,
 })
 
 const resourceTableRef = ref()

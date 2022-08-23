@@ -5,9 +5,11 @@
 		</span>
 		<div class="actions-wrap">
 			<div class="action-buttons flex items-center">
+
 				<el-icon 
 					v-for="action in actions"
-					class="action-icon button" 
+					v-show="isShowAction(action)"
+					class="action-icon button"
 					@click="$emit(action, id)">
 						<component :is="actionIcon(action)"/>
 				</el-icon>
@@ -20,9 +22,10 @@
 import { ref } from 'vue'
 import { Edit, Delete } from '@element-plus/icons-vue'
 
-defineProps({
+const props = defineProps({
 	id: Number,
-	actions: Array
+	actions: Array,
+	can: Object
 })
 
 const open = ref(false)
@@ -35,6 +38,9 @@ const actionIcon = (action) => {
 			return Delete
 	}
 }
+
+const isShowAction = (action) => ! props.can || props.can[action] === undefined || props.can[action]
+
 </script>
 
 <style lang="scss">

@@ -2,6 +2,8 @@
 
 namespace Eteacher\InvictaAdmin\Admin\Permissions;
 
+use Illuminate\Support\Str;
+
 class PermissionRegistrar
 {
     public $groups = [];
@@ -12,9 +14,39 @@ class PermissionRegistrar
     {
         $group = PermissionGroup::make($handle);
 
-        $this->groups[] = $group;
+        $this->groups[$handle] = $group;
 
         return $group;
+    }
+
+    public function resource($resource)
+    {
+        $handle = $resource->handle();
+
+        if (isset($this->groups[$handle])) {
+            return false;
+        }
+
+        $label = Str::ucfirst($handle);
+
+        $this->group($handle)->label($label)
+            ->permissions(
+                [
+                    $this->make('view '.$handle)->label('View '.$handle)->children(
+                        [
+                            $this->make('edit '.$handle)->label('Edit '.$handle)->children(
+                                array_merge(
+                                [
+                                    $this->make('create '.$handle)->label('Create '.$handle),
+                                    $this->make('delete '.$handle)->label('Delete '.$handle),
+                                ],
+                                $resource->permissions()
+                            )
+                            ),
+                        ]
+                    ),
+                ]
+            );
     }
 
     public function make($ability)
@@ -24,9 +56,11 @@ class PermissionRegistrar
 
     public function tree()
     {
-        return collect($this->groups)
-            ->map(function ($group) {
-                return $group->build();
-            });
+        return collect(array_values($this->groups))
+            ->map(
+                function ($group) {
+                    return $group->build();
+                }
+            );
     }
 }

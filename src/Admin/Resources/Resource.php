@@ -135,4 +135,14 @@ class Resource extends JsonResource
             ? $this->resource
             : $this->resource->toArray();
     }
+
+    /**
+     *  set additional permission for current resource.
+     *
+     * @return array instance of Eteacher\InvictaAdmin\Admin\Permissions\Permission
+     */
+    public function permissions()
+    {
+        return [];
+    }
 }

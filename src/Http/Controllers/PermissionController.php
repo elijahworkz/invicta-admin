@@ -2,20 +2,52 @@
 
 namespace Eteacher\InvictaAdmin\Http\Controllers;
 
+use Eteacher\InvictaAdmin\Admin\Models\Group;
+use Eteacher\InvictaAdmin\Facades\Permission;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class PermissionController extends Controller
 {
-    public function edit(Request $request)
+    public function edit(Group $group)
     {
+        $this->authorize('view permissions');
+
+        $permissionTree = Permission::tree();
+
+        $groupPermission = $group->permissions()->pluck('ability');
+
         return Inertia::render('Invicta.Permission.Edit', [
-            'actionUrl' => route('invicta.permission.update', ['group' => $request->group]),
+            'tree' => $permissionTree,
+            'permissions' => $groupPermission,
+            'actionUrl' => route('invicta.permission.update', ['group' => $group->id]),
+            'can'=> [
+                'view' => auth()->user()->can('view permissions'),
+                'edit' => auth()->user()->can('edit permissions'),
+            ],
         ]);
     }
 
-    public function update(Request $request)
+    public function update(Request $request, Group $group)
     {
-        return redirect()->route('invicta.permission.edit', ['group' => $request->group]);
+        $this->authorize('edit permissions');
+
+        $request->validate([
+            'permissions' => 'required|array',
+        ]);
+
+        $permisssions = Arr::map($request->permissions, function ($value) {
+            return ['ability' => $value];
+        });
+
+        $group->permissions()->delete();
+        $group->permissions()->createMany($permisssions);
+
+        return Redirect::back()->with('message', [
+            'type' => 'success',
+            'title' => 'Updated',
+        ]);
     }
 }

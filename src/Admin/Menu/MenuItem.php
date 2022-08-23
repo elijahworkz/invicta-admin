@@ -30,6 +30,8 @@ class MenuItem
 
     protected $resource = false;
 
+    protected $ability;
+
     /**
      *  Make new Menu Item.
      */
@@ -44,8 +46,14 @@ class MenuItem
         return $this;
     }
 
-    public function can($ability)
+    public function can($ability = null)
     {
+        if (is_null($ability)) {
+            return $this->ability;
+        }
+
+        $this->ability = $ability;
+
         return $this;
     }
 
@@ -121,10 +129,6 @@ class MenuItem
 
     public function render($child = false)
     {
-        // FIrst - filter for authorization
-        //
-        //
-
         return [
             'name' => $this->name,
             'url' => $this->url,

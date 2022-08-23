@@ -7,11 +7,21 @@ use Illuminate\Support\Facades\DB;
 
 class ResourceRequest extends InvictaRequest
 {
+    public $request;
+
     public function resourceClass()
     {
+        $this->request = request();
         $handle = $this->route('resource');
 
         return ResourceRegistrar::get($handle);
+    }
+
+    public function handle()
+    {
+        $resourceClass = $this->resourceClass();
+
+        return $resourceClass->handle();
     }
 
     public function resourceList()
@@ -30,6 +40,11 @@ class ResourceRequest extends InvictaRequest
                 'table' => $resourceClass->indexTableSettings(),
                 'handle' => $resourceClass->handle(),
                 'sortable' => $resourceClass->sortable(),
+                'can'=> [
+                    'create' => $this->request->user()->can('create '.$resourceClass->handle()),
+                    'edit' => $this->request->user()->can('edit '.$resourceClass->handle()),
+                    'delete' => auth()->user()->can('delete '.$resourceClass->handle()),
+                ],
             ]);
     }
 

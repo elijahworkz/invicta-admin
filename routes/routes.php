@@ -20,7 +20,7 @@ Route::middleware(['invicta'])
         }
 
         // Application routes
-        Route::middleware(['invicta.auth'])
+        Route::middleware(['invicta.auth', 'can:access invicta'])
             ->group(__DIR__.'/admin.php');
     });
 

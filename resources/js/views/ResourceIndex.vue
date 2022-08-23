@@ -8,7 +8,7 @@
 			</div>
 			<div class="ml-auto">
 				<el-button v-if="resource.sortable"><Link :href="`${resource.meta.path}/reorder`">Reorder</Link></el-button>
-				<el-button type="primary"><Link :href="`${resource.meta.path}/create`">Create new</Link></el-button>
+				<el-button v-show="resource.can.create" type="primary"><Link :href="`${resource.meta.path}/create`">Create new</Link></el-button>
 			</div>
 		</div>
 		<el-card body-style="padding: 0px">
@@ -27,6 +27,7 @@
 				:table-props="resource.table" 
 				:columns="resource.columns"
 				:edit-url="resource.meta.path"
+				:can="resource.can"
 				@select="handleSelect" />
 
 					<div class="flex items-center justify-between p-3 mt-2">

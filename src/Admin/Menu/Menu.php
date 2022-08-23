@@ -4,6 +4,8 @@ namespace Eteacher\InvictaAdmin\Admin\Menu;
 
 use Eteacher\InvictaAdmin\Admin\Models\Group;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
+use Statamic\CP\Navigation\Nav;
 
 class Menu
 {
@@ -14,13 +16,17 @@ class Menu
 
     public function build(): Collection
     {
-        return collect($this->items)
-            ->filter(function ($item) {
-                return $item;
-            })
-            ->map(function ($item) {
-                return $item->render();
-            });
+        return $this
+            ->authorizeItems()
+            ->authorizeChildren()
+            ->render();
+    }
+
+    public function render()
+    {
+        return $this->items->map(function ($item) {
+            return $item->render();
+        });
     }
 
     /**
@@ -40,7 +46,10 @@ class Menu
      */
     public function permissions($name = 'Permissions')
     {
-        return $this->createItem($name)->icon('shield-key')->children($this->permissionItems());
+        return $this->createItem($name)
+            ->icon('shield-key')
+            ->children($this->permissionItems())
+            ->can('view permissions');
     }
 
     /**
@@ -50,14 +59,14 @@ class Menu
      */
     protected function permissionItems()
     {
-        $groups = Group::orderBy('id', 'desc')->get();
+        $groups = Group::where('is_super', 0)->orderBy('id', 'desc')->get();
 
         $groupMenuItems = [];
 
         foreach ($groups as $group) {
             $route = config('invicta.path').'/group/'.$group->id.'/permission';
 
-            $groupMenuItems[] = MenuItem::make($group->title)->route($route);
+            $groupMenuItems[] = MenuItem::make($group->title)->route($route)->can('edit permissions');
         }
 
         return $groupMenuItems;
@@ -101,5 +110,51 @@ class Menu
         $this->items[] = $item;
 
         return $item;
+    }
+
+    /**
+     * Authorize root menu items.
+     *
+     * @return $this
+     */
+    protected function authorizeItems()
+    {
+        $this->items = $this->filterAuthorizedNavItems($this->items);
+
+        return $this;
+    }
+
+    /**
+     * Authorize children metu items.
+     *
+     * @return $this
+     */
+    protected function authorizeChildren()
+    {
+        collect($this->items)
+            ->each(function ($item) {
+                if ($item->children) {
+                    $item->children($this->filterAuthorizedNavItems($item->children)->toArray());
+                }
+            });
+
+        return $this;
+    }
+
+    /**
+     * Filter authorized nav items.
+     *
+     * @param  mixed  $items
+     * @return \Illuminate\Support\Collection
+     */
+    protected function filterAuthorizedNavItems($items)
+    {
+        return collect($items)
+            ->filter(function ($item) {
+                return $item->can()
+                    ? optional(Auth::user())->can($item->can()) === true ? true : null
+                    : true;
+            })
+            ->values();
     }
 }

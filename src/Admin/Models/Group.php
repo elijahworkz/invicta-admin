@@ -25,4 +25,9 @@ class Group extends Model
     {
         return $this->hasMany(Permission::class);
     }
+
+    public function scopeInvictaList($query)
+    {
+        return $query->where('is_super', 0);
+    }
 }

@@ -47,6 +47,9 @@ trait ListsItems
         $sortBy = request()->query('sort_by', 'id');
         $sortOrder = request()->query('sort_order', 'desc');
 
+        if (method_exists($this->model(), 'scopeInvictaList')) {
+            $query = $query->invictaList();
+        }
         if (request()->has('search')) {
             $query = $this->applySearch($query, request()->get('search'));
         }

@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Permission extends Model
 {
+    protected $fillable = ['ability'];
+
     /**
      * Get the table associated with the model.
      *
