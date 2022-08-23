@@ -3,6 +3,7 @@
 namespace Eteacher\InvictaAdmin\Admin\Resources;
 
 use Eteacher\InvictaAdmin\Admin\Traits\CanEditItems;
+use Eteacher\InvictaAdmin\Admin\Traits\HasActions;
 use Eteacher\InvictaAdmin\Admin\Traits\HasFilters;
 use Eteacher\InvictaAdmin\Admin\Traits\ListsItems;
 use Eteacher\InvictaAdmin\Admin\Traits\UpdatesRelationships;
@@ -12,7 +13,7 @@ use Illuminate\Support\Str;
 
 class Resource extends JsonResource
 {
-    use ListsItems, HasFilters, CanEditItems, UpdatesRelationships;
+    use ListsItems, HasFilters, HasActions, CanEditItems, UpdatesRelationships;
 
     /**
      * The underlying resource model.
@@ -45,7 +46,7 @@ class Resource extends JsonResource
      *
      * @var string
      */
-    public $itemTitle = 'id';
+    public $titleField = 'id';
 
     public $icon = 'resource';
 

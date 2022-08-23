@@ -80,7 +80,7 @@ class ResourceRequest extends InvictaRequest
                 'indexUrl' => $resourceClass->route(),
                 'indexTitle' => $resourceClass->menuTitle(),
                 'createTitle' => $resourceClass->createTitle(),
-                'title_field' => $resourceClass->itemTitle,
+                'title_field' => $resourceClass->titleField,
             ],
             'blueprint' => $resourceClass->getBlueprint(),
         ];
@@ -100,7 +100,7 @@ class ResourceRequest extends InvictaRequest
                 'actionUrl' => route('invicta.resource.update', ['resource' => $handle, 'item' => $item->id]),
                 'indexUrl' => $resourceClass->route(),
                 'indexTitle' => $resourceClass->menuTitle(),
-                'title_field' => $resourceClass->itemTitle,
+                'title_field' => $resourceClass->titleField,
             ],
             'blueprint' => $resourceClass->getBlueprint(),
         ];
@@ -168,11 +168,16 @@ class ResourceRequest extends InvictaRequest
         $relatedFields = [];
 
         foreach ($validated as $field => $value) {
-            // check if relationship
-            if (method_exists($item, $field)) {
-                $relatedFields[$field] = $value;
-                unset($validated[$field]);
-            } elseif (! $massAssign) {
+            // first we check if it's a mutator
+            if (! $item->hasAttributeMutator($field)) {
+                // check if relationship
+                if (method_exists($item, $field)) {
+                    $relatedFields[$field] = $value;
+                    unset($validated[$field]);
+                    continue;
+                }
+            }
+            if (! $massAssign) {
                 $item[$field] = $value;
             }
         }

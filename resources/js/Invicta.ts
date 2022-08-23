@@ -17,6 +17,7 @@ import Drawer from '@/components/shared/Drawer.vue'
 import { ElNotification } from 'element-plus'
 import 'element-plus/es/components/message/style/index'
 import 'element-plus/es/components/notification/style/index'
+import 'element-plus/es/components/button-group/style/index'
 
 
 // Layouts
@@ -30,6 +31,7 @@ class Invicta
 	app: any
 	mountElement: string
 	config: any
+	user: any
 	bootingCallbacks: Function[]
 	pages: any
 	eventBus: any
@@ -38,10 +40,14 @@ class Invicta
 	constructor(config: any) {
 		this.app = null
 		this.mountElement = '#app'
+		this.user = config.user
+		delete config.user
 		this.config = config
 		this.bootingCallbacks = []
 		this.eventBus = mitt()
 		this.axios = setupAxios(`${this.getConfig('appUrl')}${this.getConfig('appPath')}/api`)
+		console.log(this.user);
+		console.log(this.config);
 
 		this.pages = {
 			'Invicta.Login': () => import('./views/Auth/Login.vue'),
@@ -112,6 +118,13 @@ class Invicta
 			return this.config[key]
 		}
 		return []
+	}
+
+	can(ability: string) {
+		if(this.user.is_super) {
+			return true
+		}
+		return this.user.permissions.includes(ability)
 	}
 
 	start() {

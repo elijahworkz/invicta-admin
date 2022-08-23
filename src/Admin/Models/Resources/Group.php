@@ -14,7 +14,7 @@ class Group extends Resource
      *
      * @var string
      */
-    public $itemTitle = 'title';
+    public $titleField = 'title';
 
     public $editWith = ['users:id,name', 'permissions'];
 
@@ -37,7 +37,7 @@ class Group extends Resource
     {
         return [
             'id' => Column::id(),
-            'title' => Column::make('Title')->sortable(),
+            'title' => Column::make('Title')->sortable()->editLink(),
             'is_super' => Column::boolean('Super'),
         ];
     }

@@ -12,16 +12,39 @@ class {{ class }} extends Resource
      */
     public $model = 'App\Models\{{ class }}';
 
-    public $eagerLoad = '';
+    /**
+     * List of relationships that should be eager loaded on index.
+     *
+     * @var string
+     */
+    public $indexWith;
 
-    public $title = '{{ title }}';
+    /**
+     * List of relationships that should be eager loaded on edit.
+     *
+     * @var string
+     */
+    public $editWith;
 
-    public $slug = '{{ slug }}';
+    /**
+     * The name that should be used in the menu.
+     *
+     * @var string
+     */
+    public $menuTitle = null;
+
+    /**
+     * The column name that should be used to represent the resource when being displayed.
+     *
+     * @var string
+     */
+    public $titleField = 'id';
 
     public $icon = 'resource';
 
     public $search = [];
 
+    protected $handle = '{{ slug }}';
 
     /**
      * Transform result into resource Collection.

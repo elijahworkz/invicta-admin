@@ -1,5 +1,5 @@
 <template>
-	<el-form-item :class="fieldClasses">
+	<el-form-item :class="[...fieldClasses, $page.props.errors[id] ? 'is-error' : '']">
 		<template #label>
 			{{ field.label() }}
 			<div class="info info-top opacity-60" v-if="info && infoPosition == 'top'">{{ info }}</div>

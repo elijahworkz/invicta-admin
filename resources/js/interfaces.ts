@@ -34,5 +34,6 @@ export interface IFormField {
     info_position?: string
     if?: IFormFieldCondition
     if_any?: IFormFieldCondition[]
-	params?: any
+	params?: any,
+	path?: string
 }

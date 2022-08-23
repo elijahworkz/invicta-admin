@@ -7,7 +7,7 @@
 		class="items-stack w-full"
 		@update="$emit('updated', list)">
 		<template #item="{element, index}">
-			<div class="flex items-center justify-start mb-2 border rounded-sm has-actions">
+			<div class="item flex items-center justify-start mb-2 border rounded-sm">
 				<DragHandle v-if="sortable" class="text-gray-300 hover:text-gray-400"/>
 
 				<component 
@@ -16,19 +16,23 @@
 					:title-field="titleField"
 					@edit="handleEditItem" />
 
-				<RowActions 
-					v-if="options.actions.length"
-					:actions="options.actions"
-					:id="element.id"
-					@edit="handleEditItem"
-					@delete="removeRow" 
-					class="ml-auto" />
+
+				<span class="ml-auto action-icon" title="Detach Item">
+					<SvgIcon
+						:icon="mdiLinkOff" 
+						@click="removeRow(element.id)" 
+						:width="16" />
+				</span>
 			</div>
 		</template>
 		<template #footer>
 			<div class="flex mt-4">
-	   	 		<el-button v-if="options.createItems" type="primary" text bg size="small" :icon="Plus" @click="handleCreateItem">Create new</el-button>
-	   	 		<el-button v-if="options.addItems" type="primary" text bg size="small" :icon="Link" @click="handleAddItem">Add existing</el-button>
+	   	 		<el-button v-if="canCreateItem" type="primary" text bg size="small" @click="handleCreateItem">
+	   	 			<SvgIcon :icon="mdiLinkPlus" :width="15" class="mr-1" /> Attach new
+	   	 		</el-button>
+	   	 		<el-button v-if="options.addItems" type="primary" text bg size="small" @click="handleAddItem">
+		   	 		<SvgIcon :icon="mdiLink" :width="15" class="mr-1" /> Attach existing
+		   	 	</el-button>
 	   	 	</div>
   		</template>
 	</draggable>
@@ -53,11 +57,10 @@
 import { reactive, ref, computed } from 'vue'
 import draggable from 'vuedraggable'
 import DragHandle from '@/components/shared/DragHandle.vue'
-import RowActions from '@/components/shared/RowActions.vue'
 import ItemListItem from './ItemListItem.vue'
 import ItemsSelector from './ItemsSelector.vue'
 import ItemsForm from './ItemsForm.vue'
-import { Plus, Link } from '@element-plus/icons-vue'
+import { mdiLink, mdiLinkOff, mdiLinkPlus,  } from '@mdi/js'
 
 const props = defineProps({
 	list: {
@@ -78,10 +81,14 @@ const props = defineProps({
 })
 const emit = defineEmits(['updated'])
 
+
 const drawer = reactive({
 	state: false,
 	context: 'list'
 })
+
+const canCreateItem = computed(() => props.options.createItems && Invicta.can(`create ${props.resource}`))
+
 const formUrl = ref('')
 
 const { titleField } = props.fieldData
@@ -139,9 +146,10 @@ const handleCreateItem = () => {
 	border-color: var(--el-color-primary-light-7);
 	color: var(--el-color-primary-light-3);
 }
-.has-actions {
-	position: relative;
-	padding: 5px 12px 5px 6px;
-	line-height: 1.5;
+.items-stack {
+	.item {
+		line-height: 1.5;
+		padding: 5px;
+	}
 }
 </style>

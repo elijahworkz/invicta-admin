@@ -21,7 +21,7 @@ import { ref, computed } from 'vue'
 const props = defineProps({
 	filterOptions: Array,
 	handle: String,
-	initialValue: Array,
+	initialValue: String,
 	placeholder: {
 		type: String,
 		default: 'Select'

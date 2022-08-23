@@ -26,7 +26,7 @@ class ConsoleServiceProvider extends ServiceProvider
     protected function registerPublishing()
     {
         $this->publishes([
-            __DIR__.'../Console/stubs/InvictaServiceProvider.stub.php' => app_path('Providers/InvictaServiceProvider.php'),
+            __DIR__.'/../Console/stubs/InvictaServiceProvider.stub.php' => app_path('Providers/InvictaServiceProvider.php'),
         ], 'invicta-provider');
 
         $this->publishes([

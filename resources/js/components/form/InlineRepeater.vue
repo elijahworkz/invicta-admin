@@ -10,7 +10,7 @@
 				<div class="field-row flex items-center">
 					<DragHandle v-if="!disableDraggable" class="handle cursor-grab opacity-50" />
 					<slot :item="element" :index="index"></slot>
-					<el-button type="danger" text :icon="Close" size="small" @click="removeRow(index)"></el-button>
+					<el-button text :icon="Delete" @click="removeRow(index)"></el-button>
 				</div>
 			</template>
 		</draggable>
@@ -24,7 +24,7 @@
 import clone from 'lodash/clone'
 import draggable from 'vuedraggable'
 import DragHandle from '@/components/shared/DragHandle.vue'
-import { Close } from '@element-plus/icons-vue'
+import { Delete } from '@element-plus/icons-vue'
 
 const props = defineProps({
 	modelValue: {

@@ -4,8 +4,6 @@
 			ref="resourceTableRef"
 			:data="data"
 			v-bind="tableProps"
-			@select="$emit('select', $event)"
-			@select-all="$emit('select', $event)"
 			@selection-change="$emit('select', $event)"
 			@sort-change="handleSortChange"
 			@row-click="handleRowClick"
@@ -15,13 +13,14 @@
 			<el-table-column type="selection" fixed />
 
 			<template v-for="(column, key) in visibleColumns">
-				<Column :id="key" :props="column"/>
+				<Column :id="key" :props="column" :edit-url="editUrl" />
 			</template>
 
 			<el-table-column
-				v-if="editUrl"
 				width="100"
-				header-align="right">
+				header-align="right"
+				column-key="actions"
+				fixed="right">
 
 				<template #header >
 					<el-dropdown trigger="click" class="!align-middle">
@@ -35,7 +34,7 @@
 				</template>
 
 				<template #default="scope">
-					<RowActions :id="scope.row.id" :actions="['edit', 'delete']" :can="can" @edit="handleEdit" @delete="handleDelete" />
+					<RowActions :id="scope.row.id" :actions="actions" :can="can" @edit="handleEdit" @delete="handleDelete" />
 				</template>
 
 			</el-table-column>
@@ -52,7 +51,7 @@ import { SetUp, MoreFilled } from '@element-plus/icons-vue'
 
 import { checked } from '@/utils/functions'
 import Column from './Column.vue'
-import RowActions from '@/components/shared/RowActions.vue'
+import RowActions from './RowActions.vue'
 
 const props = defineProps({
 	data: Array,
@@ -60,6 +59,7 @@ const props = defineProps({
 	columns: Object,
 	editUrl: String,
 	can: Object,
+	actions: Array,
 })
 
 const resourceTableRef = ref()
@@ -83,7 +83,9 @@ const handleSortChange = ({ prop, order }) => {
 
 // Handle Row click
 const handleRowClick = (row, column, event) => {
-	resourceTableRef.value.toggleRowSelection(row, undefined)
+	if (!column.columnKey && column.columnKey != 'actions') {
+		resourceTableRef.value.toggleRowSelection(row, undefined)
+	}
 }
 
 // Handle Edit

@@ -3,12 +3,27 @@ import get from 'lodash/get'
 import set from 'lodash/set'
 import { useForm } from '@inertiajs/inertia-vue3'
 import { pickBy } from 'lodash'
+import { IFormField } from '@/interfaces'
 
 interface IResourceItem {
 	[key: string]: any
 }
 
-export const useResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
+const definedForms = new Map()
+
+export const useResourceForm = (id: string) => {
+	let formId = `resourceForm-${id}`
+	if (!definedForms.has(formId)) {
+		definedForms.set(
+			formId,
+			defineResourceForm(id)
+		)
+	}
+
+	return definedForms.get(formId)
+}
+
+const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 	state: () => {
 		return <IResourceItem>{
 			mode: 'create',
@@ -44,6 +59,12 @@ export const useResourceForm = (id: string) => defineStore(`resourceForm-${id}`,
 			this.form[id] = this.data[id]
 		},
 		prepareFields(blueprint: IResourceItem) {
+			const getFieldData = (field: any) => {
+				let id = 'path' in field ? field.path : field.id
+				return this.data
+					? (id in this.data ? this.data[id] : null)
+					: null
+			}
 
 			const getRelatedField = (fields: any[]): object => {
 				return fields.reduce((obj, item) => {
@@ -51,9 +72,7 @@ export const useResourceForm = (id: string) => defineStore(`resourceForm-${id}`,
 						let nested = getRelatedField(item.fields)
 						return {...obj, ...nested}
 					} else if (item.id && item.type.includes('related')) {
-						let value = this.data
-							? get(this.data, item.id)
-							: null
+						let value = getFieldData(item)
 
 						obj[item.id] = value
 						return obj
@@ -65,22 +84,22 @@ export const useResourceForm = (id: string) => defineStore(`resourceForm-${id}`,
 			const getFields = (fields: any[]): object => {
 				return fields.reduce((obj, item) => {
 					if (item.id) {
-						let value = this.data
-							? (item.id in this.data ? this.data[item.id] : null)
-							: null
+						let _id = 'path' in item ? item.path : item.id
+						let value = getFieldData(item)
 
 
-						obj[item.id] = value
+						obj[_id] = value
 
 						if (item.fields) {
 							// check for related fields nested into other fields
 							let nested = getRelatedField(item.fields)
-							console.log('got something', nested)
 							obj = {...obj, ...nested}
 						}
 						return obj
+					} else if (item.type == 'row') {
+						let rowFields = getFields(item.fields)
+						obj = {...obj, ...rowFields}
 					}
-
 
 					return obj
 				},{})

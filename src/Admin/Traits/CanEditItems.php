@@ -71,7 +71,9 @@ trait CanEditItems
 
         return collect($fields)->reduce(function ($carry, $field) use ($callable) {
             if (isset($field['id'])) {
-                $carry[$field['id']] = $this->$callable($field);
+                $id = isset($field['path']) ? $field['path'] : $field['id'];
+
+                $carry[$id] = $this->$callable($field);
 
                 return $carry;
             }

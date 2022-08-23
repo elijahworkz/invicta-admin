@@ -20,6 +20,8 @@
   },
   "homepage": "https://bitbucket.org/eteachergrouprd/invicta-admin#readme",
   "dependencies": {
+    "@codemirror/lang-json": "^6.0.0",
+    "@codemirror/theme-one-dark": "^6.0.0",
     "@inertiajs/inertia": "^0.11.0",
     "@inertiajs/inertia-vue3": "^0.6.0",
     "@inertiajs/progress": "^0.2.7",
@@ -27,6 +29,7 @@
     "@vueuse/core": "^8.3.1",
     "@vueuse/shared": "^8.9.4",
     "axios": "^0.21.1",
+    "codemirror": "^6.0.1",
     "dayjs": "^1.11.3",
     "element-plus": "^2.1.10",
     "get-video-id": "^3.5.3",
@@ -35,6 +38,7 @@
     "pinia": "^2.0.14",
     "pusher-js": "^7.0.3",
     "vue": "^3.2.6",
+    "vue-codemirror": "^6.0.2",
     "vuedraggable": "^4.1.0"
   },
   "devDependencies": {

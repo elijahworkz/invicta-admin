@@ -13,7 +13,7 @@
 							<DragHandle v-if="!disableDraggable" class="handle cursor-grab" />
 							<span class="ml-2">{{ itemTitle(element, index) }}</span>
 							<div class="delete-row-button ml-auto mr-4">
-								<el-button type="danger" text :icon="Close" size="small" @click="removeRow(index)"></el-button>
+								<el-button text :icon="Delete" @click="removeRow(index)"></el-button>
 							</div>
 						</template>
 						<div class="fieldset py-3" :class="panelClass">
@@ -36,7 +36,7 @@
 import clone from 'lodash/clone'
 import draggable from 'vuedraggable'
 import DragHandle from '@/components/shared/DragHandle.vue'
-import { Close } from '@element-plus/icons-vue'
+import { Close, Delete } from '@element-plus/icons-vue'
 
 const props = defineProps({
 	modelValue: {

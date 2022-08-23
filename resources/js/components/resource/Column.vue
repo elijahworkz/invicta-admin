@@ -8,6 +8,12 @@
 
 		<template #default="scope">
 			<i v-if="props.boolean" class="icon-status" :class="{ 'success' : scope.row[id] }"></i>
+			<Link 
+				v-else-if="props.editLink" 
+				:href="`${editUrl}/${scope.row.id}`"
+				class="edit-link">
+					<div v-html="scope.row[id]"/>
+			</Link>
 			<div v-else v-html="scope.row[id]"/>
 		</template>
 
@@ -17,24 +23,9 @@
 <script setup>
 defineProps({
 	id: String,
-	props: Object
+	props: Object,
+	editUrl: String
 })
 
 const align = (props, header = false) => props.boolean ? 'center' : (header ? props.headerAlign : props.align)
 </script>
-
-<style lang="scss">
-// .icon-status {
-// 	border-radius: 7px;
-// 	display: inline-block;
-// 	height: 7px;
-// 	width: 7px;
-// 	flex-shrink: 0;
-// 	background: var(--color-light-back-darker); //#dde3e9;
-
-// 	&.success {
-// 		background: var(--el-color-success)
-// 	}
-
-// }
-</style>

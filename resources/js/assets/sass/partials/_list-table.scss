@@ -27,6 +27,12 @@ $action-icon-size: 18px;
 		.cell {
 			line-height: 1
 		}
+
+		.edit-link {
+			&:hover {
+				color: var(--el-color-primary);
+			}
+		}
 	}
 
 	img {
@@ -40,40 +46,37 @@ $action-icon-size: 18px;
 	}
 }
 
-.resource-table,
-.has-actions {
 
-	.action-icon {
-		cursor: pointer;
-		color: var(--el-table-header-text-color);
-		display: inline-block;
-		line-height: 0;
+.action-icon {
+	cursor: pointer;
+	display: inline-block;
+	line-height: 0;
+	outline: none;
+	opacity: .5;
 
-		&:hover {
-			color: var(--el-color-primary);
-
-			&.danger {
-				color: var(--el-color-danger);
-			}
-		}
-
-		&.delete {
-			color: var(--el-color-danger);
-		}
-
-		&.button {
-			margin: 0 10px 0 0;
-		}
-
+	&:hover {
+		opacity: 1;
 	}
+}
 
-	.el-icon {
-		width: $action-icon-size;
-		height: $action-icon-size;
-
-		svg {
+.resource-table {
+	
+	.actions {
+		.action-icon {
 			width: $action-icon-size;
 			height: $action-icon-size;
+
+			svg {
+				width: $action-icon-size;
+				height: $action-icon-size;
+			}
+
+		 	&:not(:last-child) {
+				margin: 0 .4rem;
+			}
+			&:last-child {
+				margin: 0 0 0 .4rem;
+			}
 		}
 	}
 }
