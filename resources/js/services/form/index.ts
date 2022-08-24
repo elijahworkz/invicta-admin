@@ -40,7 +40,7 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 			this.meta = resource.meta
 			this.mode = this.data ? 'edit' : 'create'
 			this.actionUrl = actionUrl
-
+			console.log(resource.blueprint);
 			let formData = this.prepareFields(resource.blueprint)
 			this.form = useForm(formData)
 		},
@@ -126,7 +126,7 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 		submit(postSubmitAction: string) {
 			this.form
 				.transform((data: any) => ({
-					...pickBy(data),
+					...data,
 					postSubmitAction,
 				}))
 				.post(this.actionUrl, {

@@ -8,15 +8,9 @@ use Inertia\Inertia;
 
 class ResourceController extends Controller
 {
-    public function home()
-    {
-        return Inertia::render('Invicta.Home', []);
-    }
-
     public function index(ResourceRequest $request)
     {
-        $this->authorize('edit '.$request->handle());
-//        $this->authorize('index', $request->resourceClass());
+        $this->authorize('view '.$request->handle());
 
         return Inertia::render('Invicta.Resource', ['resource' => $request->resourceList()]);
     }
@@ -29,7 +23,6 @@ class ResourceController extends Controller
     public function create(ResourceRequest $request)
     {
         $this->authorize('create '.$request->handle());
-//        $this->authorize('create', $request->resourceClass());
 
         return Inertia::render('Invicta.Resource.Create', ['resource' => $request->createItem()]);
     }
@@ -37,8 +30,6 @@ class ResourceController extends Controller
     public function edit(ResourceRequest $request)
     {
         $this->authorize('edit '.$request->handle());
-//        $resourceClass = $request->resourceClass();
-//        $this->authorize('edit', [$resourceClass, $resourceClass->findModel($request->route('item'))]);
 
         return Inertia::render('Invicta.Resource.Edit', ['resource' => $request->editItem()]);
     }
@@ -46,7 +37,6 @@ class ResourceController extends Controller
     public function store(ResourceRequest $request)
     {
         $this->authorize('create '.$request->handle());
-//        $this->authorize('store', $request->resourceClass());
 
         return $this->processItem($request, 'storeItem');
     }
@@ -54,8 +44,6 @@ class ResourceController extends Controller
     public function update(ResourceRequest $request)
     {
         $this->authorize('edit '.$request->handle());
-//        $resourceClass = $request->resourceClass();
-//        $this->authorize('update', [$resourceClass, $resourceClass->findModel($request->route('item'))]);
 
         return $this->processItem($request, 'updateItem');
     }
@@ -90,9 +78,14 @@ class ResourceController extends Controller
     public function destroy(ResourceRequest $request)
     {
         $this->authorize('delete '.$request->handle());
-//        $resourceClass = $request->resourceClass();
-//        $this->authorize('delete', [$resourceClass, $resourceClass->findModel($request->route('item'))]);
 
         // ResourceRequest $request
+        $resource = $request->resourceClass();
+        $resource->model()->whereIn('id', request()->selected)->delete();
+
+        return Redirect::back()->with('message', [
+            'type' => 'success',
+            'title' => 'Selected '.$resource->handle().' deleted',
+        ]);
     }
 }

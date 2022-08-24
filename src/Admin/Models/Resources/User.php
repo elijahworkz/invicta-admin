@@ -16,7 +16,7 @@ class User extends Resource
 
     public $editWith = ['groups:id,title'];
 
-    public $itemTitle = 'name';
+    public $titleField = 'name';
 
     public $handle = 'users';
 
@@ -37,7 +37,16 @@ class User extends Resource
             'id' => $this->id,
             'active' => $this->active,
             'name' => function () {
-                return "<div class='mb-1 font-bold'>{$this->name}</div>{$this->email}";
+                $html = "<div class='mb-1 font-bold'>";
+
+                if (auth()->user()->can('edit users')) {
+                    $html .= "<a href='{$this->route()}/{$this->id}' class='edit-link'>{$this->name}</a>";
+                } else {
+                    $html .= $this->name;
+                }
+                $html .= "</div>{$this->email}";
+
+                return $html;
             },
             'email' => $this->email,
             'groups' => $this->groups()->get()->pluck('title')->map(fn ($title) => "<div class='mb-1'>$title</div>")->join(''),
@@ -89,7 +98,11 @@ class User extends Resource
                 [
                     'id' => 'password',
                     'type' => 'text',
-                    'validation' => 'sometimes|required|min:8',
+                    'validation' => 'required_if:id,null|min:8|nullable',
+                ],
+                [
+                    'id' => 'favorite_campaigns',
+                    'type' => 'text',
                 ],
             ],
             'sidebar' => [

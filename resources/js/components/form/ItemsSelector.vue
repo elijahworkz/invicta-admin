@@ -13,6 +13,9 @@
 				<ResourceTable 
 					:data="itemsResource.resource"
 					:columns="columns"
+					actions="[]"
+					:can-edit="canEditItem"
+					:can-delete="canDeleteItem"
 					@select="handleSelect"
 					max-height="90%"
 				/>
@@ -47,10 +50,14 @@ const props = defineProps({
 	exclude: Array,
 	requestUrl: String,
 	titleField: String,
+	resource: String,
 })
 
 const loading = ref(false)
 const itemsResource = useResource()
+
+const canEditItem = Invicta.can(`edit ${props.resource}`);
+const canDeleteItem = Invicta.can(`delete ${props.resource}`);
 
 const columns = {
 	id: { label: 'ID', sortable: true, align: 'center', width: 70 },

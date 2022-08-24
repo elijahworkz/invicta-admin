@@ -40,11 +40,6 @@ class ResourceRequest extends InvictaRequest
                 'table' => $resourceClass->indexTableSettings(),
                 'handle' => $resourceClass->handle(),
                 'sortable' => $resourceClass->sortable(),
-                'can'=> [
-                    'create' => $this->request->user()->can('create '.$resourceClass->handle()),
-                    'edit' => $this->request->user()->can('edit '.$resourceClass->handle()),
-                    'delete' => auth()->user()->can('delete '.$resourceClass->handle()),
-                ],
             ]);
     }
 

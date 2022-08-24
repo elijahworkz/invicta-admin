@@ -14,6 +14,7 @@
 					:is="ItemListComponent" 
 					:item="element" 
 					:title-field="titleField"
+					:can-edit="canEditItem"
 					@edit="handleEditItem" />
 
 
@@ -43,6 +44,7 @@
 			:exclude="excludeItems"
 			:request-url="itemsUrl"
 			:title-field="titleField"
+			:resource="resource"
 			@update="updateItems" 
 			@cancel="drawer.state = false" />
 
@@ -88,6 +90,7 @@ const drawer = reactive({
 })
 
 const canCreateItem = computed(() => props.options.createItems && Invicta.can(`create ${props.resource}`))
+const canEditItem = computed(() => Invicta.can(`edit ${props.resource}`))
 
 const formUrl = ref('')
 

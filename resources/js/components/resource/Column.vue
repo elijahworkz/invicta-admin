@@ -8,8 +8,8 @@
 
 		<template #default="scope">
 			<i v-if="props.boolean" class="icon-status" :class="{ 'success' : scope.row[id] }"></i>
-			<Link 
-				v-else-if="props.editLink" 
+			<Link
+				v-else-if="props.editLink && canEdit"
 				:href="`${editUrl}/${scope.row.id}`"
 				class="edit-link">
 					<div v-html="scope.row[id]"/>
@@ -24,7 +24,8 @@
 defineProps({
 	id: String,
 	props: Object,
-	editUrl: String
+	editUrl: String,
+	canEdit: Boolean
 })
 
 const align = (props, header = false) => props.boolean ? 'center' : (header ? props.headerAlign : props.align)

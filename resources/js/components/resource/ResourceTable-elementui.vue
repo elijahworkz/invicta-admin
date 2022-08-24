@@ -13,7 +13,7 @@
 			<el-table-column type="selection" fixed />
 
 			<template v-for="(column, key) in visibleColumns">
-				<Column :id="key" :props="column" :edit-url="editUrl" :can-edit="canEdit"/>
+				<Column :id="key" :props="column" :edit-url="editUrl" />
 			</template>
 
 			<el-table-column
@@ -34,7 +34,7 @@
 				</template>
 
 				<template #default="scope">
-					<RowActions :id="scope.row.id" :actions="actions" :can-edit="canEdit" :can-delete="canDelete" @edit="handleEdit" @delete="$emit('delete', $event)" />
+					<RowActions :id="scope.row.id" :actions="actions" @edit="handleEdit" @delete="handleDelete" />
 				</template>
 
 			</el-table-column>
@@ -58,13 +58,8 @@ const props = defineProps({
 	tableProps: Object,
 	columns: Object,
 	editUrl: String,
-	canEdit: Boolean,
-	canDelete: Boolean,
 	actions: Array,
 })
-
-console.log(props.canEdit);
-console.log(props.canDelete);
 
 const resourceTableRef = ref()
 
@@ -95,6 +90,11 @@ const handleRowClick = (row, column, event) => {
 // Handle Edit
 const handleEdit = (id) => {
 	Inertia.visit(`${props.editUrl}/${id}`)
+}
+
+// Handle Delete
+const handleDelete = (id) => {
+	//
 }
 
 // Repaint table when sidebar is exposed

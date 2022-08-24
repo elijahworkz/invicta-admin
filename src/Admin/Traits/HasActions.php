@@ -8,4 +8,10 @@ trait HasActions
     {
         return null;
     }
+
+    public function handleActionRequest()
+    {
+        // get fields,
+        // get models ids - convert to collection of models
+    }
 }

@@ -13,11 +13,16 @@
 	</el-dropdown>
 	<el-dialog
 		v-model="actionModal"
-		:title="actionName">
-		Are you sure you want to run this action?
+		:title="actionName"
+		width="30%">
+
+		<div>Are you sure you want to run this action?</div>
+
+		<div>Fields should be here</div>
+		
 		<template #footer>
 				<el-button @click="actionModal = false">Cancel</el-button>
-				<el-button type="primary" @click="actionModal = false">Run Action</el-button>
+				<el-button type="primary" @click="processAction">Run Action</el-button>
 		</template>
 	</el-dialog>
 </template>
@@ -34,6 +39,8 @@ const props = defineProps({
 
 const actionModal = ref(false)
 const actionName = ref('Action')
+const actionFields = ref([])
+const actionClass = ref()
 
 const ids = computed(() => {
 	return props.rows.map(row => row.id)
@@ -42,16 +49,18 @@ const ids = computed(() => {
 const handleCommand = (command) => {
 	actionModal.value = true
 	actionName.value = command.name
+	actionClass.value = command.class
 	console.log('have command', command)
 
 }
 
-const processAction = (actionClass) => {
+const processAction = () => {
 	let data = {
-		class: actionClass,
+		class: actionClass.value,
 		ids,
-		fields
+		fields: actionFields.value
 	}
+	console.log('processing data', data)
 	Invicta.axios.post(actionsUrl, data)
 }
 </script>

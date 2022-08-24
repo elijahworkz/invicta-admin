@@ -8,13 +8,13 @@
 			</template>
 			<template #default>
 				<ul>
-					<li v-for="action in actions">{{ action }}</li>
+					<li v-for="action in actions" @click="">{{ action.name }}</li>
 				</ul>
 			</template>
 		</el-popover>			
 
-		<span v-show="!can || can.edit" class="action-icon" @click="$emit('edit', id)" title="Edit Item"><Edit /></span>
-		<span v-show="!can || can.delete" class="action-icon" @click="$emit('delete', id)" title="Delete Item"><Delete /></span>
+		<span v-show="canEdit" class="action-icon" @click="$emit('edit', id)" title="Edit Item"><Edit /></span>
+		<span v-show="canDelete" class="action-icon" @click="$emit('delete', id)" title="Delete Item"><Delete /></span>
 
 	</div>
 </template>
@@ -27,6 +27,8 @@ import { mdiDotsHorizontal } from '@mdi/js'
 defineProps({
 	id: Number,
 	actions: Array,
-	can: Object
+	canEdit: Boolean,
+	canDelete: Boolean,
 })
 </script>
+

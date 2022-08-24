@@ -8,43 +8,42 @@
 			</div>
 			<div class="ml-auto">
 				<el-button v-if="resource.sortable"><Link :href="`${resource.meta.path}/reorder`">Reorder</Link></el-button>
-				<el-button v-show="resource.can.create" type="primary"><Link :href="`${resource.meta.path}/create`">Create new</Link></el-button>
+				<el-button v-show="canCreateItem" type="primary"><Link :href="`${resource.meta.path}/create`">Create new</Link></el-button>
 			</div>
 		</div>
 		<el-card body-style="padding: 0px">
-		<div class="flex items-center justify-start p-3">
-			<div class="mr-2">Total: <strong>{{ resource.meta.total }}</strong></div>
-			<div><FilterBadges :badges="resource.meta.filterBadges" /></div>
-			<div class="ml-auto flex items-center">
-				<Actions 
-					v-if="bulkActions.length && selectedRows.length" 
-					:actions="bulkActions" 
-					:rows="selectedRows" 
-					:actions-url="actionsUrl"
-					:can="resource.can"
-				/>
-				<Filters :resource-handle="resource.handle" :filters="resource.meta.filters" />
-				<div v-if="selectedRows.length && (! resource.can || resource.can.delete)" class="ml-3" title="Delete Selected">
-					<el-button type="danger" text bg :icon="Delete" />
+			<div class="flex items-center justify-start p-3">
+				<div class="mr-2">Total: <strong>{{ resource.meta.total }}</strong></div>
+				<div><FilterBadges :badges="resource.meta.filterBadges" /></div>
+				<div class="ml-auto flex items-center">
+					<Actions
+						v-if="bulkActions.length && selectedRows.length"
+						:actions="bulkActions"
+					/>
+					<Filters :resource-handle="resource.handle" :filters="resource.meta.filters" />
+					<div v-if="selectedRows.length && canDeleteItem" class="ml-3" title="Delete Selected">
+						<el-button :icon="Delete" @click="handleBulkDelete" />
+					</div>
 				</div>
 			</div>
-		</div>
 
-			<ResourceTable 
+			<ResourceTable
 				:key="resource.slug"
 				:data="resource.data"
-				:table-props="resource.table" 
+				:table-props="resource.table"
 				:columns="resource.columns"
 				:edit-url="resource.meta.path"
-				:can="resource.can"
 				:actions="inlineActions"
-				@select="handleSelect" />
+				:can-edit="canEditItem"
+				:can-delete="canDeleteItem"
+				@select="handleSelect"
+				@delete="handleDelete" />
 
-					<div class="flex items-center justify-between p-3 mt-2">
+			<div class="flex items-center justify-between p-3 mt-2">
 				<div>Total: <strong>{{ resource.meta.total }}</strong></div>
-				<el-pagination 
-					background 
-					small 
+				<el-pagination
+					background
+					small
 					layout="jumper, prev, pager, next, sizes"
 					:current-page="resource.meta.current_page"
 					:page-size="resource.meta.per_page"
@@ -53,20 +52,27 @@
 					@update:current-page="changePage"
 				/>
 			</div>
+
 		</el-card>
 	</div>
+
+<!--	<ActionsModal-->
+<!--		:selected="selectedRows"-->
+<!--		:actions-url="actionsUrl"-->
+<!--	/>-->
 </template>
 
 <script setup>
 import { ref, onMounted, computed } from 'vue'
+import { Inertia } from '@inertiajs/inertia'
 import { usePage } from '@inertiajs/inertia-vue3'
 import { useResource } from '@/services'
 import Search from '@/components/resource/Search.vue'
 import ResourceTable from '@/components/resource/ResourceTable.vue'
-// import ResourceTable from '@/components/shared/data-table/Table.vue'
 import Filters from '@/components/resource/Filters.vue'
 import FilterBadges from '@/components/resource/FilterBadges.vue'
 import Actions from '@/components/resource/Actions.vue'
+// import ActionsModal from '@/components/resource/ActionsModal.vue'
 import { Delete } from '@element-plus/icons-vue'
 
 const props = defineProps({
@@ -91,20 +97,48 @@ onMounted(() => {
 		})
 })
 
+const canCreateItem = Invicta.can(`create ${props.resource.handle}`)
+const canEditItem = Invicta.can(`edit ${props.resource.handle}`)
+const canDeleteItem = Invicta.can(`delete ${props.resource.handle}`)
+
 const bulkActions = computed(() => {
 	return actions.value.length
 		? actions.value.filter(action => action.inline == false)
 		: []
 })
 const inlineActions = computed(() => {
+	console.log(actions.value);
 	return actions.value.length
 		? actions.value.filter(action => action.inline)
 		: []
 })
 
-const selectedRows = ref(false)
-const handleSelect = (selection) => { 
-	console.log('have selection', selection)
-	selectedRows.value = selection
+/* Setup Selection */
+const selectedRows = ref([])
+const handleSelect = (selection) => {
+	selectedRows.value = selection.map(row => row.id)
+}
+
+/* Handle Delete Actions */
+
+const handleDelete = (selected) => {
+	ElMessageBox.confirm(
+		'This action will permanently delete records from database. Are you sure you want to continue?',
+		'Deleting',
+		{
+			confirmButtonText: 'Delete',
+			cancelButtonText: 'Cancel',
+			confirmButtonClass: 'el-button--danger'
+		}
+	).then(() => {
+		Inertia.delete(props.resource.meta.path, {data: { selected }})
+	})
+	.catch(() => console.log('cancel'))
+}
+
+const handleBulkDelete = () => {
+	if (selectedRows.value.length) {
+		handleDelete(selectedRows.value)
+	}
 }
 </script>
