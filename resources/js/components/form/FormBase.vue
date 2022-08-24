@@ -3,7 +3,7 @@
 		class="invicta-form"
 		:class="[formSettings.class || 'w-3/4']"
 		v-bind="formSettings">
-		<div class="flex items-end justify-between mb-4">
+		<div class="flex items-end justify-between mb-4" v-if="!headless">
 			<div>
 				<Link v-if="breadcrumb"
 					:href="breadcrumb.url" 
@@ -32,7 +32,7 @@
 		</div>
 
 		<div class="form-wrapper" :class="{'card': tabsType == 'card'}">
-			<div class="main-panel" :class="{'el-card is-always-shadow': !hasSections, 'has-sidebar': hasSidebar}">
+			<div class="main-panel" :class="{'el-card is-always-shadow': !hasSections && !headless, 'has-sidebar': hasSidebar}">
 				<!-- <el-card> -->
 					<el-tabs
 						v-if="hasSections"
@@ -91,11 +91,17 @@ const props = defineProps({
 	resource: Object,
 	breadcrumb: Object,
 	actionUrl: String,
+	headless: {
+		type: Boolean,
+		default: false
+	},
 	postSubmitActions: {
 		type: Array,
 		default: ['back', 'edit', 'create']
-	}
+	},
 })
+
+const emit = defineEmits(['submit'])
 
 const resourceForm = useResourceForm(props.formId)
 resourceForm.init(props.resource, props.actionUrl)

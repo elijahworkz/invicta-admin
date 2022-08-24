@@ -61,9 +61,10 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 		prepareFields(blueprint: IResourceItem) {
 			const getFieldData = (field: any) => {
 				let id = 'path' in field ? field.path : field.id
+				let defaultValue = 'defaultValue' in field ? field.defaultValue : null
 				return this.data
-					? (id in this.data ? this.data[id] : null)
-					: null
+					? (id in this.data ? this.data[id] : defaultValue)
+					: defaultValue
 			}
 
 			const getRelatedField = (fields: any[]): object => {
@@ -123,6 +124,13 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 
 			return fields			
 		},
+		formData() {
+			return this.form
+				.transform((data: any) => ({
+					...pickBy(data)
+				}))
+				.data()
+		},
 		submit(postSubmitAction: string) {
 			this.form
 				.transform((data: any) => ({
@@ -146,7 +154,7 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 		},
 		id(): any {
 			return get(this.form, 'id')
-		},
+		}
 	}
 })()
 

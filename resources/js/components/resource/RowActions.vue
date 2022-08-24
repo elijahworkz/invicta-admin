@@ -1,6 +1,6 @@
 <template>
 	<div class="actions flex items-center justify-end">
-		<el-popover placement="bottom-end" trigger="click" v-if="actions.length">
+		<el-popover placement="bottom-end" trigger="click" v-if="actions.length" popper-class="actions-popover">
 			<template #reference>
 				<span title="More actions" class="action-icon">
 					<SvgIcon :icon="mdiDotsHorizontal" :width="18" />
@@ -8,7 +8,7 @@
 			</template>
 			<template #default>
 				<ul>
-					<li v-for="action in actions" @click="">{{ action.name }}</li>
+					<li v-for="action in actions" @click="handleAction(action)" class="el-dropdown-menu__item">{{ action.name }}</li>
 				</ul>
 			</template>
 		</el-popover>			
@@ -24,11 +24,29 @@ import { ref } from 'vue'
 import { Delete, Edit } from '@element-plus/icons-vue'
 import { mdiDotsHorizontal } from '@mdi/js'
 
-defineProps({
+const props = defineProps({
 	id: Number,
 	actions: Array,
 	canEdit: Boolean,
 	canDelete: Boolean,
 })
+
+const handleAction = (action) => {
+	Invicta.emit('show-action-modal', { action, selected: [props.id] })
+}
 </script>
+
+<style lang="scss">
+.actions-popover {
+	padding: 0 !important;
+
+	.el-dropdown-menu__item {
+
+		&:hover {
+			background-color: var(--el-color-primary-light-9);
+		    color: var(--el-color-primary);
+		}
+	}
+}
+</style>
 

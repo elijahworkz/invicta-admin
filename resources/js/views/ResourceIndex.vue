@@ -17,8 +17,9 @@
 				<div><FilterBadges :badges="resource.meta.filterBadges" /></div>
 				<div class="ml-auto flex items-center">
 					<Actions
-						v-if="bulkActions.length && selectedRows.length"
-						:actions="bulkActions"
+						v-if="actions.length && selectedRows.length"
+						:actions="actions"
+						:selected="selectedRows"
 					/>
 					<Filters :resource-handle="resource.handle" :filters="resource.meta.filters" />
 					<div v-if="selectedRows.length && canDeleteItem" class="ml-3" title="Delete Selected">
@@ -56,10 +57,7 @@
 		</el-card>
 	</div>
 
-<!--	<ActionsModal-->
-<!--		:selected="selectedRows"-->
-<!--		:actions-url="actionsUrl"-->
-<!--	/>-->
+	<ActionsModal :actions-url="actionsUrl"	/>
 </template>
 
 <script setup>
@@ -97,6 +95,7 @@ onMounted(() => {
 		})
 })
 
+<<<<<<< HEAD
 const canCreateItem = Invicta.can(`create ${props.resource.handle}`)
 const canEditItem = Invicta.can(`edit ${props.resource.handle}`)
 const canDeleteItem = Invicta.can(`delete ${props.resource.handle}`)
@@ -113,6 +112,8 @@ const inlineActions = computed(() => {
 		: []
 })
 
+=======
+>>>>>>> development
 /* Setup Selection */
 const selectedRows = ref([])
 const handleSelect = (selection) => {
@@ -141,4 +142,9 @@ const handleBulkDelete = () => {
 		handleDelete(selectedRows.value)
 	}
 }
+
+Invicta.on('refresh-resource', () => {
+	console.log('you want to refresh')
+	Inertia.reload()
+})
 </script>
