@@ -34,4 +34,13 @@ class Column
             'align' => 'center',
         ]);
     }
+
+    public static function list($label)
+    {
+        return new Fluent([
+            'label' => $label,
+            'list' => true,
+            'titleField' => 'title',
+        ]);
+    }
 }

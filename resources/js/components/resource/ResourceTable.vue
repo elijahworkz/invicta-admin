@@ -17,6 +17,7 @@
 			</template>
 
 			<el-table-column
+				v-if="!noActions"
 				width="100"
 				header-align="right"
 				column-key="actions"
@@ -34,7 +35,7 @@
 				</template>
 
 				<template #default="scope">
-					<RowActions :id="scope.row.id" :actions="scope.row.actions" @edit="handleEdit" @delete="$emit('delete', $event)" />
+					<RowActions :id="scope.row.id" :actions="scope.row.actions || []" @edit="handleEdit" @delete="$emit('delete', $event)" />
 				</template>
 
 			</el-table-column>
@@ -58,7 +59,10 @@ const props = defineProps({
 	tableProps: Object,
 	columns: Object,
 	editUrl: String,
-	actions: Array,
+	noActions: {
+		type: Boolean,
+		default: false,
+	}
 })
 
 const resourceTableRef = ref()

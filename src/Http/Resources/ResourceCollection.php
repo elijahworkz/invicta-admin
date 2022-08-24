@@ -11,7 +11,7 @@ class ResourceCollection extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at->toFormattedDateString(),
         ];
     }
 }

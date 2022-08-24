@@ -8,6 +8,9 @@
 
 		<template #default="scope">
 			<i v-if="props.boolean" class="icon-status" :class="{ 'success' : scope.row[id] }"></i>
+			<div v-else-if="props.list">
+				{{ buildList(scope.row[id], props.titleField) }}
+			</div>
 			<Link 
 				v-else-if="props.editLink" 
 				:href="`${editUrl}/${scope.row.id}`"
@@ -28,4 +31,12 @@ defineProps({
 })
 
 const align = (props, header = false) => props.boolean ? 'center' : (header ? props.headerAlign : props.align)
+
+function buildList(item, titleField) {
+	if (Array.isArray(item)) {
+		return item.map(i => i[titleField]).join(', ')
+	}
+
+	return (typeof item === 'object') ? item[titleField] : item
+}
 </script>

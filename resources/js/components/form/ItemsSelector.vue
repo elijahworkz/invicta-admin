@@ -13,8 +13,8 @@
 				<ResourceTable 
 					:data="itemsResource.resource"
 					:columns="columns"
+					:no-actions="true"
 					@select="handleSelect"
-					max-height="90%"
 				/>
 			</el-scrollbar>
 		</main>

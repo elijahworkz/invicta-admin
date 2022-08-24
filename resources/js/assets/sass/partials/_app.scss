@@ -93,7 +93,7 @@ $sidebar-mini-width: 54px;
 	}
 
 	&-empty {
-		@include flexbox(row, center, center);
+		@include flexbox(row, flex-start, center);
 		flex: 1;
 	}
 }
