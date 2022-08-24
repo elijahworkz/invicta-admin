@@ -29,7 +29,9 @@ class ResourceController extends Controller
 
     public function actions(ResourceRequest $request)
     {
-        return $request->resourceClass()->actions();
+        return collect($request->resourceClass()->actions())->filter(function ($action) {
+            return ! $action->inline;
+        });
     }
 
     public function related(ResourceRequest $request)

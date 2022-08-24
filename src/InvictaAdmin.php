@@ -16,6 +16,7 @@ class InvictaAdmin
             'appUrl' => config('app.url'),
             'appName' => config('app.name'),
             'appPath' => config('invicta.path'),
+            'impersonateRoute' => route('invicta.impersonate-leave'),
             // 'editorUrl' => route('editor'),
             // 'assetsUrl' => config('frontend.assetsUrl'),
             // 'screenshotsPath' => config('services.screenshots.key'),

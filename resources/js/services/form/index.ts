@@ -133,7 +133,7 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 		submit(postSubmitAction: string) {
 			this.form
 				.transform((data: any) => ({
-					...pickBy(data),
+					...data,
 					postSubmitAction,
 				}))
 				.post(this.actionUrl, {

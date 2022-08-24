@@ -1,10 +1,12 @@
 <?php
 
+use Eteacher\InvictaAdmin\Http\Controllers\AdminController;
 use Eteacher\InvictaAdmin\Http\Controllers\PermissionController;
 use Eteacher\InvictaAdmin\Http\Controllers\ResourceController;
 
-Route::controller(PageController::class)->group(function () {
+Route::controller(AdminController::class)->group(function () {
     Route::get('/', 'home')->name('home');
+    Route::get('/impersonate/leave', 'impersonateLeave')->name('impersonate-leave');
 });
 
 Route::controller(ResourceController::class)->name('resource.')->prefix('/resource/')->group(function () {

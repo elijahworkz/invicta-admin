@@ -9,9 +9,10 @@ trait HasActions
         return null;
     }
 
-    public function handleActionRequest()
+    public function resourceActions($user, $model)
     {
-        // get fields,
-        // get models ids - convert to collection of models
+        return collect($this->actions())->filter(function ($action) use ($user, $model) {
+            return $action->authorize($user, $model);
+        });
     }
 }

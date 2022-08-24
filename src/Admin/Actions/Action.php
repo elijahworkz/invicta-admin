@@ -76,6 +76,14 @@ class Action implements JsonSerializable
     }
 
     /**
+     * Authorize action for given user and model.
+     */
+    public function authorize($user, $model)
+    {
+        return true;
+    }
+
+    /**
      * Prepare the action for JSON serialization.
      *
      * @return array<string, mixed>

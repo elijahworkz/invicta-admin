@@ -34,7 +34,7 @@
 				</template>
 
 				<template #default="scope">
-					<RowActions :id="scope.row.id" :actions="actions" @edit="handleEdit" @delete="$emit('delete', $event)" />
+					<RowActions :id="scope.row.id" :actions="scope.row.actions" @edit="handleEdit" @delete="$emit('delete', $event)" />
 				</template>
 
 			</el-table-column>

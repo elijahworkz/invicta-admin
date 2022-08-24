@@ -18,8 +18,8 @@
 				<div><FilterBadges :badges="resource.meta.filterBadges" /></div>
 				<div class="ml-auto flex items-center">
 					<Actions 
-						v-if="bulkActions.length && selectedRows.length"
-						:actions="bulkActions"
+						v-if="actions.length && selectedRows.length"
+						:actions="actions"
 						:selected="selectedRows"
 					/>
 					<Filters :resource-handle="resource.handle" :filters="resource.meta.filters" />
@@ -35,7 +35,6 @@
 				:table-props="resource.table" 
 				:columns="resource.columns"
 				:edit-url="resource.meta.path"
-				:actions="inlineActions"
 				@select="handleSelect"
 				@delete="handleDelete" />
 
@@ -91,17 +90,6 @@ onMounted(() => {
 		.then(({data}) => {
 			actions.value = data
 		})
-})
-
-const bulkActions = computed(() => {
-	return actions.value.length
-		? actions.value.filter(action => action.inline == false)
-		: []
-})
-const inlineActions = computed(() => {
-	return actions.value.length
-		? actions.value.filter(action => action.inline)
-		: []
 })
 
 /* Setup Selection */

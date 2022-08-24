@@ -5,6 +5,7 @@ namespace Eteacher\InvictaAdmin\Providers;
 use Eteacher\InvictaAdmin\Foundation\Vite;
 use Eteacher\InvictaAdmin\Http\Middleware\Authorize;
 use Eteacher\InvictaAdmin\Http\Middleware\HandleInertiaRequests;
+use Eteacher\InvictaAdmin\Http\Middleware\Impersonate;
 use Eteacher\InvictaAdmin\Http\Middleware\SetAuthGuard;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Blade;
@@ -45,6 +46,7 @@ class AppServiceProvider extends ServiceProvider
         $router->middlewareGroup('invicta', [
             'web',
             SetAuthGuard::class,
+            Impersonate::class,
             HandleInertiaRequests::class,
         ]);
 

@@ -125,15 +125,19 @@ class Resource extends JsonResource
         $indexResource = $this->indexResource($request);
 
         if ($indexResource) {
-            return collect($indexResource)->map(function ($item, $key) {
-                return is_callable($item)
-                    ? $item()
-                    : $item;
-            });
+            return collect($indexResource)
+                ->map(function ($item, $key) {
+                    return is_callable($item) ? $item() : $item;
+                })
+                ->put('actions', $this->resourceActions($request->user(), $this->resource));
         }
 
-        return is_array($this->resource)
+        $resourceArray = is_array($this->resource)
             ? $this->resource
             : $this->resource->toArray();
+
+        $resourceArray['actions'] = ['test', 'me'];
+
+        return $resourceArray;
     }
 }

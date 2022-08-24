@@ -36,10 +36,16 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $auth = [
+            'user' => $request->user(),
+        ];
+
+        if ($impersonator = session('impersonator_id')) {
+            $auth['impersonator'] = $impersonator;
+        }
+
         return array_merge(parent::share($request), [
-            'auth' => [
-                'user' => $request->user(),
-            ],
+            'auth' => $auth,
             'flash' => [
                 'message' => fn () => $request->session()->get('message'),
             ],
