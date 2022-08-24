@@ -9,16 +9,11 @@
 				<div>
 					<h1 class="mb-1">Permissions</h1>
 				</div>
-					<el-button
-						type="primary"
-						@click="submit"
-					>
-						Save
-					</el-button>
+				<el-button type="primary" @click="submit">Save</el-button>
 			</div>
 			<div class="w-full">
 				<div v-for="tree in trees" class="pb-6">
-					<header v-if="tree.label" class="text-base font-bold pb-2">{{tree.label}}</header>
+					<header v-if="tree.label" class="text-base font-bold pb-2">{{ tree.label }}</header>
 					<el-card>
 						<div class="px-5">
 							<CheckTree :initial-items="tree.children" :disabled="false" :depth="1"/>
@@ -50,10 +45,10 @@ const form = useForm({
 const trees = ref([])
 
 onMounted(() => {
-	parsePermissionResponse(props.tree)
+	parsePermissionTree(props.tree)
 })
 
-function parsePermissionResponse(data) {
+function parsePermissionTree(data) {
 
 	data.map((group) => {
 		trees.value.push({
@@ -72,6 +67,7 @@ function parsePermissionItem(permissionItem) {
 		children: permissionItem.children ? permissionItem.children.map((children) => parsePermissionItem(children)) : []
 	}
 }
+
 const checkedPermission = computed(() => {
 	const value = checked(trees.value)
 	return pickBy(value, isString)
@@ -82,6 +78,5 @@ function submit() {
 	form.post(props.actionUrl, {
 		onFinish: () => form.reset('password')
 	})
-	console.log('submited form', form);
 }
 </script>

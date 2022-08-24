@@ -13,7 +13,7 @@ class PermissionController extends Controller
 {
     public function edit(Group $group)
     {
-        $this->authorize('view permissions');
+        $this->authorize('edit permissions');
 
         $permissionTree = Permission::tree();
 
@@ -23,10 +23,6 @@ class PermissionController extends Controller
             'tree' => $permissionTree,
             'permissions' => $groupPermission,
             'actionUrl' => route('invicta.permission.update', ['group' => $group->id]),
-            'can'=> [
-                'view' => auth()->user()->can('view permissions'),
-                'edit' => auth()->user()->can('edit permissions'),
-            ],
         ]);
     }
 
@@ -35,7 +31,7 @@ class PermissionController extends Controller
         $this->authorize('edit permissions');
 
         $request->validate([
-            'permissions' => 'required|array',
+            'permissions' => 'array|nullable',
         ]);
 
         $permisssions = Arr::map($request->permissions, function ($value) {
