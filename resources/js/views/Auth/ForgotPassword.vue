@@ -2,11 +2,11 @@
 
 	<Head title="Forgot password"/>
 
-	<el-space direction="vertical">
-		<h1 class="app-branding-auth">{{ appName }}</h1>
+	<div class="auth-form">
+		<h1 class="auth-header">{{ appName }}</h1>
 
 		<el-card class="auth-card">
-			<header class="mb-4">
+			<header class="mb-6">
 				<div class="text-center mb-2 text-xl">Forgot Your Password?</div>
 				<p>Enter your email address so we can send a reset password link.</p>
 			</header>
@@ -24,13 +24,13 @@
 					<el-input v-model="form.email" autofocus autocomplete="username"/>
 					<div class="el-form-item__error" v-if="form.errors.email" v-text="form.errors.email"></div>
 				</el-form-item>
-				<el-form-item class="justify-center">
+				<footer>
 					<el-button type="primary" native-type="submit">Submit</el-button>
-				</el-form-item>
+				</footer>
 			</el-form>
 
 		</el-card>
-	</el-space>
+	</div>
 
 </template>
 
