@@ -33,7 +33,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
 
     protected function defineDatabaseMigrations()
     {
-        $this->loadLaravelMigrations(
+        $this->runLaravelMigrations(
             [
                 '--database' => 'testbench',
                 '--path' => realpath(__DIR__.'/../tests/database/migrations'),

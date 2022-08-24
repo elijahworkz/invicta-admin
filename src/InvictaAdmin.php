@@ -14,6 +14,14 @@ class InvictaAdmin
     {
         $user = auth()->user();
 
+        $userData = $user ? array_merge(
+            $user->toArray(),
+            [
+                'is_super' => method_exists($user, 'isSuper') ? $user->isSuper() : true,
+                'permissions' => method_exists($user, 'permissions') ? $user->permissions() : [],
+            ]
+        ) : [];
+
         return [
             'appUrl' => config('app.url'),
             'appName' => config('app.name'),
@@ -22,13 +30,7 @@ class InvictaAdmin
             // 'assetsUrl' => config('frontend.assetsUrl'),
             // 'screenshotsPath' => config('services.screenshots.key'),
             'menu' => self::menu(),
-            'user' => array_merge(
-                $user->toArray(),
-                [
-                    'is_super' => method_exists($user, 'isSuper') ? $user->isSuper() : true,
-                    'permissions' => method_exists($user, 'permissions') ? $user->permissions() : [],
-                ]
-            ),
+            'user' => $userData,
             // 'brands' => self::brands(),
             // 'templates' => self::templates(),
             // 'languages' => self::languages(),
