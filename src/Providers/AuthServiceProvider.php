@@ -2,7 +2,7 @@
 
 namespace Eteacher\InvictaAdmin\Providers;
 
-use Eteacher\InvictaAdmin\Facades\CorePermission;
+use Eteacher\InvictaAdmin\Admin\Permissions\CorePermissions;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
@@ -34,7 +34,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         $this->app->booted(function () {
-            CorePermission::boot();
+            CorePermissions::boot();
         });
 
         if (config('invicta.auth.enable_password_reset')) {

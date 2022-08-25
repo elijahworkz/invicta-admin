@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <link rel="icon" href="/images/favicon.png" type="image/png" />
+    <link rel="icon" href="{{ config('invicta.favicon') }}" type="image/png" />
 
     <!-- Font -->
     <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet" type="text/css">

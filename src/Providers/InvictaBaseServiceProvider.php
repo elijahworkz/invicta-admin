@@ -2,11 +2,19 @@
 
 namespace Eteacher\InvictaAdmin\Providers;
 
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class InvictaBaseServiceProvider extends ServiceProvider
 {
+    /**
+     * The event listener mappings for the application.
+     *
+     * @var array
+     */
+    protected $listen = [];
+
     /**
      * Bootstrap any package services.
      *
@@ -15,6 +23,7 @@ class InvictaBaseServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->authorization();
+        $this->bootEvents();
     }
 
     protected function authorization()
@@ -45,5 +54,19 @@ class InvictaBaseServiceProvider extends ServiceProvider
      */
     public function register()
     {
+    }
+
+    /**
+     * Boot all custom Event listeners.
+     *
+     * @return void
+     */
+    public function bootEvents()
+    {
+        foreach ($this->listen as $event => $listeners) {
+            foreach ($listeners as $listener) {
+                Event::listen($event, $listener);
+            }
+        }
     }
 }

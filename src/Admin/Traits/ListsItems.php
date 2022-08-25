@@ -82,28 +82,11 @@ trait ListsItems
             ->get();
     }
 
-    protected function applySearch($query, $search)
+    public function relatedQuery($relationship)
     {
-        if (is_numeric($search)) {
-            $query->where(function ($query) use ($search) {
-                $query->where('id', $search);
-            });
-        } else {
-            if (! empty($this->search)) {
-                foreach ($this->search as $column) {
-                    $query->orWhere($column, 'like', '%'.$search.'%');
-                }
-            }
-        }
+        $related = App::make($this->model)->$relationship()->getRelated();
 
-        return $query;
-    }
-
-    protected function applyFilters($query, $filters)
-    {
-        self::decodeFilters($filters);
-
-        return self::filteredQuery($query);
+        return $this->itemsQuery($related);
     }
 
     public function itemsQuery($query = null)
@@ -146,5 +129,29 @@ trait ListsItems
                 ],
                 'handle' => $this->handle(),
             ]);
+    }
+
+    protected function applySearch($query, $search)
+    {
+        if (is_numeric($search)) {
+            $query->where(function ($query) use ($search) {
+                $query->where('id', $search);
+            });
+        } else {
+            if (! empty($this->search)) {
+                foreach ($this->search as $column) {
+                    $query->orWhere($column, 'like', '%'.$search.'%');
+                }
+            }
+        }
+
+        return $query;
+    }
+
+    protected function applyFilters($query, $filters)
+    {
+        self::decodeFilters($filters);
+
+        return self::filteredQuery($query);
     }
 }

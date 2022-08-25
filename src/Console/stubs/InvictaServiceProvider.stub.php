@@ -9,6 +9,13 @@ use Eteacher\InvictaAdmin\Providers\InvictaBaseServiceProvider;
 class InvictaServiceProvider extends InvictaBaseServiceProvider
 {
     /**
+     * The event listener mappings for the application.
+     *
+     * @var array
+     */
+    protected $listen = [];
+
+    /**
      * Bootstrap any package services.
      *
      * @return void

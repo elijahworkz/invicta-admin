@@ -2,60 +2,60 @@
 
 namespace Eteacher\InvictaAdmin\Admin\Traits;
 
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
 trait CanEditItems
 {
-    public function blueprint()
+    /**
+     * Optional blueprint path.
+     *
+     * @var string
+     */
+    public $blueprintPath = null;
+
+    /**
+     * Set blueprint from function.
+     *
+     * @param Illuminate\Database\Eloquent\Model $item
+     * @return array
+     */
+    public function blueprint($item)
     {
         //
     }
 
-    public function getBlueprint()
+    public function getBlueprint($item)
     {
+        $blueprint = null;
+
         // Check for PHP blueprint first
-        if ($blueprint = $this->blueprint()) {
-            return $blueprint;
+        if (! $blueprint = $this->blueprint($item)) {
+
+            // check for default json blueprint
+            $defaultFolder = app_path('Invicta/Resources/blueprints');
+            $defaultName = Str::of($this->model)->classBasename();
+
+            // check for custom blueprint on the item
+            if (isset($item->blueprint)) {
+                $folderPath = $this->blueprintPath ? $this->blueprintPath : 'blueprints/'.$this->handle();
+                $folder = resource_path($folderPath);
+                $name = $item->blueprint;
+
+                $blueprint = $this->getBlueprintFile($folder, $name);
+            }
+
+            if (! isset($item->blueprint) || ! $blueprint) {
+                $blueprint = $this->getBlueprintFile($defaultFolder, $defaultName);
+            }
         }
 
-        // check for json blueprint
-        $folder = app_path('Invicta/Resources/blueprints');
-        $name = Str::of($this->model)->classBasename();
-
-        $path = $folder.'/'.$name.'.json';
-
-        if (File::exists($path)) {
-            return json_decode(File::get($path), true);
-        }
-
-        return null;
+        return $blueprint;
     }
 
     public function validationRules()
     {
-        $rules = [];
-
-        if ($blueprint = $this->getBlueprint()) {
-            if (isset($blueprint['fields'])) {
-                $rules = $this->parseFields($blueprint['fields'], 'parseValidation');
-            }
-
-            if (isset($blueprint['sidebar']) && isset($blueprint['sidebar']['fields'])) {
-                $rules = array_merge($rules, $this->parseFields($blueprint['sidebar']['fields'], 'parseValidation'));
-            }
-
-            if (isset($blueprint['sections'])) {
-                foreach ($blueprint['sections'] as $section) {
-                    if (isset($section['fields'])) {
-                        $rules = array_merge($rules, $this->parseFields($section['fields'], 'parseValidation'));
-                    }
-                }
-            }
-        }
-
-        return $rules;
+        return $this->parseBlueprint('parseValidation');
     }
 
     private function parseValidation($field)
@@ -63,6 +63,31 @@ trait CanEditItems
         return isset($field['validation'])
             ? $field['validation']
             : 'nullable';
+    }
+
+    private function parseBlueprint($callback)
+    {
+        $fields = [];
+
+        if ($blueprint = $this->getBlueprint($this->model())) {
+            if (isset($blueprint['fields'])) {
+                $fields = $this->parseFields($blueprint['fields'], $callback);
+            }
+
+            if (isset($blueprint['sidebar']) && isset($blueprint['sidebar']['fields'])) {
+                $fields = array_merge($fields, $this->parseFields($blueprint['sidebar']['fields'], 'parseValidation'));
+            }
+
+            if (isset($blueprint['sections'])) {
+                foreach ($blueprint['sections'] as $section) {
+                    if (isset($section['fields'])) {
+                        $fields = array_merge($fields, $this->parseFields($section['fields'], 'parseValidation'));
+                    }
+                }
+            }
+        }
+
+        return $fields;
     }
 
     private function parseFields($fields, $callable)
@@ -82,10 +107,14 @@ trait CanEditItems
         }, []);
     }
 
-    public function relatedQuery($relationship)
+    private function getBlueprintFile($folder, $name)
     {
-        $related = App::make($this->model)->$relationship()->getRelated();
+        $path = $folder.'/'.$name.'.json';
 
-        return $this->itemsQuery($related);
+        if (File::exists($path)) {
+            return json_decode(File::get($path), true);
+        }
+
+        return null;
     }
 }

@@ -6,7 +6,7 @@ use Eteacher\InvictaAdmin\Facades\Permission;
 
 class CorePermissions
 {
-    public function boot()
+    public static function boot()
     {
         Permission::group('invicta')->label('Admin Panel')
             ->permissions([
