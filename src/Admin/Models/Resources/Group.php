@@ -46,7 +46,7 @@ class Group extends Resource
         ];
     }
 
-    public function blueprint($item)
+    public function blueprint($item = null)
     {
         return [
             'settings' => [

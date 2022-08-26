@@ -58,13 +58,13 @@ class ResourceCommand extends GeneratorCommand
     }
 
     /**
-     * Get the stub of the json file for the generator.
+     * Get the stub of the blueprint file for the generator.
      *
      * @return string
      */
-    protected function getJsonStub()
+    protected function getBlueprintStub()
     {
-        return __DIR__.'/stubs/blueprint.stub.json';
+        return __DIR__.'/stubs/blueprint.stub.php';
     }
 
     /**
@@ -101,13 +101,13 @@ class ResourceCommand extends GeneratorCommand
         // First we need to get the name of the class
         $name = $this->getNameInput();
 
-        $path = $this->laravel['path'].'/Invicta/Resources/blueprints/'.$name.'.json';
+        $path = $this->laravel['path'].'/Invicta/Resources/blueprints/'.$name.'.php';
 
         // Next, we will generate the path to the location where this file should get
         // written.
         $this->makeDirectory($path);
 
-        $stub = $this->files->get($this->getJsonStub());
+        $stub = $this->files->get($this->getBlueprintStub());
 
         $this->files->put($path, $stub);
 
