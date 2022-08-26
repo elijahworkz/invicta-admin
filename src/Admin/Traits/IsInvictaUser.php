@@ -20,7 +20,7 @@ trait IsInvictaUser
         $super = $this->super();
 
         if (is_null($super)) {
-            $super = $this->super(boolval($this->groups()->where('group_id', 1)->count()));
+            $super = $this->super(boolval($this->groups()->where('is_super', 1)->count()));
         }
 
         return $super;

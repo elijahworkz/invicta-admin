@@ -4,14 +4,34 @@ namespace Eteacher\InvictaAdmin\Tests;
 
 use Eteacher\InvictaAdmin\InvictaServiceProvider;
 use Eteacher\InvictaAdmin\Providers\InvictaBaseServiceProvider;
+use Inertia\Inertia;
+use Inertia\ServiceProvider as InertiaServiceProvider;
+use Orchestra\Testbench\TestCase as Orchestra;
 
-class TestCase extends \Orchestra\Testbench\TestCase
+class TestCase extends Orchestra
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        Inertia::setRootView('app');
+        config()->set('inertia.page.should_exist', false);
+        //		config()->set('inertia.page.paths', [realpath(__DIR__) . '/../resources/js/views']);
+    }
+
     protected function getPackageProviders($app)
     {
         return [
             InvictaBaseServiceProvider::class,
             InvictaServiceProvider::class,
+            InertiaServiceProvider::class,
+        ];
+    }
+
+    protected function getPackageAliases($app)
+    {
+        return [
+            'InvictaAdmin' => 'Eteacher\InvictaAdmin\InvictaAdmin',
         ];
     }
 
@@ -29,6 +49,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
                 'prefix' => '',
             ]
         );
+//        dd(config('app.aliases'));
     }
 
     protected function defineDatabaseMigrations()
@@ -36,7 +57,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
         $this->runLaravelMigrations(
             [
                 '--database' => 'testbench',
-                '--path' => realpath(__DIR__.'/../tests/database/migrations'),
+                '--path' => 'migrations/../../../../../tests/database/migrations',
             ]
         );
     }

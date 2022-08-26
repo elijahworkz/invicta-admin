@@ -30,7 +30,7 @@ class ResourceTest extends TestCase
     {
         $response = $this
              ->actingAs($this->user, config('invicta.auth.guard'))
-             ->get(route('invicta.resource', ['resource' => 'students']));
-        $response->dd();
+             ->get(route('invicta.resource.index', ['resource' => 'students']));
+        dd($response);
     }
 }

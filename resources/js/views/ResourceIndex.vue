@@ -95,25 +95,11 @@ onMounted(() => {
 		})
 })
 
-<<<<<<< HEAD
+
 const canCreateItem = Invicta.can(`create ${props.resource.handle}`)
 const canEditItem = Invicta.can(`edit ${props.resource.handle}`)
 const canDeleteItem = Invicta.can(`delete ${props.resource.handle}`)
 
-const bulkActions = computed(() => {
-	return actions.value.length
-		? actions.value.filter(action => action.inline == false)
-		: []
-})
-const inlineActions = computed(() => {
-	console.log(actions.value);
-	return actions.value.length
-		? actions.value.filter(action => action.inline)
-		: []
-})
-
-=======
->>>>>>> development
 /* Setup Selection */
 const selectedRows = ref([])
 const handleSelect = (selection) => {

@@ -1,13 +1,15 @@
 <?php
 
 use Eteacher\InvictaAdmin\Http\Controllers\Auth\LoginController;
+use Inertia\Inertia;
 
 Route::middleware(['invicta'])
     ->name('invicta.')
     ->prefix(config('invicta.path'))
     ->group(function () {
         Route::get('/guest', function (Request $request) {
-            dd('fsdfsdf');
+            return Inertia::render('Invicta.Home', []);
+//            dd('fsdfsdf');
         })->name('guest');
 
         // Authorization routess
