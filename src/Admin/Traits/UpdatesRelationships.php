@@ -39,7 +39,10 @@ trait UpdatesRelationships
         //     $model->$relationship()->getRelated()->whereIn('id', $value)->update([$foreignKey => $model->id]);
         // }
 
-        if ($relationship instanceof BelongsToMany) {
+        if (
+            $relationship instanceof BelongsToMany ||
+            $relationship instanceof MorphToMany
+        ) {
             $relationship->sync($value);
         }
     }

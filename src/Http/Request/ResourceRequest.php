@@ -175,7 +175,7 @@ class ResourceRequest extends InvictaRequest
     protected function processItem($resourceClass, $item, $action)
     {
         $massAssign = count($item->getFillable());
-        $validated = request()->validate($resourceClass->validationRules());
+        $validated = request()->validate(request()->validation);
 
         $relatedFields = [];
 

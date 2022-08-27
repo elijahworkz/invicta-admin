@@ -1,7 +1,7 @@
 <template>
 	<el-form
 		class="invicta-form"
-		:class="[formSettings.class || 'w-3/4']"
+		:class="[formSettings.class || hasSidebar ? 'w-3/4' : 'w-2/5']"
 		v-bind="formSettings">
 		<div class="flex items-end justify-between mb-4" v-if="!headless">
 			<div>

@@ -3,7 +3,6 @@
 namespace Eteacher\InvictaAdmin\Admin\Traits;
 
 use Eteacher\InvictaAdmin\Http\Resources\ResourceCollection;
-use Illuminate\Support\Facades\App;
 
 trait ListsItems
 {
@@ -84,7 +83,11 @@ trait ListsItems
 
     public function relatedQuery($relationship)
     {
-        $related = App::make($this->model)->$relationship()->getRelated();
+        if ($item = request()->query('item', false)) {
+            $related = $this->findModel($item)->$relationship();
+        } else {
+            $related = $this->model()->$relationship()->getRelated();
+        }
 
         return $this->itemsQuery($related);
     }
@@ -92,7 +95,7 @@ trait ListsItems
     public function itemsQuery($query = null)
     {
         if (! $query) {
-            $query = App::make($this->model);
+            $query = $this->model();
         }
 
         $paginate = request()->query('paginate', false);

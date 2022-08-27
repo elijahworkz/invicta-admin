@@ -52,8 +52,6 @@ class Resource extends JsonResource
 
     public $search = [];
 
-    protected $handle = 'base';
-
     protected $routePrefix = '/resource/';
 
     public function __construct(public $resource = null)
@@ -62,7 +60,7 @@ class Resource extends JsonResource
 
     public function handle()
     {
-        return $this->handle;
+        return $this->model()->getTable();
     }
 
     public function route()
@@ -136,7 +134,7 @@ class Resource extends JsonResource
             ? $this->resource
             : $this->resource->toArray();
 
-        $resourceArray['actions'] = ['test', 'me'];
+        $resourceArray['actions'] = $this->resourceActions($request->user(), $this->resource);
 
         return $resourceArray;
     }

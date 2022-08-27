@@ -24,8 +24,6 @@ class Group extends Resource
 
     public $search = ['title'];
 
-    protected $handle = 'groups';
-
     public function indexResource($request)
     {
         return [

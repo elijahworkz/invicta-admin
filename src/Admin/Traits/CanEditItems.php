@@ -7,13 +7,6 @@ use Eteacher\InvictaAdmin\Facades\Blueprint;
 trait CanEditItems
 {
     /**
-     * Optional blueprint path.
-     *
-     * @var string
-     */
-    public $blueprintPath = null;
-
-    /**
      * Set blueprint from function.
      *
      * @param Illuminate\Database\Eloquent\Model $item

@@ -20,6 +20,16 @@ Route::controller(ResourceController::class)->name('resource.')->prefix('/resour
     Route::post('{resource}/{item}', 'update')->name('update');
 });
 
+Route::controller(NavigationController::class)->name('nav.')->prefix('/navigation/')->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/create', 'create')->name('create');
+    Route::post('/', 'store');
+    Route::get('/{menu}', 'edit')->name('edit');
+    Route::post('/{menu}', 'update')->name('update');
+    Route::get('/{menu}/settings', 'editSettings')->name('edit.settings');
+    Route::post('/{menu}/settings', 'updateSettings')->name('update.settings');
+});
+
 Route::controller(PermissionController::class)->name('permission.')->prefix('/group/')->group(function () {
     Route::get('{group}/permission', 'edit')->name('edit');
     Route::post('{group}/permission', 'update')->name('update');

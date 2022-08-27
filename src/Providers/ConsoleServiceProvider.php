@@ -58,6 +58,8 @@ class ConsoleServiceProvider extends ServiceProvider
             \Eteacher\InvictaAdmin\Console\AuthPublishCommand::class,
             \Eteacher\InvictaAdmin\Console\MakeSuperAdminCommand::class,
             \Eteacher\InvictaAdmin\Console\ResourceCommand::class,
+            \Eteacher\InvictaAdmin\Console\ActionCommand::class,
+            \Eteacher\InvictaAdmin\Console\FilterCommand::class,
         ]);
     }
 }

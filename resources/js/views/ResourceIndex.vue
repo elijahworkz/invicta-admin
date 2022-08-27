@@ -23,8 +23,8 @@
 						:selected="selectedRows"
 					/>
 					<Filters :resource-handle="resource.handle" :filters="resource.meta.filters" />
-					<div v-if="selectedRows.length" class="ml-3" title="Delete Selected">
-						<el-button :icon="Delete" @click="handleBulkDelete" />
+					<div class="ml-3" title="Delete Selected">
+						<el-button :icon="Delete" @click="handleBulkDelete" :disabled="!selectedRows.length" />
 					</div>
 				</div>
 			</div>

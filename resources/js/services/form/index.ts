@@ -31,7 +31,8 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 			data: null,
 			meta: {},
 			actionUrl: null,
-			dirty: false
+			dirty: false,
+			rules: {}
 		}
 	},
 	actions: {
@@ -91,6 +92,10 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 
 						obj[_id] = value
 
+						this.rules[_id] = item.validation
+							? item.validation
+							: 'nullable'
+
 						if (item.fields) {
 							// check for related fields nested into other fields
 							let nested = getRelatedField(item.fields)
@@ -132,10 +137,12 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 				.data()
 		},
 		submit(postSubmitAction: string) {
+			let rules = this.rules
 			this.form
 				.transform((data: any) => ({
 					...data,
 					postSubmitAction,
+					validation: rules
 				}))
 				.post(this.actionUrl, {
 					onSuccess: () => {
@@ -153,7 +160,7 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 				: this.meta.createTitle
 		},
 		id(): any {
-			return get(this.form, 'id')
+			return get(this.data, 'id')
 		}
 	}
 })()

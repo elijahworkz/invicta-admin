@@ -5,21 +5,21 @@ namespace Eteacher\InvictaAdmin\Console;
 use Illuminate\Console\GeneratorCommand;
 use Illuminate\Support\Str;
 
-class ActionCommand extends GeneratorCommand
+class FilterCommand extends GeneratorCommand
 {
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'invicta:action';
+    protected $name = 'invicta:filter';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Create a new action class';
+    protected $description = 'Create a new filter class';
 
     /**
      * Indicates whether the command should be shown in the Artisan command list.
@@ -33,7 +33,7 @@ class ActionCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $type = 'Action';
+    protected $type = 'Filter';
 
     /**
      * Execute the console command.
@@ -52,7 +52,7 @@ class ActionCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return __DIR__.'/stubs/Action.stub.php';
+        return __DIR__.'/stubs/Filter.stub.php';
     }
 
     /**
@@ -63,7 +63,7 @@ class ActionCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\Invicta\Actions';
+        return $rootNamespace.'\Invicta\Filters';
     }
 
     /**

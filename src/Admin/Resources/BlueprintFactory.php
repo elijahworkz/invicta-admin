@@ -46,7 +46,6 @@ class BlueprintFactory
     {
         // Check resource blueprint function first
         if (! $blueprint = $this->resource->blueprint($this->item)) {
-
             // check for custom blueprint on the item
             if ($this->item && isset($this->item->blueprint)) {
                 // $folderPath = $resource->blueprintPath ? $resource->blueprintPath : 'blueprints/'.$resource->handle();

@@ -18,8 +18,6 @@ class User extends Resource
 
     public $itemTitle = 'name';
 
-    public $handle = 'users';
-
     public $icon = 'users';
 
     public $search = ['name', 'email'];
@@ -65,12 +63,6 @@ class User extends Resource
     public function blueprint($item = null)
     {
         return [
-            'settings' => [
-                'tabs' => [
-                    'stretch' => false,
-                    'tabPosition' => 'top',
-                ],
-            ],
             'fields' => [
                 [
                     'id' => 'id',

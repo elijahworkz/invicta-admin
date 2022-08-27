@@ -59,16 +59,6 @@ class Filter implements JsonSerializable
         return [
             'class' => $this->key(),
             'name' => $this->name(),
-            // 'component' => $this->component(),
-            // 'options' => collect($this->options())->map(function ($value, $label) {
-            //     if (is_array($value)) {
-            //         return array_merge(['label' => $label], $value);
-            //     } elseif (is_string($label)) {
-            //         return ['label' => $label, 'value' => $value];
-            //     }
-
-            //     return ['label' => $value, 'value' => $value];
-            // })->values()->all(),
             'options' => collect($this->options())->map(function ($label, $value) {
                 if (is_array($value)) {
                     return array_merge(['label' => $label], $value);
@@ -78,7 +68,6 @@ class Filter implements JsonSerializable
 
                 return ['label' => $value, 'value' => $value];
             })->values()->all(),
-            // 'currentValue' => $this->default() ?? '',
         ];
     }
 }

@@ -44,8 +44,6 @@ class {{ class }} extends Resource
 
     public $search = [];
 
-    protected $handle = '{{ slug }}';
-
     /**
      * Transform result into resource Collection.
      * Leave null to get all data from model.
@@ -67,7 +65,8 @@ class {{ class }} extends Resource
     public function indexColumns()
     {
         return [
-            'id' => Column::make('ID'),
+            'id' => Column::id(),
+            'title' => Column::make('Title'),
         ];
     }
 

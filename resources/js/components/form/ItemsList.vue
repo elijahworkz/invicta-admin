@@ -7,18 +7,21 @@
 		class="items-stack w-full"
 		@update="$emit('updated', list)">
 		<template #item="{element, index}">
-			<div class="item flex items-center justify-start mb-2 border rounded-sm">
+			<div class="item flex items-center justify-start mb-2 border rounded">
 				<DragHandle v-if="sortable" class="text-gray-300 hover:text-gray-400"/>
 
 				<component 
 					:is="ItemListComponent" 
 					:item="element" 
 					:title-field="titleField"
-					@edit="handleEditItem" />
+					@edit="handleEditItem"
+					class="ml-1"
+				/>
 
 
 				<span class="ml-auto action-icon" title="Detach Item">
 					<SvgIcon
+						v-if="options.addItems"
 						:icon="mdiLinkOff" 
 						@click="removeRow(element.id)" 
 						:width="16" />
@@ -75,7 +78,7 @@ const props = defineProps({
 	options: {
 		type: Object,
 		default: () => { 
-			return {addItems: false, createItems: true, actions: ['edit', 'delete']}
+			return {addItems: false, createItems: true}
 		}
 	}
 })
@@ -87,7 +90,7 @@ const drawer = reactive({
 })
 const formUrl = ref('')
 
-const { titleField } = props.fieldData
+const titleField = 'titleField' in props.fieldData ? props.fieldData.titleField : 'title'
 
 const ItemListComponent = computed(() => {
 
