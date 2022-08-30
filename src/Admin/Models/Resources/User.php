@@ -36,6 +36,7 @@ class User extends Resource
         return [
             'id' => $this->id,
             'active' => $this->active,
+            'isSuper' => method_exists($this->model(), 'isSuper') ? $this->isSuper() : false,
             'name' => function () {
                 $html = "<div class='mb-1 font-bold'>";
 
@@ -49,7 +50,6 @@ class User extends Resource
                 return $html;
             },
             'email' => $this->email,
-            'groups' => $this->groups()->get()->pluck('title')->map(fn ($title) => "<div class='mb-1'>$title</div>")->join(''),
             'regisration' => Carbon::parse($this->created_at)->toFormattedDateString(),
         ];
     }
@@ -64,9 +64,9 @@ class User extends Resource
         return [
             'id' => Column::id(),
             'active' => Column::boolean('Active'),
+            'isSuper' => Column::boolean('Is Super'),
             'name' => Column::make('Name')->sortable(),
             'email' => Column::make('Email'),
-            'groups' => Column::make('Groups'),
             'regisration' => Column::make('Registration Date'),
         ];
     }

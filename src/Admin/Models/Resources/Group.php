@@ -29,7 +29,6 @@ class Group extends Resource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'is_super' => $this->is_super,
         ];
     }
 
@@ -38,7 +37,6 @@ class Group extends Resource
         return [
             'id' => Column::id(),
             'title' => Column::make('Title')->sortable()->editLink(),
-            'is_super' => Column::boolean('Super'),
         ];
     }
 
