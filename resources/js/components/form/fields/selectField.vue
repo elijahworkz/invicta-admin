@@ -2,7 +2,9 @@
 	<FieldBase :form-id="formId" :field-props="props">
 		<el-select
 			v-model="fieldValue"
-			v-bind="data.props">
+			v-bind="data.props"
+			:teleported="false"
+			:disabled="data.readOnly">
 				<el-option
 					v-for="item in options"
 					:key="item.value"

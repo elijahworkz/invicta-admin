@@ -71,7 +71,10 @@ class Group extends Resource
                     'options' => [
                         'addItems' => true,
                         'createItems' => true,
-                        'actions' => ['edit', 'delete'],
+                    ],
+                    'createWith' => [
+                        'field' => 'groups',
+                        'multiple' => true,
                     ],
                 ],
             ],

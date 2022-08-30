@@ -6,6 +6,7 @@
 			:items-url="relatedUrl"
 			:field-data="data"
 			:resource="relationship"
+			:item-id="itemId"
 			:options="{ addItems: true, createItems: true}"
 			@updated="updateRelated"
 		/>

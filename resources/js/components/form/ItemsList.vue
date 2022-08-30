@@ -52,6 +52,7 @@
 		<ItemsForm
 			v-if="drawer.context == 'form'"
 			:request-url="formUrl"
+			:create-with="populateWith"
 			@cancel="drawer.state = false" />
 	</Drawer>
 </template>
@@ -74,6 +75,7 @@ const props = defineProps({
 	itemsUrl: String,
 	fieldData: Object,
 	resource: String,
+	itemId: Number,
 	sortable: Boolean,
 	options: {
 		type: Object,
@@ -88,7 +90,6 @@ const drawer = reactive({
 	state: false,
 	context: 'list'
 })
-const formUrl = ref('')
 
 const titleField = 'titleField' in props.fieldData ? props.fieldData.titleField : 'title'
 
@@ -119,6 +120,8 @@ const updateItems = (selected) => {
 }
 
 /* Handle Drawer Actions */
+const formUrl = ref('')
+
 const handleEditItem = (item) => {
 	console.log('want to edit', item)
 	drawer.context = 'form'
@@ -131,6 +134,24 @@ const handleAddItem = () => {
 	drawer.context = 'list'
 	drawer.state = true
 }
+
+const populateWith = computed(() => {
+	if ('createWith' in props.fieldData) {
+		let createWith = props.fieldData.createWith
+		let field = (typeof createWith === 'object')
+			? createWith.field
+			: createWith
+		let value = (typeof createWith === 'object' && createWith.multiple)
+			? [{ id: props.itemId }]
+			: { id: props.itemId }
+
+		return {
+			field,
+			value
+		}
+	}
+	return null
+})
 
 const handleCreateItem = () => {
 	drawer.context = 'form'

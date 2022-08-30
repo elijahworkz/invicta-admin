@@ -101,13 +101,15 @@ const props = defineProps({
 	},
 })
 
-const emit = defineEmits(['submit'])
+const emit = defineEmits(['submit', 'form-ready'])
 
 const resourceForm = useResourceForm(props.formId)
 resourceForm.init(props.resource, props.actionUrl)
 
+emit('form-ready')
+
 /* Layout setup */
-const { blueprint } = props.resource
+const blueprint = resourceForm.blueprint
 const formSettings = get(blueprint.settings, 'form', {'label-position': 'top'})
 
 // Setup sections and active tab

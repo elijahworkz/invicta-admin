@@ -6,6 +6,7 @@
 			:items-url="relatedUrl"
 			:field-data="data"
 			:resource="relationship"
+			:item-id="resourceForm.id"
 			:options="data.options"
 			@updated="updateRelated"
 		/>

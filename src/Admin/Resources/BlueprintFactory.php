@@ -20,13 +20,6 @@ class BlueprintFactory
         return $this->maybeGetCachedBlueprint();
     }
 
-    public function validationRules($resource)
-    {
-        $blueprint = $this->findForResource($resource);
-
-        return $blueprint ? $this->parseForValueFields($blueprint, 'parseValidation') : [];
-    }
-
     private function maybeGetCachedBlueprint()
     {
         $cacheHandle = $this->item && $this->item->blueprint
@@ -149,13 +142,6 @@ class BlueprintFactory
 
             return $carry;
         }, []);
-    }
-
-    private function parseValidation($field)
-    {
-        return isset($field['validation'])
-            ? $field['validation']
-            : 'nullable';
     }
 
     private function getBlueprintFile($folder, $name)

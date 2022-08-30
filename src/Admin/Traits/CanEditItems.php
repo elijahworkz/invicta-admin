@@ -21,10 +21,4 @@ trait CanEditItems
     {
         return Blueprint::findForResource($this, $item);
     }
-
-    public function validationRules()
-    {
-        return Blueprint::validationRules($this);
-        $this->parseBlueprint('parseValidation');
-    }
 }
