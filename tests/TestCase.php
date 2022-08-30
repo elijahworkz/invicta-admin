@@ -2,8 +2,11 @@
 
 namespace Eteacher\InvictaAdmin\Tests;
 
+use Eteacher\InvictaAdmin\Admin\Models\Group;
 use Eteacher\InvictaAdmin\InvictaServiceProvider;
 use Eteacher\InvictaAdmin\Providers\InvictaBaseServiceProvider;
+use Eteacher\InvictaAdmin\Tests\Models\User;
+use Illuminate\Support\Arr;
 use Inertia\Inertia;
 use Inertia\ServiceProvider as InertiaServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
@@ -15,8 +18,8 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Inertia::setRootView('app');
-        config()->set('inertia.page.should_exist', false);
-        //		config()->set('inertia.page.paths', [realpath(__DIR__) . '/../resources/js/views']);
+        config()->set('inertia.testing.ensure_pages_exist', false);
+        config()->set('inertia.testing.page_paths', [realpath(__DIR__).'/../resources/js/views']);
     }
 
     protected function getPackageProviders($app)
@@ -49,7 +52,6 @@ class TestCase extends Orchestra
                 'prefix' => '',
             ]
         );
-//        dd(config('app.aliases'));
     }
 
     protected function defineDatabaseMigrations()
@@ -60,5 +62,39 @@ class TestCase extends Orchestra
                 '--path' => 'migrations/../../../../../tests/database/migrations',
             ]
         );
+    }
+
+    public function getUser($super = false)
+    {
+        $user = User::factory()->create();
+
+        if ($super) {
+            $superGroup = $this->createGroupWithAbilities();
+
+            $user->groups()->sync($superGroup->id);
+        }
+
+        return $user;
+    }
+
+    public function createGroupWithAbilities($abilities = null, $name = 'test')
+    {
+        $super = $abilities ? 0 : 1;
+        $group = new Group();
+        $group->name = $super ? 'super' : $name;
+        $group->title = $super ? 'Super' : $name;
+        $group->is_super = $super;
+        $group->save();
+
+        if ($abilities) {
+            $permisssions = Arr::map($abilities, function ($value) {
+                return ['ability' => $value];
+            });
+
+            $group->permissions()->delete();
+            $group->permissions()->createMany($permisssions);
+        }
+
+        return $group;
     }
 }

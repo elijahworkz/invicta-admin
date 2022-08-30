@@ -3,7 +3,6 @@
 namespace Eteacher\InvictaAdmin\Console;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Hash;
 
 class MakeSuperAdminCommand extends Command
 {
@@ -32,7 +31,7 @@ class MakeSuperAdminCommand extends Command
             'email' => 'dev@eteachergroup.com',
         ]);
 
-        $user->password = Hash::make('password');
+        $user->password = 'password';
         $user->name = 'Dev User';
         $user->save();
         $user->addToGroup(1);

@@ -4,9 +4,9 @@ namespace Eteacher\InvictaAdmin\Tests\Feature;
 
 use Eteacher\InvictaAdmin\Admin\Resources\ResourceRegistrar;
 use Eteacher\InvictaAdmin\Tests\Models\Invicta\Resources\Student;
-use Eteacher\InvictaAdmin\Tests\Models\User;
 use Eteacher\InvictaAdmin\Tests\TestCase;
 use Illuminate\Support\Facades\App;
+use Inertia\Testing\AssertableInertia as Assert;
 
 class ResourceTest extends TestCase
 {
@@ -23,14 +23,18 @@ class ResourceTest extends TestCase
             ResourceRegistrar::put($resource->handle(), $resource);
         }
 
-        $this->user = User::factory()->create();
+        $this->user = $this->getUser(true);
     }
 
     public function test_resource_index()
     {
+        $this->markTestSkipped();
         $response = $this
-             ->actingAs($this->user, config('invicta.auth.guard'))
-             ->get(route('invicta.resource.index', ['resource' => 'students']));
-        dd($response);
+            ->withoutExceptionHandling()
+            ->actingAs($this->user, config('invicta.auth.guard'))
+            ->get(route('invicta.home'))
+            ->assertInertia(fn (Assert $page) => $page
+        ->component('Home')
+        ->missing('email'));
     }
 }
