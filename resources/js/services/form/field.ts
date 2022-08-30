@@ -39,13 +39,18 @@ export const useFormField = (props: { formId: string, data: IFormField, path: st
             return get(field, param, ifNull)
         },
 
-        label() {
+        label(readOnly = false) {
+            
+            let readOnlyString = readOnly 
+                ? ' <span>Read Only</span>'
+                : ''
+
             if (has(field, 'label'))
-                return field.label
+                return `${field.label}${readOnlyString}`
 
             let id: string = field.id.split('.').pop() || field.id
 
-            return startCase(id)
+            return `${startCase(id)}${readOnlyString}`
         },
 
         info() {

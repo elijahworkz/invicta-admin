@@ -13,7 +13,10 @@ module.exports = {
 		},
 	},
 	safelist: [
-		'font-bold'
+		'font-bold',
+		{
+			pattern: /w-.+/,
+		}
 	],
 	plugins: [],
 }

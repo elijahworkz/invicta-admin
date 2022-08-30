@@ -3,7 +3,14 @@ import get from 'lodash/get'
 import set from 'lodash/set'
 import { useForm } from '@inertiajs/inertia-vue3'
 import { pickBy } from 'lodash'
-import { IFormField } from '@/interfaces'
+
+declare global {
+	interface Window {
+		Invicta: any
+	}
+}
+
+const Invicta = window.Invicta
 
 interface IResourceItem {
 	[key: string]: any
@@ -31,7 +38,9 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 			data: null,
 			meta: {},
 			actionUrl: null,
-			dirty: false
+			dirty: false,
+			blueprint: {},
+			rules: {},
 		}
 	},
 	actions: {
@@ -40,9 +49,11 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 			this.meta = resource.meta
 			this.mode = this.data ? 'edit' : 'create'
 			this.actionUrl = actionUrl
-			console.log(resource.blueprint);
-			let formData = this.prepareFields(resource.blueprint)
+			this.blueprint = resource.blueprint
+
+			let formData = this.prepareFields(this.blueprint)
 			this.form = useForm(formData)
+			Invicta.emit('resource-form-ready')
 		},
 		isDirty() {
 			return this.dirty
@@ -91,6 +102,10 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 
 						obj[_id] = value
 
+						this.rules[_id] = item.validation
+							? item.validation
+							: 'nullable'
+
 						if (item.fields) {
 							// check for related fields nested into other fields
 							let nested = getRelatedField(item.fields)
@@ -109,7 +124,7 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 			let fields: object = {}
 			if (blueprint.fields) {
 				fields = getFields(blueprint.fields)
-			} 
+			}
 			if (blueprint.sidebar && blueprint.sidebar.fields) {
 				fields = {...fields, ...getFields(blueprint.sidebar.fields)}
 			}
@@ -122,7 +137,41 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 				})
 			}
 
-			return fields			
+			return fields
+		},
+		setReadOnly(field: string) {
+
+			function readOnly(fields: any[]) {
+				fields.map(item => {
+					if (item.fields) {
+						return readOnly(item.fields)
+					} else if (item.id == field) {
+						item.readOnly = true
+					}
+					return item
+				})
+				return fields
+			}
+
+			this.parseBlueprint(readOnly)
+
+		},
+		parseBlueprint(callback: Function) {
+
+			if (this.blueprint.fields) {
+				this.blueprint.fields = callback(this.blueprint.fields)
+			}
+			if (this.blueprint.sidebar && this.blueprint.sidebar.fields) {
+				this.blueprint.sidebar.fields = callback(this.blueprint.sidebar.fields)
+			}
+
+			if (this.blueprint.sections) {
+				this.blueprint.sections.forEach((section: IResourceItem, index: any) => {
+					if (section.fields) {
+						this.blueprint.sections[index].fields = callback(section.fields)
+					}
+				})
+			}
 		},
 		formData() {
 			return this.form
@@ -132,10 +181,12 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 				.data()
 		},
 		submit(postSubmitAction: string) {
+			let rules = this.rules
 			this.form
 				.transform((data: any) => ({
 					...data,
 					postSubmitAction,
+					validation: rules
 				}))
 				.post(this.actionUrl, {
 					onSuccess: () => {
@@ -153,7 +204,7 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 				: this.meta.createTitle
 		},
 		id(): any {
-			return get(this.form, 'id')
+			return get(this.data, 'id')
 		}
 	}
 })()

@@ -16,19 +16,20 @@ class Group extends Resource
      */
     public $titleField = 'title';
 
+    public $indexWith = ['users:id'];
+
     public $editWith = ['users:id,name', 'permissions'];
 
     public $icon = 'user-group';
 
     public $search = ['title'];
 
-    protected $handle = 'groups';
-
     public function indexResource($request)
     {
         return [
             'id' => $this->id,
             'title' => $this->title,
+            'users' => $this->users->count(),
         ];
     }
 
@@ -37,10 +38,11 @@ class Group extends Resource
         return [
             'id' => Column::id(),
             'title' => Column::make('Title')->sortable()->editLink(),
+            'users' => Column::make('Users')->align('center'),
         ];
     }
 
-    public function blueprint()
+    public function blueprint($item = null)
     {
         return [
             'settings' => [
@@ -67,7 +69,10 @@ class Group extends Resource
                     'options' => [
                         'addItems' => true,
                         'createItems' => true,
-                        'actions' => ['edit', 'delete'],
+                    ],
+                    'createWith' => [
+                        'field' => 'groups',
+                        'multiple' => true,
                     ],
                 ],
             ],

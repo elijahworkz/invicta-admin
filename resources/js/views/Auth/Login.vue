@@ -1,7 +1,7 @@
 <template>
 	<Head title="Login"/>
-	<el-space direction="vertical">
-		<h1 class="app-branding-auth">{{ appName }}</h1>
+	<div class="auth-form">
+		<h1 class="auth-header">{{ appName }}</h1>
 		<el-card class="auth-card">
 			<div class="mb-2" v-if="$page.props.flash.message">
 				<el-alert class="mb-4" :title="$page.props.flash.message" type="success" />
@@ -24,19 +24,18 @@
 				</el-form-item>
 
 
-				<el-form-item class="form-footer">
-					<el-checkbox v-model="remember" label="Remember me"/>
+				<footer class="flex items-center justify-between">
+					<el-checkbox v-model="form.remember" label="Remember me"/>
 
 					<el-button type="primary" native-type="submit">Log in</el-button>
-
-				</el-form-item>
+				</footer>
 			</el-form>
 		</el-card>
 
-		<Link v-if="resetUrl" :href="resetUrl" class="underline text-sm text-gray-600 hover:text-gray-900">Forgot your
-			password?
-		</Link>
-	</el-space>
+		<div class="text-center">
+			<Link v-if="resetUrl" :href="resetUrl" class="">Forgot your password?</Link>
+		</div>
+	</div>
 </template>
 
 <script>
@@ -70,16 +69,3 @@ const submit = () => {
 	})
 }
 </script>
-
-<style lang="scss">
-
-form {
-	.form-footer {
-		.el-form-item__content {
-			justify-content: space-between;
-		}
-
-	}
-}
-
-</style>

@@ -3,29 +3,28 @@
 		<header class="p-4">
 			<Search />
 		</header>
-		
+
 		<main>
 			<div class="flex items-center justify-center h-full" v-if="loading">
 				<Loading />
 			</div>
 
 			<el-scrollbar v-else>
-				<ResourceTable 
+				<ResourceTable
 					:data="itemsResource.resource"
 					:columns="columns"
-					actions="[]"
 					:can-edit="canEditItem"
 					:can-delete="canDeleteItem"
+					:no-actions="true"
 					@select="handleSelect"
-					max-height="90%"
 				/>
 			</el-scrollbar>
 		</main>
 
 		<footer class="p-4 flex items-center justify-between">
-			<el-pagination 
-				background 
-				small 
+			<el-pagination
+				background
+				small
 				layout="jumper, prev, pager, next"
 				:current-page="itemsResource.currentPage"
 				:page-size="itemsResource.perPage"

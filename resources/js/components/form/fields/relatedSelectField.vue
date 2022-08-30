@@ -5,6 +5,8 @@
 			valueKey="id"
 			:remote-method="getRemote"
 			:loading="loading"
+			:teleported="false"
+			:disabled="data.readOnly"
 			v-bind="data.props">
 				<el-option
 					v-for="item in relatedOptions"
@@ -83,7 +85,7 @@ function getRelatedOptions(params, remote = false) {
 		.then(({data}) => {
 
 			let remoteOptions = map(data, (label, value) => {
-				let _value = isNumber(fieldValue.value)
+				let _value = ('path' in props.data)
 					? Number(value)
 					: { id: Number(value)}
 				return { key: value, value: _value, label: label }

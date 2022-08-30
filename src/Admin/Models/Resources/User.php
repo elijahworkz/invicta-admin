@@ -4,6 +4,7 @@ namespace Eteacher\InvictaAdmin\Admin\Models\Resources;
 
 use Carbon\Carbon;
 use Eteacher\InvictaAdmin\Admin\Components\Column;
+use Eteacher\InvictaAdmin\Admin\Models\Actions\ImpersonateUser;
 use Eteacher\InvictaAdmin\Admin\Models\Filters\GroupFilter;
 use Eteacher\InvictaAdmin\Admin\Resources\Resource;
 
@@ -14,11 +15,9 @@ class User extends Resource
      */
     public $model = 'App\Models\User';
 
-    public $editWith = ['groups:id,title'];
-
     public $titleField = 'name';
 
-    public $handle = 'users';
+    public $editWith = ['groups:id,title'];
 
     public $icon = 'users';
 
@@ -71,15 +70,9 @@ class User extends Resource
         ];
     }
 
-    public function blueprint()
+    public function blueprint($item = null)
     {
         return [
-            'settings' => [
-                'tabs' => [
-                    'stretch' => false,
-                    'tabPosition' => 'top',
-                ],
-            ],
             'fields' => [
                 [
                     'id' => 'id',
@@ -112,6 +105,7 @@ class User extends Resource
                         'label' => 'Active Status',
                         'type' => 'toggle',
                         'inline' => false,
+                        'defaultValue' => 1,
                         'props' => [
                             'active-value' => 1,
                             'inactive-value' => 0,
@@ -141,6 +135,13 @@ class User extends Resource
     {
         return [
             new GroupFilter,
+        ];
+    }
+
+    public function actions()
+    {
+        return [
+            new ImpersonateUser(),
         ];
     }
 }

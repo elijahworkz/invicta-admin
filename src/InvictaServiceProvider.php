@@ -8,7 +8,8 @@ class InvictaServiceProvider extends AggregateServiceProvider
 {
     protected $providers = [
         \Eteacher\InvictaAdmin\Providers\AppServiceProvider::class,
-        \Eteacher\InvictaAdmin\Providers\ConsoleServiceProvider::class,
+        // \Eteacher\InvictaAdmin\Providers\ConsoleServiceProvider::class,
         \Eteacher\InvictaAdmin\Providers\AuthServiceProvider::class,
+        \Eteacher\InvictaAdmin\Providers\EventsServiceProvider::class,
     ];
 }

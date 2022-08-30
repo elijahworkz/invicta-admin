@@ -106,16 +106,6 @@ class MenuItem
             ->badge($resource->badge());
     }
 
-    public function resourceTest($resourceClass)
-    {
-        $this->resource = true;
-
-        return self::make($resource->menuTitle())
-            ->route($resource->route())
-            ->icon($resource->icon())
-            ->badge($resource->badge());
-    }
-
     public function children(array $items)
     {
         if ($this->resource) {

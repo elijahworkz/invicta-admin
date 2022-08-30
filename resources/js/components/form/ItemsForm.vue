@@ -5,7 +5,8 @@
 			:form-id="formId"
 			:resource="resource"
 			:action-url="resource.meta.actionUrl"
-			:post-submit-actions="['close', 'edit', 'create']">
+			:post-submit-actions="['close', 'edit', 'create']"
+			@form-ready="prepopulateFields">
 			<template #form-actions>
 				<el-button class="ml-auto mr-2" text @click="$emit('cancel')">Cancel</el-button>
 			</template>
@@ -15,14 +16,17 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useResourceForm } from '@/services/form'
 import FormBase from './FormBase.vue'
 
 const props = defineProps({
-	requestUrl: String
+	requestUrl: String,
+	createWith: Object
 })
 
 const resource = ref(null)
 const formId = ref(null)
+const { createWith } = props
 
 onMounted(() => {
 	Invicta.axios.get(props.requestUrl)
@@ -31,6 +35,21 @@ onMounted(() => {
 			formId.value = data.meta.id
 				? `${data.meta.handle}.${data.meta.id}`
 				: `${data.meta.handle}.new`
+
+
 		})
 })
+
+const prepopulateFields = () => {
+	if (createWith) {
+		const resourceForm = useResourceForm(formId.value)
+
+		console.log('I see createWith', createWith.field, resourceForm.form)
+
+		// resource.value.blueprint.fields[3]['readOnly'] = true
+
+		resourceForm.set(createWith.field, createWith.value)
+		resourceForm.setReadOnly(createWith.field)
+	}
+}
 </script>

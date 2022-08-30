@@ -2,6 +2,7 @@
 
 namespace Eteacher\InvictaAdmin\Providers;
 
+use Eteacher\InvictaAdmin\Admin\Languages\Languages;
 use Eteacher\InvictaAdmin\Foundation\Vite;
 use Eteacher\InvictaAdmin\Http\Middleware\Authorize;
 use Eteacher\InvictaAdmin\Http\Middleware\HandleInertiaRequests;
@@ -16,6 +17,10 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(__DIR__.'./../../config/invicta.php', 'invicta');
+
+        $this->app->singleton(Languages::class, function () {
+            return new Languages(config('invicta.languages'));
+        });
 
         $this->app->singleton(ResourceRegistrar::class, function ($app) {
             return new ResourceRegistrar;

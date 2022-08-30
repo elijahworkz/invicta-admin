@@ -40,6 +40,17 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Admin Favicon
+    |--------------------------------------------------------------------------
+    |
+    | Change to set different favicons for different applications or environments.
+    |
+    */
+
+    'favicon' => env('INVICTA_FAVICON', '/images/favicon.svg'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Admin Panel Authentication Settings
     |--------------------------------------------------------------------------
     |
@@ -71,6 +82,25 @@ return [
         'groups' => 'groups',
         'group_user' => 'group_user',
         'permissions' => 'permissions',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Multi Site (Localization)
+    |--------------------------------------------------------------------------
+    |
+    | Set array of languages that are supported by the Admin. This array should
+    | always have a default language which will be served from root
+    |
+    */
+
+    'languages' => [
+        'default' => [
+            'name' => 'English',
+            'locale' => 'en_US',
+            'iso' => 'en',
+            'url' => '/',
+        ],
     ],
 
     /*

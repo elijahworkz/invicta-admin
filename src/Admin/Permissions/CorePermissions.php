@@ -7,17 +7,17 @@ use Eteacher\InvictaAdmin\Facades\Permission;
 
 class CorePermissions
 {
-    public function boot()
+    public static function boot()
     {
         Permission::group('invicta')->label('Admin Panel')
             ->permissions([
                 Permission::make('access invicta')->label('Access the Control Panel'),
             ]);
 
-        $this->registerResourcesPermission();
+        self::registerResourcesPermission();
     }
 
-    public function registerResourcesPermission()
+    public static function registerResourcesPermission()
     {
         $resources = ResourceRegistrar::all();
 

@@ -22,8 +22,8 @@
 						:selected="selectedRows"
 					/>
 					<Filters :resource-handle="resource.handle" :filters="resource.meta.filters" />
-					<div v-if="selectedRows.length && canDeleteItem" class="ml-3" title="Delete Selected">
-						<el-button :icon="Delete" @click="handleBulkDelete" />
+					<div v-show="canDeleteItem" class="ml-3" title="Delete Selected">
+						<el-button :icon="Delete" @click="handleBulkDelete" :disabled="!selectedRows.length" />
 					</div>
 				</div>
 			</div>
@@ -34,7 +34,6 @@
 				:table-props="resource.table"
 				:columns="resource.columns"
 				:edit-url="resource.meta.path"
-				:actions="inlineActions"
 				:can-edit="canEditItem"
 				:can-delete="canDeleteItem"
 				@select="handleSelect"
@@ -70,7 +69,7 @@ import ResourceTable from '@/components/resource/ResourceTable.vue'
 import Filters from '@/components/resource/Filters.vue'
 import FilterBadges from '@/components/resource/FilterBadges.vue'
 import Actions from '@/components/resource/Actions.vue'
-// import ActionsModal from '@/components/resource/ActionsModal.vue'
+import ActionsModal from '@/components/resource/ActionsModal.vue'
 import { Delete } from '@element-plus/icons-vue'
 
 const props = defineProps({

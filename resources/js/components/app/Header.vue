@@ -6,16 +6,22 @@
 		<div class="app-branding">Invicta Admin</div>
 		<div class="ml-auto flex items-center">
 			<Impersonator v-if="$page.props.auth.impersonator" />
-			<div class="font-bold mr-2">{{ $page.props.auth.user.name }}</div>
-			<el-tooltip content="Logout">
-			<Link href="/admin/logout" method="post" as="button">Logout</Link>
-			</el-tooltip>
+			<div class="font-bold mr-2 leading-0">{{ $page.props.auth.user.name }}</div>
+			<el-dropdown>
+				<el-button :icon="MoreFilled" size="small" text></el-button>
+				<template #dropdown>
+					<el-dropdown-item>
+						<Link href="/admin/logout" method="post" as="button" class="text-gray-400">Logout</Link>
+					</el-dropdown-item>
+				</template>
+			</el-dropdown>
 		</div>
 	</head>
 </template>
 
 <script setup>
-import { mdiMenuOpen } from '@mdi/js'
+import { mdiMenuOpen, mdiLogoutVariant } from '@mdi/js'
+import { MoreFilled } from '@element-plus/icons-vue'
 import Impersonator from './partials/Impersonator.vue'
 
 const toggleSidebar = () => {

@@ -4,6 +4,7 @@
 
 	.el-card {
 		padding: 20px 0;
+		overflow: visible;
 
 		.el-card__body {
 			padding: 0;
@@ -265,6 +266,16 @@
 
 		.el-form-item__label {
 			margin-bottom: 0 !important;
+		}
+	}
+
+	.el-form-item__label {
+		div:first-child {
+			display: inline-block;
+		}
+		span {
+			font-size: 12px;
+			opacity: .3;
 		}
 	}
 

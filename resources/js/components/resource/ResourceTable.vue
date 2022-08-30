@@ -9,7 +9,7 @@
 			@row-click="handleRowClick"
 			:key="tableKey"
 			v-loading="loading">
-			
+
 			<el-table-column type="selection" fixed />
 
 			<template v-for="(column, key) in visibleColumns">
@@ -17,6 +17,7 @@
 			</template>
 
 			<el-table-column
+				v-if="!noActions"
 				width="100"
 				header-align="right"
 				column-key="actions"
@@ -34,7 +35,7 @@
 				</template>
 
 				<template #default="scope">
-					<RowActions :id="scope.row.id" :actions="scope.row.actions" :can-edit="canEdit" :can-delete="canDelete" @edit="handleEdit" @delete="$emit('delete', $event)" />
+					<RowActions :id="scope.row.id" :actions="scope.row.actions || []" :can-edit="canEdit" :can-delete="canDelete" @edit="handleEdit" @delete="$emit('delete', $event)" />
 				</template>
 
 			</el-table-column>
@@ -60,7 +61,10 @@ const props = defineProps({
 	editUrl: String,
 	canEdit: Boolean,
 	canDelete: Boolean,
-	actions: Array,
+	noActions: {
+		type: Boolean,
+		default: false,
+	}
 })
 
 console.log(props.canEdit);

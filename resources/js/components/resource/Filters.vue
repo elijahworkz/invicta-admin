@@ -7,7 +7,7 @@
 		</template>
 		<template #default>
 			<template v-for="filter in filters">
-				<h4>{{ filter.name }}</h4>
+				<h4 class="mb-1">{{ filter.name }}</h4>
 				<SelectFilter
 					class="mb-4"
 					:handle="filter.class"

@@ -1,6 +1,6 @@
 <template>
 	<FieldBase :form-id="formId" :field-props="props">
-		<el-input v-model="value" v-bind="data.props" />
+		<el-input v-model="value" v-bind="data.props" :disabled="data.readOnly" />
 	</FieldBase>
 </template>
 

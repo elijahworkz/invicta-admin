@@ -3,7 +3,6 @@
 namespace Eteacher\InvictaAdmin\Admin\Traits;
 
 use Eteacher\InvictaAdmin\Http\Resources\ResourceCollection;
-use Illuminate\Support\Facades\App;
 
 trait ListsItems
 {
@@ -85,34 +84,21 @@ trait ListsItems
             ->get();
     }
 
-    protected function applySearch($query, $search)
+    public function relatedQuery($relationship)
     {
-        if (is_numeric($search)) {
-            $query->where(function ($query) use ($search) {
-                $query->where('id', $search);
-            });
+        if ($item = request()->query('item', false)) {
+            $related = $this->findModel($item)->$relationship();
         } else {
-            if (! empty($this->search)) {
-                foreach ($this->search as $column) {
-                    $query->orWhere($column, 'like', '%'.$search.'%');
-                }
-            }
+            $related = $this->model()->$relationship()->getRelated();
         }
 
-        return $query;
-    }
-
-    protected function applyFilters($query, $filters)
-    {
-        self::decodeFilters($filters);
-
-        return self::filteredQuery($query);
+        return $this->itemsQuery($related);
     }
 
     public function itemsQuery($query = null)
     {
         if (! $query) {
-            $query = App::make($this->model);
+            $query = $this->model();
         }
 
         $paginate = request()->query('paginate', false);
@@ -149,5 +135,29 @@ trait ListsItems
                 ],
                 'handle' => $this->handle(),
             ]);
+    }
+
+    protected function applySearch($query, $search)
+    {
+        if (is_numeric($search)) {
+            $query->where(function ($query) use ($search) {
+                $query->where('id', $search);
+            });
+        } else {
+            if (! empty($this->search)) {
+                foreach ($this->search as $column) {
+                    $query->orWhere($column, 'like', '%'.$search.'%');
+                }
+            }
+        }
+
+        return $query;
+    }
+
+    protected function applyFilters($query, $filters)
+    {
+        self::decodeFilters($filters);
+
+        return self::filteredQuery($query);
     }
 }

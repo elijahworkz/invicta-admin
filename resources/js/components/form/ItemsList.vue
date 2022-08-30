@@ -1,27 +1,29 @@
 <template>
-	<draggable 
+	<draggable
 		:list="list"
 		:disabled="!sortable"
-		handle=".drag-handle" 
+		handle=".drag-handle"
 		item-key="index"
 		class="items-stack w-full"
 		@update="$emit('updated', list)">
 		<template #item="{element, index}">
-			<div class="item flex items-center justify-start mb-2 border rounded-sm">
+			<div class="item flex items-center justify-start mb-2 border rounded">
 				<DragHandle v-if="sortable" class="text-gray-300 hover:text-gray-400"/>
 
-				<component 
-					:is="ItemListComponent" 
-					:item="element" 
+				<component
+					:is="ItemListComponent"
+					:item="element"
 					:title-field="titleField"
 					:can-edit="canEditItem"
-					@edit="handleEditItem" />
-
+					@edit="handleEditItem"
+					class="ml-1"
+				/>
 
 				<span class="ml-auto action-icon" title="Detach Item">
 					<SvgIcon
-						:icon="mdiLinkOff" 
-						@click="removeRow(element.id)" 
+						v-if="options.addItems"
+						:icon="mdiLinkOff"
+						@click="removeRow(element.id)"
 						:width="16" />
 				</span>
 			</div>
@@ -37,7 +39,7 @@
 	   	 	</div>
   		</template>
 	</draggable>
-	  
+
 	<Drawer v-if="drawer.state" @close="drawer.state = false">
 		<ItemsSelector
 			v-if="drawer.context == 'list'"
@@ -45,12 +47,13 @@
 			:request-url="itemsUrl"
 			:title-field="titleField"
 			:resource="resource"
-			@update="updateItems" 
+			@update="updateItems"
 			@cancel="drawer.state = false" />
 
 		<ItemsForm
 			v-if="drawer.context == 'form'"
 			:request-url="formUrl"
+			:create-with="populateWith"
 			@cancel="drawer.state = false" />
 	</Drawer>
 </template>
@@ -73,11 +76,12 @@ const props = defineProps({
 	itemsUrl: String,
 	fieldData: Object,
 	resource: String,
+	itemId: Number,
 	sortable: Boolean,
 	options: {
 		type: Object,
-		default: () => { 
-			return {addItems: false, createItems: true, actions: ['edit', 'delete']}
+		default: () => {
+			return {addItems: false, createItems: true}
 		}
 	}
 })
@@ -90,11 +94,9 @@ const drawer = reactive({
 })
 
 const canCreateItem = computed(() => props.options.createItems && Invicta.can(`create ${props.resource}`))
-const canEditItem = computed(() => Invicta.can(`edit ${props.resource}`))
+const canEditItem = Invicta.can(`edit ${props.resource}`)
 
-const formUrl = ref('')
-
-const { titleField } = props.fieldData
+const titleField = 'titleField' in props.fieldData ? props.fieldData.titleField : 'title'
 
 const ItemListComponent = computed(() => {
 
@@ -123,6 +125,8 @@ const updateItems = (selected) => {
 }
 
 /* Handle Drawer Actions */
+const formUrl = ref('')
+
 const handleEditItem = (item) => {
 	console.log('want to edit', item)
 	drawer.context = 'form'
@@ -135,6 +139,24 @@ const handleAddItem = () => {
 	drawer.context = 'list'
 	drawer.state = true
 }
+
+const populateWith = computed(() => {
+	if ('createWith' in props.fieldData) {
+		let createWith = props.fieldData.createWith
+		let field = (typeof createWith === 'object')
+			? createWith.field
+			: createWith
+		let value = (typeof createWith === 'object' && createWith.multiple)
+			? [{ id: props.itemId }]
+			: { id: props.itemId }
+
+		return {
+			field,
+			value
+		}
+	}
+	return null
+})
 
 const handleCreateItem = () => {
 	drawer.context = 'form'
