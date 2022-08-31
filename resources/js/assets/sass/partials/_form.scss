@@ -267,6 +267,12 @@
 		.el-form-item__label {
 			margin-bottom: 0 !important;
 		}
+
+		.sidebar & {
+			.el-form-item__content {
+				flex: 0 1 auto;
+			}
+		}
 	}
 
 	.el-form-item__label {

@@ -16,8 +16,6 @@ class ImpersonateUser extends Action
 
         session()->put('impersonator_id', Auth::user()->getAuthIdentifier());
         session()->put('impersonated_id', $user->getAuthIdentifier());
-
-        // Auth::loginUsingId($user->getAuthIdentifier());
     }
 
     public function fields()
