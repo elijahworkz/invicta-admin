@@ -25,7 +25,7 @@
 import { ref, computed } from 'vue'
 import { Inertia } from '@inertiajs/inertia'
 import { useResourceForm } from '@/services/form'
-import { onKeyStroke } from '@vueuse/core'
+// import { onKeyStroke } from '@vueuse/core'
 import FormBase from '@/components/form/FormBase.vue'
 
 const props = defineProps({
@@ -89,8 +89,8 @@ const processAction = () => {
 		})
 }
 
-onKeyStroke('Enter', (e) => {
-	e.preventDefault()
-	processAction()
-})
+// onKeyStroke('Enter', (e) => {
+// 	e.preventDefault()
+// 	processAction()
+// })
 </script>

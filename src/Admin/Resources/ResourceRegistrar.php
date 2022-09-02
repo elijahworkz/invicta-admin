@@ -15,6 +15,11 @@ class ResourceRegistrar
             : abort(404);
     }
 
+    public static function all()
+    {
+        return static::$items;
+    }
+
     public static function put($handle, $resource)
     {
         static::$items[$handle] = $resource;

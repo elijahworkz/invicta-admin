@@ -75,6 +75,14 @@ class Menu
         return $item;
     }
 
+    public function navigation($name = 'Navigation')
+    {
+        return $this->createItem($name)
+            ->icon('routes')
+            ->can('view navigation')
+            ->route(config('invicta.path').'/navigation');
+    }
+
     /**
      * Shortcut to create a regural internal link.
      */

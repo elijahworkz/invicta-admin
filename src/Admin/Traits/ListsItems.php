@@ -106,6 +106,10 @@ trait ListsItems
             $query = $query->where($title, 'like', '%'.$search.'%');
         }
 
+        if (request()->has('filters')) {
+            $query = $this->applyFilters($query, request()->get('filters'));
+        }
+
         if (! $paginate) {
             return $query->pluck($title, 'id');
         }
@@ -129,6 +133,10 @@ trait ListsItems
                     'paginate' => true,
                     'title' => $title,
                     'exclude' => $exclude,
+                ],
+                'meta' => [
+                    ...request()->only('search', 'filters'),
+                    'filterBadges' => $this->filterBadges(),
                 ],
                 'handle' => $this->handle(),
             ]);

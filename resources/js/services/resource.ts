@@ -20,6 +20,7 @@ export const useResource = defineStore('resourceStore', () => {
 	const sortOrder = ref()
 	const sortBy = ref()
 	const activeFilters = ref([])
+	const filterBadges = ref([])
 	const requestUrl = ref<string>('')
 	const api = ref<any>(null)
 	const additionalParams = ref<any>(null)
@@ -45,6 +46,7 @@ export const useResource = defineStore('resourceStore', () => {
 	})
 
 	Invicta.on('clear-filters', () => {
+		console.log('clearing filter')
 		currentPage.value = null
 		activeFilters.value = []
 	})
@@ -109,6 +111,7 @@ export const useResource = defineStore('resourceStore', () => {
 			data.value = apiResource.data
 			total.value = apiResource.meta.total
 			additionalParams.value = apiResource.params
+			filterBadges.value = apiResource.meta.filterBadges
 		}
 	}
 
@@ -128,6 +131,7 @@ export const useResource = defineStore('resourceStore', () => {
 					data.value = response.data.data
 					currentPage.value = response.data.meta.current_page
 					total.value = response.data.meta.total
+					filterBadges.value = response.data.meta.filterBadges
 				})
 
 		} else {
@@ -141,6 +145,8 @@ export const useResource = defineStore('resourceStore', () => {
 	return {
 		init,
 		resource,
+		activeFilters,
+		filterBadges,
 		currentPage,
 		perPage,
 		total

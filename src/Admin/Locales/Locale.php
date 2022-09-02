@@ -1,10 +1,10 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Admin\Languages;
+namespace Eteacher\InvictaAdmin\Admin\Locales;
 
 use Illuminate\Support\Str;
 
-class Language
+class Locale
 {
     public function __construct(protected $handle, protected $config)
     {

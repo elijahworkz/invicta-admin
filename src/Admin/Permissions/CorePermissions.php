@@ -14,6 +14,11 @@ class CorePermissions
                     Permission::make('test')->label('Test'),
                     Permission::make('test2')->label('Test2'),
                 ]),
+                Permission::make('view navigation')->children([
+                    Permission::make('create new navigation'),
+                    Permission::make('edit navigation'),
+                    Permission::make('delete navigation'),
+                ]),
             ]);
     }
 }

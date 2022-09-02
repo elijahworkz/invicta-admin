@@ -147,6 +147,16 @@
 			}
 		}
 	}
+
+	#drawer & {
+		&.w {
+			&-1\/2,
+			&-3\/4,
+			&-2\/5 {
+				width: 100% !important;
+			}
+		}
+	}
 }
 
 .fieldset {
@@ -160,6 +170,17 @@
 		&-full {
 			width: 100%;
 			padding: 0 20px;
+
+			.sidebar & {
+				&.divider-bottom {
+					border-bottom: 1px solid var(--el-border-color-lighter);
+					margin-bottom: 20px;
+				}
+
+				&.divider-top {
+					border-top: 1px solid var(--el-border-color-lighter);
+				}
+			}
 		}
 		&-1\/2 {
 			width: 50%;
@@ -176,6 +197,7 @@
 		&-3\/4 {
 			width: 75%;
 		}
+
 
 	}
 

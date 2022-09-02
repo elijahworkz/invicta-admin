@@ -15,7 +15,6 @@
 
 		<span class="action-icon" @click="$emit('edit', id)" title="Edit Item"><Edit /></span>
 		<span class="action-icon" @click="$emit('delete', [id])" title="Delete Item"><Delete /></span>
-
 	</div>
 </template>
 
@@ -33,18 +32,4 @@ const handleAction = (action) => {
 	Invicta.emit('show-action-modal', { action, selected: [props.id] })
 }
 </script>
-
-<style lang="scss">
-.actions-popover {
-	padding: 0 !important;
-
-	.el-dropdown-menu__item {
-
-		&:hover {
-			background-color: var(--el-color-primary-light-9);
-		    color: var(--el-color-primary);
-		}
-	}
-}
-</style>
 

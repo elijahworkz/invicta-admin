@@ -1,5 +1,11 @@
 <template>
-	<el-popover placement="bottom-end" :width="200" trigger="click" v-if="filters.length">
+	<el-popover
+		ref="filtersDropdown"
+		v-if="filters.length"
+		placement="bottom-end" 
+		:width="200" 
+		trigger="click" 
+		:teleported="false">
 		<template #reference>
         	<el-button :type="filterButtonType">
 				<el-icon><Filter /></el-icon><el-icon class="el-icon--right"><arrow-down /></el-icon>
@@ -20,7 +26,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, unref, computed, onMounted } from 'vue'
 import SelectFilter from './SelectFilter.vue'
 import { Filter, ArrowDown } from '@element-plus/icons-vue'
 import filterFn from 'lodash/filter'
@@ -30,6 +36,7 @@ const props = defineProps({
 	filters: String
 })
 
+const filtersDropdown = ref()
 const filters = ref([])
 const requestFilters = ref(null)
 const filterButtonType = computed(() => {
@@ -64,5 +71,9 @@ onMounted(() => {
 			}
 			filters.value = data
 		})
+})
+
+Invicta.on('update-filters', () => {
+	unref(filtersDropdown).hide()
 })
 </script>

@@ -68,7 +68,7 @@ class ResourceRequest extends InvictaRequest
                 'indexUrl' => $resourceClass->route(),
                 'indexTitle' => $resourceClass->menuTitle(),
                 'createTitle' => $resourceClass->createTitle(),
-                'title_field' => $resourceClass->titleField,
+                'titleField' => $resourceClass->titleField,
             ],
             'blueprint' => $resourceClass->getBlueprint(),
         ];

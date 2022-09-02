@@ -8,7 +8,7 @@
 		@update="$emit('updated', list)">
 		<template #item="{element, index}">
 			<div class="item flex items-center justify-start mb-2 border rounded">
-				<DragHandle v-if="sortable" class="text-gray-300 hover:text-gray-400"/>
+				<DragHandle v-if="sortable" class="text-gray-300 hover:text-gray-400 mr-1"/>
 
 				<component 
 					:is="ItemListComponent" 
@@ -44,6 +44,7 @@
 		<ItemsSelector
 			v-if="drawer.context == 'list'"
 			:exclude="excludeItems"
+			:resource-handle="resource"
 			:request-url="itemsUrl"
 			:title-field="titleField"
 			@update="updateItems" 
