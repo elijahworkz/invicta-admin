@@ -1,7 +1,7 @@
 .popover {
     pointer-events: none;
     visibility: hidden;
-    z-index: 999;
+    z-index: 2099;
     position: absolute;
     top: auto;
     bottom: auto;
@@ -10,6 +10,7 @@
 
     .popover-content {
         min-width: 180px;
+        height: 0;
         transform-origin: 50% 10%;
         animation-fill-mode: forwards;
         opacity: 0;
@@ -18,7 +19,6 @@
         will-change: transform, opacity;
         background-clip: padding-box;
         background: #fff;
-        border: 1px solid var(--el-border-color-lighter);
         border-radius: 4px;
         box-shadow: var(--el-box-shadow-light);
     }
@@ -28,8 +28,10 @@
         visibility: visible;
 
 	    .popover-content {
+			border: 1px solid var(--el-border-color-lighter);
 	        transform: scale(1);
 	        opacity: 1;
+	        height: auto;
 	    }
 	}
 }
