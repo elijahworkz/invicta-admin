@@ -58,7 +58,7 @@ const props = defineProps({
 /* Handle Actions */
 const actions = [
 	{ name: 'Edit', divider: true, action: 'edit' },
-	{ name: 'Delete', class: '!text-red-600', action: 'delete' },
+	{ name: 'Delete',  action: 'delete', danger: true },
 ].filter(item => {
 	switch(item.action) {
 		case 'edit':

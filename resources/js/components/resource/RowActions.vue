@@ -20,8 +20,8 @@
 
 <script setup>
 import { ref } from 'vue'
-import { Delete, Edit } from '@element-plus/icons-vue'
 import { mdiDotsHorizontal } from '@mdi/js'
+import { Delete, Edit } from '@element-plus/icons-vue'
 
 const props = defineProps({
 	id: Number,

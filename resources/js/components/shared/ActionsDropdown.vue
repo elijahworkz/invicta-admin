@@ -1,44 +1,40 @@
 <template>
-	<div class="actions flex items-center">
-		<el-popover
-			ref="actionsDropdown"
-			v-if="actions.length"
-			trigger="click"
-			popper-class="actions-popover">
-			<template #reference>
+	<div class="actions-popover flex items-center">
+		<popover>
+			<template #trigger>
 				<span title="More actions" class="action-icon">
 					<SvgIcon :icon="mdiDotsHorizontal" :width="18" />
 				</span>
 			</template>
-			<template #default>
+			<template #default="{ close }">				
 				<ul>
 					<template v-for="action in actions">
-						<li @click="handleActionClick(action)" 
+						<li @click="handleActionClick(action); close()"
 							class="el-dropdown-menu__item"
-							:class="action.class">
+							:class="{danger: action.danger}">
 							{{ action.name }}
 						</li>
 						<li v-if="action.divider" class="divider"></li>
 					</template>
 				</ul>
 			</template>
-		</el-popover>
+		</popover>
 	</div>
 </template>
 
 <script setup>
 import { ref, unref } from 'vue'
+import Popover from '@/components/shared/Popover.vue'
 import { mdiDotsHorizontal } from '@mdi/js'
+
 const props = defineProps({
 	actions: Array,
 	item: Number | Object
 })
-const emit = defineEmits(['selected'])
+const emit = defineEmits(['close', 'selected'])
 const actionsDropdown = ref()
 
 const handleActionClick = (event) => {
-	unref(actionsDropdown).hide()
-
 	emit('selected', { action: event.action, item: props.item })
 }
 </script>

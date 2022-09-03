@@ -1,0 +1,57 @@
+<template>
+	<!-- <div class="popover-container" :class="{'popover-open': isOpen}"> -->
+		<div @click="toggle" ref="trigger" class="popover-trigger" aria-haspopup="true" :aria-expanded="isOpen">
+			<slot name="trigger"/>
+		</div>
+		<div ref="popover" class="popover" :class="{open: isOpen}" v-if="!disabled">
+			<div class="popover-content">
+				<slot :close="close" />
+			</div>
+		</div>
+	<!-- </div> -->
+</template>
+
+<script setup>
+import { ref, onMounted } from 'vue'
+import { createPopper } from '@popperjs/core/lib/popper-lite'
+import flip from '@popperjs/core/lib/modifiers/flip';
+import preventOverflow from '@popperjs/core/lib/modifiers/preventOverflow';
+import { onClickOutside, onKeyStroke } from '@vueuse/core'
+
+const props = defineProps({
+	disabled: {
+		type: Boolean,
+		default: false
+	},
+	placement: {
+		type: String,
+		default: 'bottom-end'
+	}
+})
+
+const isOpen = ref(false)
+const trigger = ref()
+const popover = ref()
+
+onMounted(() => {
+	if (! props.disabled) bindPopper()
+})
+
+const open = () => isOpen.value = true
+const close = () => isOpen.value = false
+const toggle = () => isOpen.value ? close() : open()
+
+onKeyStroke('esc', (e) => {
+	e.preventDefault()
+	close()
+})
+
+function bindPopper() {
+	createPopper(trigger.value, popover.value, {
+		placement: props.placement,
+		modifiers: [flip, preventOverflow]
+	})
+}
+
+onClickOutside(popover, () => close())
+</script>
