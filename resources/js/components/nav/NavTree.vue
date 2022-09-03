@@ -12,40 +12,35 @@
 					{{ element.label }}
 					<div class="ml-auto item-type">{{ element.type }}</div>
 
-					<ActionsDropdown :actions="actions" :item="index" @selected="handleAction" class="ml-3" />
+					<ActionsDropdown :actions="childActions" :item="{index, ...element}" @selected="handleAction" class="ml-3" />
 				</div>
 
-				<NavTree :list="element.children" />
+				<NavTree :list="element.children" :child-actions="childActions" @add-child="handleAction" />
 			</li>
 		</template>
 	</draggable>
 </template>
 
 <script setup>
-import { ref } from 'vue'
 import draggable from 'vuedraggable'
 import DragHandle from '@/components/shared/DragHandle.vue'
 import ActionsDropdown from '@/components/shared/ActionsDropdown.vue'
 
 const props = defineProps({
-	list: Array
+	list: Array,
+	childActions: Array
 })
 
-/* Menu Items actions */
-const actions = [
-	{ name: 'Add Child Item', action: 'addChild' },
-	{ name: 'Remove Item', action: 'remove' },
-]
+const emit = defineEmits(['addChild'])
 
+/* Menu Items actions */
 const handleAction = (event) => {
 	console.log('got event', event)
 
-	if (event.action == 'addChild') {
-		// handleEdit()
-	}
-
 	if (event.action == 'remove') {
-		props.list.splice(event.item, 1)
+		props.list.splice(event.item.index, 1)
+	} else {
+		emit('addChild', event)
 	}
 }
 

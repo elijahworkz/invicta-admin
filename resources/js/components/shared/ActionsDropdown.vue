@@ -2,8 +2,7 @@
 	<div class="actions flex items-center">
 		<el-popover
 			ref="actionsDropdown"
-			v-if="actions.length" 
-			placement="bottom-end" 
+			v-if="actions.length"
 			trigger="click"
 			popper-class="actions-popover">
 			<template #reference>
@@ -32,7 +31,7 @@ import { ref, unref } from 'vue'
 import { mdiDotsHorizontal } from '@mdi/js'
 const props = defineProps({
 	actions: Array,
-	item: Number
+	item: Number | Object
 })
 const emit = defineEmits(['selected'])
 const actionsDropdown = ref()

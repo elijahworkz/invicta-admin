@@ -30,7 +30,7 @@
 				</div>
 			</div>
 
-			<NavTree :list="treeItems"/>
+			<NavTree :list="treeItems" :child-actions="childActions" @add-child="addChild" />
 
 		</div>
 	</div>
@@ -59,6 +59,7 @@
 import { ref, reactive, computed } from 'vue'
 import NavTree from '@/components/nav/NavTree.vue'
 import ItemsSelector from '@/components/form/ItemsSelector.vue'
+import map from 'lodash/map'
 import { ArrowLeft, ArrowDown } from '@element-plus/icons-vue'
 
 const props = defineProps({
@@ -75,6 +76,7 @@ const drawer = reactive({
 const itemsUrl = ref('')
 const titleField = ref()
 const currentResource = ref('link')
+const currentItem = ref(null)
 
 
 /* Build Menu Items */
@@ -82,11 +84,22 @@ const treeItems = ref(props.menu.tree || [])
 
 const excludeItems = computed(() => {
 	return treeItems.value.reduce((obj, item) => {
-		obj[item.type] = obj[item.type] || []
-		obj[item.type].push(item.id)
+		obj[item.handle] = obj[item.handle] || []
+		obj[item.handle].push(item.id)
 		return obj
 	}, {})
 })
+
+const updateChildItems = (tree, items) => {
+	tree.forEach(item => {
+		if (item.id == currentItem.value.id && item.handle == currentItem.value.handle) {
+			item.children.push(...items)
+		} else if (item.children.length) {
+			updateChildItems(item.children, items)
+		}
+	})
+	return tree
+}
 
 const updateItems = (selected) => {
 	drawer.state = false
@@ -94,24 +107,52 @@ const updateItems = (selected) => {
 	let items = selected.map(item => {
 		return { 
 			label: item[titleField.value], 
-			id: item.id, 
+			id: item.id,
+			handle: currentResource.value,
 			type: props.resources[currentResource.value].title, 
 			children: [] 
 		}
 	})
-	treeItems.value = [...treeItems.value, ...items]
+
+	if (currentItem.value) {
+		treeItems.value = updateChildItems(treeItems.value, items)
+	} else {
+		treeItems.value = [...treeItems.value, ...items]
+	}
+
+	currentItem.value = null
+	currentResource.value = 'link'
 }
+
+/* Action Commands */
+
+const childActions = map(props.resources, (item, handle) => {
+	return { name: item.title, action: handle }
+})
+childActions.push({ name: 'Custom Link', action: 'link', divider: true })
+childActions.push({ name: 'Remove Item', action: 'remove', class: '!text-red-600' })
 
 const handleCommand = (command) => {
 	if (command == 'link') {
 		drawer.context = 'form'
 		drawer.state = true
 	} else {
-		drawer.context = 'list'
-		titleField.value = props.resources[command].titleField
-		itemsUrl.value = `/resource/${command}/items`
-		drawer.state = true
+		selectItems(command)
 	}
 	currentResource.value = command
+}
+
+const addChild = (event) => {
+	console.log('adding child', event)
+	currentItem.value = event.item
+	currentResource.value = event.action
+	selectItems(event.action)
+}
+
+function selectItems(handle) {
+	drawer.context = 'list'
+	titleField.value = props.resources[handle].titleField
+	itemsUrl.value = `/resource/${handle}/items`
+	drawer.state = true
 }
 </script>
