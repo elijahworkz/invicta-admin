@@ -13,8 +13,9 @@
 			</template>
 		</el-popover>			
 
-		<span class="action-icon" @click="$emit('edit', id)" title="Edit Item"><Edit /></span>
-		<span class="action-icon" @click="$emit('delete', [id])" title="Delete Item"><Delete /></span>
+		<span v-show="canEdit" class="action-icon" @click="$emit('edit', id)" title="Edit Item"><Edit /></span>
+		<span v-show="canDelete" class="action-icon" @click="$emit('delete', id)" title="Delete Item"><Delete /></span>
+
 	</div>
 </template>
 
@@ -25,7 +26,9 @@ import { Delete, Edit } from '@element-plus/icons-vue'
 
 const props = defineProps({
 	id: Number,
-	actions: Array
+	actions: Array,
+	canEdit: Boolean,
+	canDelete: Boolean,
 })
 
 const handleAction = (action) => {

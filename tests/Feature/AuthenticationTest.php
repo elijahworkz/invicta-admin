@@ -13,10 +13,12 @@ class AuthenticationTest extends TestCase
 
         $this->assertNotNull($user);
 
-        $this->post(route('invicta.login'), [
-            'email' => $user->email,
-            'password' => 'password',
-        ]);
+        $this
+            ->withoutExceptionHandling()
+            ->post(route('invicta.login'), [
+                'email' => $user->email,
+                'password' => 'password',
+            ]);
 
         $this->assertAuthenticated(config('invicta.auth.guard'));
     }

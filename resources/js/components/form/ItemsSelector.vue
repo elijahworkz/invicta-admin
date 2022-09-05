@@ -6,6 +6,7 @@
 				<Filters :resource-handle="resourceHandle" />
 			</div>
 		</header>
+
 		<div class="bg-white px-2 pt-2"><FilterBadges :badges="itemsResource.filterBadges" /></div>
 		
 		<main>
@@ -14,7 +15,7 @@
 			</div>
 
 			<el-scrollbar v-else>
-				<ResourceTable 
+				<ResourceTable
 					:data="itemsResource.resource"
 					:columns="columns"
 					:no-actions="true"

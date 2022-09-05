@@ -1,8 +1,8 @@
 <template>
-	<draggable 
+	<draggable
 		:list="list"
 		:disabled="!sortable"
-		handle=".drag-handle" 
+		handle=".drag-handle"
 		item-key="index"
 		class="items-stack w-full"
 		@update="$emit('updated', list)">
@@ -10,27 +10,27 @@
 			<div class="item flex items-center justify-start mb-2 border rounded">
 				<DragHandle v-if="sortable" class="text-gray-300 hover:text-gray-400 mr-1"/>
 
-				<component 
-					:is="ItemListComponent" 
-					:item="element" 
+				<component
+					:is="ItemListComponent"
+					:item="element"
 					:title-field="titleField"
+					:can-edit="canEditItem"
 					@edit="handleEditItem"
 					class="ml-1"
 				/>
 
-
 				<span class="ml-auto action-icon" title="Detach Item">
 					<SvgIcon
 						v-if="options.addItems"
-						:icon="mdiLinkOff" 
-						@click="removeRow(element.id)" 
+						:icon="mdiLinkOff"
+						@click="removeRow(element.id)"
 						:width="16" />
 				</span>
 			</div>
 		</template>
 		<template #footer>
 			<div class="flex mt-4">
-	   	 		<el-button v-if="options.createItems" type="primary" text bg size="small" @click="handleCreateItem">
+	   	 		<el-button v-if="canCreateItem" type="primary" text bg size="small" @click="handleCreateItem">
 	   	 			<SvgIcon :icon="mdiLinkPlus" :width="15" class="mr-1" /> Attach new
 	   	 		</el-button>
 	   	 		<el-button v-if="options.addItems" type="primary" text bg size="small" @click="handleAddItem">
@@ -39,7 +39,7 @@
 	   	 	</div>
   		</template>
 	</draggable>
-	  
+
 	<Drawer v-if="drawer.state" @close="drawer.state = false">
 		<ItemsSelector
 			v-if="drawer.context == 'list'"
@@ -47,7 +47,7 @@
 			:resource-handle="resource"
 			:request-url="itemsUrl"
 			:title-field="titleField"
-			@update="updateItems" 
+			@update="updateItems"
 			@cancel="drawer.state = false" />
 
 		<ItemsForm
@@ -80,17 +80,21 @@ const props = defineProps({
 	sortable: Boolean,
 	options: {
 		type: Object,
-		default: () => { 
+		default: () => {
 			return {addItems: false, createItems: true}
 		}
 	}
 })
 const emit = defineEmits(['updated'])
 
+
 const drawer = reactive({
 	state: false,
 	context: 'list'
 })
+
+const canCreateItem = computed(() => props.options.createItems && Invicta.can(`create ${props.resource}`))
+const canEditItem = Invicta.can(`edit ${props.resource}`)
 
 const titleField = 'titleField' in props.fieldData ? props.fieldData.titleField : 'title'
 

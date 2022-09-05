@@ -124,7 +124,7 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 			let fields: object = {}
 			if (blueprint.fields) {
 				fields = getFields(blueprint.fields)
-			} 
+			}
 			if (blueprint.sidebar && blueprint.sidebar.fields) {
 				fields = {...fields, ...getFields(blueprint.sidebar.fields)}
 			}
@@ -137,7 +137,7 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 				})
 			}
 
-			return fields			
+			return fields
 		},
 		setReadOnly(field: string) {
 
@@ -160,7 +160,7 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 
 			if (this.blueprint.fields) {
 				this.blueprint.fields = callback(this.blueprint.fields)
-			} 
+			}
 			if (this.blueprint.sidebar && this.blueprint.sidebar.fields) {
 				this.blueprint.sidebar.fields = callback(this.blueprint.sidebar.fields)
 			}
@@ -171,7 +171,7 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 						this.blueprint.sections[index].fields = callback(section.fields)
 					}
 				})
-			}			
+			}
 		},
 		formData() {
 			return this.form

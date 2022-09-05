@@ -21,11 +21,25 @@ class InvictaAdmin
             // 'assetsUrl' => config('frontend.assetsUrl'),
             // 'screenshotsPath' => config('services.screenshots.key'),
             'menu' => self::menu(),
+            'user' => self::user(),
             // 'brands' => self::brands(),
             // 'templates' => self::templates(),
             // 'languages' => self::languages(),
             // 'helper_links' => self::helperLinks(),
         ];
+    }
+
+    public static function user()
+    {
+        $user = auth()->user();
+
+        return $user ? array_merge(
+            $user->toArray(),
+            [
+                'is_super' => method_exists($user, 'isSuper') ? $user->isSuper() : true,
+                'permissions' => method_exists($user, 'permissions') ? $user->permissions() : [],
+            ]
+        ) : [];
     }
 
     /**

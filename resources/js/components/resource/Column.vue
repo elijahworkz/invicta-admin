@@ -1,5 +1,5 @@
 <template>
-	<el-table-column		
+	<el-table-column
 		:prop="id"
 		v-bind="props"
 		:align="align(props)"
@@ -11,8 +11,8 @@
 			<div v-else-if="props.list">
 				{{ buildList(scope.row[id], props.titleField) }}
 			</div>
-			<Link 
-				v-else-if="props.editLink" 
+			<Link
+				v-else-if="props.editLink && canEdit"
 				:href="`${editUrl}/${scope.row.id}`"
 				class="edit-link">
 					<div v-html="scope.row[id]"/>
@@ -27,7 +27,8 @@
 defineProps({
 	id: String,
 	props: Object,
-	editUrl: String
+	editUrl: String,
+	canEdit: Boolean
 })
 
 const align = (props, header = false) => props.boolean ? 'center' : (header ? props.headerAlign : props.align)
