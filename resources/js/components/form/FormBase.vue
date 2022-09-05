@@ -1,7 +1,7 @@
 <template>
 	<el-form
 		class="invicta-form"
-		:class="[formSettings.class || hasSidebar ? 'w-3/4' : 'w-2/5']"
+		:class="formClass"
 		v-bind="formSettings">
 		<div class="flex items-end justify-between mb-4" v-if="!headless">
 			<div>
@@ -81,6 +81,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useResourceForm } from '@/services/form'
+import { onKeyStroke } from '@vueuse/core'
 import has from 'lodash/has'
 import get from 'lodash/get'
 import FormField from './FormField.vue'
@@ -132,11 +133,19 @@ if (hasSections && blueprint.sections.length) {
 }
 const hasSidebar = has(blueprint, 'sidebar');
 
+// Set form class
+const formClass = computed(() => {
+	let width = props.headless
+		? 'w-full'
+		: (hasSidebar ? 'w-3/4' : 'w-2/5')
+	return formSettings.class || width
+})
+
 /* Post Submit options setup */
 const postSubmitAction = ref(props.postSubmitActions[0])
 const postSubmitData = {
 	back: { icon: ArrowLeft, button: 'Save & Back', option: 'Go back'},
-	close: { icon: Close, button: 'Save & Close', option: 'Close Form'},
+	close: { icon: ArrowLeft, button: 'Save & Close', option: 'Close Form'},
 	edit: { icon: ArrowDown, button: 'Save & Stay', option: 'Continue Editing'},
 	create: { icon: Plus, button: 'Save & New', option: 'Add New Item'},
 }
@@ -144,6 +153,11 @@ const postSubmitData = {
 const submit = () => {
 	resourceForm.submit(postSubmitAction.value)
 }
+
+onKeyStroke('Enter', (e) => {
+	e.preventDefault()
+	submit()
+})
 </script>
 
 <style lang="scss">

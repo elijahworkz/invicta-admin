@@ -1,0 +1,14 @@
+.actions-popover {
+	.popover-trigger {
+		line-height: 0;
+	}
+
+	ul {
+		li {
+
+			&.danger {
+				color: var(--el-color-danger);
+			}
+		}
+	}
+}

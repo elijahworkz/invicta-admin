@@ -1,9 +1,14 @@
 <template>
 	<div class="w-full flex flex-col">
-		<header class="p-4">
-			<Search />
+		<header class="p-3">
+			<div class="flex items-center justify-between gap-2">
+				<Search />
+				<Filters :resource-handle="resourceHandle" />
+			</div>
 		</header>
 
+		<div class="bg-white px-2 pt-2"><FilterBadges :badges="itemsResource.filterBadges" /></div>
+		
 		<main>
 			<div class="flex items-center justify-center h-full" v-if="loading">
 				<Loading />
@@ -21,19 +26,25 @@
 			</el-scrollbar>
 		</main>
 
-		<footer class="p-4 flex items-center justify-between">
-			<el-pagination
-				background
-				small
-				layout="jumper, prev, pager, next"
-				:current-page="itemsResource.currentPage"
-				:page-size="itemsResource.perPage"
-				:total="itemsResource.total"
-				@update:page-size="changePerPage"
-				@update:current-page="changePage"
-			/>
-			<el-button class="ml-auto mr-2" text @click="$emit('cancel')">Cancel</el-button>
-			<el-button type="primary" @click="$emit('update', selectedItems)">Select</el-button>
+		<footer>
+			<div class="pagination px-2">
+				<el-pagination 
+					background 
+					small 
+					layout="prev, pager, next, jumper"
+					:current-page="itemsResource.currentPage"
+					:page-size="itemsResource.perPage"
+					:pager-count="5"
+					:total="itemsResource.total"
+					@update:page-size="changePerPage"
+					@update:current-page="changePage"
+				/>
+			</div>
+			<div class="button-row">
+				<div class="mr-2">Total: <strong>{{itemsResource.total }}</strong></div>
+				<el-button class="ml-auto mr-2" text @click="$emit('cancel')">Cancel</el-button>
+				<el-button type="primary" @click="submitSelected">Select</el-button>
+			</div>
 		</footer>
 	</div>
 </template>
@@ -42,27 +53,39 @@
 import { ref, onMounted, computed } from 'vue'
 import ResourceTable from '@/components/resource/ResourceTable.vue'
 import Search from '@/components/resource/Search.vue'
+import Filters from '@/components/resource/Filters.vue'
+import FilterBadges from '@/components/resource/FilterBadges.vue'
 import Loading from '@/components/shared/Loading.vue'
 import { useResource } from '@/services'
 
 const props = defineProps({
+	resourceHandle: String,
 	exclude: Array,
 	requestUrl: String,
 	titleField: String,
-	resource: String,
+	navItems: {
+		type: Boolean,
+		default: false,
+	},
+	columns: {
+		type: Object,
+		default: () => {
+			return {
+				id: { label: 'ID', sortable: true, align: 'center', width: 70 },
+				title: { label: 'Title', sortable: true },
+				created_at: { label: 'Created'}
+			}
+		}
+	}
 })
+
+const emit = defineEmits(['update'])
 
 const loading = ref(false)
 const itemsResource = useResource()
 
-const canEditItem = Invicta.can(`edit ${props.resource}`);
-const canDeleteItem = Invicta.can(`delete ${props.resource}`);
-
-const columns = {
-	id: { label: 'ID', sortable: true, align: 'center', width: 70 },
-	title: { label: 'Title', sortable: true },
-	created_at: { label: 'Created'}
-}
+const canEditItem = Invicta.can(`edit ${props.resourceHandle}`);
+const canDeleteItem = Invicta.can(`delete ${props.resourceHandle}`);
 
 onMounted(() => {
 
@@ -72,6 +95,7 @@ onMounted(() => {
 		paginate: true,
 		title: props.titleField,
 		exclude: props.exclude,
+		nav_items: props.navItems
 	}
 
 	Invicta.axios.get(props.requestUrl, { params })
@@ -96,4 +120,9 @@ const selectedItems = computed(() => {
 		return { id: item.id, [props.titleField]: item.title }
 	})
 })
+
+const submitSelected = () => {
+	Invicta.emit('clear-filters')
+	emit('update', selectedItems.value)
+}
 </script>

@@ -12,6 +12,11 @@ class CorePermissions
         Permission::group('invicta')->label('Admin Panel')
             ->permissions([
                 Permission::make('access invicta')->label('Access the Control Panel'),
+                Permission::make('view navigation')->children([
+                    Permission::make('create new navigation'),
+                    Permission::make('edit navigation'),
+                    Permission::make('delete navigation'),
+                ]),
             ]);
 
         self::registerResourcesPermission();

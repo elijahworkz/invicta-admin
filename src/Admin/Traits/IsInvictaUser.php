@@ -31,14 +31,14 @@ trait IsInvictaUser
     }
 
     /**
-     * Check if user belongs to a group either by id or name.
+     * Check if user belongs to a group either by id or handle.
      *
      * @param	int|string  $identifier
      * @return  bool
      */
     public function group($identifier): bool
     {
-        $column = is_numeric($identifier) ? 'id' : 'name';
+        $column = is_numeric($identifier) ? 'id' : 'handle';
 
         return $this->groups()->where($column, $identifier)->count();
     }

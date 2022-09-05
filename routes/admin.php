@@ -1,6 +1,7 @@
 <?php
 
 use Eteacher\InvictaAdmin\Http\Controllers\AdminController;
+use Eteacher\InvictaAdmin\Http\Controllers\NavigationController;
 use Eteacher\InvictaAdmin\Http\Controllers\PermissionController;
 use Eteacher\InvictaAdmin\Http\Controllers\ResourceController;
 
@@ -26,8 +27,6 @@ Route::controller(NavigationController::class)->name('nav.')->prefix('/navigatio
     Route::post('/', 'store');
     Route::get('/{menu}', 'edit')->name('edit');
     Route::post('/{menu}', 'update')->name('update');
-    Route::get('/{menu}/settings', 'editSettings')->name('edit.settings');
-    Route::post('/{menu}/settings', 'updateSettings')->name('update.settings');
 });
 
 Route::controller(PermissionController::class)->name('permission.')->prefix('/group/')->group(function () {

@@ -6,6 +6,8 @@ use Eteacher\InvictaAdmin\Admin\Actions\Action;
 
 class Duplicate extends Action
 {
+    /* This is example - not for actual use */
+
     public $inline = true;
 
     public $dangerous = true;
@@ -30,5 +32,10 @@ class Duplicate extends Action
                 'validation' => 'required',
             ],
         ];
+    }
+
+    public function authorize($user, $model)
+    {
+        return true;
     }
 }

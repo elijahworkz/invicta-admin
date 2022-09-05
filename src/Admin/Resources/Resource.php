@@ -127,6 +127,7 @@ class Resource extends JsonResource
                 ->map(function ($item, $key) {
                     return is_callable($item) ? $item() : $item;
                 })
+                // ->put('actions', $this->actions()); //$this->resourceActions($request->user(), $this->resource));
                 ->put('actions', $this->resourceActions($request->user(), $this->resource));
         }
 

@@ -23,7 +23,7 @@ const fieldClass = computed(() => {
 	} else if (type == 'row') {
 		wrapperClass = ['field-row-full', 'inline-fields']
 	} else {
-		wrapperClass = get(props.fieldData, 'customClass') || `field-row-${get(props.fieldData, 'width', 'full')}`
+		wrapperClass = [`field-row-${get(props.fieldData, 'width', 'full')}`, get(props.fieldData, 'customClass', '')]
 	}
 
 	return wrapperClass

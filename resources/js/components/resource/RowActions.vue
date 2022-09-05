@@ -21,8 +21,8 @@
 
 <script setup>
 import { ref } from 'vue'
-import { Delete, Edit } from '@element-plus/icons-vue'
 import { mdiDotsHorizontal } from '@mdi/js'
+import { Delete, Edit } from '@element-plus/icons-vue'
 
 const props = defineProps({
 	id: Number,
@@ -35,18 +35,4 @@ const handleAction = (action) => {
 	Invicta.emit('show-action-modal', { action, selected: [props.id] })
 }
 </script>
-
-<style lang="scss">
-.actions-popover {
-	padding: 0 !important;
-
-	.el-dropdown-menu__item {
-
-		&:hover {
-			background-color: var(--el-color-primary-light-9);
-		    color: var(--el-color-primary);
-		}
-	}
-}
-</style>
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Admin\Languages;
+namespace Eteacher\InvictaAdmin\Admin\Locales;
 
-class Languages
+class Locales
 {
     protected $config;
     protected $languages;
@@ -32,7 +32,7 @@ class Languages
     protected function setLanguages()
     {
         return collect($this->config)->map(function ($language, $handle) {
-            return new Language($handle, $language);
+            return new Locale($handle, $language);
         });
     }
 }

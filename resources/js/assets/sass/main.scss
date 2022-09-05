@@ -51,7 +51,7 @@ ul {
 @import 'partials/list-table';
 @import 'partials/form';
 @import 'partials/drawer';
-// @import '_partials/info-bar';
-// @import '_partials/top-bar';
-// @import '_partials/misc';
-// @import '_partials/cards';
+
+/* Components */
+@import 'components/popover';
+@import 'components/actionsDropdown';

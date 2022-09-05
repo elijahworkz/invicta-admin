@@ -200,7 +200,7 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 	getters: {
 		title(): string {
 			return this.mode == 'edit'
-				? get(this.form, this.meta.title_field)
+				? get(this.form, this.meta.titleField)
 				: this.meta.createTitle
 		},
 		id(): any {

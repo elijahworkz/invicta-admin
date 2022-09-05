@@ -3,7 +3,7 @@
 		<transition name="drawer">
 		<div class="overlay" v-show="show">
 
-				<div class="content" ref="drawerBody">
+				<div class="content" ref="drawerBody" :style="style">
 					<slot/>
 				</div>
 			</div>
@@ -15,6 +15,9 @@
 import { ref, onMounted } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 
+defineProps({
+	style: Object
+})
 const emit = defineEmits(['close'])
 
 const show = ref(false)

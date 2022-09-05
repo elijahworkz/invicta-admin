@@ -29,6 +29,7 @@ class Group extends Resource
         return [
             'id' => $this->id,
             'title' => $this->title,
+            'handle' => $this->handle,
             'users' => $this->users->count(),
         ];
     }
@@ -38,6 +39,7 @@ class Group extends Resource
         return [
             'id' => Column::id(),
             'title' => Column::make('Title')->sortable()->editLink(),
+            'handle' => Column::make('Handle'),
             'users' => Column::make('Users')->align('center'),
         ];
     }

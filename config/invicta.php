@@ -89,12 +89,12 @@ return [
     | Multi Site (Localization)
     |--------------------------------------------------------------------------
     |
-    | Set array of languages that are supported by the Admin. This array should
-    | always have a default language which will be served from root
+    | Set array of locales that are supported by the Admin. This array should
+    | always have a default locale which will be served from root
     |
     */
 
-    'languages' => [
+    'locales' => [
         'default' => [
             'name' => 'English',
             'locale' => 'en_US',

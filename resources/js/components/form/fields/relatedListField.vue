@@ -32,12 +32,12 @@ const relationship = props.path.split('.').pop() // determine relationship from 
 const sortable = props.path !== relationship // if path and relationsip don't match - probably needs sorting
 
 /* Build list to display */
-const sortedIds = resourceForm.get(props.path, false)
+const sortedIds = computed(() => resourceForm.get(props.path, false))
 
 const listValue = computed(() => {
 	let related = resourceForm.get(relationship, [])
-	if (sortable && sortedIds) {
-		let sortedList = sortedIds.map(id => related.find(item => item.id === id))
+	if (sortable && sortedIds.length) {
+		let sortedList = sortedIds.value.map(id => related.find(item => item.id === id))
 		related = sortedList
 	}
 	return related
