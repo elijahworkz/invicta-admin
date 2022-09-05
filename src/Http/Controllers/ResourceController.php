@@ -12,7 +12,12 @@ class ResourceController extends Controller
     {
         $this->authorize('view '.$request->handle());
 
-        return Inertia::render('Invicta.Resource', ['resource' => $request->resourceList()]);
+        return Inertia::render('Invicta.Resource', [
+            'resource' => $request->resourceList(),
+            'can-create' => request()->user()->can('create '.$request->handle()),
+            'can-edit' => request()->user()->can('edit '.$request->handle()),
+            'can-delete' => request()->user()->can('delete '.$request->handle()),
+        ]);
     }
 
     public function reorder(ResourceRequest $request)

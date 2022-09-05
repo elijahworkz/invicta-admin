@@ -33,6 +33,10 @@ class LoginController extends Controller
     {
         $request->authenticate();
 
+        if (method_exists('setLastLogin', auth()->user())) {
+            auth()->user()->setLastLogin();
+        }
+
         $request->session()->regenerate();
 
         return redirect()->intended(route('invicta.home'));

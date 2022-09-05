@@ -18,8 +18,6 @@
 				<ResourceTable
 					:data="itemsResource.resource"
 					:columns="columns"
-					:can-edit="canEditItem"
-					:can-delete="canDeleteItem"
 					:no-actions="true"
 					@select="handleSelect"
 				/>
@@ -83,9 +81,6 @@ const emit = defineEmits(['update'])
 
 const loading = ref(false)
 const itemsResource = useResource()
-
-const canEditItem = Invicta.can(`edit ${props.resourceHandle}`);
-const canDeleteItem = Invicta.can(`delete ${props.resourceHandle}`);
 
 onMounted(() => {
 

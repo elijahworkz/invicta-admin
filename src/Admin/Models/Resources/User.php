@@ -32,6 +32,8 @@ class User extends Resource
      */
     public function indexResource($request)
     {
+        $last_login = $this->last_login ? Carbon::parse($this->last_login) : null;
+
         return [
             'id' => $this->id,
             'active' => $this->active,
@@ -50,6 +52,9 @@ class User extends Resource
             },
             'email' => $this->email,
             'regisration' => Carbon::parse($this->created_at)->toFormattedDateString(),
+            'last_login' => $last_login
+                ? ($last_login->diffInMonths(Carbon::now()) <= 6 ? $last_login->diffForHumans() : $last_login->toFormattedDateString())
+                : '',
         ];
     }
 
@@ -67,6 +72,7 @@ class User extends Resource
             'name' => Column::make('Name')->sortable(),
             'email' => Column::make('Email'),
             'regisration' => Column::make('Registration Date'),
+            'last_login' => Column::make('Last Login'),
         ];
     }
 

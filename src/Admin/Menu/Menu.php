@@ -5,6 +5,7 @@ namespace Eteacher\InvictaAdmin\Admin\Menu;
 use Eteacher\InvictaAdmin\Admin\Models\Group;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Schema;
 use Statamic\CP\Navigation\Nav;
 
 class Menu
@@ -46,9 +47,15 @@ class Menu
      */
     public function permissions($name = 'Permissions')
     {
+        $groups = $this->permissionItems();
+
+        if (! count($groups)) {
+            return null;
+        }
+
         return $this->createItem($name)
             ->icon('shield-key')
-            ->children($this->permissionItems())
+            ->children($groups)
             ->can('view permissions');
     }
 
@@ -59,9 +66,13 @@ class Menu
      */
     protected function permissionItems()
     {
-        $groups = Group::where('is_super', 0)->orderBy('id', 'desc')->get();
-
         $groupMenuItems = [];
+
+        if (! Schema::hasTable('groups')) {
+            return $groupMenuItems;
+        }
+
+        $groups = Group::where('is_super', 0)->orderBy('id', 'desc')->get();
 
         foreach ($groups as $group) {
             $route = config('invicta.path').'/group/'.$group->id.'/permission';

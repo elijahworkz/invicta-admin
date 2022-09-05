@@ -8,7 +8,7 @@
 			</div>
 			<div class="ml-auto">
 				<el-button v-if="resource.sortable"><Link :href="`${resource.meta.path}/reorder`">Reorder</Link></el-button>
-				<el-button v-show="canCreateItem" type="primary"><Link :href="`${resource.meta.path}/create`">Create new</Link></el-button>
+				<el-button v-show="canCreate" type="primary"><Link :href="`${resource.meta.path}/create`">Create new</Link></el-button>
 			</div>
 		</div>
 		<el-card body-style="padding: 0px">
@@ -22,7 +22,7 @@
 						:selected="selectedRows"
 					/>
 					<Filters :resource-handle="resource.handle" :filters="resource.meta.filters" />
-					<div v-show="canDeleteItem" class="ml-3" title="Delete Selected">
+					<div v-show="canDelete" class="ml-3" title="Delete Selected">
 						<el-button :icon="Delete" @click="handleBulkDelete" :disabled="!selectedRows.length" />
 					</div>
 				</div>
@@ -34,8 +34,8 @@
 				:table-props="resource.table"
 				:columns="resource.columns"
 				:edit-url="resource.meta.path"
-				:can-edit="canEditItem"
-				:can-delete="canDeleteItem"
+				:can-edit="canEdit"
+				:can-delete="canDelete"
 				@select="handleSelect"
 				@delete="handleDelete" />
 
@@ -73,7 +73,10 @@ import ActionsModal from '@/components/resource/ActionsModal.vue'
 import { Delete } from '@element-plus/icons-vue'
 
 const props = defineProps({
-	resource: Object
+	resource: Object,
+	canCreate: Boolean,
+	canEdit: Boolean,
+	canDelete: Boolean,
 })
 
 const { pageUrl } = usePage().props.value
@@ -94,10 +97,6 @@ onMounted(() => {
 		})
 })
 
-
-const canCreateItem = Invicta.can(`create ${props.resource.handle}`)
-const canEditItem = Invicta.can(`edit ${props.resource.handle}`)
-const canDeleteItem = Invicta.can(`delete ${props.resource.handle}`)
 
 /* Setup Selection */
 const selectedRows = ref([])

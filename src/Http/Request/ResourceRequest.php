@@ -10,11 +10,8 @@ use Illuminate\Support\Fluent;
 
 class ResourceRequest extends InvictaRequest
 {
-    public $request;
-
     public function resourceClass()
     {
-        $this->request = request();
         $handle = $this->route('resource');
 
         return ResourceRegistrar::get($handle);
