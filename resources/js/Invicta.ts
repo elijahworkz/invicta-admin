@@ -46,8 +46,6 @@ class Invicta
 		this.bootingCallbacks = []
 		this.eventBus = mitt()
 		this.axios = setupAxios(`${this.getConfig('appUrl')}${this.getConfig('appPath')}/api`)
-		console.log(this.user);
-		console.log(this.config);
 
 		this.pages = {
 			'Invicta.Login': () => import('./views/Auth/Login.vue'),
