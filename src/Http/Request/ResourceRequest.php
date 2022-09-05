@@ -94,6 +94,18 @@ class ResourceRequest extends InvictaRequest
         ];
     }
 
+    public function itemUri()
+    {
+        $resourceClass = $this->resourceClass();
+        $item = $resourceClass->findModel($this->route('item'));
+
+        if (method_exists($resourceClass, 'uri')) {
+            return $resourceClass->uri($item);
+        }
+
+        return '';
+    }
+
     public function resourceRelated()
     {
         return $this->resourceClass()->relatedQuery($this->route('related'));

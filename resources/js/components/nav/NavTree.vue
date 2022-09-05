@@ -9,13 +9,21 @@
 			<li>
 				<div class="item flex items-center justify-start border rounded bg-white mb-1 p-2">
 					<DragHandle class="mr-2 text-gray-300 hover:text-gray-400" />
-					{{ element.label }}
+					<el-link :underline="false" @click="handleEdit(element)">{{ element.label }}</el-link>
 					<div class="ml-auto item-type">{{ element.type }}</div>
 
-					<ActionsDropdown :actions="childActions" :item="{index, ...element}" @selected="handleAction" class="ml-3" />
+					<ActionsDropdown 
+						:actions="childActions" 
+						:item="{index, ...element}" 
+						@selected="handleAction" 
+						class="ml-3" />
 				</div>
 
-				<NavTree :list="element.children" :child-actions="childActions" @add-child="handleAction" />
+				<NavTree 
+					:list="element.children" 
+					:child-actions="childActions" 
+					@add-child="handleAction" 
+					@edit-item="handleEdit" />
 			</li>
 		</template>
 	</draggable>
@@ -31,7 +39,7 @@ const props = defineProps({
 	childActions: Array
 })
 
-const emit = defineEmits(['addChild'])
+const emit = defineEmits(['addChild', 'editItem'])
 
 /* Menu Items actions */
 const handleAction = (event) => {
@@ -42,6 +50,11 @@ const handleAction = (event) => {
 	} else {
 		emit('addChild', event)
 	}
+}
+
+const handleEdit = (event) => {
+	console.log('editing', event)
+	emit('editItem', event)
 }
 
 </script>

@@ -89,14 +89,23 @@ class NavigationController extends Controller
 
         return Inertia::render('NavEdit', [
             'indexUrl' => invicta_route('nav.index'),
+            'actionUrl' => invicta_route('nav.update', ['menu' => $menu->id]),
             'menu' => $menu,
             'resources' => $resources,
         ]);
     }
 
-    public function update()
+    public function update(Request $request, Navigation $menu)
     {
-        // code...
+        $this->authorize('edit navigation');
+
+        $menu->tree = $request->tree;
+        $menu->save();
+
+        return Redirect::back()->with('message', [
+            'type' => 'success',
+            'title' => 'Navigation Updated',
+        ]);
     }
 
     public function editSettings()

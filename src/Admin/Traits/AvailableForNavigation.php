@@ -12,9 +12,6 @@ trait AvailableForNavigation
 
     private $availableForNavigation = true;
 
-    /**
-     * Resource context.
-     */
     public function navTitle()
     {
         return $this->navTitle
@@ -25,5 +22,15 @@ trait AvailableForNavigation
     public function prefix()
     {
         return '';
+    }
+
+    public function uri($model)
+    {
+        // we need to set locale, // $prefix
+        return Str::of($this->prefix())
+            ->finish('/')
+            ->append($model->slug)
+            ->rtrim('/')
+            ->start('/');
     }
 }

@@ -26,11 +26,15 @@
 						</template>
 					</el-dropdown>
 
-					<el-button type="primary">Save Changes</el-button>
+					<el-button type="primary" @click="saveNavigation" :disabled="!dirtyState">Save Changes</el-button>
 				</div>
 			</div>
 
-			<NavTree :list="treeItems" :child-actions="childActions" @add-child="addChild" />
+			<NavTree 
+				:list="treeItems" 
+				:child-actions="childActions" 
+				@add-child="addChild"
+				@edit-item="editItem" />
 
 		</div>
 	</div>
@@ -47,23 +51,29 @@
 			@update="updateItems" 
 			@cancel="drawer.state = false" />
 
-<!-- 		<ItemsForm
+
+		<NavItemForm 
 			v-if="drawer.context == 'form'"
-			:request-url="formUrl"
-			:create-with="populateWith"
-			@cancel="drawer.state = false" /> -->
+			:mode="formMode"
+			:item-data="formItem"
+			@saved="updateItem"
+			@close="drawer.state = false"
+		/>
 	</Drawer>	
 </template>
 
 <script setup>
 import { ref, reactive, computed } from 'vue'
+import { Inertia } from '@inertiajs/inertia'
 import NavTree from '@/components/nav/NavTree.vue'
+import NavItemForm from '@/components/nav/NavItemForm.vue'
 import ItemsSelector from '@/components/form/ItemsSelector.vue'
 import map from 'lodash/map'
 import { ArrowLeft, ArrowDown } from '@element-plus/icons-vue'
 
 const props = defineProps({
 	indexUrl: String,
+	actionUrl: String,
 	menu: Object,
 	resources: Object
 })
@@ -78,6 +88,7 @@ const titleField = ref()
 const currentResource = ref('link')
 const currentItem = ref(null)
 
+const dirtyState = ref(false)
 
 /* Build Menu Items */
 const treeItems = ref(props.menu.tree || [])
@@ -106,10 +117,13 @@ const updateItems = (selected) => {
 
 	let items = selected.map(item => {
 		return { 
-			label: item[titleField.value], 
-			id: item.id,
+			label: item[titleField.value],
+			url: item?.url,
+			id: item?.id,
 			handle: currentResource.value,
-			type: props.resources[currentResource.value].title, 
+			type: props.resources[currentResource.value]?.title || item?.type,
+			css: item?.css,
+			external: item?.external,
 			children: [] 
 		}
 	})
@@ -121,7 +135,8 @@ const updateItems = (selected) => {
 	}
 
 	currentItem.value = null
-	currentResource.value = 'link'
+	currentResource.value = 'custom'
+	dirtyState.value = true
 }
 
 /* Action Commands */
@@ -129,13 +144,12 @@ const updateItems = (selected) => {
 const childActions = map(props.resources, (item, handle) => {
 	return { name: item.title, action: handle }
 })
-childActions.push({ name: 'Custom Link', action: 'link', divider: true })
-childActions.push({ name: 'Remove Item', action: 'remove', class: '!text-red-600' })
+childActions.push({ name: 'Custom Link', action: 'custom', divider: true })
+childActions.push({ name: 'Remove Item', action: 'remove', danger: true })
 
 const handleCommand = (command) => {
-	if (command == 'link') {
-		drawer.context = 'form'
-		drawer.state = true
+	if (command == 'custom') {
+		addCustomLink()
 	} else {
 		selectItems(command)
 	}
@@ -146,7 +160,12 @@ const addChild = (event) => {
 	console.log('adding child', event)
 	currentItem.value = event.item
 	currentResource.value = event.action
-	selectItems(event.action)
+
+	if (event.action == 'custom') {
+		addCustomLink()
+	} else {
+		selectItems(event.action)
+	}
 }
 
 function selectItems(handle) {
@@ -154,5 +173,50 @@ function selectItems(handle) {
 	titleField.value = props.resources[handle].titleField
 	itemsUrl.value = `/resource/${handle}/items`
 	drawer.state = true
+}
+
+/* Setup Item Form */
+const formMode = ref('create')
+const formItem =  ref({})
+
+const newItem = {
+	label: '',
+	url: '',
+	css: '',
+	external: false,
+}
+
+const addCustomLink = () => {
+	formMode.value = 'create'
+	formItem.value = {...newItem}
+	drawer.context = 'form'
+	drawer.state = true
+}
+
+const updateItem = (item) => {
+	drawer.state = false
+	titleField.value = 'label'
+
+	item.type = item.url == '' ? 'Text' : 'Link'
+
+	if (formMode.value == 'create') {
+		updateItems([item])
+	}
+	dirtyState.value = true
+}
+
+const editItem = (item) => {
+	console.log('editing item' , item)
+
+	formMode.value = 'edit'
+	formItem.value = item
+	drawer.context = 'form'
+	drawer.state = true
+}
+
+/* Save Navigation */
+
+const saveNavigation = () => {
+	Inertia.post(props.actionUrl, { tree: treeItems.value })
 }
 </script>
