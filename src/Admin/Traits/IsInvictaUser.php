@@ -2,7 +2,6 @@
 
 namespace Eteacher\InvictaAdmin\Admin\Traits;
 
-use Carbon\Carbon;
 use Eteacher\InvictaAdmin\Admin\Models\Group;
 use Eteacher\InvictaAdmin\Admin\Models\Permission;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -98,15 +97,5 @@ trait IsInvictaUser
         return Attribute::make(
             set: fn ($value) => $value ? Hash::make($value) : $this->password
         );
-    }
-
-    /**
-     * update last login field.
-     */
-    public function setLastLogin()
-    {
-        $this->last_login = Carbon::now()->toDateTimeString();
-
-        $this->save();
     }
 }

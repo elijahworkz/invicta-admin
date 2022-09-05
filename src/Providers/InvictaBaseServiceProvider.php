@@ -2,6 +2,8 @@
 
 namespace Eteacher\InvictaAdmin\Providers;
 
+use Eteacher\InvictaAdmin\Listeners\SetLastLoginTimestamp;
+use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 
@@ -12,7 +14,11 @@ class InvictaBaseServiceProvider extends ServiceProvider
      *
      * @var array
      */
-    protected $listen = [];
+    protected $listen = [
+        Login::class => [
+            SetLastLoginTimestamp::class,
+        ],
+    ];
 
     /**
      * Bootstrap any package services.
