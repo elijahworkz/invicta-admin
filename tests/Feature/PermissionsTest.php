@@ -4,8 +4,8 @@ namespace Eteacher\InvictaAdmin\Tests\Feature;
 
 use Eteacher\InvictaAdmin\Admin\Models\Group;
 use Eteacher\InvictaAdmin\Admin\Models\Resources\Group as GroupResource;
-use Eteacher\InvictaAdmin\Admin\Models\Resources\User as UserResource;
 use Eteacher\InvictaAdmin\Admin\Resources\ResourceRegistrar;
+use Eteacher\InvictaAdmin\Tests\Models\Invicta\Resources\User as UserResource;
 use Eteacher\InvictaAdmin\Tests\TestCase;
 use Illuminate\Support\Facades\App;
 

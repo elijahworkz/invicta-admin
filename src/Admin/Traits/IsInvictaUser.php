@@ -4,6 +4,7 @@ namespace Eteacher\InvictaAdmin\Admin\Traits;
 
 use Eteacher\InvictaAdmin\Admin\Models\Group;
 use Eteacher\InvictaAdmin\Admin\Models\Permission;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 
@@ -17,19 +18,8 @@ trait IsInvictaUser
 
     public function isSuper(): bool
     {
-        $super = $this->super();
-
-        if (is_null($super)) {
-            $super = $this->super(boolval($this->groups()->where('is_super', 1)->count()));
-        }
-
-        return $super;
-    }
-
-    public function super($super = null)
-    {
-        if (! is_null($super)) {
-            $this->super = $super;
+        if (is_null($this->super)) {
+            $this->super = $this->groups()->where('is_super', 1)->count();
         }
 
         return $this->super;
@@ -94,5 +84,17 @@ trait IsInvictaUser
         }
 
         return $groupsPermissions->contains($permissions);
+    }
+
+    /**
+     *  password mutator.
+     *
+     * @return Attribute
+     */
+    protected function password(): Attribute
+    {
+        return Attribute::make(
+            set: fn ($value) => $value ? Hash::make($value) : $this->password
+        );
     }
 }

@@ -15,6 +15,10 @@ class CreateInvictaAuthTables extends Migration
     {
         $tables = config('invicta.auth_tables');
 
+        Schema::table('users', function (Blueprint $table) {
+           $table->timestamp('last_login')->nullable();
+        });
+
         Schema::create($tables['groups'], function (Blueprint $table) {
             $table->id();
             $table->string('handle');
@@ -34,12 +38,7 @@ class CreateInvictaAuthTables extends Migration
             $table->foreignId('group_id')->constrained($tables['groups'])->onDelete('cascade');
             $table->string('ability');
             $table->timestamps();
-
-            $table->foreign('group_id')
-            ->references('id')
-            ->on('groups')
-            ->onDelete('cascade');
-        });    
+        });
     }
 
     /**
