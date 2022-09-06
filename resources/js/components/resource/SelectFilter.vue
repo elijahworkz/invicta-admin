@@ -36,6 +36,7 @@ const props = defineProps({
 	}
 })
 
+const emit = defineEmits(['selected'])
 
 let filterValue = ref(props.initialValue)
 
@@ -50,6 +51,7 @@ const onChange = () => {
 	let filterObject = {}
 	filterObject[props.handle] = filterValue.value
 	Invicta.emit('update-filters', filterObject)
+	emit('selected')
 }
 
 Invicta.on('remove-filter', (handle) => {

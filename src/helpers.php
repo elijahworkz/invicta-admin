@@ -12,7 +12,7 @@ function invicta_user_model()
     return config('auth.providers')[$provider]['model'];
 }
 
-function invicta_route($name)
+function invicta_route($name, $params = [])
 {
-    return route('invicta.'.$name);
+    return route('invicta.'.$name, $params);
 }

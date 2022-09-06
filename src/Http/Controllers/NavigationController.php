@@ -30,7 +30,8 @@ class NavigationController extends Controller
     {
         $this->authorize('create new navigation');
 
-        return Inertia::render('NavCreate', [
+        return Inertia::render('NavEdit', [
+            'indexUrl' => invicta_route('nav.index'),
             'actionUrl' => invicta_route('nav.index'),
             'resource' => [
                 'meta' => [
@@ -45,7 +46,8 @@ class NavigationController extends Controller
                         ],
                         [
                             'id' => 'handle',
-                            'type' => 'text',
+                            'type' => 'slug',
+                            'source' => 'title',
                             'validation' => 'required|unique:navigation',
                         ],
                     ],
@@ -73,7 +75,69 @@ class NavigationController extends Controller
         }
     }
 
-    public function edit(Navigation $menu)
+    public function edit(Request $request, Navigation $menu)
+    {
+        $this->authorize('create new navigation');
+
+        return Inertia::render('NavEdit', [
+            'actionUrl' => invicta_route('nav.update', ['menu' => $menu->id]),
+            'indexUrl' => invicta_route('nav.index'),
+            'resource' => [
+                'item' => $menu,
+                'meta' => [
+                    'titleField' => 'title',
+                    'title' => $menu->title,
+                ],
+                'blueprint' => [
+                    'fields' => [
+                        [
+                            'id' => 'title',
+                            'type' => 'text',
+                            'validation' => 'required',
+                        ],
+                        [
+                            'id' => 'handle',
+                            'type' => 'slug',
+                            'source' => 'title',
+                            'validation' => 'required|unique:navigation',
+                        ],
+                    ],
+                ],
+            ],
+        ]);
+    }
+
+    public function update(Request $request, Navigation $menu)
+    {
+        $validated = $request->validate($request->validation);
+
+        $menu->update($validated);
+
+        $message = [
+            'type' => 'success',
+            'title' => 'Navigation created',
+        ];
+
+        // should deal with redirects here
+        if ($request->input('postSubmitAction') == 'back') {
+            return Redirect::route('invicta.nav.index')->with('message', $message);
+        } else {
+            return Redirect::back()->with('message', $message);
+        }
+    }
+
+    public function destroy(Request $request, Navigation $menu)
+    {
+        $this->authorize('delete navigation');
+        $menu->delete();
+
+        return Redirect::back()->with('message', [
+            'type' => 'success',
+            'title' => 'Navigation deleted',
+        ]);
+    }
+
+    public function editItems(Navigation $menu)
     {
         $this->authorize('edit navigation');
 
@@ -87,25 +151,24 @@ class NavigationController extends Controller
             ];
         });
 
-        return Inertia::render('NavEdit', [
+        return Inertia::render('NavItemsEdit', [
             'indexUrl' => invicta_route('nav.index'),
+            'actionUrl' => invicta_route('nav.updateItems', ['menu' => $menu->id]),
             'menu' => $menu,
             'resources' => $resources,
         ]);
     }
 
-    public function update()
+    public function updateItems(Request $request, Navigation $menu)
     {
-        // code...
-    }
+        $this->authorize('edit navigation');
 
-    public function editSettings()
-    {
-        // code...
-    }
+        $menu->tree = $request->tree;
+        $menu->save();
 
-    public function updateSettings()
-    {
-        // code...
+        return Redirect::back()->with('message', [
+            'type' => 'success',
+            'title' => 'Navigation Updated',
+        ]);
     }
 }

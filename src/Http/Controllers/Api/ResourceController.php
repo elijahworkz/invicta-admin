@@ -48,4 +48,9 @@ class ResourceController extends Controller
     {
         return response()->json($request->processAction());
     }
+
+    public function uri(ResourceRequest $request)
+    {
+        return $request->itemUri();
+    }
 }

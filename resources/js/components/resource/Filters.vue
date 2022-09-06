@@ -1,5 +1,5 @@
 <template>
-<!-- 	<popover
+	<popover
 		v-if="filters.length"
 		ref="filtersDropdown">
 		<template #trigger>
@@ -7,8 +7,8 @@
 				<el-icon><Filter /></el-icon><el-icon class="el-icon--right"><arrow-down /></el-icon>
 			</el-button>
 		</template>
-		<template #default>
-			<div class="p-2">
+		<template #default="scope">
+			<div class="p-3">
 				<template v-for="filter in filters">
 					<h4 class="mb-1">{{ filter.name }}</h4>
 					<SelectFilter
@@ -16,12 +16,13 @@
 						:handle="filter.class"
 						:filter-options="filter.options"
 						:initial-value="filter.initialValue"
+						@selected="scope.close()"
 					/>
 				</template>
 			</div>	
 		</template>
-	</popover> -->
-	<el-popover
+	</popover>
+<!-- 	<el-popover
 		ref="filtersDropdown"
 		v-if="filters.length"
 		placement="bottom-end" 
@@ -44,7 +45,7 @@
 				/>
 			</template>
 		</template>
-    </el-popover>
+    </el-popover> -->
 </template>
 
 <script setup>
@@ -94,9 +95,5 @@ onMounted(() => {
 			}
 			filters.value = data
 		})
-})
-
-Invicta.on('update-filters', () => {
-	unref(filtersDropdown).hide()
 })
 </script>

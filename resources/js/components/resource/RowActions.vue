@@ -11,7 +11,7 @@
 					<li v-for="action in actions" @click="handleAction(action)" class="el-dropdown-menu__item">{{ action.name }}</li>
 				</ul>
 			</template>
-		</el-popover>			
+		</el-popover>
 
 		<span v-show="canEdit" class="action-icon" @click="$emit('edit', id)" title="Edit Item"><Edit /></span>
 		<span v-show="canDelete" class="action-icon" @click="$emit('delete', id)" title="Delete Item"><Delete /></span>

@@ -2,11 +2,11 @@
 
 namespace Eteacher\InvictaAdmin\Facades;
 
-use Eteacher\InvictaAdmin\Admin\Resources\BlueprintFactory;
+use Eteacher\InvictaAdmin\Admin\Blueprints\BlueprintFactory;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Eteacher\InvictaAdmin\Admin\Resources\BlueprintFactory
+ * @see \Eteacher\InvictaAdmin\Admin\Blueprints\BlueprintFactory
  */
 class Blueprint extends Facade
 {
