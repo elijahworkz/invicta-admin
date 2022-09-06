@@ -153,7 +153,7 @@ class NavigationController extends Controller
 
         return Inertia::render('NavItemsEdit', [
             'indexUrl' => invicta_route('nav.index'),
-            'actionUrl' => invicta_route('nav.update', ['menu' => $menu->id]),
+            'actionUrl' => invicta_route('nav.updateItems', ['menu' => $menu->id]),
             'menu' => $menu,
             'resources' => $resources,
         ]);
