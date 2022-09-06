@@ -14,7 +14,7 @@
 				<tbody>
 					<tr v-for="nav in navs.data">
 						<td>
-							<Link v-if="canEdit" :href="`${editUrl}/${nav.id}`">{{ nav.title }}</Link>
+							<Link v-if="canEdit" :href="`${editUrl}/${nav.id}/items`">{{ nav.title }}</Link>
 							<span v-else>{{ nav.title }}</span>
 						</td>
 						<td>
@@ -73,7 +73,7 @@ const handleAction = (event) => {
 	console.log('got event', event)
 
 	if (event.action == 'edit') {
-		// handleEdit()
+		Inertia.get(`${props.editUrl}/${event.item}`)
 	}
 
 	if (event.action == 'delete') {
@@ -91,7 +91,7 @@ function handleDelete (item) {
 			confirmButtonClass: 'el-button--danger'
 		}
 	).then(() => {
-		Inertia.delete(props.resource.meta.path, {data: { selected }})
+		Inertia.delete(`${props.editUrl}/${item}`)
 	})
 	.catch(() => console.log('cancel'))
 }

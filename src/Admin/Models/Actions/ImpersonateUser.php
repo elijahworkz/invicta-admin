@@ -11,11 +11,12 @@ class ImpersonateUser extends Action
 
     public function handle($fields, $models)
     {
-        redirect(route('invicta.home'));
         $user = $models->first();
 
         session()->put('impersonator_id', Auth::user()->getAuthIdentifier());
         session()->put('impersonated_id', $user->getAuthIdentifier());
+
+        return redirect(route('invicta.home'));
     }
 
     public function fields()

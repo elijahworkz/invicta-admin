@@ -14,7 +14,7 @@
 				<div class="info info-bottom opacity-60">Navigation label.</div>
 			</el-form-item>
 
-			<el-form-item label="Url">
+			<el-form-item label="URL">
 				<el-input size="large" v-model="itemForm.url" :disabled="resource" />
 				<div class="info info-bottom opacity-60">Leave blank to make simple text item.</div>
 			</el-form-item>

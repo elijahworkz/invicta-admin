@@ -33,8 +33,9 @@ trait CanEditItems
 
     public function availableBlueprints()
     {
-        if (! $this->canChangeBlueprints)
+        if (! $this->canChangeBlueprints) {
             return false;
+        }
 
         $folder = resource_path('blueprints/'.$this->handle());
 

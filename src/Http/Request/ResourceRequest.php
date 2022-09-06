@@ -115,8 +115,9 @@ class ResourceRequest extends InvictaRequest
         $resourceClass = $this->resourceClass();
         $item = $resourceClass->findModel($this->route('item'));
 
-        if (isset($item['uri']))
+        if (isset($item['uri'])) {
             return $item->uri;
+        }
 
         if (method_exists($resourceClass, 'uri')) {
             return $resourceClass->uri($item);

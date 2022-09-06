@@ -27,6 +27,9 @@ Route::controller(NavigationController::class)->name('nav.')->prefix('/navigatio
     Route::post('/', 'store');
     Route::get('/{menu}', 'edit')->name('edit');
     Route::post('/{menu}', 'update')->name('update');
+    Route::delete('/{menu}', 'destroy')->name('destroy');
+    Route::get('/{menu}/items', 'editItems')->name('editItems');
+    Route::post('/{menu}/items', 'updateItems')->name('updateItems');
 });
 
 Route::controller(PermissionController::class)->name('permission.')->prefix('/group/')->group(function () {

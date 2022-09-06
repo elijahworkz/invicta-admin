@@ -55,8 +55,8 @@ class Invicta
 			'Invicta.Resource.Edit': () => import('./views/ResourceEdit.vue'),
 			'Invicta.Permission.Edit': () => import('./views/PermissionEdit.vue'),
 			'NavIndex': () => import('./views/NavIndex.vue'),
-			'NavCreate': () => import('./views/NavCreate.vue'),
 			'NavEdit': () => import('./views/NavEdit.vue'),
+			'NavItemsEdit': () => import('./views/NavItemsEdit.vue'),
 		}
 	}
 

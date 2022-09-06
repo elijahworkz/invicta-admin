@@ -4,7 +4,6 @@ namespace Eteacher\InvictaAdmin\Admin\Blueprints;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Fluent;
 use Illuminate\Support\Str;
 
 class BlueprintFactory
@@ -25,6 +24,7 @@ class BlueprintFactory
     {
         if ($handle == 'default') {
             $this->resource = $resource;
+
             return $this->getBlueprint();
         }
 
