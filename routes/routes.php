@@ -6,7 +6,6 @@ Route::middleware(['invicta'])
     ->name('invicta.')
     ->prefix(config('invicta.path'))
     ->group(function () {
-
         // Authorization routess
         if (config('invicta.auth.enable_login_form')) {
             Route::middleware(['guest:'.config('invicta.auth.guard')])
