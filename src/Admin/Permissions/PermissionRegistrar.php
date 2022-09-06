@@ -32,13 +32,13 @@ class PermissionRegistrar
         $this->group($handle)->label($label)
             ->permissions(
                 [
-                    $this->make('view '.$handle)->label('View '.$handle)->children(
+                    $this->make('view '.$handle)->children(
                         [
-                            $this->make('edit '.$handle)->label('Edit '.$handle)->children(
+                            $this->make('edit '.$handle)->children(
                                 array_merge(
                                     [
-                                        $this->make('create '.$handle)->label('Create '.$handle),
-                                        $this->make('delete '.$handle)->label('Delete '.$handle),
+                                        $this->make('create '.$handle),
+                                        $this->make('delete '.$handle),
                                     ],
                                     $resource->permissions()
                                 )

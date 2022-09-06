@@ -12,9 +12,9 @@ Route::middleware(['invicta'])
             Route::middleware(['guest:'.config('invicta.auth.guard')])
                 ->prefix('auth')
                 ->group(__DIR__.'/auth.php');
-
-            Route::post('logout', [LoginController::class, 'destroy'])->name('logout');
         }
+
+        Route::post('logout', [LoginController::class, 'destroy'])->name('logout');
 
         // Application routes
         Route::middleware(['invicta.auth', 'can:access invicta'])
