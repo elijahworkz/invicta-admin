@@ -45,7 +45,7 @@ class BlueprintFactory
             : $this->resource->handle();
 
         if (! app()->environment('local')) {
-            return Cache::rememberForever($cacheHandle, function () {
+            return Cache::rememberForever('blueprint-'.$cacheHandle, function () {
                 $this->getBlueprint();
             });
         }
