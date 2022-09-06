@@ -1,0 +1,122 @@
+<template>
+	<FieldBase :form-id="formId" :field-props="props" class="checkbox-group stacked">
+		<label v-for="(item, index) in options" class="el-checkbox el-checkbox--large !mx-0" :class="{'is-checked': fieldValues.includes(item.id), 'primary': checkPrimary(item.id)}">
+			<span class="el-checkbox__input" :class="{'is-checked': fieldValues.includes(item.id)}">
+				<input class="el-checkbox__original" type="checkbox" :value="item.id" :id="`term-${item.id}`" :checked="fieldValues.includes(item.id)" @change="updateValue">
+				<span class="el-checkbox__inner"></span>
+			</span>
+			<label :for="`term-${item.id}`" class="el-checkbox__label">{{ item.title }}</label>
+
+			<span class="ml-auto make-primary" v-if="data.hasPrimary && fieldValues.includes(item.id)" @click.prevent="makePrimary(item.id)">
+				<el-tooltip :content="checkPrimary(item.id) ? 'Primary' : 'Make Primary'" placement="left">
+					<SvgIcon :icon="mdiStarOutline" :width="16" class="action-icon" />
+				</el-tooltip>
+			</span>
+		</label>
+	</FieldBase>
+</template>
+
+<script setup>
+import { ref, onMounted, computed } from 'vue'
+import FieldBase from '@/components/form/FieldBase.vue'
+import { useResourceForm } from '@/services/form'
+import { useFormField } from '@/services/form/field'
+import { mdiStarOutline, mdiStar } from '@mdi/js';
+
+const props = defineProps({
+	formId: String,
+	data: Object,
+	path: String
+})
+const resourceForm = useResourceForm(props.formId)
+const field = useFormField(props)
+const fieldValue = field.value([])
+const fieldValues = computed(() => fieldValue.value.map(item => item.id))
+
+const updateValue = (event) => {
+
+	let _value = parseInt(event.target.value)
+
+	if (! fieldValues.value.includes(_value)) {
+		fieldValue.value.push({ id: _value, pivot: { primary: 0 }})
+	} else {
+		fieldValue.value = fieldValue.value.filter(item => item.id !== _value)
+	}
+}
+
+/* Primary category */
+const checkPrimary = (id) => {
+	let selected = fieldValue.value.filter(item => item.id == id)[0]
+	if (selected) {
+		return selected.pivot.primary == 1
+	}
+
+	return false
+}
+
+const makePrimary = (id) => {
+
+	fieldValue.value = fieldValue.value.map(item => {
+		item.pivot.primary = (item.id == id) ? 1 : 0
+
+		return item
+	})
+
+	let sync = [...fieldValues.value]
+
+	let data = {
+		resource: resourceForm.meta.handle,
+		resource_id: resourceForm.meta.id,
+		related: props.data.id,
+		term_id: id,
+		sync,
+	}
+
+	Invicta.axios.post(props.data.options, data)
+}
+
+/* Build list of options */
+const options = ref([])
+onMounted(() => {
+
+	let resource = resourceForm.meta.handle
+
+	Invicta.axios.get(props.data.options, {params: {resource}})
+		.then(({data}) => {
+			options.value = data
+		})
+})
+</script>
+
+<style lang="scss">
+.checkbox-group {
+	&.stacked {
+		.el-checkbox {
+			width: 100%;
+			border-bottom: 1px solid var(--el-border-color-lighter);
+
+
+			.make-primary {
+				display: none;
+			}
+
+			&.is-checked {
+				&:hover {
+					.make-primary {
+						display: block;
+					}
+				}
+			}
+
+			&.primary {
+				font-weight: 600 !important;
+
+				.make-primary {
+					display: block;
+				}
+			}
+		}
+	}
+}
+</style>
+
