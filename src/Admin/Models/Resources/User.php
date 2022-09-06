@@ -4,6 +4,7 @@ namespace Eteacher\InvictaAdmin\Admin\Models\Resources;
 
 use Carbon\Carbon;
 use Eteacher\InvictaAdmin\Admin\Components\Column;
+use Eteacher\InvictaAdmin\Admin\Models\Actions\ImpersonateUser;
 use Eteacher\InvictaAdmin\Admin\Models\Filters\GroupFilter;
 use Eteacher\InvictaAdmin\Admin\Resources\Resource;
 
@@ -14,9 +15,9 @@ class User extends Resource
      */
     public $model = 'App\Models\User';
 
-    public $editWith = ['groups:id,title'];
+    public $titleField = 'name';
 
-    public $itemTitle = 'name';
+    public $editWith = ['groups:id,title'];
 
     public $icon = 'users';
 
@@ -31,15 +32,29 @@ class User extends Resource
      */
     public function indexResource($request)
     {
+        $last_login = $this->last_login ? Carbon::parse($this->last_login) : null;
+
         return [
             'id' => $this->id,
             'active' => $this->active,
+            'isSuper' => method_exists($this->model(), 'isSuper') ? $this->isSuper() : false,
             'name' => function () {
-                return "<div class='mb-1 font-bold'>{$this->name}</div>{$this->email}";
+                $html = "<div class='mb-1 font-bold'>";
+
+                if (auth()->user()->can('edit users')) {
+                    $html .= "<a href='{$this->route()}/{$this->id}' class='edit-link'>{$this->name}</a>";
+                } else {
+                    $html .= $this->name;
+                }
+                $html .= "</div>{$this->email}";
+
+                return $html;
             },
             'email' => $this->email,
-            'groups' => $this->groups()->get()->pluck('title')->map(fn ($title) => "<div class='mb-1'>$title</div>")->join(''),
             'regisration' => Carbon::parse($this->created_at)->toFormattedDateString(),
+            'last_login' => $last_login
+                ? ($last_login->diffInMonths(Carbon::now()) <= 6 ? $last_login->diffForHumans() : $last_login->toFormattedDateString())
+                : '',
         ];
     }
 
@@ -53,10 +68,11 @@ class User extends Resource
         return [
             'id' => Column::id(),
             'active' => Column::boolean('Active'),
+            'isSuper' => Column::boolean('Is Super'),
             'name' => Column::make('Name')->sortable(),
             'email' => Column::make('Email'),
-            'groups' => Column::make('Groups'),
             'regisration' => Column::make('Registration Date'),
+            'last_login' => Column::make('Last Login'),
         ];
     }
 
@@ -81,7 +97,11 @@ class User extends Resource
                 [
                     'id' => 'password',
                     'type' => 'text',
-                    'validation' => 'sometimes|required|min:8',
+                    'validation' => 'required_if:id,null|min:8|nullable',
+                ],
+                [
+                    'id' => 'favorite_campaigns',
+                    'type' => 'text',
                 ],
             ],
             'sidebar' => [
@@ -91,6 +111,7 @@ class User extends Resource
                         'label' => 'Active Status',
                         'type' => 'toggle',
                         'inline' => false,
+                        'defaultValue' => 1,
                         'props' => [
                             'active-value' => 1,
                             'inactive-value' => 0,
@@ -120,6 +141,13 @@ class User extends Resource
     {
         return [
             new GroupFilter,
+        ];
+    }
+
+    public function actions()
+    {
+        return [
+            new ImpersonateUser(),
         ];
     }
 }

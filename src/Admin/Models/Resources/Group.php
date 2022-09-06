@@ -31,7 +31,6 @@ class Group extends Resource
             'title' => $this->title,
             'handle' => $this->handle,
             'users' => $this->users->count(),
-            'is_super' => $this->is_super,
         ];
     }
 
@@ -39,10 +38,9 @@ class Group extends Resource
     {
         return [
             'id' => Column::id(),
-            'title' => Column::make('Title')->sortable(),
+            'title' => Column::make('Title')->sortable()->editLink(),
             'handle' => Column::make('Handle'),
             'users' => Column::make('Users')->align('center'),
-            'is_super' => Column::boolean('Super'),
         ];
     }
 

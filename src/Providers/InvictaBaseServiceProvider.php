@@ -2,8 +2,9 @@
 
 namespace Eteacher\InvictaAdmin\Providers;
 
+use Eteacher\InvictaAdmin\Listeners\SetLastLoginTimestamp;
+use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class InvictaBaseServiceProvider extends ServiceProvider
@@ -13,7 +14,11 @@ class InvictaBaseServiceProvider extends ServiceProvider
      *
      * @var array
      */
-    protected $listen = [];
+    protected $listen = [
+        Login::class => [
+            SetLastLoginTimestamp::class,
+        ],
+    ];
 
     /**
      * Bootstrap any package services.
@@ -22,29 +27,7 @@ class InvictaBaseServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->authorization();
         $this->bootEvents();
-    }
-
-    protected function authorization()
-    {
-        $this->gate();
-    }
-
-    /**
-     * Register main Invicta gate.
-     *
-     * This gate determines who can access Invicta admin.
-     * This methods needs to be changed in the Application according to needs.
-     * By default anyone can see admin panel in local.
-     *
-     * @return void
-     */
-    protected function gate()
-    {
-        Gate::define('viewInvicta', function ($user) {
-            return app()->environment('local');
-        });
     }
 
     /**

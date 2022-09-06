@@ -27,10 +27,11 @@ import MainLayout from '@/layouts/MainLayout.vue'
 const pinia = createPinia()
 
 class Invicta
-{	
+{
 	app: any
 	mountElement: string
 	config: any
+	user: any
 	bootingCallbacks: Function[]
 	pages: any
 	eventBus: any
@@ -39,6 +40,8 @@ class Invicta
 	constructor(config: any) {
 		this.app = null
 		this.mountElement = '#app'
+		this.user = config.user
+		delete config.user
 		this.config = config
 		this.bootingCallbacks = []
 		this.eventBus = mitt()
@@ -93,7 +96,7 @@ class Invicta
 					page = typeof page === 'function'
 						? (await page()).default
 						: page
-						
+
 					page.layout ??= MainLayout
 
 					return page
@@ -116,6 +119,16 @@ class Invicta
 			return this.config[key]
 		}
 		return []
+	}
+
+	can(ability: string) {
+		if(this.user.is_super == undefined || this.user.permissions == undefined)
+			return false
+
+		if(this.user.is_super) {
+			return true
+		}
+		return this.user.permissions.includes(ability)
 	}
 
 	start() {
@@ -155,7 +168,7 @@ class Invicta
 			this.app.component(name, component)
 		}
 	}
-	// 
+	//
 	// Emits dom events
 	event(name: string, data: Object | null = null) {
 		let e = (data)
@@ -185,7 +198,7 @@ class Invicta
 		} else {
 			console.log('[Invicta]', message)
 		}
-	}	
+	}
 }
 
 export default Invicta

@@ -2,6 +2,7 @@
 
 namespace Eteacher\InvictaAdmin\Admin\Permissions;
 
+use Eteacher\InvictaAdmin\Admin\Resources\ResourceRegistrar;
 use Eteacher\InvictaAdmin\Facades\Permission;
 
 class CorePermissions
@@ -10,15 +11,24 @@ class CorePermissions
     {
         Permission::group('invicta')->label('Admin Panel')
             ->permissions([
-                Permission::make('view invicta')->label('Access the Control Panel')->children([
-                    Permission::make('test')->label('Test'),
-                    Permission::make('test2')->label('Test2'),
-                ]),
+                Permission::make('access invicta')->label('Access the Control Panel'),
                 Permission::make('view navigation')->children([
                     Permission::make('create new navigation'),
                     Permission::make('edit navigation'),
                     Permission::make('delete navigation'),
                 ]),
             ]);
+
+        self::registerResourcesPermission();
+    }
+
+    public static function registerResourcesPermission()
+    {
+        $resources = ResourceRegistrar::all();
+
+        collect(array_values($resources))
+            ->map(function ($resource) {
+                return Permission::resource($resource);
+            });
     }
 }

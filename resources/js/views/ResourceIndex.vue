@@ -8,41 +8,42 @@
 			</div>
 			<div class="ml-auto">
 				<el-button v-if="resource.sortable"><Link :href="`${resource.meta.path}/reorder`">Reorder</Link></el-button>
-				<el-button type="primary"><Link :href="`${resource.meta.path}/create`">Create new</Link></el-button>
+				<el-button v-show="canCreate" type="primary"><Link :href="`${resource.meta.path}/create`">Create new</Link></el-button>
 			</div>
 		</div>
 		<el-card body-style="padding: 0px">
-
 			<div class="flex items-center justify-start p-3">
 				<div class="mr-2">Total: <strong>{{ resource.meta.total }}</strong></div>
 				<div><FilterBadges :badges="resource.meta.filterBadges" /></div>
 				<div class="ml-auto flex items-center">
-					<Actions 
+					<Actions
 						v-if="actions.length && selectedRows.length"
 						:actions="actions"
 						:selected="selectedRows"
 					/>
 					<Filters :resource-handle="resource.handle" :filters="resource.meta.filters" />
-					<div class="ml-3" title="Delete Selected">
+					<div v-show="canDelete" class="ml-3" title="Delete Selected">
 						<el-button :icon="Delete" @click="handleBulkDelete" :disabled="!selectedRows.length" />
 					</div>
 				</div>
 			</div>
 
-			<ResourceTable 
+			<ResourceTable
 				:key="resource.slug"
 				:data="resource.data"
-				:table-props="resource.table" 
+				:table-props="resource.table"
 				:columns="resource.columns"
 				:edit-url="resource.meta.path"
+				:can-edit="canEdit"
+				:can-delete="canDelete"
 				@select="handleSelect"
 				@delete="handleDelete" />
 
-					<div class="flex items-center justify-between p-3 mt-2">
+			<div class="flex items-center justify-between p-3 mt-2">
 				<div>Total: <strong>{{ resource.meta.total }}</strong></div>
-				<el-pagination 
-					background 
-					small 
+				<el-pagination
+					background
+					small
 					layout="jumper, prev, pager, next, sizes"
 					:current-page="resource.meta.current_page"
 					:page-size="resource.meta.per_page"
@@ -51,6 +52,7 @@
 					@update:current-page="changePage"
 				/>
 			</div>
+
 		</el-card>
 	</div>
 
@@ -71,7 +73,10 @@ import ActionsModal from '@/components/resource/ActionsModal.vue'
 import { Delete } from '@element-plus/icons-vue'
 
 const props = defineProps({
-	resource: Object
+	resource: Object,
+	canCreate: Boolean,
+	canEdit: Boolean,
+	canDelete: Boolean,
 })
 
 const { pageUrl } = usePage().props.value
@@ -91,6 +96,7 @@ onMounted(() => {
 			actions.value = data
 		})
 })
+
 
 /* Setup Selection */
 const selectedRows = ref([])

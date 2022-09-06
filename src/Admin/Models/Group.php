@@ -16,13 +16,45 @@ class Group extends Model
         return config('invicta.auth_tables.groups');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function users()
     {
         return $this->belongsToMany(invicta_user_model());
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function permissions()
     {
         return $this->hasMany(Permission::class);
+    }
+
+    /**
+     * add addition query to the group list query.
+     *
+     * @param $query
+     * @return mixed
+     */
+    public function scopeInvictaList($query)
+    {
+        return $query->where('is_super', 0);
+    }
+
+    /**
+     * model events.
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        // add access the control panel after group created
+        self::created(function ($model) {
+            $model->permissions()->create([
+                'ability' => 'access invicta',
+            ]);
+        });
     }
 }

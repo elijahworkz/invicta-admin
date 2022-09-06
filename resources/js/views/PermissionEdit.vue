@@ -9,13 +9,16 @@
 				<div>
 					<h1 class="mb-1">Permissions</h1>
 				</div>
-				<div class="resource-actions">
-					<el-button
-						type="primary"
-						@click="submit"
-					>
-						Save
-					</el-button>
+				<el-button type="primary" @click="submit">Save</el-button>
+			</div>
+			<div class="w-full">
+				<div v-for="tree in trees" class="pb-6">
+					<header v-if="tree.label" class="text-base font-bold pb-2">{{ tree.label }}</header>
+					<el-card>
+						<div class="px-5">
+							<CheckTree :initial-items="tree.children" :disabled="false" :depth="1"/>
+						</div>
+					</el-card>
 				</div>
 			</div>
 		</el-form>
@@ -23,10 +26,15 @@
 </template>
 
 <script setup>
-import FormBase from '@/components/form/FormBase.vue'
+import CheckTree from '@/components/shared/CheckTree.vue'
 import {useForm} from "@inertiajs/inertia-vue3";
+import {ref, onMounted, computed} from 'vue'
+import {checked} from "../utils/functions";
+import {pickBy, isString} from "lodash";
 
-defineProps({
+const props = defineProps({
+	tree: Object,
+	permissions: Object,
 	actionUrl: String
 })
 
@@ -34,4 +42,41 @@ const form = useForm({
 	permissions: []
 })
 
+const trees = ref([])
+
+onMounted(() => {
+	parsePermissionTree(props.tree)
+})
+
+function parsePermissionTree(data) {
+
+	data.map((group) => {
+		trees.value.push({
+			label: group.label,
+			checked: true,
+			children: group.permissions.map((permission) => parsePermissionItem(permission))
+		})
+	})
+}
+
+function parsePermissionItem(permissionItem) {
+	return {
+		label: permissionItem.label,
+		value: permissionItem.permission,
+		checked: props.permissions.length ? props.permissions.includes(permissionItem.permission) : false,
+		children: permissionItem.children ? permissionItem.children.map((children) => parsePermissionItem(children)) : []
+	}
+}
+
+const checkedPermission = computed(() => {
+	const value = checked(trees.value)
+	return pickBy(value, isString)
+})
+
+function submit() {
+	form.permissions = checkedPermission
+	form.post(props.actionUrl, {
+		onFinish: () => form.reset('password')
+	})
+}
 </script>

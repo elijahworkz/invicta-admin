@@ -17,6 +17,11 @@ class ResourceRequest extends InvictaRequest
         return ResourceRegistrar::get($handle);
     }
 
+    public function handle()
+    {
+        return $this->route('resource');
+    }
+
     public function resourceList()
     {
         $resourceClass = $this->resourceClass();

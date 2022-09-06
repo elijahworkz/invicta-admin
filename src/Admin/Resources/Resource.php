@@ -139,4 +139,14 @@ class Resource extends JsonResource
 
         return $resourceArray;
     }
+
+    /**
+     *  set additional permission for current resource.
+     *
+     * @return array instance of Eteacher\InvictaAdmin\Admin\Permissions\Permission
+     */
+    public function permissions()
+    {
+        return [];
+    }
 }

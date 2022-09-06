@@ -10,7 +10,14 @@ class ResourceController extends Controller
 {
     public function index(ResourceRequest $request)
     {
-        return Inertia::render('Invicta.Resource', ['resource' => $request->resourceList()]);
+        $this->authorize('view '.$request->handle());
+
+        return Inertia::render('Invicta.Resource', [
+            'resource' => $request->resourceList(),
+            'can-create' => request()->user()->can('create '.$request->handle()),
+            'can-edit' => request()->user()->can('edit '.$request->handle()),
+            'can-delete' => request()->user()->can('delete '.$request->handle()),
+        ]);
     }
 
     public function reorder(ResourceRequest $request)
@@ -20,21 +27,29 @@ class ResourceController extends Controller
 
     public function create(ResourceRequest $request)
     {
+        $this->authorize('create '.$request->handle());
+
         return Inertia::render('Invicta.Resource.Create', ['resource' => $request->createItem()]);
     }
 
     public function edit(ResourceRequest $request)
     {
+        $this->authorize('edit '.$request->handle());
+
         return Inertia::render('Invicta.Resource.Edit', ['resource' => $request->editItem()]);
     }
 
     public function store(ResourceRequest $request)
     {
+        $this->authorize('create '.$request->handle());
+
         return $this->processItem($request, 'storeItem');
     }
 
     public function update(ResourceRequest $request)
     {
+        $this->authorize('edit '.$request->handle());
+
         return $this->processItem($request, 'updateItem');
     }
 
@@ -67,6 +82,9 @@ class ResourceController extends Controller
 
     public function destroy(ResourceRequest $request)
     {
+        $this->authorize('delete '.$request->handle());
+
+        // ResourceRequest $request
         $resource = $request->resourceClass();
         $resource->model()->whereIn('id', request()->selected)->delete();
 
