@@ -61,7 +61,7 @@ class ResourceRequest extends InvictaRequest
         $resourceClass = $this->resourceClass();
         $handle = $resourceClass->handle();
 
-        return [
+        $response = [
             'meta' => [
                 'handle' => $handle,
                 'actionUrl' => route('invicta.resource.store', ['resource' => $handle]),
@@ -69,9 +69,18 @@ class ResourceRequest extends InvictaRequest
                 'indexTitle' => $resourceClass->menuTitle(),
                 'createTitle' => $resourceClass->createTitle(),
                 'titleField' => $resourceClass->titleField,
+                'availableBlueprints' => $resourceClass->availableBlueprints(),
             ],
-            'blueprint' => $resourceClass->getBlueprint(),
+            'blueprint' => request()->has('blueprint')
+                ? $resourceClass->findBlueprint(request()->blueprint)
+                : $resourceClass->getBlueprint(),
         ];
+
+        if (request()->has('blueprint')) {
+            $response['item'] = ['blueprint' => request()->blueprint];
+        }
+
+        return $response;
     }
 
     public function editItem()
@@ -79,6 +88,10 @@ class ResourceRequest extends InvictaRequest
         $resourceClass = $this->resourceClass();
         $item = $resourceClass->findModel($this->route('item'));
         $handle = $resourceClass->handle();
+
+        if (request()->has('blueprint')) {
+            $item->blueprint = request()->blueprint;
+        }
 
         return [
             'item' => $item,
@@ -88,9 +101,12 @@ class ResourceRequest extends InvictaRequest
                 'actionUrl' => route('invicta.resource.update', ['resource' => $handle, 'item' => $item->id]),
                 'indexUrl' => $resourceClass->route(),
                 'indexTitle' => $resourceClass->menuTitle(),
-                'title_field' => $resourceClass->titleField,
+                'titleField' => $resourceClass->titleField,
+                'availableBlueprints' => $resourceClass->availableBlueprints(),
             ],
-            'blueprint' => $resourceClass->getBlueprint($item),
+            'blueprint' => request()->has('blueprint')
+                ? $resourceClass->findBlueprint(request()->blueprint)
+                : $resourceClass->getBlueprint($item),
         ];
     }
 
@@ -98,6 +114,9 @@ class ResourceRequest extends InvictaRequest
     {
         $resourceClass = $this->resourceClass();
         $item = $resourceClass->findModel($this->route('item'));
+
+        if (isset($item['uri']))
+            return $item->uri;
 
         if (method_exists($resourceClass, 'uri')) {
             return $resourceClass->uri($item);
@@ -205,6 +224,8 @@ class ResourceRequest extends InvictaRequest
                 $item[$field] = $value;
             }
         }
+
+        $item = $resourceClass->beforeSave($item);
 
         if (! $massAssign) {
             $item->save();

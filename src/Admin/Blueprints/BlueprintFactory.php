@@ -1,9 +1,10 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Admin\Resources;
+namespace Eteacher\InvictaAdmin\Admin\Blueprints;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Fluent;
 use Illuminate\Support\Str;
 
 class BlueprintFactory
@@ -18,6 +19,23 @@ class BlueprintFactory
         $this->item = $item;
 
         return $this->maybeGetCachedBlueprint();
+    }
+
+    public function findByHandle($resource, $handle)
+    {
+        if ($handle == 'default') {
+            $this->resource = $resource;
+            return $this->getBlueprint();
+        }
+
+        $folder = resource_path('blueprints/'.$resource->handle());
+        $blueprint = $this->getBlueprintFile($folder, $handle);
+
+        if ($blueprint) {
+            return $this->parseForFieldsets($blueprint);
+        }
+
+        return null;
     }
 
     private function maybeGetCachedBlueprint()
@@ -48,11 +66,11 @@ class BlueprintFactory
                 $blueprint = $this->getBlueprintFile($folder, $name);
             }
 
-            // get default blueprint
-            $defaultFolder = app_path('Invicta/Resources/blueprints');
-            $defaultName = Str::of($this->resource->model)->classBasename();
-
             if (! $this->item || ! isset($this->item->blueprint) || ! $blueprint) {
+                // get default blueprint
+                $defaultFolder = app_path('Invicta/Resources/blueprints');
+                $defaultName = Str::of($this->resource->model)->classBasename();
+
                 $blueprint = $this->getBlueprintFile($defaultFolder, $defaultName);
             }
         }
@@ -78,7 +96,7 @@ class BlueprintFactory
             }
         }
 
-        return $blueprint;
+        return new Blueprint($blueprint);
     }
 
     private function getFieldsets($fields)
