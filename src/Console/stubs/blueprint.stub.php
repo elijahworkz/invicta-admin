@@ -3,5 +3,7 @@
 return [
 	'settings' => [],
 	'sections' => [],
-	'sidebar' => [],
+	'sidebar' => [
+		'fields' => []
+	],
 ];
