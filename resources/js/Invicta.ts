@@ -60,6 +60,7 @@ class Invicta
 			'NavIndex': () => import('./views/NavIndex.vue'),
 			'NavEdit': () => import('./views/NavEdit.vue'),
 			'NavItemsEdit': () => import('./views/NavItemsEdit.vue'),
+			'AssetsIndex': () => import('./views/AssetsIndex.vue'),
 		}
 	}
 
