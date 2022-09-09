@@ -128,6 +128,17 @@ return [
 
     'assets_path' => env('INVICTA_ASSETS_PATH', '/'),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Enable mutli upload of assets
+    |--------------------------------------------------------------------------
+    |
+    | Sets if Assets uploader can upload multiple files.\
+    |
+    */
+
+    'assets_multi_upload' => env('INVICTA_ASSETS_MULTI_UPLOAD', '/'),
+
     /* DEVELOPMENT SETTINGS */
 
     /*
