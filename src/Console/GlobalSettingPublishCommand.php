@@ -35,6 +35,8 @@ class GlobalSettingPublishCommand extends Command
 
         $this->info('Invicta successfully published migrations.');
 
+        $this->makeBlueprintDir();
+
         $this->createBlueprint();
     }
 
@@ -48,15 +50,12 @@ class GlobalSettingPublishCommand extends Command
         return __DIR__.'/stubs/blueprint.stub.php';
     }
 
+    /**
+     * Cretae default GlobalSetting blueprint.
+     */
     protected function createBlueprint()
     {
-        $dir = $this->laravel['path'].'/../resources/blueprints/global_settings/default.php';
-
         $path = $this->laravel['path'].'/Invicta/Resources/blueprints/GlobalSetting.php';
-
-        $this->makeDirectory(dirname($dir));
-
-        $this->makeDirectory($dir);
 
         $this->makeDirectory($path);
 
@@ -65,6 +64,20 @@ class GlobalSettingPublishCommand extends Command
         $this->laravel['files']->put($path, $stub);
 
         $this->info('Default blueprint created successfully.');
+    }
+
+    /**
+     * create global_settings directory in resource.
+     */
+    public function makeBlueprintDir()
+    {
+        $path = $this->laravel['path.resources'].'/blueprints/global_settings/default.php';
+
+        $this->makeDirectory(dirname($path));
+
+        $this->makeDirectory($path);
+
+        $this->info('Blueprint directory created successfully.');
     }
 
     /**
