@@ -1,5 +1,6 @@
 <?php
 
+use Eteacher\InvictaAdmin\Http\Controllers\Api\AssetController;
 use Eteacher\InvictaAdmin\Http\Controllers\Api\ResourceController;
 
 Route::controller(ResourceController::class)->name('resource.')->prefix('resource')->group(function () {
@@ -12,4 +13,11 @@ Route::controller(ResourceController::class)->name('resource.')->prefix('resourc
     Route::get('/{resource}/relationship/{related}', 'related');
     Route::get('/{resource}/{item}', 'edit');
     Route::get('/{resource}/{item}/uri', 'uri');
+});
+
+Route::controller(AssetController::class)->name('assets.')->prefix('/assets/')->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::post('/', 'store')->name('store');
+    Route::get('/{asset}', 'edit')->name('edit');
+    Route::post('/{asset}', 'update')->name('update');
 });

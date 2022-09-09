@@ -55,6 +55,12 @@ class ConsoleServiceProvider extends ServiceProvider
                 __DIR__.'/../../database/migrations/invicta_global_settings_table.php.stub' => database_path('migrations/'.date('Y_m_d_His', time()).'_create_invicta_global_settings_table.php'),
             ], 'invicta-global');
         }
+
+        if (! class_exists('CreateInvictaAssetsTable')) {
+            $this->publishes([
+                __DIR__.'/../../database/migrations/invicta_assets_table.php.stub' => database_path('migrations/'.date('Y_m_d_His', time()).'_create_invicta_assets_table.php'),
+            ], 'invicta-assets');
+        }
     }
 
     /**
@@ -69,6 +75,7 @@ class ConsoleServiceProvider extends ServiceProvider
             \Eteacher\InvictaAdmin\Console\PublishCommand::class,
             \Eteacher\InvictaAdmin\Console\AuthPublishCommand::class,
             \Eteacher\InvictaAdmin\Console\NavPublishCommand::class,
+            \Eteacher\InvictaAdmin\Console\AssetsPublishCommand::class,
             \Eteacher\InvictaAdmin\Console\MakeSuperAdminCommand::class,
             \Eteacher\InvictaAdmin\Console\ResourceCommand::class,
             \Eteacher\InvictaAdmin\Console\ActionCommand::class,

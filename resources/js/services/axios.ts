@@ -12,10 +12,15 @@ export function setupAxios(baseURL: string) {
 		response => response,
 		error => {
 			let {
+				data,
 				status,
 				statusText = 'Error',
 				message = 'Uknown error occured'
 			} = error.response
+
+			if (data && 'message' in data) {
+				message = data.message
+			}
 
 			let title = `${status}: ${statusText}`
 
