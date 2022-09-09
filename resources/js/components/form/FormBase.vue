@@ -79,7 +79,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { useResourceForm } from '@/services/form'
 import { onKeyStroke } from '@vueuse/core'
 import has from 'lodash/has'
@@ -149,6 +149,10 @@ const postSubmitData = {
 	edit: { icon: ArrowDown, button: 'Save & Stay', option: 'Continue Editing'},
 	create: { icon: Plus, button: 'Save & New', option: 'Add New Item'},
 }
+onMounted(() => {
+	postSubmitAction.value = Invicta.remember('post-submit-action') || props.postSubmitActions[0]
+})
+watch(postSubmitAction, (value) => Invicta.remember('post-submit-action', value))
 
 const submit = () => {
 	resourceForm.submit(postSubmitAction.value)
