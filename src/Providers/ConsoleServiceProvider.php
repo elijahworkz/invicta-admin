@@ -50,6 +50,12 @@ class ConsoleServiceProvider extends ServiceProvider
             ], 'invicta-nav');
         }
 
+        if (! class_exists('CreateInvictaGlobalSettingsTable')) {
+            $this->publishes([
+                __DIR__.'/../../database/migrations/invicta_global_settings_table.php.stub' => database_path('migrations/'.date('Y_m_d_His', time()).'_create_invicta_global_settings_table.php'),
+            ], 'invicta-global');
+        }
+
         if (! class_exists('CreateInvictaAssetsTable')) {
             $this->publishes([
                 __DIR__.'/../../database/migrations/invicta_assets_table.php.stub' => database_path('migrations/'.date('Y_m_d_His', time()).'_create_invicta_assets_table.php'),
@@ -74,6 +80,7 @@ class ConsoleServiceProvider extends ServiceProvider
             \Eteacher\InvictaAdmin\Console\ResourceCommand::class,
             \Eteacher\InvictaAdmin\Console\ActionCommand::class,
             \Eteacher\InvictaAdmin\Console\FilterCommand::class,
+            \Eteacher\InvictaAdmin\Console\GlobalSettingPublishCommand::class,
         ]);
     }
 }

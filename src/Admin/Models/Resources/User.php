@@ -99,10 +99,6 @@ class User extends Resource
                     'type' => 'text',
                     'validation' => 'required_if:id,null|min:8|nullable',
                 ],
-                [
-                    'id' => 'favorite_campaigns',
-                    'type' => 'text',
-                ],
             ],
             'sidebar' => [
                 'fields' => [
