@@ -103,6 +103,14 @@ class Menu
             ->route(config('invicta.path').'/navigation');
     }
 
+    public function assets($name = 'Assets')
+    {
+        return $this->createItem($name)
+            ->icon('images')
+            ->can('view assets')
+            ->route(config('invicta.path').'/assets');
+    }
+
     /**
      * Shortcut to create a regural internal link.
      */
