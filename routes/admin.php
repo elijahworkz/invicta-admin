@@ -1,6 +1,7 @@
 <?php
 
 use Eteacher\InvictaAdmin\Http\Controllers\AdminController;
+use Eteacher\InvictaAdmin\Http\Controllers\AssetController;
 use Eteacher\InvictaAdmin\Http\Controllers\NavigationController;
 use Eteacher\InvictaAdmin\Http\Controllers\PermissionController;
 use Eteacher\InvictaAdmin\Http\Controllers\ResourceController;
@@ -30,6 +31,11 @@ Route::controller(NavigationController::class)->name('nav.')->prefix('/navigatio
     Route::delete('/{menu}', 'destroy')->name('destroy');
     Route::get('/{menu}/items', 'editItems')->name('editItems');
     Route::post('/{menu}/items', 'updateItems')->name('updateItems');
+});
+
+Route::controller(AssetController::class)->name('assets.')->prefix('/assets/')->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::delete('/{asset}', 'destroy')->name('destroy');
 });
 
 Route::controller(PermissionController::class)->name('permission.')->prefix('/group/')->group(function () {

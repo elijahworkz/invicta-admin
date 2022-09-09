@@ -115,7 +115,7 @@ class NavigationController extends Controller
 
         $message = [
             'type' => 'success',
-            'title' => 'Navigation created',
+            'title' => 'Navigation updated',
         ];
 
         // should deal with redirects here
@@ -168,7 +168,7 @@ class NavigationController extends Controller
 
         return Redirect::back()->with('message', [
             'type' => 'success',
-            'title' => 'Navigation Updated',
+            'title' => 'Navigation updated',
         ]);
     }
 }

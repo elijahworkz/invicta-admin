@@ -14,6 +14,11 @@ class Locales
         $this->languages = $this->setLanguages();
     }
 
+    public function current()
+    {
+        return $this->default();
+    }
+
     public function default()
     {
         return $this->languages->first();
