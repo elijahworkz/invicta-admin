@@ -99,8 +99,10 @@ const changePage = (event) => Invicta.emit('page-change', event)
 const drawer = ref(false)
 const currentAsset = ref()
 
-const handleEdit = (id) => {
-	let asset = props.resource.data.filter(item => item.id == id)[0]
+const handleEdit = (item) => {
+	let asset = (typeof item === 'number')
+		? props.resource.data.filter(i => i.id == item)[0]
+		: item
 	drawer.value = true
 	currentAsset.value = asset
 }
