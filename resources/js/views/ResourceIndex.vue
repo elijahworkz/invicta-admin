@@ -106,7 +106,7 @@ const handleSelect = (selection) => {
 
 // Handle Edit
 const handleEdit = (item) => {
-	Inertia.visit(`${props.resource.meta.path}/${item.id}`)
+	Inertia.visit(`${props.resource.meta.path}/${item}`)
 }
 
 /* Handle Delete Actions */
