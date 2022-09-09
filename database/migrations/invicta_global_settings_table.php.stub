@@ -16,9 +16,11 @@ class CreateInvictaGlobalSettingsTable extends Migration
 
         Schema::create('global_settings', function (Blueprint $table) {
             $table->id();
-            $table->string('handle')->unique();
             $table->string('title');
+            $table->string('locale')->default('default');
+            $table->string('handle')->unique();
             $table->string('blueprint');
+            $table->unsignedInteger('origin_id')->nullable();
             $table->json('content')->nullable();
             $table->timestamps();
         });
