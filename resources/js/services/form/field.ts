@@ -22,6 +22,10 @@ export const useFormField = (props: { formId: string, data: IFormField, path: st
             set(value) {
                 value = (cb) ? cb(value) : value
                 resourceForm.set(path, value)
+
+                if (!defaultValue) {
+                    resourceForm.dirty = true
+                }
             }
         })
     }

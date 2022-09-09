@@ -55,16 +55,12 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 			this.form = useForm(formData)
 			Invicta.emit('resource-form-ready')
 		},
-		isDirty() {
-			return this.dirty
-		},
 		get(id: string, defaultValue?: any): any {
 			let result = get(this.form, id, defaultValue)
 			return !result && defaultValue ? defaultValue : result
 		},
 		set(id: string, value: any) {
 			set(this.form, id, value)
-			this.dirty = true
 		},
 		setRelated(id: string) {
 			this.form[id] = this.data[id]
@@ -181,6 +177,7 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 				.data()
 		},
 		submit(postSubmitAction: string) {
+			document.removeEventListener('inertia:before', this.confirmUnsavedChanges)
 			let rules = this.rules
 			this.form
 				.transform((data: any) => ({
@@ -193,8 +190,16 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 						if (postSubmitAction == 'create') {
 							this.form.reset()
 						}
+						this.dirty = false
 					}
 				})
+		},
+		confirmUnsavedChanges(event) {
+			if (this.dirty) {
+				if(! confirm('You have unsaved changes. Leave anyway?')) {
+					event.preventDefault()
+				}
+			}	
 		}
 	},
 	getters: {
