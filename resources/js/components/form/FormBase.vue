@@ -9,7 +9,7 @@
 					:href="breadcrumb.url" 
 					class="breadcrumb">
 					<el-icon><ArrowLeft /></el-icon> {{ breadcrumb.text }}</Link>
-				<h1 class="mb-1">{{ resourceForm.title }}</h1>
+				<h1 class="mb-1 flex items-center" v-html="resourceForm.title"></h1>
 			</div>
 			<div class="resource-actions">
 				<slot name="form-actions"/>
@@ -169,14 +169,6 @@ onKeyStroke('Enter', (e) => {
 	e.preventDefault()
 	submit()
 })
-
-// const confirmUnsavedChanges = (event) => {
-// 	if (resourceForm.dirty) {
-// 		if(! confirm('Are you sure you want to navigate away?')) {
-// 			event.preventDefault()
-// 		}
-// 	}	
-// }
 
 document.addEventListener('inertia:before', resourceForm.confirmUnsavedChanges)
 </script>

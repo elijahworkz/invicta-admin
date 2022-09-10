@@ -47,7 +47,7 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 		init(resource: IResourceItem, actionUrl: string) {
 			this.data = resource.item ? resource.item : null
 			this.meta = resource.meta
-			this.mode = this.data ? 'edit' : 'create'
+			this.mode = resource.meta.id ? 'edit' : 'create'
 			this.actionUrl = actionUrl
 			this.blueprint = resource.blueprint
 
@@ -206,9 +206,16 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 	},
 	getters: {
 		title(): string {
-			return this.mode == 'edit'
+			let title = this.mode == 'edit'
 				? get(this.form, this.meta.titleField)
 				: this.meta.createTitle
+
+			if ('published' in this.form) {
+				let status = get(this.form, 'published') ? 'success' : ''
+				title = `<i class="icon-status ${status} mr-2"></i> ${title}`
+			}
+
+			return title
 		},
 		id(): any {
 			return get(this.data, 'id')

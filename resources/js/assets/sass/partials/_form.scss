@@ -172,13 +172,15 @@
 			padding: 0 20px;
 
 			.sidebar & {
-				&.divider-bottom {
-					border-bottom: 1px solid var(--el-border-color-lighter);
-					margin-bottom: 20px;
-				}
 
-				&.divider-top {
+				&.divided {
+					border-bottom: 1px solid var(--el-border-color-lighter);
 					border-top: 1px solid var(--el-border-color-lighter);
+					margin-bottom: 18px;
+
+					.el-form-item {
+						margin: 10px 0
+					}
 				}
 			}
 		}
@@ -306,6 +308,10 @@
 			font-size: 12px;
 			opacity: .3;
 		}
+	}
+
+	.el-select {
+		width: 100%;
 	}
 
 	.info {

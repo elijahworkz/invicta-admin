@@ -75,7 +75,6 @@ class ResourceRequest extends InvictaRequest
                 'indexTitle' => $resourceClass->menuTitle(),
                 'createTitle' => $resourceClass->createTitle(),
                 'titleField' => $resourceClass->titleField,
-                'availableBlueprints' => $resourceClass->availableBlueprints(),
             ],
             'blueprint' => request()->has('blueprint')
                 ? Blueprint::findByHandle($resourceClass, request()->blueprint)
@@ -108,11 +107,10 @@ class ResourceRequest extends InvictaRequest
                 'indexUrl' => $resourceClass->route(),
                 'indexTitle' => $resourceClass->menuTitle(),
                 'titleField' => $resourceClass->titleField,
-                'availableBlueprints' => $resourceClass->availableBlueprints(),
             ],
             'blueprint' => request()->has('blueprint')
                 ? Blueprint::findByHandle($resourceClass, request()->blueprint)
-                : Blueprint::getDefault($resourceClass),
+                : Blueprint::getDefault($resourceClass, $item),
         ];
     }
 
