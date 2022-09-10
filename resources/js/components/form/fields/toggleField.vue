@@ -14,5 +14,5 @@ const props = defineProps({
 	path: String
 })
 const field = useFormField(props)
-const value = field.value()
+const value = field.value(false)
 </script>

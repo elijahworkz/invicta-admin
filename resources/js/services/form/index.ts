@@ -198,6 +198,8 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 			if (this.dirty) {
 				if(! confirm('You have unsaved changes. Leave anyway?')) {
 					event.preventDefault()
+				} else {
+					document.removeEventListener('inertia:before', this.confirmUnsavedChanges)
 				}
 			}	
 		}
