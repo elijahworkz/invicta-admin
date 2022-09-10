@@ -2,6 +2,7 @@
 
 namespace Eteacher\InvictaAdmin\Admin\Blueprints;
 
+use Eteacher\InvictaAdmin\Events\BlueprintFound;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
@@ -12,12 +13,16 @@ class BlueprintFactory
 
     protected $item = null;
 
-    public function findForResource($resource, $item = null)
+    public function getDefault($resource, $item = null)
     {
         $this->resource = $resource;
         $this->item = $item;
 
-        return $this->maybeGetCachedBlueprint();
+        $blueprint = $this->maybeGetCachedBlueprint();
+
+        BlueprintFound::dispatch($blueprint, $this->resource, $this->item);
+
+        return $blueprint;
     }
 
     public function findByHandle($resource, $handle)
@@ -75,10 +80,10 @@ class BlueprintFactory
             }
         }
 
-        return $this->parseForFieldsets($blueprint);
+        return new Blueprint($blueprint); //$this->parseForFieldsets($blueprint);
     }
 
-    private function parseForFieldsets($blueprint)
+    public function parseForFieldsets($blueprint)
     {
         if (isset($blueprint['fields'])) {
             $blueprint['fields'] = $this->getFieldsets($blueprint['fields']);
@@ -122,45 +127,45 @@ class BlueprintFactory
         return require $path;
     }
 
-    private function parseForValueFields($blueprint, $callback)
-    {
-        $fields = [];
+    // private function parseForValueFields($blueprint, $callback)
+    // {
+    //     $fields = [];
 
-        if (isset($blueprint['fields'])) {
-            $fields = $this->getValueFields($blueprint['fields'], $callback);
-        }
+    //     if (isset($blueprint['fields'])) {
+    //         $fields = $this->getValueFields($blueprint['fields'], $callback);
+    //     }
 
-        if (isset($blueprint['sidebar']) && isset($blueprint['sidebar']['fields'])) {
-            $fields = array_merge($fields, $this->getValueFields($blueprint['sidebar']['fields'], $callback));
-        }
+    //     if (isset($blueprint['sidebar']) && isset($blueprint['sidebar']['fields'])) {
+    //         $fields = array_merge($fields, $this->getValueFields($blueprint['sidebar']['fields'], $callback));
+    //     }
 
-        if (isset($blueprint['sections'])) {
-            foreach ($blueprint['sections'] as $section) {
-                if (isset($section['fields'])) {
-                    $fields = array_merge($fields, $this->getValueFields($section['fields'], $callback));
-                }
-            }
-        }
+    //     if (isset($blueprint['sections'])) {
+    //         foreach ($blueprint['sections'] as $section) {
+    //             if (isset($section['fields'])) {
+    //                 $fields = array_merge($fields, $this->getValueFields($section['fields'], $callback));
+    //             }
+    //         }
+    //     }
 
-        return $fields;
-    }
+    //     return $fields;
+    // }
 
-    private function getValueFields($fields, $callable)
-    {
-        $resourceFields = [];
+    // private function getValueFields($fields, $callable)
+    // {
+    //     $resourceFields = [];
 
-        return collect($fields)->reduce(function ($carry, $field) use ($callable) {
-            if (isset($field['id'])) {
-                $id = isset($field['path']) ? $field['path'] : $field['id'];
+    //     return collect($fields)->reduce(function ($carry, $field) use ($callable) {
+    //         if (isset($field['id'])) {
+    //             $id = isset($field['path']) ? $field['path'] : $field['id'];
 
-                $carry[$id] = $this->$callable($field);
+    //             $carry[$id] = $this->$callable($field);
 
-                return $carry;
-            }
+    //             return $carry;
+    //         }
 
-            return $carry;
-        }, []);
-    }
+    //         return $carry;
+    //     }, []);
+    // }
 
     private function getBlueprintFile($folder, $name)
     {

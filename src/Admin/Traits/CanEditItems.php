@@ -21,15 +21,15 @@ trait CanEditItems
         //
     }
 
-    public function getBlueprint($item = null)
-    {
-        return $this->postProcessBlueprint(Blueprint::findForResource($this, $item));
-    }
+    // public function getBlueprint($item = null)
+    // {
+    //     return $this->postProcessBlueprint(Blueprint::findForResource($this, $item));
+    // }
 
-    public function findBlueprint($handle)
-    {
-        return $this->postProcessBlueprint(Blueprint::findByHandle($this, $handle));
-    }
+    // public function findBlueprint($handle)
+    // {
+    //     return $this->postProcessBlueprint(Blueprint::findByHandle($this, $handle));
+    // }
 
     public function availableBlueprints()
     {

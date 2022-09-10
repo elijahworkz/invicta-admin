@@ -2,7 +2,10 @@
 
 namespace Eteacher\InvictaAdmin\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use Eteacher\InvictaAdmin\Events\BlueprintFound;
+use Eteacher\InvictaAdmin\Listeners\EnsureLocalizationFields;
+use Eteacher\InvictaAdmin\Listeners\RunPostProcessBlueprint;
+use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventsServiceProvider extends ServiceProvider
 {
@@ -11,5 +14,20 @@ class EventsServiceProvider extends ServiceProvider
      *
      * @var array
      */
-    protected $listen = [];
+    protected $listen = [
+        BlueprintFound::class => [
+            EnsureLocalizationFields::class,
+            RunPostProcessBlueprint::class,
+        ],
+    ];
+
+    /**
+     * Register any events for your application.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        parent::boot();
+    }
 }
