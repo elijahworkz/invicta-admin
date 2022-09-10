@@ -49,7 +49,7 @@ trait CanEditItems
         })->push(['value' => 'default', 'label' => 'Default']);
     }
 
-    public function postProcessBlueprint($blueprint)
+    public function modifyBlueprint($blueprint)
     {
         return $blueprint;
     }

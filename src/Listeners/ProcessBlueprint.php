@@ -4,7 +4,7 @@ namespace Eteacher\InvictaAdmin\Listeners;
 
 use Eteacher\InvictaAdmin\Events\BlueprintFound;
 
-class RunPostProcessBlueprint
+class ProcessBlueprint
 {
     /**
      * Create the event listener.
@@ -24,7 +24,7 @@ class RunPostProcessBlueprint
      */
     public function handle(BlueprintFound $event)
     {
-        $event->resource->postProcessBlueprint($event->blueprint);
+        $event->resource->modifyBlueprint($event->blueprint);
         $event->blueprint->parseForFieldsets();
     }
 }
