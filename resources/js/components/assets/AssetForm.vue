@@ -9,9 +9,11 @@
 		</header>
 
 		<main class="preview">
-			<div class="image-transparent-back">
-				<img :src="asset.src">
-			</div>
+			<!-- <el-scrollbar> -->
+				<div class="image-transparent-back">
+					<img :src="asset.src">
+				</div>
+			<!-- </el-scrollbar> -->
 		</main>
 
 		<footer>
@@ -61,11 +63,11 @@ const updateAsset = () => {
 	.preview {
 		display: flex;
 		align-items: center;
-		justify-content: center;		
+		justify-content: center;
 
 		img {
 			max-width: 100%;
-			object-fit: contain;
+			height: auto;
 		}
 	}
 }
