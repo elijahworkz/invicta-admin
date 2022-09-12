@@ -4,6 +4,7 @@ namespace Eteacher\InvictaAdmin\Http\Request;
 
 use Eteacher\InvictaAdmin\Admin\Actions\ActionJob;
 use Eteacher\InvictaAdmin\Admin\Resources\ResourceRegistrar;
+use Eteacher\InvictaAdmin\Facades\Blueprint;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Fluent;
@@ -74,11 +75,10 @@ class ResourceRequest extends InvictaRequest
                 'indexTitle' => $resourceClass->menuTitle(),
                 'createTitle' => $resourceClass->createTitle(),
                 'titleField' => $resourceClass->titleField,
-                'availableBlueprints' => $resourceClass->availableBlueprints(),
             ],
             'blueprint' => request()->has('blueprint')
-                ? $resourceClass->findBlueprint(request()->blueprint)
-                : $resourceClass->getBlueprint(),
+                ? Blueprint::findByHandle($resourceClass, request()->blueprint)
+                : Blueprint::getDefault($resourceClass),
         ];
 
         if (request()->has('blueprint')) {
@@ -107,11 +107,10 @@ class ResourceRequest extends InvictaRequest
                 'indexUrl' => $resourceClass->route(),
                 'indexTitle' => $resourceClass->menuTitle(),
                 'titleField' => $resourceClass->titleField,
-                'availableBlueprints' => $resourceClass->availableBlueprints(),
             ],
             'blueprint' => request()->has('blueprint')
-                ? $resourceClass->findBlueprint(request()->blueprint)
-                : $resourceClass->getBlueprint($item),
+                ? Blueprint::findByHandle($resourceClass, request()->blueprint)
+                : Blueprint::getDefault($resourceClass, $item),
         ];
     }
 

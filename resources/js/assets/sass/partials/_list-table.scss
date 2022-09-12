@@ -29,6 +29,8 @@ $action-icon-size: 18px;
 		}
 
 		.edit-link {
+			cursor: pointer;
+			
 			&:hover {
 				color: var(--el-color-primary);
 			}

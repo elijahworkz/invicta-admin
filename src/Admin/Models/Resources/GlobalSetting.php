@@ -47,9 +47,9 @@ class GlobalSetting extends Resource
         ];
     }
 
-    public function postProcessBlueprint($blueprint)
+    public function modifyBlueprint($blueprint)
     {
-        return $blueprint->addToSidebar([
+        $blueprint->addToSidebar([
             [
                 'id' => 'title',
                 'type' => 'text',

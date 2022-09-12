@@ -25,6 +25,7 @@ export const useResource = defineStore('resourceStore', () => {
 	const api = ref<any>(null)
 	const additionalParams = ref<any>(null)
 	const total = ref<any>(0)
+	const columns = ref<any>({})
 
 	Invicta.on('page-change', (page: number) => {
 		currentPage.value = page == 1 ? null : page
@@ -112,6 +113,7 @@ export const useResource = defineStore('resourceStore', () => {
 			total.value = apiResource.meta.total
 			additionalParams.value = apiResource.params
 			filterBadges.value = apiResource.meta.filterBadges
+			columns.value = apiResource.columns
 		}
 	}
 
@@ -149,7 +151,8 @@ export const useResource = defineStore('resourceStore', () => {
 		filterBadges,
 		currentPage,
 		perPage,
-		total
+		total,
+		columns
 		// resourceData,
 		// requestQuery,
 		// activeFilters,

@@ -14,7 +14,7 @@
 		</el-popover>
 
 		<span v-show="canEdit" class="action-icon" @click="$emit('edit', id)" title="Edit Item"><Edit /></span>
-		<span v-show="canDelete" class="action-icon" @click="$emit('delete', id)" title="Delete Item"><Delete /></span>
+		<span v-show="canDelete" class="action-icon" @click="$emit('delete', [id])" title="Delete Item"><Delete /></span>
 
 	</div>
 </template>

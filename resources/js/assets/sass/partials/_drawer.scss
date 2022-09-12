@@ -26,6 +26,10 @@
 				overflow: hidden;
 				flex: 1;
 				background: #fff;
+
+				&.loading {
+					@include flexbox(row, center, center);
+				}
 			}
 
 			footer {

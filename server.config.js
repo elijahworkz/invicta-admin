@@ -1,5 +1,6 @@
 import { loadEnv } from 'vite'
 const env = loadEnv('', process.cwd(), '')
+const fs = require('node:fs');
 
 const gitpod = process.env.GITPOD_WORKSPACE_URL
 
@@ -15,9 +16,16 @@ const gitpod = process.env.GITPOD_WORKSPACE_URL
     ? process.env.GITPOD_WORKSPACE_URL.replace('https://', 'https://8000-')
     : workspaceUrl
 
+  const https = env.VITE_SECURE_SERVER
+    ? {
+      key: fs.readFileSync('/home/ilya/new.ibc.local-key.pem'),
+      cert: fs.readFileSync('/home/ilya/new.ibc.local.pem')
+    }
+    : false
 
   export default {
       host,
+      https,
       cors: {
         origin: corsOrigin,
         credentials: true

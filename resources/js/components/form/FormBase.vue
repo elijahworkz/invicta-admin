@@ -9,24 +9,30 @@
 					:href="breadcrumb.url" 
 					class="breadcrumb">
 					<el-icon><ArrowLeft /></el-icon> {{ breadcrumb.text }}</Link>
-				<h1 class="mb-1">{{ resourceForm.title }}</h1>
+				<h1 class="mb-1 flex items-center" v-html="resourceForm.title"></h1>
 			</div>
 			<div class="resource-actions">
 				<slot name="form-actions"/>
-				<el-button-group>
+				<el-button-group class="relative">
 					<el-button 
 						type="primary" 
 						@click="submit"
-						:disabled="resourceForm.form.processing">{{ postSubmitData[postSubmitAction].button }}</el-button>
+						:disabled="resourceForm.form.processing || !resourceForm.dirty">
+							{{ postSubmitData[postSubmitAction].button }}
+					</el-button>
 					<el-popover title="After Saving" :teleported="false">
 						<template #reference>
-							<el-button type="primary" :icon="postSubmitData[postSubmitAction].icon"></el-button>
+							<el-button 
+								:disabled="resourceForm.form.processing || !resourceForm.dirty"
+								type="primary" 
+								:icon="postSubmitData[postSubmitAction].icon"></el-button>
 						</template>
 						<el-radio-group v-model="postSubmitAction">
 							<el-radio v-for="action in postSubmitActions"
 								:label="action">{{ postSubmitData[action].option}}</el-radio>
 						</el-radio-group>
 					</el-popover>
+					<sup class="unsaved-indicator" v-show="resourceForm.dirty"></sup>
 				</el-button-group>
 			</div>
 		</div>
@@ -79,7 +85,8 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
+// import { Inertia } from '@inertiajs/inertia'
 import { useResourceForm } from '@/services/form'
 import { onKeyStroke } from '@vueuse/core'
 import has from 'lodash/has'
@@ -149,6 +156,10 @@ const postSubmitData = {
 	edit: { icon: ArrowDown, button: 'Save & Stay', option: 'Continue Editing'},
 	create: { icon: Plus, button: 'Save & New', option: 'Add New Item'},
 }
+onMounted(() => {
+	postSubmitAction.value = Invicta.remember('post-submit-action') || props.postSubmitActions[0]
+})
+watch(postSubmitAction, (value) => Invicta.remember('post-submit-action', value))
 
 const submit = () => {
 	resourceForm.submit(postSubmitAction.value)
@@ -158,6 +169,8 @@ onKeyStroke('Enter', (e) => {
 	e.preventDefault()
 	submit()
 })
+
+document.addEventListener('inertia:before', resourceForm.confirmUnsavedChanges)
 </script>
 
 <style lang="scss">
@@ -168,6 +181,19 @@ onKeyStroke('Enter', (e) => {
 			border-top-right-radius: var(--el-border-radius-base);
 			border-bottom-right-radius: var(--el-border-radius-base);
 		}
+	}
+
+	.unsaved-indicator {
+		background-color: var(--el-color-danger);
+		border: 1px solid var(--el-bg-color);
+		height: 8px;
+		width: 8px;
+		border-radius: 50%;
+		position: absolute;
+		top: 0;
+		right: 5px;
+		transform: translateY(-50%) translate(100%);
+		z-index: 5;
 	}
 }
 </style>

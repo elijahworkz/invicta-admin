@@ -4,23 +4,25 @@
 			ref="resourceTableRef"
 			:data="data"
 			v-bind="tableProps"
+			:highlight-current-row="singleSelect"
 			@selection-change="$emit('select', $event)"
+			@current-change="$emit('single-select', $event)"
 			@sort-change="handleSortChange"
 			@row-click="handleRowClick"
 			:key="tableKey"
 			v-loading="loading">
 
-			<el-table-column type="selection" fixed />
+			<el-table-column v-if="!singleSelect" type="selection" fixed />
 
 			<template v-for="(column, key) in visibleColumns">
-				<Column :id="key" :props="column" :edit-url="editUrl" :can-edit="canEdit"/>
+				<Column :id="key" :props="column" :can-edit="canEdit" @edit="$emit('edit', $event)"/>
 			</template>
 
 			<el-table-column
 				v-if="!noActions"
 				width="100"
 				header-align="right"
-				column-key="actions"
+				column-key="no-select"
 				fixed="right">
 
 				<template #header >
@@ -35,7 +37,13 @@
 				</template>
 
 				<template #default="scope">
-					<RowActions :id="scope.row.id" :actions="scope.row.actions || []" :can-edit="canEdit" :can-delete="canDelete" @edit="handleEdit" @delete="$emit('delete', $event)" />
+					<RowActions 
+						:id="scope.row.id" 
+						:actions="scope.row.actions || []" 
+						:can-edit="canEdit" 
+						:can-delete="canDelete" 
+						@edit="$emit('edit', $event)" 
+						@delete="$emit('delete', $event)" />
 				</template>
 
 			</el-table-column>
@@ -58,12 +66,15 @@ const props = defineProps({
 	data: Array,
 	tableProps: Object,
 	columns: Object,
-	editUrl: String,
 	canEdit: Boolean,
 	canDelete: Boolean,
 	noActions: {
 		type: Boolean,
 		default: false,
+	},
+	singleSelect: {
+		type: Boolean,
+		default: false
 	}
 })
 
@@ -91,14 +102,9 @@ const handleSortChange = ({ prop, order }) => {
 
 // Handle Row click
 const handleRowClick = (row, column, event) => {
-	if (!column.columnKey && column.columnKey != 'actions') {
+	if (!column.columnKey && column.columnKey != 'no-select') {
 		resourceTableRef.value.toggleRowSelection(row, undefined)
 	}
-}
-
-// Handle Edit
-const handleEdit = (id) => {
-	Inertia.visit(`${props.editUrl}/${id}`)
 }
 
 // Repaint table when sidebar is exposed

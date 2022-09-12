@@ -35,7 +35,7 @@ Route::controller(NavigationController::class)->name('nav.')->prefix('/navigatio
 
 Route::controller(AssetController::class)->name('assets.')->prefix('/assets/')->group(function () {
     Route::get('/', 'index')->name('index');
-    Route::delete('/{asset}', 'destroy')->name('destroy');
+    Route::delete('/', 'destroy')->name('destroy');
 });
 
 Route::controller(PermissionController::class)->name('permission.')->prefix('/group/')->group(function () {

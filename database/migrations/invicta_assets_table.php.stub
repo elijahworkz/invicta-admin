@@ -24,7 +24,7 @@ class CreateInvictaAssetsTable extends Migration
             $table->string('path');
             $table->integer('width');
             $table->integer('height');
-            $table->json('meta')->nullable();
+            $table->string('alt')->nullable();
             $table->timestamps();
         });
     }

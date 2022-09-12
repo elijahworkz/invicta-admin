@@ -2,6 +2,7 @@
 
 namespace Eteacher\InvictaAdmin\Events;
 
+use Eteacher\InvictaAdmin\Admin\Blueprints\Blueprint;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
@@ -15,7 +16,7 @@ class BlueprintFound
      * @param array $blueprint
      * @param Illuminate\Database\Eloquent\Model $model
      */
-    public function __construct(public $blueprint, public $model)
+    public function __construct(public Blueprint $blueprint, public $resource, public $model)
     {
     }
 }

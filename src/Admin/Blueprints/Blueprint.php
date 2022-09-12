@@ -7,7 +7,7 @@ use Illuminate\Support\Fluent;
 
 class Blueprint extends Fluent
 {
-    protected $blueprint;
+    // protected $blueprint;
 
     public function addToSidebar($fields)
     {
@@ -24,7 +24,54 @@ class Blueprint extends Fluent
             $sidebar['fields'] = [...$sidebar['fields'], ...$fields];
             $this->sidebar($sidebar);
         }
+    }
 
-        return $this;
+    public function parseForFieldsets()
+    {
+        if (Arr::has($this, 'fields')) {
+            $fields = $this->fields;
+
+            $this->fields($this->getFieldsets($fields));
+        }
+
+        if (Arr::has($this, 'sidebar')) {
+            $sidebar = $this->sidebar;
+            $sidebar['fields'] = $this->getFieldsets($sidebar['fields']);
+            $this->sidebar($sidebar);
+        }
+
+        if (Arr::has($this, 'sections')) {
+            $sections = $this->sections;
+
+            foreach ($sections as $key => $section) {
+                if (isset($section['fields'])) {
+                    $sections[$key]['fields'] = $this->getFieldsets($section['fields']);
+                }
+            }
+            $this->sections($sections);
+        }
+    }
+
+    private function getFieldsets($fields)
+    {
+        $parsed = [];
+
+        foreach ($fields as $field) {
+            if (! isset($field['fieldset'])) {
+                $parsed[] = $field;
+            } else {
+                $fieldsetFields = $this->getFieldset($field['fieldset']);
+                $parsed = [...$parsed, ...$this->getFieldsets($fieldsetFields)];
+            }
+        }
+
+        return $parsed;
+    }
+
+    private function getFieldset($handle)
+    {
+        $path = resource_path('fieldsets/'.$handle.'.php');
+
+        return require $path;
     }
 }

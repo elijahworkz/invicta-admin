@@ -33,10 +33,10 @@
 				:data="resource.data"
 				:table-props="resource.table"
 				:columns="resource.columns"
-				:edit-url="resource.meta.path"
 				:can-edit="canEdit"
 				:can-delete="canDelete"
 				@select="handleSelect"
+				@edit="handleEdit"
 				@delete="handleDelete" />
 
 			<div class="flex items-center justify-between p-3 mt-2">
@@ -104,8 +104,12 @@ const handleSelect = (selection) => {
 	selectedRows.value = selection.map(row => row.id)
 }
 
-/* Handle Delete Actions */
+// Handle Edit
+const handleEdit = (item) => {
+	Inertia.visit(`${props.resource.meta.path}/${item}`)
+}
 
+/* Handle Delete Actions */
 const handleDelete = (selected) => {
 	ElMessageBox.confirm(
 		'This action will permanently delete records from database. Are you sure you want to continue?',

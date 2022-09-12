@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 class Asset extends Model
 {
     protected $fillable = [
-        'name', 'type', 'path', 'size', 'size_human', 'extension', 'width', 'height',
+        'name', 'type', 'path', 'size', 'size_human', 'extension', 'width', 'height', 'alt',
     ];
 
     protected static $enableCloudinary = false;
@@ -21,6 +21,9 @@ class Asset extends Model
         $file_path = $file->getPathName();
         $filename = $file->getClientOriginalName();
         $fileinfo = pathinfo($filename);
+
+        // Normalize file names
+        $filename = Str::of($filename)->replace(' ', '-');
 
         if (self::where('name', '=', $filename)->exists()) {
             return response()->json(['message' => 'Asset with this name already exists!'], 409);
@@ -101,12 +104,22 @@ class Asset extends Model
         }
 
         // Save to DB
-        self::create($item);
+        $asset = self::create($item);
 
-        return response()->json(['message' => [
-            'type' => 'success',
-            'title' => 'Asset was uploaded',
-        ]]);
+        return response()->json([
+            'asset' => [
+                'id' => $asset->id,
+                'src' => asset($asset->path),
+                'alt' => '',
+                'name' => $asset->name,
+                'width' => $asset->width,
+                'height' => $asset->height,
+            ],
+            'message' => [
+                'type' => 'success',
+                'title' => 'Asset was uploaded',
+            ],
+        ]);
     }
 
     private static function formatBytes($size, $level = 0, $precision = 2, $base = 1024)

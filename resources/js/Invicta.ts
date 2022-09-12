@@ -189,6 +189,15 @@ class Invicta
 		this.eventBus.emit(name, data)
 	}
 
+	remember(key: string, value?: unknown) {
+		key = `invicta-${key}`
+		if (! value) {
+			return localStorage.getItem(key)
+		} else {
+			localStorage.setItem(key, value)
+		}
+	}
+
 	message(args: Object) {
 		ElNotification({...args, position: 'bottom-left'})
 	}

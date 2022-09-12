@@ -31,12 +31,16 @@ class Asset extends Resource
     {
         return [
             'name' => $this->inlineAsset()->toHtml(),
-            'dimensions' => $this->width.'x'.$this->height,
+            'dimensions' => $this->width.' x '.$this->height,
             'size' => $this->size_human,
             'type' => $this->type,
             'created' => $this->created_at->toFormattedDateString(),
             'src' => asset($this->path),
             'img_name' => $this->name,
+            'id' => $this->id,
+            'width' => $this->width,
+            'height' => $this->height,
+            'alt' => $this->alt,
         ];
     }
 
@@ -54,9 +58,10 @@ class Asset extends Resource
     public function indexColumns()
     {
         return [
-            'name' => Column::make('Asset')->sortable(),
-            'dimensions' => Column::make('Dimensions')->align('center'),
+            'name' => Column::make('Asset')->sortable()->editLink(),
+            'dimensions' => Column::make('Dimensions'),
             'size' => Column::make('Size')->sortable(),
+            'alt' => Column::make('Alt'),
             'type' => Column::make('Type')->align('center'),
             'created' => Column::make('Uploaded')->sortable(),
         ];

@@ -128,6 +128,30 @@ return [
 
     'assets_path' => env('INVICTA_ASSETS_PATH', '/'),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Enable mutli upload of assets
+    |--------------------------------------------------------------------------
+    |
+    | Sets if Assets uploader can upload multiple files.\
+    |
+    */
+
+    'assets_multi_upload' => env('INVICTA_ASSETS_MULTI_UPLOAD', '/'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Enable caching for blueprints
+    |--------------------------------------------------------------------------
+    |
+    | This setting will determine if parsed blueprints will be cached. Set to
+    | 'true' only for staging or production environments where blueprints are
+    | not going to change often.
+    |
+    */
+
+    'cache_blueprints' => env('INVICTA_CACHE_BLUEPRINTS', false),
+
     /* DEVELOPMENT SETTINGS */
 
     /*

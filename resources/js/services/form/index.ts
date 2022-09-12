@@ -47,7 +47,7 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 		init(resource: IResourceItem, actionUrl: string) {
 			this.data = resource.item ? resource.item : null
 			this.meta = resource.meta
-			this.mode = this.data ? 'edit' : 'create'
+			this.mode = resource.meta.id ? 'edit' : 'create'
 			this.actionUrl = actionUrl
 			this.blueprint = resource.blueprint
 
@@ -55,16 +55,12 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 			this.form = useForm(formData)
 			Invicta.emit('resource-form-ready')
 		},
-		isDirty() {
-			return this.dirty
-		},
 		get(id: string, defaultValue?: any): any {
 			let result = get(this.form, id, defaultValue)
 			return !result && defaultValue ? defaultValue : result
 		},
 		set(id: string, value: any) {
 			set(this.form, id, value)
-			this.dirty = true
 		},
 		setRelated(id: string) {
 			this.form[id] = this.data[id]
@@ -181,6 +177,7 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 				.data()
 		},
 		submit(postSubmitAction: string) {
+			document.removeEventListener('inertia:before', this.confirmUnsavedChanges)
 			let rules = this.rules
 			this.form
 				.transform((data: any) => ({
@@ -193,15 +190,32 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 						if (postSubmitAction == 'create') {
 							this.form.reset()
 						}
+						this.dirty = false
 					}
 				})
+		},
+		confirmUnsavedChanges(event) {
+			if (this.dirty) {
+				if(! confirm('You have unsaved changes. Leave anyway?')) {
+					event.preventDefault()
+				} else {
+					document.removeEventListener('inertia:before', this.confirmUnsavedChanges)
+				}
+			}	
 		}
 	},
 	getters: {
 		title(): string {
-			return this.mode == 'edit'
+			let title = this.mode == 'edit'
 				? get(this.form, this.meta.titleField)
 				: this.meta.createTitle
+
+			if ('published' in this.form) {
+				let status = get(this.form, 'published') ? 'success' : ''
+				title = `<i class="icon-status ${status} mr-2"></i> ${title}`
+			}
+
+			return title
 		},
 		id(): any {
 			return get(this.data, 'id')

@@ -4,19 +4,20 @@
 		v-bind="props"
 		:align="align(props)"
 		:header-align="align(props, true)"
-		:sortable="props.sortable ? 'custom' : false">
+		:sortable="props.sortable ? 'custom' : false"
+		:column-key="props.editLink ? 'no-select' : null">
 
 		<template #default="scope">
 			<i v-if="props.boolean" class="icon-status" :class="{ 'success' : scope.row[id] }"></i>
 			<div v-else-if="props.list">
 				{{ buildList(scope.row[id], props.titleField) }}
 			</div>
-			<Link
+			<div
 				v-else-if="props.editLink && canEdit"
-				:href="`${editUrl}/${scope.row.id}`"
-				class="edit-link">
-					<div v-html="scope.row[id]"/>
-			</Link>
+				@click.prevent="$emit('edit', scope.row.id)"
+				class="edit-link"
+				v-html="scope.row[id]">
+			</div>
 			<div v-else v-html="scope.row[id]"/>
 		</template>
 
@@ -27,7 +28,6 @@
 defineProps({
 	id: String,
 	props: Object,
-	editUrl: String,
 	canEdit: Boolean
 })
 
