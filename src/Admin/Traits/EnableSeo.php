@@ -4,5 +4,18 @@ namespace Eteacher\InvictaAdmin\Admin\Traits;
 
 trait EnableSeo
 {
-    private $enableSeo = true;
+    public $enableSeo = true;
+
+    public function getSeoBlueprintForResource()
+    {
+        return [
+            'id' => 'seo',
+            'title' => 'SEO',
+            'fields' => [
+                [
+                    'fieldset' => 'seo',
+                ],
+            ],
+        ];
+    }
 }
