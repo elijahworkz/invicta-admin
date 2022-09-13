@@ -148,11 +148,20 @@
 		}
 	}
 
+	&.w {
+		&-compact {
+			max-width: 720px;
+		}
+		&-sidebar {
+			max-width: 1080px;
+		}
+	}
+
 	#drawer & {
 		&.w {
-			&-1\/2,
-			&-3\/4,
-			&-2\/5 {
+			&-compact,
+			&-sidebar {
+				max-width: 100%;
 				width: 100% !important;
 			}
 		}

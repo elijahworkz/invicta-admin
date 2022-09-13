@@ -144,7 +144,7 @@ const hasSidebar = has(blueprint, 'sidebar');
 const formClass = computed(() => {
 	let width = props.headless
 		? 'w-full'
-		: (hasSidebar ? 'w-3/4' : 'w-2/5')
+		: (hasSidebar ? 'w-sidebar' : 'w-compact')
 	return formSettings.class || width
 })
 
