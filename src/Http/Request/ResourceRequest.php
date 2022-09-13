@@ -216,6 +216,9 @@ class ResourceRequest extends InvictaRequest
         $relatedFields = [];
 
         foreach ($validated as $field => $value) {
+            // Fix for 'data' column issue
+            $field = $field == '_data' ? 'data' : $field;
+
             // first we check if it's a mutator
             if (! $item->hasAttributeMutator($field)) {
                 // check if relationship

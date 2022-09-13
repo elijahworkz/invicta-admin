@@ -4,7 +4,7 @@
 			:is="fieldComponent" 
 			:form-id="formId"
 			:data="fieldData" 
-			:path="dataPath"/>
+			:path="path"/>
 	</FieldRow>
 </template>
 
@@ -20,6 +20,7 @@ const props = defineProps({
 })
 
 let fieldComponent = shallowRef('textField')
+let path = props.dataPath == 'data' ? '_data' : props.dataPath
 
 const showField = useFieldCondition(props.fieldData, props.formId)
 if (showField) {
