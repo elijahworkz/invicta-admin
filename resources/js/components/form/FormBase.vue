@@ -166,8 +166,11 @@ const submit = () => {
 }
 
 onKeyStroke('Enter', (e) => {
-	e.preventDefault()
-	submit()
+
+	if (props.headless) {
+		e.preventDefault()
+		submit()
+	}
 })
 
 document.addEventListener('inertia:before', resourceForm.confirmUnsavedChanges)

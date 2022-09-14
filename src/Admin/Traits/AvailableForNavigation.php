@@ -24,12 +24,12 @@ trait AvailableForNavigation
         return '';
     }
 
-    public function uri($item)
+    public function uri($slug)
     {
         // we need to set locale, // $prefix
         return Str::of($this->prefix())
             ->finish('/')
-            ->append($item->slug)
+            ->append($slug)
             ->rtrim('/')
             ->start('/');
     }

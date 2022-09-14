@@ -1,5 +1,5 @@
 <template>
-	<Head :title="resource.name"/>
+	<Head :title="resource.meta.pageTitle"/>
 	<div class="py-6 px-10">
 		<FormBase
 			:form-id="`${resource.meta.handle}.${resource.meta?.id || 'new'}`"

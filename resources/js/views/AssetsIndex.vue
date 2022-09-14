@@ -41,8 +41,8 @@
 					:current-page="resource.meta.current_page"
 					:page-size="resource.meta.per_page"
 					:total="resource.meta.total"
-					@update:page-size="changePerPage"
-					@update:current-page="changePage"
+					@update:page-size="itemsResource.pageSizeChange"
+					@update:current-page="itemsResource.pageChange"
 				/>
 			</div>
 
@@ -90,10 +90,6 @@ const setLayout = (type) => {
 	layout.value = type
 	Invicta.remember('media-layout', type)
 }
-
-/* Pagination Setup */
-const changePerPage = (event) => Invicta.emit('page-size-change', event)
-const changePage = (event) => Invicta.emit('page-change', event)
 
 /* Editing */
 const drawer = ref(false)

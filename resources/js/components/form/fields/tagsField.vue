@@ -50,16 +50,10 @@ const removeTag = (tag) => {
 
 const handleEnter = (event) => {
 	if (event.keyCode === 13) {
-		console.log('got enter event', event)
 		event.stopPropagation()
 		addTag()
 	}
 }
-
-// onKeyStroke('Enter', (e) => {
-// 	e.preventDefault()
-// 	addTag()
-// })
 </script>
 
 <style lang="scss">

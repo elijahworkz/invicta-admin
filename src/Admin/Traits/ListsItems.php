@@ -2,7 +2,7 @@
 
 namespace Eteacher\InvictaAdmin\Admin\Traits;
 
-use Eteacher\InvictaAdmin\Http\Resources\ResourceCollection;
+use Eteacher\InvictaAdmin\Http\Resources\ItemsCollection;
 
 trait ListsItems
 {
@@ -113,6 +113,7 @@ trait ListsItems
             $query = $this->applyFilters($query, request()->get('filters'));
         }
 
+        // If no paginate then this is probably a request for a simple options list
         if (! $paginate) {
             return $query->pluck($title, 'id');
         }
@@ -123,14 +124,21 @@ trait ListsItems
         $sortOrder = request()->query('sort_order', 'desc');
         $exclude = request()->query('exclude', []);
 
+        $select = ['id', "{$title} as title", 'created_at'];
+        $requestSelect = request()->query('select');
+
+        if (is_array($requestSelect)) {
+            $select = [...$select, ...$requestSelect];
+        }
+
         $result = $query
-            ->select('id', "{$title} as title", 'created_at')
+            ->select($select)
             ->whereNotIn('id', $exclude)
             ->orderBy($sortBy, $sortOrder)
             ->paginate($perPage)
             ->withQueryString();
 
-        return ResourceCollection::collection($result)
+        return (new ItemsCollection($result))
             ->additional([
                 'params' => [
                     'paginate' => true,

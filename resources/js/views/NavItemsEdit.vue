@@ -46,9 +46,8 @@
 			:exclude="excludeItems[currentResource]"
 			:request-url="itemsUrl"
 			:title-field="titleField"
-			:nav-items="true"
 			:resource-handle="currentResource"
-			@update="updateItems" 
+			@selected="updateItems" 
 			@cancel="drawer.state = false" />
 
 

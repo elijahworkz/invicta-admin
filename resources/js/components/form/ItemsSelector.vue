@@ -2,8 +2,19 @@
 	<div class="w-full flex flex-col">
 		<header class="p-3">
 			<div class="flex items-center justify-between gap-2">
+				<el-select v-if="resources.length" 
+					v-model="currentResource" 
+					value-key="handle" 
+					:teleported="false"
+					@change="requestResourceItems">
+					<el-option
+						v-for="resource in resources"
+						:key="resource.handle"
+						:label="resource.label"
+						:value="resource"/>
+				</el-select>
 				<Search />
-				<Filters :resource-handle="resourceHandle" />
+				<Filters v-if="currentResource.handle" :resource-handle="currentResource.handle" />
 			</div>
 		</header>
 
@@ -19,6 +30,7 @@
 					:data="itemsResource.resource"
 					:columns="columns"
 					:no-actions="true"
+					:single-select="singleSelect"
 					@select="handleSelect"
 				/>
 			</el-scrollbar>
@@ -34,8 +46,8 @@
 					:page-size="itemsResource.perPage"
 					:pager-count="5"
 					:total="itemsResource.total"
-					@update:page-size="changePerPage"
-					@update:current-page="changePage"
+					@update:page-size="itemsResource.pageSizeChange"
+					@update:current-page="itemsResource.pageChange"
 				/>
 			</div>
 			<div class="button-row">
@@ -61,9 +73,9 @@ const props = defineProps({
 	exclude: Array,
 	requestUrl: String,
 	titleField: String,
-	navItems: {
-		type: Boolean,
-		default: false,
+	select: {
+		type: Array,
+		default: [],
 	},
 	columns: {
 		type: Object,
@@ -71,38 +83,43 @@ const props = defineProps({
 			return {
 				id: { label: 'ID', sortable: true, align: 'center', width: 70 },
 				title: { label: 'Title', sortable: true },
-				created_at: { label: 'Created'}
+				created: { label: 'Created'}
 			}
 		}
+	},
+	singleSelect: {
+		type: Boolean,
+		default: false,
+	},
+	resources: {
+		type: Array,
+		default: []
 	}
 })
 
-const emit = defineEmits(['update'])
+const emit = defineEmits(['selected'])
 
 const loading = ref(false)
 const itemsResource = useResource()
 
-onMounted(() => {
-
-	loading.value = true
-
-	let params = {
-		paginate: true,
-		title: props.titleField,
-		exclude: props.exclude,
-		nav_items: props.navItems
-	}
-
-	Invicta.axios.get(props.requestUrl, { params })
-		.then(({data}) => {
-			itemsResource.init(props.requestUrl, data)
-			loading.value = false
-		})
+/* Setup multiple resources selection */
+const currentResource = ref({
+	handle: props.resourceHandle
 })
 
-/* Pagination Setup */
-const changePerPage = (event) => Invicta.emit('page-size-change', event)
-const changePage = (event) => Invicta.emit('page-change', event)
+const titleField = computed(() => {
+	return props.resources.length
+		? currentResource.value.titleField
+		: props.titleField
+})
+
+onMounted(() => {
+	if (props.resources.length) {
+		currentResource.value = props.resources[0]
+	}
+
+	requestResourceItems()
+})
 
 /* Handle Selection */
 const selected = ref([])
@@ -112,12 +129,33 @@ const handleSelect = (selection) => {
 
 const selectedItems = computed(() => {
 	return selected.value.map(item => {
-		return { id: item.id, [props.titleField]: item.title }
+		return { id: item.id, [titleField.value]: item.title, item }
 	})
 })
 
 const submitSelected = () => {
 	Invicta.emit('clear-filters')
-	emit('update', selectedItems.value)
+	emit('selected', selectedItems.value)
+}
+
+function requestResourceItems() {
+	loading.value = true
+
+	let params = {
+		paginate: true,
+		title: titleField.value,
+		exclude: props.exclude,
+		select: props.select.length ? props.select : false
+	}
+
+	let requestUrl = props.resources.length
+		? `resource/${currentResource.value.handle}/items`
+		: props.requestUrl
+
+	Invicta.axios.get(requestUrl, { params })
+		.then(({data}) => {
+			itemsResource.init(requestUrl, data)
+			loading.value = false
+		})	
 }
 </script>

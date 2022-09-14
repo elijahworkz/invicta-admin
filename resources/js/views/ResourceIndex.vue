@@ -48,8 +48,8 @@
 					:current-page="resource.meta.current_page"
 					:page-size="resource.meta.per_page"
 					:total="resource.meta.total"
-					@update:page-size="changePerPage"
-					@update:current-page="changePage"
+					@update:page-size="resourceIndex.pageSizeChange"
+					@update:current-page="resourceIndex.pageChange"
 				/>
 			</div>
 
@@ -82,10 +82,6 @@ const props = defineProps({
 const { pageUrl } = usePage().props.value
 const resourceIndex = useResource()
 resourceIndex.init(pageUrl)
-
-/* Pagination Setup */
-const changePerPage = (event) => Invicta.emit('page-size-change', event)
-const changePage = (event) => Invicta.emit('page-change', event)
 
 /* Handle Actions */
 const actions = ref([])

@@ -22,30 +22,6 @@
 			</div>	
 		</template>
 	</popover>
-<!-- 	<el-popover
-		ref="filtersDropdown"
-		v-if="filters.length"
-		placement="bottom-end" 
-		:width="200" 
-		trigger="click" 
-		:teleported="false">
-		<template #reference>
-        	<el-button :type="filterButtonType">
-				<el-icon><Filter /></el-icon><el-icon class="el-icon--right"><arrow-down /></el-icon>
-			</el-button>
-		</template>
-		<template #default>
-			<template v-for="filter in filters">
-				<h4 class="mb-1">{{ filter.name }}</h4>
-				<SelectFilter
-					class="mb-4"
-					:handle="filter.class"
-					:filter-options="filter.options"
-					:initial-value="filter.initialValue"
-				/>
-			</template>
-		</template>
-    </el-popover> -->
 </template>
 
 <script setup>

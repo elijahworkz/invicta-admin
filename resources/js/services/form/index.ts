@@ -209,7 +209,7 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 		title(): string {
 			let title = this.mode == 'edit'
 				? get(this.form, this.meta.titleField)
-				: this.meta.createTitle
+				: this.meta.pageTitle
 
 			if ('published' in this.form) {
 				let status = get(this.form, 'published') ? 'success' : ''
