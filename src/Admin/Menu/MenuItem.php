@@ -39,6 +39,13 @@ class MenuItem
     {
     }
 
+    public function label($value)
+    {
+        $this->name = $value;
+
+        return $this;
+    }
+
     public function route($path)
     {
         $this->url = $path;
