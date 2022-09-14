@@ -25,7 +25,7 @@
 </template>
 
 <script setup>
-import { ref, unref, computed, onMounted } from 'vue'
+import { ref, computed, watchEffect, onMounted } from 'vue'
 import Popover from '@/components/shared/Popover.vue'
 import SelectFilter from './SelectFilter.vue'
 import { Filter, ArrowDown } from '@element-plus/icons-vue'
@@ -40,17 +40,20 @@ const filtersDropdown = ref()
 const filters = ref([])
 const requestFilters = ref(null)
 const filterButtonType = computed(() => {
-
 	return props.filters ? 'primary' : 'default'
 })
 
 onMounted(() => {
-	
 	if (props.filters) {
 		requestFilters.value = JSON.parse(atob(props.filters))
-		console.log(requestFilters)
 	}
+})
 
+watchEffect(() => {
+	getFilters()
+})
+
+function getFilters() {
 	Invicta.axios.get(`/resource/${props.resourceHandle}/filters`)
 		.then(({data}) => {
 
@@ -71,5 +74,5 @@ onMounted(() => {
 			}
 			filters.value = data
 		})
-})
+}
 </script>

@@ -1,6 +1,7 @@
 <?php
 
 use Eteacher\InvictaAdmin\Http\Controllers\Api\AssetController;
+use Eteacher\InvictaAdmin\Http\Controllers\Api\FieldsController;
 use Eteacher\InvictaAdmin\Http\Controllers\Api\ResourceController;
 
 Route::controller(ResourceController::class)->name('resource.')->prefix('resource')->group(function () {
@@ -20,4 +21,8 @@ Route::controller(AssetController::class)->name('assets.')->prefix('/assets/')->
     Route::post('/', 'store')->name('store');
     Route::get('/{asset}', 'edit')->name('edit');
     Route::post('/{asset}', 'update')->name('update');
+});
+
+Route::controller(FieldsController::class)->name('fields.')->prefix('/fields/')->group(function () {
+    Route::get('/texteditor/resources', 'linkableResources');
 });
