@@ -41,8 +41,8 @@
 					:current-page="resource.meta.current_page"
 					:page-size="resource.meta.per_page"
 					:total="resource.meta.total"
-					@update:page-size="itemsResource.pageSizeChange"
-					@update:current-page="itemsResource.pageChange"
+					@update:page-size="resourceIndex.pageSizeChange"
+					@update:current-page="resourceIndex.pageChange"
 				/>
 			</div>
 
