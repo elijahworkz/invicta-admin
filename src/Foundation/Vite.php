@@ -70,7 +70,7 @@ class Vite
 
         if (! isset($manifests[$manifestPath])) {
             if (! is_file($manifestPath)) {
-                throw new Exception("Vite manifest not found at: {$manifestPath}");
+                throw new \Exception("Vite manifest not found at: {$manifestPath}");
             }
 
             $manifests[$manifestPath] = json_decode(file_get_contents($manifestPath), true);
@@ -82,7 +82,7 @@ class Vite
 
         foreach ($entrypoints as $entrypoint) {
             if (! isset($manifest[$entrypoint])) {
-                throw new Exception("Unable to locate file in manifest: {$entrypoint}.");
+                throw new \Exception("Unable to locate file in manifest: {$entrypoint}.");
             }
 
             if ($this->buildTool == 'vite') {
