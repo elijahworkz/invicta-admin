@@ -27,13 +27,14 @@ export const useResource = defineStore('resourceStore', () => {
 	const total = ref<any>(0)
 	const columns = ref<any>({})
 
-	Invicta.on('page-change', (page: number) => {
+	const pageChange = (page: number) => {
+		console.log('see that you want to change page')
 		currentPage.value = page == 1 ? null : page
-	})
+	}
 
-	Invicta.on('page-size-change', (size: number) => {
+	const pageSizeChange = (size: number) => {
 		perPage.value = size
-	})
+	}
 
 	Invicta.on('sort-change', ({ prop, order }: { prop: string, order: string}) => {
 		console.log('hear sort', prop, order)
@@ -151,6 +152,8 @@ export const useResource = defineStore('resourceStore', () => {
 		filterBadges,
 		currentPage,
 		perPage,
+		pageChange,
+		pageSizeChange,
 		total,
 		columns
 		// resourceData,

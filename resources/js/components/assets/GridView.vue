@@ -1,14 +1,15 @@
 <template>
 	<div class="p-4">
 		<Uploader v-if="!selector" type="drag" :multiple="multiple" />
-		<div class="cards-wrapper grid">
-			<div class="card-wrap"
+		<div class="assets-grid">
+			<div class="asset-card"
 				v-for="(item, index) in resource"
-				:key="item.img_name">
+				:key="item.img_name"
+				:title="item.img_name">
 
-				<el-card body-style="padding: 0px" :title="item.img_name">
-					<div class="media-asset">
-						<div class="image-transparent-back" v-if="item.type == 'image'">
+				<div class="wrap">
+					<div class="image-wrap">
+						<div class="image-transparent-back">
 							<img :src="item.src" />
 						</div>
 						<div class="actions-layer" v-if="selector">
@@ -37,16 +38,15 @@
 							</span>
 						</div>
 					</div>
-
 					<div class="media-details">
 						<div class="name">{{ item.img_name }}</div>
 						<div class="bottom">
-							<span>{{ item.created }}</span>
 							<span v-if="item.type == 'image'">{{ item.dimensions }}px</span>
 							<span>{{item.size }}</span>
+							<span>{{ item.created }}</span>
 						</div>
 					</div>
-				</el-card>		
+				</div>
 			</div>
 		</div>
      </div>
@@ -95,38 +95,52 @@ const handleOpenMedia = (path) => window.open(path, '_blank')
 </script>
 
 <style lang="scss">
-.grid {
-	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+.assets-grid {
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 	display: grid;
 	grid-gap: 1em;
-	grid-auto-rows: 1fr;
 
-	.el-card {
+	.asset-card {
+		border-radius: var(--el-card-border-radius);
+		display: grid;
+		border: 1px solid var(--el-border-color-lighter);
+		box-shadow: var(--el-box-shadow-light);
+		background: #fff;
 
-		.el-card__body {
+		&:before {
+			content: '';
+			display: block;
+			grid-area: 1 / 1 / 2 / 2;
+			padding-bottom: 100%;
+		}
+
+		.wrap {
+			grid-area: 1 / 1 / 2 / 2;
 			display: flex;
 			flex-direction: column;
 		}
 
-		.media-asset {
-			flex: 0 1 250px;
-			overflow: hidden;
+		.image-wrap {
 			position: relative;
-			text-align: center;
+			overflow: hidden;
+			flex: 1;
+		}
 
-			.image-transparent-back {
-				height: 100%;
-			}
+		.image-transparent-back {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+		}
 
-			svg {
-				fill: #909399;
-				width: 40px;
-				height: 40px;
-			}
+		img {
+			display: none;
+			display: block;
+			width: 100%;
+			height: 100%;
+			object-fit: contain;
 		}
 
 		.media-details {
-			background: #fff;
 			padding: 15px;
 
 			.name {
@@ -156,50 +170,41 @@ const handleOpenMedia = (path) => window.open(path, '_blank')
 				}
 			}
 		}
-
 		.actions-layer {
 			position: absolute;
 			width: 100%;
-			height: 100%;
-			left: 0;
 			top: 0;
+			bottom: 0;
+			opacity: 0;
 			cursor: default;
 			text-align: center;
 			color: #fff;
-			opacity: 0;
 			font-size: 1.7rem;
-			background-color: rgba(0,0,0,.5);
+			background-color: rgba(0,0,0,.7);
 			transition: opacity .3s;
 			line-height: 30px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
 
 			svg {
 				width: 30px;
 				height: 30px;
 			}
 
-			&:after {
-				display: inline-block;
-				content: "";
-				height: 100%;
-				vertical-align: middle;
-			}
 			&:hover {
 				opacity: 1;
-
-				span {
-				}
 			}
 
 			span {
 				display: inline-block;
-				// display: none;
 				cursor: pointer;
 
 				+ span {
 					margin-left: 15px;
 				}
 			}
-		}
+		}		
 	}
 }
 </style>

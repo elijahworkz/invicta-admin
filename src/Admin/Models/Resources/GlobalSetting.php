@@ -20,7 +20,7 @@ class GlobalSetting extends Resource
 
     public $menuTitle = 'Settings';
 
-    public $icon = 'global-setting';
+    public $icon = 'settings';
 
     public $search = ['title'];
 

@@ -73,8 +73,8 @@ class ResourceRequest extends InvictaRequest
                 'actionUrl' => route('invicta.resource.store', ['resource' => $handle]),
                 'indexUrl' => $resourceClass->route(),
                 'indexTitle' => $resourceClass->menuTitle(),
-                'createTitle' => $resourceClass->createTitle(),
                 'titleField' => $resourceClass->titleField,
+                'pageTitle' => $resourceClass->createTitle(),
             ],
             'blueprint' => request()->has('blueprint')
                 ? Blueprint::findByHandle($resourceClass, request()->blueprint)
@@ -107,6 +107,7 @@ class ResourceRequest extends InvictaRequest
                 'indexUrl' => $resourceClass->route(),
                 'indexTitle' => $resourceClass->menuTitle(),
                 'titleField' => $resourceClass->titleField,
+                'pageTitle' => $item[$resourceClass->titleField],
             ],
             'blueprint' => request()->has('blueprint')
                 ? Blueprint::findByHandle($resourceClass, request()->blueprint)
@@ -216,6 +217,9 @@ class ResourceRequest extends InvictaRequest
         $relatedFields = [];
 
         foreach ($validated as $field => $value) {
+            // Fix for 'data' column issue
+            $field = $field == '_data' ? 'data' : $field;
+
             // first we check if it's a mutator
             if (! $item->hasAttributeMutator($field)) {
                 // check if relationship

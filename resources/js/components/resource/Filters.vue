@@ -22,34 +22,10 @@
 			</div>	
 		</template>
 	</popover>
-<!-- 	<el-popover
-		ref="filtersDropdown"
-		v-if="filters.length"
-		placement="bottom-end" 
-		:width="200" 
-		trigger="click" 
-		:teleported="false">
-		<template #reference>
-        	<el-button :type="filterButtonType">
-				<el-icon><Filter /></el-icon><el-icon class="el-icon--right"><arrow-down /></el-icon>
-			</el-button>
-		</template>
-		<template #default>
-			<template v-for="filter in filters">
-				<h4 class="mb-1">{{ filter.name }}</h4>
-				<SelectFilter
-					class="mb-4"
-					:handle="filter.class"
-					:filter-options="filter.options"
-					:initial-value="filter.initialValue"
-				/>
-			</template>
-		</template>
-    </el-popover> -->
 </template>
 
 <script setup>
-import { ref, unref, computed, onMounted } from 'vue'
+import { ref, computed, watchEffect, onMounted } from 'vue'
 import Popover from '@/components/shared/Popover.vue'
 import SelectFilter from './SelectFilter.vue'
 import { Filter, ArrowDown } from '@element-plus/icons-vue'
@@ -64,17 +40,20 @@ const filtersDropdown = ref()
 const filters = ref([])
 const requestFilters = ref(null)
 const filterButtonType = computed(() => {
-
 	return props.filters ? 'primary' : 'default'
 })
 
 onMounted(() => {
-	
 	if (props.filters) {
 		requestFilters.value = JSON.parse(atob(props.filters))
-		console.log(requestFilters)
 	}
+})
 
+watchEffect(() => {
+	getFilters()
+})
+
+function getFilters() {
 	Invicta.axios.get(`/resource/${props.resourceHandle}/filters`)
 		.then(({data}) => {
 
@@ -95,5 +74,5 @@ onMounted(() => {
 			}
 			filters.value = data
 		})
-})
+}
 </script>

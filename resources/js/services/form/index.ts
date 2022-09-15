@@ -93,8 +93,9 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 				return fields.reduce((obj, item) => {
 					if (item.id) {
 						let _id = 'path' in item ? item.path : item.id
+						// Fix for conflict whith 'data' key
+						_id = _id == 'data' ? '_data' : _id
 						let value = getFieldData(item)
-
 
 						obj[_id] = value
 
@@ -194,7 +195,7 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 					}
 				})
 		},
-		confirmUnsavedChanges(event) {
+		confirmUnsavedChanges(event: Event) {
 			if (this.dirty) {
 				if(! confirm('You have unsaved changes. Leave anyway?')) {
 					event.preventDefault()
@@ -208,7 +209,7 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 		title(): string {
 			let title = this.mode == 'edit'
 				? get(this.form, this.meta.titleField)
-				: this.meta.createTitle
+				: this.meta.pageTitle
 
 			if ('published' in this.form) {
 				let status = get(this.form, 'published') ? 'success' : ''

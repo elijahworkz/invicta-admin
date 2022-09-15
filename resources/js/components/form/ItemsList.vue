@@ -47,7 +47,7 @@
 			:resource-handle="resource"
 			:request-url="itemsUrl"
 			:title-field="titleField"
-			@update="updateItems"
+			@selected="updateItems"
 			@cancel="drawer.state = false" />
 
 		<ItemsForm

@@ -46,8 +46,8 @@
 					:page-size="itemsResource.perPage"
 					:pager-count="5"
 					:total="itemsResource.total"
-					@update:page-size="changePerPage"
-					@update:current-page="changePage"
+					@update:page-size="itemsResource.pageSizeChange"
+					@update:current-page="itemsResource.pageChange"
 				/>
 			</div>
 			<div class="button-row" v-if="layout == 'list'">
@@ -91,10 +91,6 @@ const setLayout = (type) => {
 	layout.value = type
 	Invicta.remember('media-layout', type)
 }
-
-/* Pagination Setup */
-const changePerPage = (event) => Invicta.emit('page-size-change', event)
-const changePage = (event) => Invicta.emit('page-change', event)
 
 /* Handle Selection */
 const selected = ref([])
