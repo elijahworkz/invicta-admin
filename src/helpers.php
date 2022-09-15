@@ -1,5 +1,8 @@
 <?php
 
+use Eteacher\InvictaAdmin\Admin\Models\Resources\GlobalSetting;
+use Illuminate\Support\Facades\App;
+
 function invicta_path($path = null)
 {
     return __DIR__.'/../'.$path;
@@ -15,4 +18,23 @@ function invicta_user_model()
 function invicta_route($name, $params = [])
 {
     return route('invicta.'.$name, $params);
+}
+
+if (! function_exists('global_set')) {
+    function global_set($handle, $argument = null)
+    {
+        $cachedSet = Cache::rememberForever('global_set_'.$handle, function () use ($handle) {
+            $resource = App::make(GlobalSetting::class);
+
+            $model = $resource->model()->where('handle', $handle)->first();
+
+            return $model->content;
+        });
+
+        if ($argument) {
+            return $cachedSet[$argument];
+        }
+
+        return $cachedSet;
+    }
 }
