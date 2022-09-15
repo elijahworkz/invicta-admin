@@ -11,6 +11,8 @@ use Eteacher\InvictaAdmin\Http\Middleware\SetAuthGuard;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
+use Illuminate\Support\Stringable;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -41,6 +43,8 @@ class AppServiceProvider extends ServiceProvider
             $this->registerMiddleware();
 
             $this->registerBladeDirectives();
+
+            $this->registerMacros();
         }
     }
 
@@ -72,6 +76,33 @@ class AppServiceProvider extends ServiceProvider
             $class = Vite::class;
 
             return "<?php echo app('$class')->assets() ?>";
+        });
+    }
+
+    protected function registerMacros()
+    {
+        /**
+         * Macro for Str::initials.
+         */
+        Stringable::macro('initials', function () {
+            $words = explode(' ', $this);
+            $initials = '';
+
+            if (count($words) > 1) {
+                $firstLetter = $words[0][0];
+                $lastLetter = $words[count($words) - 1][0];
+
+                $initials = strtoupper($firstLetter.$lastLetter);
+            } else {
+                // name is single word
+                $initials = strtoupper(substr($words[0], 0, 2));
+            }
+
+            return new static($initials);
+        });
+
+        Str::macro('initials', function (string $string) {
+            return (string) (new Stringable($string))->initials();
         });
     }
 }
