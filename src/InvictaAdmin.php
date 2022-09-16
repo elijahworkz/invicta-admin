@@ -43,25 +43,13 @@ class InvictaAdmin
     }
 
     /**
-     * { function_description }.
+     * Build main admin navigation.
      *
-     * @return     <type>  ( description_of_the_return_value )
+     * @return  Illuminate\Support\Collection
      */
     private static function menu()
     {
         return Menu::build();
-    }
-
-    /**
-     * { function_description }.
-     *
-     * @param      <type>  $url    The url
-     *
-     * @return     <type>  ( description_of_the_return_value )
-     */
-    public static function vendorAssetUrl($url)
-    {
-        return asset('vendor/invicta/'.$url);
     }
 
     public static function assets($path)
