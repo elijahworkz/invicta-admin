@@ -39,16 +39,13 @@ trait ListsItems
         return null;
     }
 
-    public function indexQuery()
+    protected function indexQuery()
     {
         $query = $this->model()->query();
         $perPage = request()->query('per_page', 10);
         $sortBy = request()->query('sort_by', 'id');
         $sortOrder = request()->query('sort_order', 'desc');
 
-        if (method_exists($this->model(), 'scopeInvictaList')) {
-            $query = $query->invictaList();
-        }
         if (request()->has('search')) {
             $query = $this->applySearch($query, request()->get('search'));
         }
@@ -57,6 +54,8 @@ trait ListsItems
             $query = $this->applyFilters($query, request()->get('filters'));
         }
 
+        $query = $this->modifyIndexQuery($query);
+
         if (! empty($this->indexWith)) {
             $query = $query->with($this->indexWith);
         }
@@ -64,6 +63,11 @@ trait ListsItems
         $result = $query->orderBy($this->handle().'.'.$sortBy, $sortOrder)->paginate($perPage);
 
         return $result->withQueryString();
+    }
+
+    public function modifyIndexQuery($query)
+    {
+        return $query;
     }
 
     public function resourceOrdered()
