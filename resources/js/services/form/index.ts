@@ -47,7 +47,7 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 		init(resource: IResourceItem, actionUrl: string) {
 			this.data = resource.item ? resource.item : null
 			this.meta = resource.meta
-			this.mode = resource.meta.id ? 'edit' : 'create'
+			this.mode = resource.meta?.id ? 'edit' : 'create'
 			this.actionUrl = actionUrl
 			this.blueprint = resource.blueprint
 

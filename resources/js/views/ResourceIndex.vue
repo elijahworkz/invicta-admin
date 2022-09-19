@@ -57,6 +57,19 @@
 	</div>
 
 	<ActionsModal :actions-url="actionsUrl"	/>
+
+	<Drawer v-if="resource.indexEdit && drawer" @close="drawer = false">
+		<el-scrollbar>
+			<div class="px-8 pb-4 pt-12 w-full">
+				<FormBase
+					:form-id="`${resource.handle}.${editItem.item.id}`"
+					:resource="editItem"
+					:action-url="editUrl"
+					:post-submit-actions="['close']">
+				</FormBase>
+			</div>
+		</el-scrollbar>
+	</Drawer>
 </template>
 
 <script setup>
@@ -70,6 +83,7 @@ import Filters from '@/components/resource/Filters.vue'
 import FilterBadges from '@/components/resource/FilterBadges.vue'
 import Actions from '@/components/resource/Actions.vue'
 import ActionsModal from '@/components/resource/ActionsModal.vue'
+import FormBase from '@/components/form/FormBase.vue'
 import { Delete } from '@element-plus/icons-vue'
 
 const props = defineProps({
@@ -93,7 +107,6 @@ onMounted(() => {
 		})
 })
 
-
 /* Setup Selection */
 const selectedRows = ref([])
 const handleSelect = (selection) => {
@@ -101,8 +114,24 @@ const handleSelect = (selection) => {
 }
 
 // Handle Edit
+const drawer = ref(false)
+const editItem = ref()
+const editUrl = ref('')
 const handleEdit = (item) => {
-	Inertia.visit(`${props.resource.meta.path}/${item}`)
+
+
+	if (! props.resource.indexEdit) {
+		Inertia.visit(`${props.resource.meta.path}/${item}`)
+	}
+
+	let url = `resource/${props.resource.handle}/${item}`
+	Invicta.axios.get(url)
+		.then(({data}) => {
+			editUrl.value = url
+			editItem.value = data
+			drawer.value = true
+			// console.log('I got some info about the edit item', data)
+		})
 }
 
 /* Handle Delete Actions */

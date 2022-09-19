@@ -17,7 +17,7 @@ class Action implements JsonSerializable
     public $shouldQueue = false;
 
     /**
-     * Perform the action on the given models
+     * Perform the action on the given models.
      * @param  Fluent     $fields available fields
      * @param  Collection $models modelds to perform action on
      * @return mixed
