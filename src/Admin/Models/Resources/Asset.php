@@ -35,7 +35,7 @@ class Asset extends Resource
             'size' => $this->size_human,
             'type' => $this->type,
             'created' => $this->created_at->toFormattedDateString(),
-            'src' => asset($this->path),
+            'src' => $this->src(),
             'img_name' => $this->name,
             'id' => $this->id,
             'width' => $this->width,
@@ -46,11 +46,9 @@ class Asset extends Resource
 
     public function inlineAsset()
     {
-        $url = asset($this->path);
-
         return new HtmlString(<<<HTML
                     <div class="asset-inline">
-                        <img class="thumbnail" src="{$url}"/> {$this->name}
+                        <img class="thumbnail" src="{$this->src()}"/> {$this->name}
                     </div>
                 HTML);
     }

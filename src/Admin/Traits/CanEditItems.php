@@ -8,6 +8,8 @@ use Illuminate\Support\Str;
 
 trait CanEditItems
 {
+    public $indexEdit = false;
+
     public $canChangeBlueprints = false;
 
     /**

@@ -12,7 +12,7 @@ trait HasActions
     public function resourceActions($user, $model)
     {
         return collect($this->actions())->filter(function ($action) use ($user, $model) {
-            return $action->authorize($user, $model);
-        });
+            return $action->inline && $action->authorize($user, $model);
+        })->values();
     }
 }

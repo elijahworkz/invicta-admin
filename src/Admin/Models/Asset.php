@@ -14,6 +14,14 @@ class Asset extends Model
 
     protected static $enableCloudinary = false;
 
+    public function src()
+    {
+        $disk = config('invicta.disk');
+        $prefix = $disk == 'public' ? '/storage/' : '';
+
+        return asset($prefix.$this->path);
+    }
+
     public static function saveFile($file)
     {
         $storage = Storage::disk(config('invicta.disk'));

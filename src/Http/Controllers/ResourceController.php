@@ -14,7 +14,7 @@ class ResourceController extends Controller
 
         return Inertia::render('Invicta.Resource', [
             'resource' => $request->resourceList(),
-            'can-create' => request()->user()->can('create '.$request->handle()),
+            'can-create' => $request->canCreate() && request()->user()->can('create '.$request->handle()),
             'can-edit' => request()->user()->can('edit '.$request->handle()),
             'can-delete' => request()->user()->can('delete '.$request->handle()),
         ]);

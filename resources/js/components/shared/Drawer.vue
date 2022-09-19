@@ -1,8 +1,7 @@
 <template>
 	<Teleport to="#drawer">
 		<transition name="drawer">
-		<div class="overlay" v-show="show">
-
+			<div class="overlay" v-show="show">
 				<div class="content" ref="drawerBody" :style="style">
 					<slot/>
 				</div>

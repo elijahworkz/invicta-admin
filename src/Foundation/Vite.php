@@ -82,7 +82,13 @@ class Vite
 
         foreach ($entrypoints as $entrypoint) {
             if (! isset($manifest[$entrypoint])) {
-                throw new \Exception("Unable to locate file in manifest: {$entrypoint}.");
+                // May be external link?
+                if (Str::of($entrypoint)->contains(['http://', 'https://', '//'])) {
+                    $tags->push($this->makeTag($entrypoint));
+                    continue;
+                } else {
+                    throw new \Exception("Unable to locate file in manifest: {$entrypoint}.");
+                }
             }
 
             if ($this->buildTool == 'vite') {

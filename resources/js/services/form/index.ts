@@ -47,7 +47,7 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 		init(resource: IResourceItem, actionUrl: string) {
 			this.data = resource.item ? resource.item : null
 			this.meta = resource.meta
-			this.mode = resource.meta.id ? 'edit' : 'create'
+			this.mode = resource.meta?.id ? 'edit' : 'create'
 			this.actionUrl = actionUrl
 			this.blueprint = resource.blueprint
 
@@ -104,9 +104,22 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 							: 'nullable'
 
 						if (item.fields) {
-							// check for related fields nested into other fields
-							let nested = getRelatedField(item.fields)
-							obj = {...obj, ...nested}
+
+							if (item.type == 'json' && item.hasOwnProperty('prepopulate') && item.prepopulate) {
+								// check if the current value is null - we don't want to overwrite the existing
+								// values
+								if (value === null) {
+
+									obj[_id] = item.fields.reduce((_obj: any, _item: any) => {
+										_obj[_item.id] = _item.defaultValue || null
+										return _obj
+									}, {})
+								}	
+							} else {
+								// check for related fields nested into other fields
+								let nested = getRelatedField(item.fields)
+								obj = {...obj, ...nested}
+							}
 						}
 						return obj
 					} else if (item.type == 'row') {
