@@ -27,6 +27,8 @@ class Resource extends JsonResource
      */
     public $indexWith;
 
+    public $canCreate = true;
+
     /**
      * List of relationships that should be eager loaded on edit.
      *

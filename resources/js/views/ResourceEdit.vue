@@ -6,19 +6,6 @@
 			:resource="resource"
 			:action-url="resource.meta.actionUrl"
 			:breadcrumb="{ url: resource.meta.indexUrl, text: resource.meta.indexTitle }">
-
-			<template #form-actions v-if="resource.meta.availableBlueprints">
-				<label class="mr-2" >Template:</label>
-				<el-select v-model="blueprint" @change="changeBlueprint" class="mr-3">
-				    <el-option
-				      v-for="item in resource.meta.availableBlueprints"
-				      :key="item.value"
-				      :label="item.label"
-				      :value="item.value"
-				    />
-				</el-select>
-
-			</template>
 		</FormBase>
 	</div>
 </template>

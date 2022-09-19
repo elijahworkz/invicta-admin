@@ -23,6 +23,11 @@ class ResourceRequest extends InvictaRequest
         return $this->route('resource');
     }
 
+    public function canCreate()
+    {
+        return $this->resourceClass()->canCreate;
+    }
+
     public function resourceList()
     {
         $resourceClass = $this->resourceClass();
@@ -39,6 +44,7 @@ class ResourceRequest extends InvictaRequest
                 'table' => $resourceClass->indexTableSettings(),
                 'handle' => $resourceClass->handle(),
                 'sortable' => $resourceClass->sortable(),
+                'indexEdit' => $resourceClass->indexEdit,
             ]);
     }
 

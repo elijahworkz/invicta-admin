@@ -54,7 +54,7 @@ trait ListsItems
             $query = $this->applyFilters($query, request()->get('filters'));
         }
 
-        $query = $this->modifyIndexQuery($query);
+        $query = $this->modifyIndexQuery($query, request()->user());
 
         if (! empty($this->indexWith)) {
             $query = $query->with($this->indexWith);
@@ -65,7 +65,7 @@ trait ListsItems
         return $result->withQueryString();
     }
 
-    public function modifyIndexQuery($query)
+    public function modifyIndexQuery($query, $user)
     {
         return $query;
     }
@@ -110,7 +110,7 @@ trait ListsItems
         $title = request()->query('title', 'title');
 
         if ($search = request()->query('search', false)) {
-            $query = $query->where($title, 'like', '%'.$search.'%');
+            $query = $query->where($title, 'like', $search.'%');
         }
 
         if (request()->has('filters')) {
@@ -165,9 +165,11 @@ trait ListsItems
             });
         } else {
             if (! empty($this->search)) {
-                foreach ($this->search as $column) {
-                    $query->orWhere($column, 'like', '%'.$search.'%');
-                }
+                collect($this->search)->filter(function ($column) {
+                    return $column != 'id';
+                })->each(function ($column) use ($query, $search) {
+                    $query->orWhere($column, 'like', $search.'%');
+                });
             }
         }
 

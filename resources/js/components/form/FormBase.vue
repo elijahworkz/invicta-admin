@@ -157,7 +157,9 @@ const postSubmitData = {
 	create: { icon: Plus, button: 'Save & New', option: 'Add New Item'},
 }
 onMounted(() => {
-	postSubmitAction.value = Invicta.remember('post-submit-action') || props.postSubmitActions[0]
+	postSubmitAction.value = props.postSubmitActions.length > 1
+		? Invicta.remember('post-submit-action') || props.postSubmitActions[0]
+		: props.postSubmitActions[0]
 })
 watch(postSubmitAction, (value) => Invicta.remember('post-submit-action', value))
 

@@ -2,6 +2,7 @@
 
 namespace Eteacher\InvictaAdmin\Admin\Actions;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Str;
 use JsonSerializable;
 
@@ -16,11 +17,12 @@ class Action implements JsonSerializable
     public $shouldQueue = false;
 
     /**
-     * Perform action on the given models.
-     *
+     * Perform the action on the given models
+     * @param  Fluent     $fields available fields
+     * @param  Collection $models modelds to perform action on
      * @return mixed
      */
-    public function handle($fields, $models)
+    public function handle($fields, Collection $models)
     {
         // code...
     }

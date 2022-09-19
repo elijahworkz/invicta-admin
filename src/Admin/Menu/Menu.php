@@ -72,7 +72,7 @@ class Menu
             return $groupMenuItems;
         }
 
-        $groups = Group::where('is_super', 0)->orderBy('id', 'desc')->get();
+        $groups = Group::orderBy('id', 'desc')->get();
 
         foreach ($groups as $group) {
             $route = config('invicta.path').'/group/'.$group->id.'/permission';
