@@ -24,7 +24,7 @@ class AddSeoBlueprint
      */
     public function handle(BlueprintFound $event)
     {
-        if (! empty($event->resource->enableSeo)) {
+        if (method_exists($event->resource, 'navTitle')) {
             $event->blueprint->addSection($event->resource->getSeoSectionBlueprint());
         }
     }

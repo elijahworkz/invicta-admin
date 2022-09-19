@@ -4,8 +4,6 @@ namespace Eteacher\InvictaAdmin\Admin\Traits;
 
 trait EnableSeo
 {
-    public $enableSeo = true;
-
     public function getSeoSectionBlueprint()
     {
         $seoTitleSeparator = global_set('seo', 'title_separator');
