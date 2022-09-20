@@ -24,5 +24,6 @@ Route::controller(AssetController::class)->name('assets.')->prefix('/assets/')->
 });
 
 Route::controller(FieldsController::class)->name('fields.')->prefix('/fields/')->group(function () {
+    Route::get('/filter/options', 'filterOptions');
     Route::get('/texteditor/resources', 'linkableResources');
 });

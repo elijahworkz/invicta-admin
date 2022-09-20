@@ -96,6 +96,7 @@ const props = defineProps({
 const { pageUrl } = usePage().props.value
 const resourceIndex = useResource()
 resourceIndex.init(pageUrl)
+resourceIndex.setActiveFilters(props.resource.meta.filters)
 
 /* Handle Actions */
 const actions = ref([])

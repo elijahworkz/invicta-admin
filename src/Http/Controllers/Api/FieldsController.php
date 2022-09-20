@@ -5,6 +5,7 @@ namespace Eteacher\InvictaAdmin\Http\Controllers\Api;
 use Eteacher\InvictaAdmin\Admin\Resources\ResourceRegistrar;
 use Eteacher\InvictaAdmin\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class FieldsController extends Controller
 {
@@ -25,5 +26,10 @@ class FieldsController extends Controller
         }
 
         return $result;
+    }
+
+    public function filterOptions(Request $request)
+    {
+        return App::make($request->handle)::remoteOptions($request->search);
     }
 }

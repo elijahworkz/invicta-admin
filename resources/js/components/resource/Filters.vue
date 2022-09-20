@@ -14,6 +14,7 @@
 					<SelectFilter
 						class="mb-4"
 						:handle="filter.class"
+						:remote="filter.remote"
 						:filter-options="filter.options"
 						:initial-value="filter.initialValue"
 						@selected="scope.close()"

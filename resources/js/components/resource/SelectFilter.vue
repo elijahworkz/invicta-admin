@@ -3,15 +3,25 @@
 		v-model="filterValue"
 		clearable
 		collapse-tags
-		:placeholder="placeholder"
+		:filterable="remote"
+		:remote="remote"
+		:remote-method="remoteOptions"
+		:value-key="remote ? 'id' : null"
+		placeholder="Select"
 		:teleported="false"
 		@change="onChange">
 		<el-option
+			v-for="(option, index) in options"
+			:key="index"
+			:label="option.label"
+			:value="option.value">
+		</el-option>
+<!-- 		<el-option
 			v-for="(option, value) in filterList"
 			:key="value"
 			:label="option"
 			:value="value">
-		</el-option>
+		</el-option> -->
 	</el-select>
 </template>
 
@@ -21,42 +31,45 @@ import { ref, computed } from 'vue'
 const props = defineProps({
 	filterOptions: Array,
 	handle: String,
-	initialValue: String,
-	placeholder: {
-		type: String,
-		default: 'Select'
-	},
-	valueKey: {
-		type: String,
-		default: 'value'
-	},
-	labelKey: {
-		type: String,
-		default: 'label'
-	}
+	initialValue: String | Object,
+	remote: Boolean,
 })
 
 const emit = defineEmits(['selected'])
 
-let filterValue = ref(props.initialValue)
+const filterValue = ref(props.initialValue)
+const options = ref(props.filterOptions)
 
-const filterList = computed(() => {
-	return props.filterOptions.reduce((obj, item) => {
-		obj[item[props.valueKey]] = item[props.labelKey]
-		return obj
-	}, {})
-})
+// const filterList = computed(() => {
+// 	return props.filterOptions.reduce((obj, item) => {
+// 		obj[item.value] = item.label
+// 		return obj
+// 	}, {})
+// })
+
+const remoteOptions = (query) => {
+	let params = {
+		handle: props.handle,
+		search: query
+	}
+	Invicta.axios.get(`fields/filter/options`, {params})
+		.then(({data}) => {
+			console.log('got results for options', data)
+			options.value = data
+		})
+}
 
 const onChange = () => {
 	let filterObject = {}
 	filterObject[props.handle] = filterValue.value
+	console.log('this is my value', filterValue.value, filterObject)
 	Invicta.emit('update-filters', filterObject)
 	emit('selected')
 }
 
 Invicta.on('remove-filter', (handle) => {
 	if (handle == props.handle) {
-		filterValue.value = []
+		filterValue.value = ''
 		onChange()
 	}
 })

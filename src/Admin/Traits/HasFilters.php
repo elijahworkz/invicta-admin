@@ -39,14 +39,6 @@ trait HasFilters
 
     protected static function filterBadge($filterClass, $filterValue)
     {
-        self::$filterBadges[get_class($filterClass)] = [
-            'name' => $filterClass->badge(),
-            'value' => is_array($filterValue)
-                ? collect($filterClass->options())
-                    ->filter(function ($value, $key) use ($filterValue) {
-                        return in_array($key, $filterValue);
-                    })->values()->all()
-                : $filterClass->options()[$filterValue],
-        ];
+        self::$filterBadges[get_class($filterClass)] = $filterClass->badge($filterValue);
     }
 }
