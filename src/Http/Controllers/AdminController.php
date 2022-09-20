@@ -55,19 +55,6 @@ class AdminController extends Controller
     {
         $currentResource = ResourceRegistrar::get($resource);
 
-        //		$items = $currentResource->model()
-        //			->get()
-        //			->filter(function($item) {
-        //				return empty($item->seo->noindex) && ! empty($item->uri);
-        //			})
-        //			->each(
-        //				function ($item) {
-        //					$item->uri = url($item->uri);
-        //					$item->lastmod = Carbon::parse($item->updated_at)->format('Y-m-d');
-        //					$item->sitemap_changefreq = $item->seo && ! empty($item->seo->sitemap_changefreq) ? $item->seo->sitemap_changefreq : 'weekly';
-        //					$item->sitemap_priority = $item->seo && ! empty($item->seo->sitemap_priority) ? $item->seo->sitemap_priority : '0.5';
-        //				}
-        //			);
         $items = [];
         $data = $currentResource->model()->get();
 
@@ -76,13 +63,13 @@ class AdminController extends Controller
                 if (! empty($model->origin_id)) {
                     $items[$model->origin_id]['localization'][] = [
                         'uri' => url($model->uri),
-                        'site' => $model->site,
+                        'locale' => $model->site,
                     ];
                     continue;
                 }
                 $items[$model->id]['uri'] = url($model->uri);
                 $items[$model->id]['lastmod'] = Carbon::parse($model->updated_at)->format('Y-m-d');
-                $items[$model->id]['site'] = $model->site;
+                $items[$model->id]['locale'] = $model->site;
             }
         }
 
