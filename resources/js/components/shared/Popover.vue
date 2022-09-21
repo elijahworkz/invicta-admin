@@ -1,16 +1,14 @@
 <template>
-	<!-- <div class="popover-container" :class="{'popover-open': isOpen}"> -->
-		<div @click="toggle" ref="trigger" class="popover-trigger" aria-haspopup="true" :aria-expanded="isOpen">
-			<slot name="trigger"/>
-		</div>
-		<Teleport to="#poppers">
-			<div ref="popover" class="popover" :class="{open: isOpen}" v-if="!disabled">
-				<div class="popover-content">
-					<slot :close="close" />
-				</div>
+	<div @click="toggle" ref="trigger" class="popover-trigger" aria-haspopup="true" :aria-expanded="isOpen">
+		<slot name="trigger"/>
+	</div>
+	<Teleport to="#poppers">
+		<div ref="popover" class="popover" :class="{open: isOpen}" v-if="!disabled">
+			<div class="popover-content">
+				<slot :close="close" />
 			</div>
-		</Teleport>
-	<!-- </div> -->
+		</div>
+	</Teleport>
 </template>
 
 <script setup>
