@@ -58,13 +58,15 @@
 
 	<ActionsModal :actions-url="actionsUrl"	/>
 
-	<Drawer v-if="resource.indexEdit && drawer" @close="drawer = false">
+	<Drawer v-if="drawer" @close="drawer = false">
 		<el-scrollbar>
 			<div class="px-8 pb-4 pt-12 w-full">
 				<FormBase
-					:form-id="`${resource.handle}.${editItem.item.id}`"
-					:resource="editItem"
-					:action-url="editUrl"
+					class="mx-auto"
+					:form-id="resourceFormId"
+					:resource="resourceItem"
+					:action-url="resourceItem.meta.actionUrl"
+					:api="apiSubmit"
 					:post-submit-actions="['close']">
 				</FormBase>
 			</div>
@@ -98,6 +100,12 @@ const resourceIndex = useResource()
 resourceIndex.init(pageUrl)
 resourceIndex.setActiveFilters(props.resource.meta.filters)
 
+/* Setup drawer */
+const drawer = ref(false)
+const resourceFormId = ref()
+const resourceItem = ref()
+const apiSubmit = ref(false)
+
 /* Handle Actions */
 const actions = ref([])
 const actionsUrl = `/resource/${props.resource.handle}/actions`
@@ -108,6 +116,27 @@ onMounted(() => {
 		})
 })
 
+Invicta.on('action-called', (event) => {
+	console.log('I hear some action calls', event)
+	if (event.action.type == 'modal') {
+		Invicta.emit('show-action-modal', event)
+	} else {
+
+		apiSubmit.value = {
+			class: event.action.class,
+			selected: event.selected
+		}
+
+		Invicta.axios.get(`/resource/${props.resource.handle}/actions/blueprint/${event.selected[0]}`, { params: {...event.action}})
+			.then(({data}) => {
+				resourceItem.value = data
+				resourceFormId.value = `${data.handle}.${event.action.class}`
+				drawer.value = true
+				// console.log('I got some info about the edit item', data)
+			})
+	}
+})
+
 /* Setup Selection */
 const selectedRows = ref([])
 const handleSelect = (selection) => {
@@ -115,23 +144,19 @@ const handleSelect = (selection) => {
 }
 
 // Handle Edit
-const drawer = ref(false)
-const editItem = ref()
-const editUrl = ref('')
 const handleEdit = (item) => {
-
 
 	if (! props.resource.indexEdit) {
 		Inertia.visit(`${props.resource.meta.path}/${item}`)
 	}
 
-	let url = `resource/${props.resource.handle}/${item}`
-	Invicta.axios.get(url)
+	apiSubmit.value = false
+
+	Invicta.axios.get(`resource/${props.resource.handle}/${item}`)
 		.then(({data}) => {
-			editUrl.value = url
-			editItem.value = data
+			resourceFormId.value = `${props.resource.handle}.${data.item.id}`
+			resourceItem.value = data
 			drawer.value = true
-			// console.log('I got some info about the edit item', data)
 		})
 }
 
@@ -159,6 +184,11 @@ const handleBulkDelete = () => {
 
 Invicta.on('refresh-resource', () => {
 	console.log('you want to refresh')
+	Inertia.reload()
+})
+
+Invicta.on('resource-form-submitted', () => {
+	drawer.value = false
 	Inertia.reload()
 })
 </script>

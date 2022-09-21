@@ -7,6 +7,7 @@ use Eteacher\InvictaAdmin\Admin\Resources\ResourceRegistrar;
 use Eteacher\InvictaAdmin\Facades\Blueprint;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Fluent;
 
 class ResourceRequest extends InvictaRequest
@@ -171,15 +172,38 @@ class ResourceRequest extends InvictaRequest
         return $handle;
     }
 
+    public function actionBlueprint()
+    {
+        $resourceClass = $this->resourceClass();
+        $item = $resourceClass->findModel($this->route('item'));
+        $action = App::make(request()->class);
+        $handle = $resourceClass->handle();
+
+        return [
+            'meta' => [
+                'actionUrl' => route('invicta.api.resource.handle-actions', ['resource' => $handle]),
+                'handle' => $handle,
+                'titleField' => $resourceClass->titleField,
+                'pageTitle' => $action->name(),
+            ],
+            'blueprint' => $action->blueprint($item),
+        ];
+    }
+
     public function processAction()
     {
         $resource = $this->resourceClass();
         $models = $resource->model()->whereIn('id', request()->selected)->get();
         $action = App::make(request()->class);
+
+        Validator::make(request()->fields, request()->validation)
+            ->validate();
+
         $fields = new Fluent(request()->fields);
+        $user = request()->user();
 
         if ($action->shouldQueue) {
-            ActionJob::dispatch($action, $models, $fields);
+            ActionJob::dispatch($action, $models, $fields, $user);
 
             return ['message' => [
                 'type' => 'success',
@@ -187,7 +211,7 @@ class ResourceRequest extends InvictaRequest
             ]];
         }
 
-        $action->handle($fields, $models);
+        $action->handle($fields, $models, $user);
 
         return ['message' => [
             'type' => 'success',

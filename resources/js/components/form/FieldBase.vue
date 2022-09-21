@@ -1,17 +1,18 @@
 <template>
-	<el-form-item :class="[...fieldClasses, $page.props.errors[id] ? 'is-error' : '']">
+	<el-form-item :class="[...fieldClasses, resourceForm.errors[id] ? 'is-error' : '']">
 		<template #label>
 			<div v-html="field.label(fieldProps.data.readOnly)"/>
 			<div class="info info-top opacity-60" v-if="info && infoPosition == 'top'">{{ info }}</div>
 		</template>
 
 		<slot />
-		<div class="el-form-item__error" v-if="$page.props.errors[id]">{{ $page.props.errors[id] }}</div>
+		<div class="el-form-item__error" v-if="resourceForm.errors[id]">{{ resourceForm.errors[id] }}</div>
 		<span class="info" v-if="info && infoPosition == 'bottom'">{{ info }}</span>
 	</el-form-item>
 </template>
 
 <script setup>
+import { useResourceForm } from '@/services/form'
 import { useFormField } from '@/services/form/field'
 
 const props = defineProps({
@@ -19,6 +20,8 @@ const props = defineProps({
 	fieldProps: Object,
 	fieldClass: Object | String
 })
+
+const resourceForm = useResourceForm(props.formId)
 
 const { id } = props.fieldProps.data
 const field = useFormField(props.fieldProps, props.formId)
@@ -31,4 +34,5 @@ const fieldClasses = [
 
 const info = field.get('info', false)
 const infoPosition = field.get('info_position', 'top')
+
 </script>

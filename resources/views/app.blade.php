@@ -64,6 +64,8 @@
 
     <div id="drawer"></div>
 
+    <div id="poppers"></div>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             window.Invicta = new InvictaApp(@json(InvictaAdmin::jsonVariables()))

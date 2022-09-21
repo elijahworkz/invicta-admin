@@ -34,6 +34,16 @@ class ResourceController extends Controller
         })->values();
     }
 
+    public function actionBlueprint(ResourceRequest $request)
+    {
+        return $request->actionBlueprint();
+    }
+
+    public function handleActions(ResourceRequest $request)
+    {
+        return response()->json($request->processAction());
+    }
+
     public function related(ResourceRequest $request)
     {
         return $request->resourceRelated();
@@ -42,11 +52,6 @@ class ResourceController extends Controller
     public function items(ResourceRequest $request)
     {
         return $request->resourceItems();
-    }
-
-    public function handleActions(ResourceRequest $request)
-    {
-        return response()->json($request->processAction());
     }
 
     public function uri(ResourceRequest $request)
