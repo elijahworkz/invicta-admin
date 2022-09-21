@@ -3,11 +3,13 @@
 		<el-select
 			v-model="fieldValue"
 			v-bind="data.props"
+			:value-key="data.props?.remote ? 'id' : null"
 			:teleported="false"
+			:remote-method="getRemoteOptions"
 			:disabled="data.readOnly">
 				<el-option
-					v-for="item in options"
-					:key="item.value"
+					v-for="(item, index) in options"
+					:key="index"
 					:value="item.value"
 					:label="item.label"
 				/>
@@ -34,12 +36,15 @@ onMounted(() => {
 
 	if (Array.isArray(props.data.options)) {
 		options.value = props.data.options
-	} else {
-
-		Invicta.axios.get(props.data.options)
-			.then(({data}) => {
-				options.value = data
-			})
+	} else if (!props.data.props?.remote) {
+		getOptions()
 	}
 })
+
+function getOptions() {
+	Invicta.axios.get(props.data.options)
+	.then(({data}) => {
+		options.value = data
+	})
+}
 </script>
