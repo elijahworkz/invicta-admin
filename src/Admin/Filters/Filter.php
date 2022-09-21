@@ -9,12 +9,33 @@ class Filter implements JsonSerializable
 {
     public $name;
 
+    public $remote = false;
+
     /**
-     * Get the filter's available options.
+     * Apply filter to the query.
+     * @param  EloquentQueryBuilder $query
+     * @param  mixed $value Filter value
+     * @return mixed
+     */
+    public function apply($query, $value)
+    {
+        return $query;
+    }
+
+    /**
+     * Set filter's available options.
      *
      * @return array
      */
     public function options()
+    {
+        return [];
+    }
+
+    /**
+     * Get filter's available options remotely.
+     */
+    public static function remoteOptions($search)
     {
         return [];
     }
@@ -30,13 +51,21 @@ class Filter implements JsonSerializable
     }
 
     /**
-     * Get the badge name of the filter.
+     * Build filter badge.
      *
      * @return string
      */
-    public function badge()
+    public function badge($selected)
     {
-        return $this->name();
+        return [
+            'name' => $this->name(),
+            'value' => is_array($selected)
+                ? collect($this->options())
+                    ->filter(function ($value, $key) use ($selected) {
+                        return in_array($key, $selected);
+                    })->values()->all()
+                : $this->options()[$selected],
+        ];
     }
 
     /**
@@ -68,6 +97,7 @@ class Filter implements JsonSerializable
 
                 return ['label' => $value, 'value' => $value];
             })->values()->all(),
+            'remote' => $this->remote,
         ];
     }
 }

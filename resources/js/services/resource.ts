@@ -53,20 +53,31 @@ export const useResource = defineStore('resourceStore', () => {
 		activeFilters.value = []
 	})
 
+	/* Filters */
+	const requestFilters = ref(false)
 	const updateFilters = (filters: IFilterObject): void => {
 
 		currentPage.value = null
 
 		for (const [key, item] of Object.entries(filters)) {
-			if (! item.length) {
+
+			if (typeof item === 'string' && item === '') {
 				// @ts-ignore
 				delete activeFilters.value[key]
 			} else {
 				activeFilters.value = {...activeFilters.value, ...filters}
 			}
 		}
+		requestFilters.value = false
 	}
 	Invicta.on('update-filters', updateFilters as any)
+
+	const setActiveFilters = (filters = null) => {
+		if (filters) {
+			activeFilters.value = JSON.parse(atob(filters))
+			requestFilters.value = true
+		}
+	}
 
 	const encodedFilters = computed(() => {
 		return Object.keys(activeFilters.value).length
@@ -74,6 +85,7 @@ export const useResource = defineStore('resourceStore', () => {
 			: null
 	})
 
+	/* Build and monitor request query */
 	const requestQuery = computed(() => {
 		return {
 			page: currentPage.value,
@@ -100,9 +112,9 @@ export const useResource = defineStore('resourceStore', () => {
 			getResource()
 		})
 
-	watch(activeFilters, (newState) => {
-		console.log('we have some changes here', newState)
-	})
+	// watch(activeFilters, (newState) => {
+	// 	console.log('we have some changes here', newState)
+	// })
 
 	function init(resourceUrl: string, apiResource: any = null) {
 		console.log('got some data', apiResource)
@@ -139,7 +151,10 @@ export const useResource = defineStore('resourceStore', () => {
 
 		} else {
 
-			Inertia.get(requestUrl.value, query, { preserveState: true})
+			if (! requestFilters.value) {
+				Inertia.get(requestUrl.value, query, { preserveState: true})
+			}
+			requestFilters.value = false
 		}
 	}
 
@@ -148,8 +163,9 @@ export const useResource = defineStore('resourceStore', () => {
 	return {
 		init,
 		resource,
-		activeFilters,
 		filterBadges,
+		activeFilters,
+		setActiveFilters,
 		currentPage,
 		perPage,
 		pageChange,

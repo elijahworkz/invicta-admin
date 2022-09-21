@@ -20,7 +20,7 @@ Route::middleware(['invicta'])
         Route::post('logout', [LoginController::class, 'destroy'])->name('logout');
 
         // Application routes
-        Route::middleware(['invicta.auth', 'can:access invicta'])
+        Route::middleware(['invicta.auth', 'can:access invicta']) //,
             ->group(__DIR__.'/admin.php');
     });
 
