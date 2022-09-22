@@ -34,6 +34,11 @@ export function setupAxios(baseURL: string) {
 
 			}
 
+			// We will let errors be handles by Invicta
+			if (status === 422) {
+				return Promise.reject(error)
+			}
+
 			ElNotification.error({
 				title,
 				message,

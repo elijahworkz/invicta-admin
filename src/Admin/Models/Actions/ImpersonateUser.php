@@ -3,18 +3,17 @@
 namespace Eteacher\InvictaAdmin\Admin\Models\Actions;
 
 use Eteacher\InvictaAdmin\Admin\Actions\Action;
-use Illuminate\Support\Facades\Auth;
 
 class ImpersonateUser extends Action
 {
     public $inline = true;
 
-    public function handle($fields, $models)
+    public function handle($fields, $models, $user)
     {
-        $user = $models->first();
+        $impersonated = $models->first();
 
-        session()->put('impersonator_id', Auth::user()->getAuthIdentifier());
-        session()->put('impersonated_id', $user->getAuthIdentifier());
+        session()->put('impersonator_id', $user->getAuthIdentifier());
+        session()->put('impersonated_id', $impersonated->getAuthIdentifier());
 
         return redirect(route('invicta.home'));
     }

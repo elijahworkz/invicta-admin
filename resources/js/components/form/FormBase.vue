@@ -17,13 +17,13 @@
 					<el-button 
 						type="primary" 
 						@click="submit"
-						:disabled="resourceForm.form.processing || !resourceForm.dirty">
+						:disabled="resourceForm.form.processing || !resourceForm.form.isDirty">
 							{{ postSubmitData[postSubmitAction].button }}
 					</el-button>
 					<el-popover title="After Saving" :teleported="false">
 						<template #reference>
 							<el-button 
-								:disabled="resourceForm.form.processing || !resourceForm.dirty"
+								:disabled="resourceForm.form.processing || !resourceForm.form.isDirty"
 								type="primary" 
 								:icon="postSubmitData[postSubmitAction].icon"></el-button>
 						</template>
@@ -32,7 +32,7 @@
 								:label="action">{{ postSubmitData[action].option}}</el-radio>
 						</el-radio-group>
 					</el-popover>
-					<sup class="unsaved-indicator" v-show="resourceForm.dirty"></sup>
+					<sup class="unsaved-indicator" v-show="resourceForm.form.isDirty"></sup>
 				</el-button-group>
 			</div>
 		</div>
@@ -107,12 +107,13 @@ const props = defineProps({
 		type: Array,
 		default: ['back', 'edit', 'create']
 	},
+	api: Boolean | Object
 })
 
 const emit = defineEmits(['submit', 'form-ready'])
 
 const resourceForm = useResourceForm(props.formId)
-resourceForm.init(props.resource, props.actionUrl)
+resourceForm.init(props.resource, props.actionUrl, props.api)
 
 emit('form-ready')
 

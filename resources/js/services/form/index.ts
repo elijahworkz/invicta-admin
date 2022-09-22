@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import get from 'lodash/get'
 import set from 'lodash/set'
 import { useForm } from '@inertiajs/inertia-vue3'
-import { pickBy } from 'lodash'
+import { pickBy, map } from 'lodash'
 
 declare global {
 	interface Window {
@@ -38,18 +38,21 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 			data: null,
 			meta: {},
 			actionUrl: null,
-			dirty: false,
+			// dirty: false,
 			blueprint: {},
 			rules: {},
+			api: false,
+			errors: Invicta.errors
 		}
 	},
 	actions: {
-		init(resource: IResourceItem, actionUrl: string) {
+		init(resource: IResourceItem, actionUrl: string, api: boolean) {
 			this.data = resource.item ? resource.item : null
 			this.meta = resource.meta
 			this.mode = resource.meta?.id ? 'edit' : 'create'
 			this.actionUrl = actionUrl
 			this.blueprint = resource.blueprint
+			this.api = api
 
 			let formData = this.prepareFields(this.blueprint)
 			this.form = useForm(formData)
@@ -191,6 +194,12 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 				.data()
 		},
 		submit(postSubmitAction: string) {
+
+			if (this.api) {
+				this.apiSubmit()
+				return
+			}
+
 			document.removeEventListener('inertia:before', this.confirmUnsavedChanges)
 			let rules = this.rules
 			this.form
@@ -205,6 +214,37 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 							this.form.reset()
 						}
 						this.dirty = false
+						Invicta.emit('resource-form-submitted')
+					}
+				})
+		},
+		apiSubmit() {
+			let data = {
+				fields: this.formData(),
+				validation: this.rules
+			}
+
+			if (typeof this.api === 'object') {
+				data = {...data, ...this.api}
+			}
+
+			Invicta.axios.post(this.actionUrl, data)
+				.then(({data}: any) => {
+					console.log('ajax post submit', data)
+					Invicta.message(data.message)
+					Invicta.emit('resource-form-submitted')
+				})
+				.catch(({response}: any) => {
+					// Check if error is from validation
+					if (response.status == 422) {
+
+						// we need to unpack errors as they come as arrays
+						let errors: any = {}
+						for (const [key, value] of Object.entries(response.data.errors)) {
+							errors[key] = Array.isArray(value) ? value[0] : value
+						}
+
+						Invicta.setErrors(errors)
 					}
 				})
 		},

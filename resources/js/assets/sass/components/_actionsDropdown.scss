@@ -3,6 +3,12 @@
 		line-height: 0;
 	}
 
+}
+
+
+.popover-content {
+	padding: 0 !important;
+
 	ul {
 		li {
 
@@ -10,5 +16,18 @@
 				color: var(--el-color-danger);
 			}
 		}
+	}
+
+	.el-dropdown-menu__item {
+
+		&:hover {
+			background-color: var(--el-color-primary-light-9);
+		    color: var(--el-color-primary);
+		}
+	}
+
+	.divider {
+		// margin: 6px 0;
+	    border-top: 1px solid var(--el-border-color-lighter);
 	}
 }

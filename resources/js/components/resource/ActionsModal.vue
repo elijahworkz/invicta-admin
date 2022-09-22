@@ -5,11 +5,12 @@
 		width="30%">
 
 		<FormBase
-			v-if="action.fields.length"
+			v-if="! isEmpty(action.blueprint)"
 			:headless="true"
 			:form-id="formId"
 			:resource="resource"
 			:action-url="actionsUrl"
+			:api="api"
 		/>
 
 		<div v-else>Are you sure you want to run this action?</div>
@@ -26,6 +27,7 @@ import { ref, computed } from 'vue'
 import { Inertia } from '@inertiajs/inertia'
 import { useResourceForm } from '@/services/form'
 import FormBase from '@/components/form/FormBase.vue'
+import isEmpty from 'lodash/isEmpty'
 
 const props = defineProps({
 	actionsUrl: String,
@@ -36,10 +38,15 @@ const emit = defineEmits(['close'])
 const open = ref(false)
 const action = ref({
 	name: 'Action',
-	fields: [],
+	blueprint: [],
 	dangerous: false
 })
 const selected = ref([])
+const actionData = computed(() => ({
+	class: action.value.class,
+	selected: selected.value,
+}))
+const api = computed(() => action.value.blueprint.fields?.length ? actionData.value : false)
 
 const formId = ref()
 const actionType = computed(() => {
@@ -54,37 +61,29 @@ Invicta.on('show-action-modal', (event) => {
 })
 
 const resource = computed(() => ({
-	blueprint: {
-		settings: {
-			form: {
-				labelPosition: 'right',
-				class: 'w-full'
-			}
-		},
-		fields: action.value.fields
-	}
+	blueprint: action.value.blueprint
 }))
-
 
 const processAction = () => {
 
-	let data = {
-		class: action.value.class,
-		selected: selected.value,
-		fields: []
-	}
+	// Check if action has fields
+	if (api.value) {
 
-	if (action.value.fields.length) {
+		console.log('we have form - form will submit')
 		const resourceForm = useResourceForm(formId.value)
-		data.fields = resourceForm.formData()
+		resourceForm.apiSubmit()
+	} else {
+
+		console.log('no form call')
+		let data = { ...actionData.value, fields: [], validation: [] }
+
+		Invicta.axios.post(props.actionsUrl, data)
+			.then(({data}) => {
+				Invicta.message(data.message)
+				Invicta.emit('refresh-resource')
+			})
 	}
 
 	open.value = false
-
-	Invicta.axios.post(props.actionsUrl, data)
-		.then(({data}) => {
-			Invicta.message(data.message)
-			Invicta.emit('refresh-resource')
-		})
 }
 </script>

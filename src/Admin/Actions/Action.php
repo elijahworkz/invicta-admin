@@ -8,21 +8,49 @@ use JsonSerializable;
 
 class Action implements JsonSerializable
 {
+    /**
+     * Overwrite the name of the action for display.
+     *
+     * @var bool
+     */
     public $name;
 
+    /**
+     * Bulk or single model action if set to true.
+     *
+     * @var bool
+     */
     public $inline = false;
 
+    /**
+     * Changes the color of the action button.
+     *
+     * @var bool
+     */
     public $dangerous = false;
 
+    /**
+     * Indicates whether action should be pushed to queue.
+     *
+     * @var bool
+     */
     public $shouldQueue = false;
+
+    /**
+     * Action type - possible values: 'modal', 'drawer'.
+     *
+     * @var string
+     */
+    public $type = 'modal';
 
     /**
      * Perform the action on the given models.
      * @param  Fluent     $fields available fields
      * @param  Collection $models modelds to perform action on
+     * @param  User       $user authenticated user
      * @return mixed
      */
-    public function handle($fields, Collection $models)
+    public function handle($fields, Collection $models, $user)
     {
         // code...
     }
@@ -30,9 +58,10 @@ class Action implements JsonSerializable
     /**
      * Get blueprint with fields if neccessary.
      *
+     * @param ModelInstance $item available only for inline/drawer actions
      * @return array
      */
-    public function fields()
+    public function blueprint($item = null)
     {
         return [];
     }
@@ -42,7 +71,7 @@ class Action implements JsonSerializable
      *
      * @return string
      */
-    protected function name()
+    public function name()
     {
         return $this->name ?: Str::headline(Str::of($this->key())->classBasename());
     }
@@ -78,6 +107,16 @@ class Action implements JsonSerializable
     }
 
     /**
+     * Get type attribute for the action.
+     *
+     * @return bool
+     */
+    protected function type()
+    {
+        return $this->type;
+    }
+
+    /**
      * Authorize action for given user and model.
      */
     public function authorize($user, $model)
@@ -95,9 +134,9 @@ class Action implements JsonSerializable
         return [
             'class' => $this->key(),
             'name' => $this->name(),
-            'fields' => $this->fields(),
-            'inline' => $this->inline(),
+            'blueprint' => $this->type == 'drawer' ? [] : $this->blueprint(),
             'dangerous' => $this->dangerous(),
+            'type' => $this->type(),
         ];
     }
 }

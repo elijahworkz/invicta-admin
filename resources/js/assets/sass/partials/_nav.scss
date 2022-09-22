@@ -52,6 +52,17 @@
 			opacity: .6;
 			margin-top: 10px;
 		}
+
+		.badge {
+			display: inline-block;
+			margin-left: auto;
+			font-size: 10px;
+			line-height: 1.2;
+			border-radius: 3px;
+			background: var(--el-color-primary);
+			padding: 0 4px;
+			color: #fff;
+		}
 	}
 
 	.submenu {

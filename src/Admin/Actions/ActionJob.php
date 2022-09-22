@@ -19,15 +19,18 @@ class ActionJob implements ShouldQueue
 
     public $fields;
 
-    public function __construct(Action $action, Collection $models, $fields)
+    public $user;
+
+    public function __construct(Action $action, Collection $models, $fields, $user)
     {
         $this->action = $action;
         $this->models = $models;
         $this->fields = $fields;
+        $this->user = $user;
     }
 
     public function handle()
     {
-        $this->action->handle($this->fields, $this->models);
+        $this->action->handle($this->fields, $this->models, $this->user);
     }
 }

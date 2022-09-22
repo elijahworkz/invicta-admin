@@ -14,7 +14,7 @@ class Duplicate extends Action
 
     public $shouldQueue = true;
 
-    public function handle($fields, $models)
+    public function handle($fields, $models, $user)
     {
         foreach ($models as $model) {
             $newModel = $model->replicate();

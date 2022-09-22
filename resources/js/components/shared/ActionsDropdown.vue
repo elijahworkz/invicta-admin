@@ -35,6 +35,8 @@ const emit = defineEmits(['close', 'selected'])
 const actionsDropdown = ref()
 
 const handleActionClick = (event) => {
-	emit('selected', { action: event.action, item: props.item })
+	console.log('inside actions dropdown', event)
+	let action = 'action' in event ? event.action : event
+	emit('selected', { action, item: props.item })
 }
 </script>

@@ -1,4 +1,4 @@
-import { createApp, h } from 'vue'
+import { createApp, h, ref } from 'vue'
 import { App, plugin, Head } from '@inertiajs/inertia-vue3'
 import { InertiaProgress } from '@inertiajs/progress'
 import { createPinia } from 'pinia'
@@ -36,6 +36,7 @@ class Invicta
 	pages: any
 	eventBus: any
 	axios: AxiosInstance | null
+	errors: any
 
 	constructor(config: any) {
 		this.app = null
@@ -46,6 +47,7 @@ class Invicta
 		this.bootingCallbacks = []
 		this.eventBus = mitt()
 		this.axios = setupAxios(`${this.getConfig('appUrl')}${this.getConfig('appPath')}/api`)
+		this.errors = ref({})
 
 		this.pages = {
 			'Invicta.Login': () => import('./views/Auth/Login.vue'),
@@ -187,6 +189,11 @@ class Invicta
 	// Emits mitt events
 	emit(name: string, data?: unknown) {
 		this.eventBus.emit(name, data)
+	}
+
+	setErrors(errors: any) {
+		console.log('I see you want to add errors', errors)
+		this.errors.value = errors
 	}
 
 	remember(key: string, value?: unknown) {
