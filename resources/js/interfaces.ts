@@ -1,3 +1,5 @@
+import interface from "pusher-js/src/runtimes/interface";
+
 export interface IResourceObject {
 	data: Object[]
 	links: Object

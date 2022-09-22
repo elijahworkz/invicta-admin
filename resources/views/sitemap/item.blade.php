@@ -5,9 +5,9 @@
             <loc>{{ $item['uri'] }}</loc>
             <lastmod>{{ $item['lastmod'] }}</lastmod>
             @if(! empty($item['localization']))
-				<xhtml:link rel="alternate" hreflang="{{ $item['site'] }}" href="{{ $item['uri'] }}"/>
+				<xhtml:link rel="alternate" hreflang="{{ $item['locale'] }}" href="{{ $item['uri'] }}"/>
 				@foreach($item['localization'] as $locItem)
-					<xhtml:link rel="alternate" hreflang="{{ $locItem['site'] }}" href="{{ $locItem['uri'] }}"/>
+					<xhtml:link rel="alternate" hreflang="{{ $locItem['locale'] }}" href="{{ $locItem['uri'] }}"/>
 				@endforeach
             @endif
         </url>

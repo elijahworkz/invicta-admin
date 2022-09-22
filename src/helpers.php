@@ -28,10 +28,14 @@ if (! function_exists('global_set')) {
 
             $model = $resource->model()->where('handle', $handle)->first();
 
-            return $model->content;
+            if ($model) {
+                return $model->content;
+            }
+
+            return null;
         });
 
-        if ($argument) {
+        if ($cachedSet && $argument) {
             return $cachedSet[$argument];
         }
 

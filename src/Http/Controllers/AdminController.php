@@ -29,6 +29,10 @@ class AdminController extends Controller
         return redirect(route('invicta.home'));
     }
 
+    /**
+     * generate list of sitemaps.
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
     public function sitemap()
     {
         $resources = ResourceRegistrar::all();
@@ -44,13 +48,18 @@ class AdminController extends Controller
         }
 
         $content = View::file(
-            __DIR__.'/../../../resources/views/sitemap/index.blade.php',
+            public_path('vendor/invicta/views/sitemap/index.blade.php'),
             ['sitemaps' => $sitemaps]
         )->render();
 
         return response($content)->header('Content-Type', 'text/xml');
     }
 
+    /**
+     * generate resource sitemap.
+     * @param $resource
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
     public function subSitemap($resource)
     {
         $currentResource = ResourceRegistrar::get($resource);
@@ -74,7 +83,7 @@ class AdminController extends Controller
         }
 
         $content = View::file(
-            __DIR__.'/../../../resources/views/sitemap/item.blade.php',
+            public_path('vendor/invicta/views/sitemap/item.blade.php'),
             ['items' => $items]
         )->render();
 

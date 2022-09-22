@@ -45,6 +45,10 @@ class ResourceCommand extends GeneratorCommand
         parent::handle();
 
         $this->createBlueprint();
+
+        if ($this->confirm('Do you want to add seo with migration?', true)) {
+            $this->addMigration();
+        }
     }
 
     /**
@@ -112,5 +116,27 @@ class ResourceCommand extends GeneratorCommand
         $this->files->put($path, $stub);
 
         $this->info('Blueprint created successfully.');
+    }
+
+    protected function addMigration()
+    {
+        $name = $this->getNameInput();
+
+        $path = $this->laravel['path.database'].'/migrations/'.date('Y_m_d_His', time()).'_create_'.Str::lower($name).'_table.php';
+
+        $blueprint = __DIR__.'/../../database/migrations/invicta_resource_table.php.stub';
+
+        $this->makeDirectory($path);
+
+        $stub = $this->files->get($blueprint);
+
+        $search = ['{{ class }}', '{{ table }}'];
+        $replace = ['Create'.$name.'Table', str($name)->lower()->plural()];
+
+        $stub = str_replace($search, $replace, $stub);
+
+        $this->files->put($path, $stub);
+
+        $this->info('Migration created successfully.');
     }
 }
