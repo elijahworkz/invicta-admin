@@ -35,6 +35,12 @@ class ResourceCommand extends GeneratorCommand
      */
     protected $type = 'Resource';
 
+    protected $model = false;
+
+    protected $seo = false;
+
+    protected $resourceName = null;
+
     /**
      * Execute the console command.
      *
@@ -44,9 +50,23 @@ class ResourceCommand extends GeneratorCommand
     {
         parent::handle();
 
+        $this->resourceName = $this->getNameInput();
+
+        if ($this->confirm('Add model?', false)) {
+            $this->model = true;
+        }
+
+        if ($this->confirm('Add seo?', false)) {
+            $this->seo = true;
+        }
+
+        if ($this->model) {
+            $this->call('make:model', ['name' => $this->resourceName]);
+        }
+
         $this->createBlueprint();
 
-        if ($this->confirm('Do you want to add seo with migration?', true)) {
+        if ($this->model || $this->seo) {
             $this->addMigration();
         }
     }
@@ -120,23 +140,38 @@ class ResourceCommand extends GeneratorCommand
 
     protected function addMigration()
     {
-        $name = $this->getNameInput();
+        if (! $this->model && ! $this->seo) {
+            return;
+        }
 
-        $path = $this->laravel['path.database'].'/migrations/'.date('Y_m_d_His', time()).'_create_'.Str::lower($name).'_table.php';
-
-        $blueprint = __DIR__.'/../../database/migrations/invicta_resource_table.php.stub';
+        if ($this->model) {
+            $path = $this->laravel['path.database'].'/migrations/'.date('Y_m_d_His', time()).'_create_'.Str::lower($this->resourceName).'_table.php';
+            $blueprint = __DIR__.'/../../database/migrations/invicta_resource_table.php.stub';
+            $replaceModel = 'Create'.Str::plural($this->resourceName).'Table';
+        } else {
+            $path = $this->laravel['path.database'].'/migrations/'.date('Y_m_d_His', time()).'_add_seo_field_to_'.Str::lower($this->resourceName).'_table.php';
+            $blueprint = __DIR__.'/../../database/migrations/invicta_update_resource_table.php.stub';
+            $replaceModel = 'AddSeoFieldTo'.Str::plural($this->resourceName).'Table';
+        }
 
         $this->makeDirectory($path);
 
         $stub = $this->files->get($blueprint);
 
-        $search = ['{{ class }}', '{{ table }}'];
-        $replace = ['Create'.$name.'Table', str($name)->lower()->plural()];
+        if ($this->seo) {
+            $replaceSeo = '$table->string(\'uri\')->nullable();
+			$table->json(\'seo\')->nullable();';
+        } else {
+            $replaceSeo = '';
+        }
+
+        $search = ['{{ class }}', '{{ table }}', '{{ seo }}'];
+        $replace = [$replaceModel, str($this->resourceName)->lower()->plural(), $replaceSeo];
 
         $stub = str_replace($search, $replace, $stub);
 
         $this->files->put($path, $stub);
 
-        $this->info('Migration created successfully.');
+        $this->info('Migration created successfully. Please add AvailableForNavigation trait to the current resource.');
     }
 }

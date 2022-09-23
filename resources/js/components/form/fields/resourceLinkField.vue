@@ -36,8 +36,6 @@ const list = ref([])
 const options = ref([])
 const loading = ref(false)
 
-console.log(fieldValue);
-
 onMounted(() => {
 	Invicta.axios.get("/fields/resource-link/options")
 		.then(({data}) => {

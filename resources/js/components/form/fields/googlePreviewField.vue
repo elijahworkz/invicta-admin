@@ -11,7 +11,7 @@
 
 <script setup>
 import { useResourceForm } from '@/services/form'
-import {computed} from "vue";
+import {computed, watch, ref} from "vue";
 
 const props = defineProps({
 	formId: String,
@@ -20,14 +20,28 @@ const props = defineProps({
 })
 
 const resourceForm = useResourceForm(props.formId)
+const uri = resourceForm.data.uri
+const slug = computed(() => resourceForm.get('slug') ?? '')
+const previewUri = ref(uri)
+
+watch(slug, (newSlug) => {
+
+	if (! uri)
+		return uri
+
+	let uriParts = uri.split('/')
+
+	uriParts[uriParts.length - 1] = newSlug
+	previewUri.value = uriParts.join('/')
+})
 
 const preview = computed( () => {
-	const slug = resourceForm.get('slug') || '';
+
 	const titleFieldName = props.data.props && props.data.props.titleField ? props.data.props.titleField : 'seo.title'
 	const descriptionFieldName = props.data.props && props.data.props.descriptionField ? props.data.props.descriptionField : 'seo.description'
 	return {
 		title: resourceForm.get(titleFieldName),
-		url: Invicta.config.appUrl + '/' + slug,
+		url: Invicta.config.appUrl + '/' + previewUri.value,
 		description: resourceForm.get(descriptionFieldName)
 	}
 })

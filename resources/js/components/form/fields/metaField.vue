@@ -10,7 +10,7 @@
 import FieldBase from '@/components/form/FieldBase.vue'
 import { useFormField } from '@/services/form/field'
 import { useResourceForm } from '@/services/form'
-import {ref, watch, computed} from "vue";
+import {ref, watch, computed, onMounted} from "vue";
 
 const props = defineProps({
 	formId: String,
@@ -49,13 +49,21 @@ function updateValue(newVal) {
 	}
 }
 
+onMounted(() => {
+	setValidationData(fieldValue.value)
+})
+
 watch(source, (newVal) => {
 	updateValue(newVal)
 })
 
 watch(fieldValue, (newVal) => {
+	setValidationData(newVal)
+})
 
-	const length = newVal.length
+const setValidationData = (fieldVal) => {
+
+	const length = fieldVal.length
 
 	validation.value.percentage = Math.ceil(length * 100 / lengths.max)
 
@@ -73,7 +81,7 @@ watch(fieldValue, (newVal) => {
 			validation.value.caption = `Your meta ${props.data.id} is too long, <strong>the ideal length is between ${lengths.normal} and ${lengths.max} characters.</strong>`
 			break;
 	}
-})
+}
 
 </script>
 
