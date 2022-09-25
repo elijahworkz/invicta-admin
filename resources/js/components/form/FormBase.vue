@@ -189,17 +189,18 @@ document.addEventListener('inertia:before', resourceForm.confirmUnsavedChanges)
 		}
 	}
 
-	.unsaved-indicator {
-		background-color: var(--el-color-danger);
-		border: 1px solid var(--el-bg-color);
-		height: 8px;
-		width: 8px;
-		border-radius: 50%;
-		position: absolute;
-		top: 0;
-		right: 5px;
-		transform: translateY(-50%) translate(100%);
-		z-index: 5;
-	}
+}
+
+.unsaved-indicator {
+	background-color: var(--el-color-danger);
+	border: 1px solid var(--el-bg-color);
+	height: 8px;
+	width: 8px;
+	border-radius: 50%;
+	position: absolute;
+	top: 0;
+	right: 5px;
+	transform: translateY(-50%) translate(100%);
+	z-index: 5;
 }
 </style>

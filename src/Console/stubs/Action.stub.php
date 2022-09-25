@@ -57,4 +57,12 @@ class {{ class }} extends Action
     {
         return [];
     }
+
+    /**
+     * Authorize action for given user and model.
+     */
+    public function authorize($user, $model)
+    {
+        return true;
+    }    
 }
