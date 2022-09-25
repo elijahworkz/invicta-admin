@@ -7,35 +7,68 @@ import { IFormField } from '@/interfaces'
 
 export const useFieldCondition = (field: IFormField, formId: string) => {
 
-    const resourceForm = useResourceForm(formId)
-
     return computed(() => {
 
-        let condition = get(field, 'if', null)
+        let condition = get(field, 'if', null) || get(field, 'if_any', null) || get(field, 'if_all', null)
 
         if (! condition)
             return true
-        let target = resourceForm.get(condition.id)
 
-        console.log('target', target, condition.id);
+        if (Array.isArray(condition)) {
 
-        // if (! target)
-        //     return true
+            if ('if_all' in field) {
 
-        let operator = prepareOperator(condition.operator)
-        let loperand = prepareOperand(target, operator)
-        let roperand = prepareOperand(condition.value, operator)
+                let allResult = condition.forEach((item) => {
+                    return processCondition(formId, item)
+                })
 
-        if (operator == 'includes') {
-            return passesIncludesCondition(loperand, roperand)
+                return allResult
+            }
+
+            if ('if_any' in field) {
+                
+                let anyResult = false
+
+                condition.forEach((item) => {
+                    let result = processCondition(formId, item)
+
+                    if (result) {
+                        anyResult = true
+                    }
+                })
+
+                return anyResult
+            }
         }
 
-        let expression = `${loperand} ${operator} ${roperand}`
-
-        console.log('condition expression', expression)
-
-        return eval(expression)
+        return processCondition(formId, condition)
     })
+}
+
+function processCondition(formId: string, condition: any) {
+
+    const resourceForm = useResourceForm(formId)
+
+    let target = resourceForm.get(condition.id)
+
+    console.log('target', target, condition.id);
+
+    // if (! target)
+    //     return true
+
+    let operator = prepareOperator(condition.operator)
+    let loperand = prepareOperand(target, operator)
+    let roperand = prepareOperand(condition.value, operator)
+
+    if (operator == 'includes') {
+        return passesIncludesCondition(loperand, roperand)
+    }
+
+    let expression = `${loperand} ${operator} ${roperand}`
+
+    console.log('condition expression', expression)
+
+    return eval(expression)
 }
 
 function passesIncludesCondition(target: any, search: any) {
