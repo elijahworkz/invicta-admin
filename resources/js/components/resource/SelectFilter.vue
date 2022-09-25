@@ -73,4 +73,8 @@ Invicta.on('remove-filter', (handle) => {
 		onChange()
 	}
 })
+
+Invicta.on('clear-filters', () => {
+	filterValue.value = ''
+})
 </script>

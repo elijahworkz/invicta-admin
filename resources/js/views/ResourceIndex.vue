@@ -4,11 +4,12 @@
 		<div class="flex items-end justify-start mb-4">
 			<div>
 				<h1 class="mb-1">{{ resource.title }}</h1>
-				<Search :currentSearch="resource.meta.search" />
+				<!-- <Search :currentSearch="resource.meta.search" /> -->
+				<FiltersSearch :currentSearch="resource.meta.search" :handle="resource.handle" :filters="resource.meta.filters" />
 			</div>
 			<div class="ml-auto">
 				<el-button v-if="resource.sortable"><Link :href="`${resource.meta.path}/reorder`">Reorder</Link></el-button>
-				<el-button v-show="canCreate" type="primary"><Link :href="`${resource.meta.path}/create`">Create new</Link></el-button>
+				<el-button v-show="canCreate" type="primary" size="large"><Link :href="`${resource.meta.path}/create`">Create new</Link></el-button>
 			</div>
 		</div>
 		<el-card body-style="padding: 0px">
@@ -21,7 +22,7 @@
 						:actions="actions"
 						:selected="selectedRows"
 					/>
-					<Filters :resource-handle="resource.handle" :filters="resource.meta.filters" />
+					<!-- <Filters :resource-handle="resource.handle" :filters="resource.meta.filters" /> -->
 					<div v-show="canDelete" class="ml-3" title="Delete Selected">
 						<el-button :icon="Delete" @click="handleBulkDelete" :disabled="!selectedRows.length" />
 					</div>
@@ -79,7 +80,8 @@ import { ref, onMounted, computed } from 'vue'
 import { Inertia } from '@inertiajs/inertia'
 import { usePage } from '@inertiajs/inertia-vue3'
 import { useResource } from '@/services'
-import Search from '@/components/resource/Search.vue'
+// import Search from '@/components/resource/Search.vue'
+import FiltersSearch from '@/components/resource/FiltersSearch.vue'
 import ResourceTable from '@/components/resource/ResourceTable.vue'
 import Filters from '@/components/resource/Filters.vue'
 import FilterBadges from '@/components/resource/FilterBadges.vue'
@@ -117,7 +119,7 @@ onMounted(() => {
 })
 
 Invicta.on('action-called', (event) => {
-	console.log('I hear some action calls', event)
+	
 	if (event.action.type == 'modal') {
 		Invicta.emit('show-action-modal', event)
 	} else {
