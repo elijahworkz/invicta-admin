@@ -59,6 +59,10 @@ onMounted(() => {
 		let params = {
 			title: titleField
 		}
+		if (props.data.where) {
+			console.log('is there a where?')
+			params.where = props.data.where
+		}
 
 		getRelatedOptions(params)
 	}
@@ -71,6 +75,12 @@ async function getRemote(query) {
 			title: titleField,
 			search: query
 		}
+
+		if (props.data.where) {
+			console.log('getting remote hwerde')
+			params.where = props.data.where
+		}
+
 		await getRelatedOptions(params, true)
 	} else {
 		relatedOptions.value = []

@@ -96,6 +96,11 @@ trait ListsItems
             $related = $this->model()->$relationship()->getRelated();
         }
 
+        // need to apply any limitation on the query here
+        if ($where = request()->query('where', false)) {
+            $related = $related->whereRaw($where);
+        }
+
         return $this->itemsQuery($related);
     }
 
