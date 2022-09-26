@@ -38,5 +38,9 @@ class AuthPublishCommand extends Command
         $this->newLine(1);
 
         $this->info('Please add `IsInvictaUser` trait to your User model.');
+
+        $this->newLine(1);
+
+        $this->info('Add `last_login` and `dev` fields to fillable array in User model.');
     }
 }
