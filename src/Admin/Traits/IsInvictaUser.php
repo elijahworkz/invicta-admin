@@ -15,15 +15,9 @@ trait IsInvictaUser
 
     protected $permissions = null;
 
-    protected $super = null;
-
     public function isSuper(): bool
     {
-        if (is_null($this->super)) {
-            $this->super = $this->groups()->where('is_super', 1)->count();
-        }
-
-        return $this->super;
+        return $this->is_super;
     }
 
     public function groups(): BelongsToMany

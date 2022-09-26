@@ -16,7 +16,8 @@ class CreateInvictaAuthTables extends Migration
         $tables = config('invicta.auth_tables');
 
         Schema::table('users', function (Blueprint $table) {
-           $table->timestamp('last_login')->nullable();
+           $table->boolean('is_super')->default(0)->before('created_at');
+           $table->timestamp('last_login')->nullable()->before('created_at');
         });
 
         Schema::create($tables['groups'], function (Blueprint $table) {

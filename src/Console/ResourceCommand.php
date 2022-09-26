@@ -144,26 +144,31 @@ class ResourceCommand extends GeneratorCommand
             return;
         }
 
+        $replaceSeo = '';
+
         if ($this->model) {
             $path = $this->laravel['path.database'].'/migrations/'.date('Y_m_d_His', time()).'_create_'.Str::lower($this->resourceName).'_table.php';
+
             $blueprint = __DIR__.'/../../database/migrations/invicta_resource_table.php.stub';
+
             $replaceModel = 'Create'.Str::plural($this->resourceName).'Table';
+
+            $replaceSeo = $this->seo ? '$table->string(\'uri\')->nullable();
+			$table->json(\'seo\')->nullable();' : '';
         } else {
             $path = $this->laravel['path.database'].'/migrations/'.date('Y_m_d_His', time()).'_add_seo_field_to_'.Str::lower($this->resourceName).'_table.php';
+
             $blueprint = __DIR__.'/../../database/migrations/invicta_update_resource_table.php.stub';
+
             $replaceModel = 'AddSeoFieldTo'.Str::plural($this->resourceName).'Table';
+
+            $replaceSeo = $this->seo ? '$table->string(\'uri\')->nullable()->before(\'created_at\');
+			$table->json(\'seo\')->nullable()->before(\'created_at\');' : '';
         }
 
         $this->makeDirectory($path);
 
         $stub = $this->files->get($blueprint);
-
-        if ($this->seo) {
-            $replaceSeo = '$table->string(\'uri\')->nullable();
-			$table->json(\'seo\')->nullable();';
-        } else {
-            $replaceSeo = '';
-        }
 
         $search = ['{{ class }}', '{{ table }}', '{{ seo }}'];
         $replace = [$replaceModel, str($this->resourceName)->lower()->plural(), $replaceSeo];
@@ -172,6 +177,10 @@ class ResourceCommand extends GeneratorCommand
 
         $this->files->put($path, $stub);
 
-        $this->info('Migration created successfully. Please add AvailableForNavigation trait to the current resource.');
+        $this->info('Migration created successfully');
+
+        $this->newLine(1);
+
+        $this->info('Please add `AvailableForNavigation` trait to the current resource.');
     }
 }

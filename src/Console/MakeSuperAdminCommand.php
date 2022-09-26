@@ -33,9 +33,9 @@ class MakeSuperAdminCommand extends Command
 
         $user->password = 'password';
         $user->name = 'Dev User';
+        $user->is_super = true;
         $user->save();
-        $user->addToGroup(1);
 
-        $this->info('Dev user was added to Super Admins group.');
+        $this->info('Dev user  with email:`dev@eteachergroup.com` password:`password` was added');
     }
 }
