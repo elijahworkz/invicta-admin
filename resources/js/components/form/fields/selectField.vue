@@ -5,13 +5,13 @@
 			v-bind="data.props"
 			:value-key="data.props?.remote ? 'id' : null"
 			:teleported="false"
-			:remote-method="getRemoteOptions"
+			:remote-method="getOptions"
 			:disabled="data.readOnly">
 				<el-option
 					v-for="(item, index) in options"
 					:key="index"
-					:value="item.value"
-					:label="item.label"
+					:value="item[valueField]"
+					:label="item[labelField]"
 				/>
 		</el-select>
 	</FieldBase>
@@ -31,6 +31,9 @@ const props = defineProps({
 const field = useFormField(props)
 const fieldValue = field.value([])
 const options = ref([])
+
+const valueField = props.data.valueField || 'value'
+const labelField = props.data.labelField || 'label' 
 
 onMounted(() => {
 

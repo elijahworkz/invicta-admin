@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import get from 'lodash/get'
 import set from 'lodash/set'
 import { useForm } from '@inertiajs/inertia-vue3'
-import { pickBy, map } from 'lodash'
+import { pickBy, map, split } from 'lodash'
 
 declare global {
 	interface Window {
@@ -98,6 +98,9 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 						let _id = 'path' in item ? item.path : item.id
 						// Fix for conflict whith 'data' key
 						_id = _id == 'data' ? '_data' : _id
+						// Enable passing json fields without json wrapper
+						_id = _id.includes('.') ? split(_id, '.')[0] : _id
+						
 						let value = getFieldData(item)
 
 						obj[_id] = value

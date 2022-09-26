@@ -1,6 +1,8 @@
 @import 'variables';
 
 .el-select {
+	width: 100%;
+	
 	.el-select__tags {
 		.el-tag {
 			background-color: #e6f5f9;
@@ -74,4 +76,8 @@
 			}
 		}
 	}
+}
+
+.el-tag {
+	// color: var(--el-color-text-primary);
 }

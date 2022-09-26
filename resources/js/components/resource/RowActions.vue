@@ -1,6 +1,7 @@
 <template>
 	<div class="actions flex items-center justify-end">
-		<ActionsDropdown 
+		<ActionsDropdown
+			v-if="actions.length"
 			:actions="actions" 
 			:item="id" 
 			@selected="handleAction" 

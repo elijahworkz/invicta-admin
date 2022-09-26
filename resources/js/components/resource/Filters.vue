@@ -1,16 +1,14 @@
 <template>
-	<popover
-		v-if="filters.length"
-		ref="filtersDropdown">
+	<popover v-if="resourceFilters.length">
 		<template #trigger>
-			<el-button :type="filterButtonType">
+			<el-button class="filter-state">
 				<el-icon><Filter /></el-icon><el-icon class="el-icon--right"><arrow-down /></el-icon>
 			</el-button>
 		</template>
 		<template #default="scope">
 			<div class="p-3">
-				<template v-for="filter in filters">
-					<h4 class="mb-1">{{ filter.name }}</h4>
+				<template v-for="filter in resourceFilters">
+					<h4 class="mb-1" :class="activeFilter(filter.class)">{{ filter.name }}</h4>
 					<SelectFilter
 						class="mb-4"
 						:handle="filter.class"
@@ -20,16 +18,18 @@
 						@selected="scope.close()"
 					/>
 				</template>
-			</div>	
+			</div>
 		</template>
 	</popover>
+	<el-icon v-else><Minus/></el-icon>
 </template>
 
 <script setup>
 import { ref, computed, watchEffect, onMounted } from 'vue'
+import { useResource } from '@/services'
 import Popover from '@/components/shared/Popover.vue'
 import SelectFilter from './SelectFilter.vue'
-import { Filter, ArrowDown } from '@element-plus/icons-vue'
+import { Filter, ArrowDown, Minus } from '@element-plus/icons-vue'
 import filterFn from 'lodash/filter'
 
 const props = defineProps({
@@ -37,12 +37,13 @@ const props = defineProps({
 	filters: String
 })
 
-const filtersDropdown = ref()
-const filters = ref([])
+const resourceIndex = useResource()
+
 const requestFilters = ref(null)
-const filterButtonType = computed(() => {
-	return props.filters ? 'primary' : 'default'
-})
+const resourceFilters = ref([])
+
+const filterState = computed(() => props.filters ? 'var(--el-color-primary)' : 'initial')
+const activeFilter = (name) => name in resourceIndex.activeFilters ? 'active-filter' : ''
 
 onMounted(() => {
 	if (props.filters) {
@@ -59,7 +60,7 @@ function getFilters() {
 		.then(({data}) => {
 
 			if (data.length) {
-				filters.value = data.map(filter => {
+				resourceFilters.value = data.map(filter => {
 					let initialValue = ''
 
 					if (requestFilters.value) {
@@ -73,7 +74,17 @@ function getFilters() {
 					return filter
 				})
 			}
-			filters.value = data
+			resourceFilters.value = data
 		})
 }
 </script>
+
+<style>
+.filter-state {
+	color: v-bind(filterState) !important;
+}
+.active-filter {
+	/* color:  var(--el-color-primary); */
+	font-weight: 600;
+}
+</style>

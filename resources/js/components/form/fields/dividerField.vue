@@ -3,7 +3,7 @@
 		<h2 v-text="sectionTitle()"></h2>
 		<p v-if="sectionDescription" v-html="sectionDescription"></p>
 	</template>
-	<el-divider v-else v-bind="data.props">{{ data.content }}</el-divider>
+	<el-divider v-else content-position="left" v-bind="data.props">{{ data.content }}</el-divider>
 </template>
 
 <script setup>
