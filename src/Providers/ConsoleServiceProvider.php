@@ -35,7 +35,7 @@ class ConsoleServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__.'/../../public/vendor' => public_path('vendor'),
-        ], 'invicta-assets');
+        ], 'public-assets');
 
         if (! class_exists('CreateInvictaAuthTables')) {
             // Export migraion

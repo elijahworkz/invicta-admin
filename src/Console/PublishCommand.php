@@ -28,7 +28,7 @@ class PublishCommand extends Command
     public function handle()
     {
         $this->comment('Publishing Invicta Assets...');
-        $this->callSilent('vendor:publish', ['--tag' => 'invicta-assets', '--force' => true]);
+        $this->callSilent('vendor:publish', ['--tag' => 'public-assets', '--force' => true]);
         $this->info('Invicta successfully published assets.');
     }
 }
