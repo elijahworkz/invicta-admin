@@ -37,7 +37,7 @@ class User extends Resource
         return [
             'id' => $this->id,
             'active' => $this->active,
-            'isSuper' => $this->is_super,
+            'dev' => $this->dev,
             'name' => function () {
                 $html = "<div class='mb-1 font-bold'>";
 
@@ -68,7 +68,7 @@ class User extends Resource
         return [
             'id' => Column::id(),
             'active' => Column::boolean('Active'),
-            'isSuper' => Column::boolean('Is Super'),
+            'dev' => Column::boolean('Is Dev'),
             'name' => Column::make('Name')->sortable(),
             'email' => Column::make('Email'),
             'registration' => Column::make('Registration Date'),
@@ -133,10 +133,10 @@ class User extends Resource
             ],
         ];
 
-        if (auth()->user()->isSuper()) {
+        if (auth()->user()->isDev()) {
             $blueprint['sidebar']['fields'][] = [
-                'id' => 'is_super',
-                'label' => 'Super Admin',
+                'id' => 'dev',
+                'label' => 'Dev Admin',
                 'type' => 'toggle',
                 'inline' => false,
                 'defaultValue' => 0,

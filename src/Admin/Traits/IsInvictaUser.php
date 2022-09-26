@@ -15,9 +15,9 @@ trait IsInvictaUser
 
     protected $permissions = null;
 
-    public function isSuper(): bool
+    public function isDev(): bool
     {
-        return $this->is_super;
+        return $this->dev;
     }
 
     public function groups(): BelongsToMany

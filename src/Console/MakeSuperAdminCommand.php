@@ -18,7 +18,7 @@ class MakeSuperAdminCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Add user to Super Admins group by their ID';
+    protected $description = 'Add Dev admin';
 
     /**
      * Execute the console command.
@@ -33,7 +33,7 @@ class MakeSuperAdminCommand extends Command
 
         $user->password = 'password';
         $user->name = 'Dev User';
-        $user->is_super = true;
+        $user->dev = true;
         $user->save();
 
         $this->info('Dev user  with email:`dev@eteachergroup.com` password:`password` was added');

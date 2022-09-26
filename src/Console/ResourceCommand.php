@@ -144,27 +144,22 @@ class ResourceCommand extends GeneratorCommand
             return;
         }
 
-        $replaceSeo = '';
-
         if ($this->model) {
             $path = $this->laravel['path.database'].'/migrations/'.date('Y_m_d_His', time()).'_create_'.Str::lower($this->resourceName).'_table.php';
 
             $blueprint = __DIR__.'/../../database/migrations/invicta_resource_table.php.stub';
 
             $replaceModel = 'Create'.Str::plural($this->resourceName).'Table';
-
-            $replaceSeo = $this->seo ? '$table->string(\'uri\')->nullable();
-			$table->json(\'seo\')->nullable();' : '';
         } else {
             $path = $this->laravel['path.database'].'/migrations/'.date('Y_m_d_His', time()).'_add_seo_field_to_'.Str::lower($this->resourceName).'_table.php';
 
             $blueprint = __DIR__.'/../../database/migrations/invicta_update_resource_table.php.stub';
 
             $replaceModel = 'AddSeoFieldTo'.Str::plural($this->resourceName).'Table';
-
-            $replaceSeo = $this->seo ? '$table->string(\'uri\')->nullable()->before(\'created_at\');
-			$table->json(\'seo\')->nullable()->before(\'created_at\');' : '';
         }
+
+        $replaceSeo = $this->seo ? '$table->string(\'uri\')->nullable();
+			$table->json(\'seo\')->nullable();' : '';
 
         $this->makeDirectory($path);
 

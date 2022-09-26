@@ -30,9 +30,7 @@ class PermissionsTest extends TestCase
 
     public function test_permissions_can_be_edit()
     {
-        $superGroup = $this->createGroupWithAbilities();
-
-        $this->user->groups()->sync($superGroup->id);
+        $this->user = $this->getUser(true);
 
         $editGroup = $this->createGroupWithAbilities(['access invicta']);
 
