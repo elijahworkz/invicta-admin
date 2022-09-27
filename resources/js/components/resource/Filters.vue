@@ -10,11 +10,20 @@
 				<template v-for="filter in resourceFilters">
 					<h4 class="mb-1" :class="activeFilter(filter.class)">{{ filter.name }}</h4>
 					<SelectFilter
+						v-if="filter.type == 'select'"
 						class="mb-4"
 						:handle="filter.class"
 						:remote="filter.remote"
 						:filter-options="filter.options"
 						:initial-value="filter.initialValue"
+						@selected="scope.close()"
+					/>
+
+					<DateFilter
+						v-if="filter.type == 'date' || filter.type == 'daterange'"
+						:handle="filter.class"
+						:type="filter.type"
+						:initial-value="filter.initialValue == '' ? [] : filter.initialValue"
 						@selected="scope.close()"
 					/>
 				</template>
@@ -29,6 +38,7 @@ import { ref, computed, watchEffect, onMounted } from 'vue'
 import { useResource } from '@/services'
 import Popover from '@/components/shared/Popover.vue'
 import SelectFilter from './SelectFilter.vue'
+import DateFilter from './DateFilter.vue'
 import { Filter, ArrowDown, Minus } from '@element-plus/icons-vue'
 import filterFn from 'lodash/filter'
 

@@ -16,12 +16,6 @@
 			:label="option.label"
 			:value="option.value">
 		</el-option>
-<!-- 		<el-option
-			v-for="(option, value) in filterList"
-			:key="value"
-			:label="option"
-			:value="value">
-		</el-option> -->
 	</el-select>
 </template>
 
@@ -39,13 +33,6 @@ const emit = defineEmits(['selected'])
 
 const filterValue = ref(props.initialValue)
 const options = ref(props.filterOptions)
-
-// const filterList = computed(() => {
-// 	return props.filterOptions.reduce((obj, item) => {
-// 		obj[item.value] = item.label
-// 		return obj
-// 	}, {})
-// })
 
 const remoteOptions = (query) => {
 	let params = {

@@ -11,6 +11,8 @@ class Filter implements JsonSerializable
 
     public $remote = false;
 
+    public $type = 'select';
+
     /**
      * Apply filter to the query.
      * @param  EloquentQueryBuilder $query
@@ -98,6 +100,7 @@ class Filter implements JsonSerializable
                 return ['label' => $value, 'value' => $value];
             })->values()->all(),
             'remote' => $this->remote,
+            'type' => $this->type,
         ];
     }
 }

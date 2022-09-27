@@ -58,7 +58,13 @@ class Vite
 
             return new HtmlString(
                 $entrypoints
-                    ->map(fn ($entrypoint) => $this->makeTag("{$url}/{$entrypoint}"))
+                    ->map(function ($entrypoint) use ($url) {
+                        $entryUrl = Str::of($entrypoint)->contains(['http://', 'https://'])
+                            ? $entrypoint
+                            : "{$url}/{$entrypoint}";
+
+                        return $this->makeTag($entryUrl);
+                    })
                     ->prepend($this->makeScriptTag("{$url}/@vite/client"))
                     ->join('')
             );
