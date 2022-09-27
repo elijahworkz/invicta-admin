@@ -37,7 +37,7 @@ return [
 			],
 			[
 				'id' => 'canonical',
-				'type'=> 'resourceLink',
+				'type'=> 'link',
 				'info' => 'If this is a page with duplicate content. Choose the original page for this content.',
 				'props' => [
 					'placeholder' => 'Start typing...'

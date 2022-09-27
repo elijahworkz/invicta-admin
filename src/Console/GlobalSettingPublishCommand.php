@@ -128,7 +128,7 @@ class GlobalSettingPublishCommand extends Command
     protected function createSeoBlueprint($fieldset = false)
     {
         if ($fieldset) {
-            $path = $this->laravel['path.resources'].'/blueprints/fieldsets/seo.php';
+            $path = $this->laravel['path.resources'].'/fieldsets/seo.php';
             $blueprint = $this->getSeoBlueprintStub(true);
         } else {
             $path = $this->laravel['path.resources'].'/blueprints/global_settings/seo.php';

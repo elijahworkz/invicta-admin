@@ -133,7 +133,7 @@ class User extends Resource
             ],
         ];
 
-        if (auth()->user()->isDev()) {
+        if (request()->user()->isDev()) {
             $blueprint['sidebar']['fields'][] = [
                 'id' => 'dev',
                 'label' => 'Dev Admin',

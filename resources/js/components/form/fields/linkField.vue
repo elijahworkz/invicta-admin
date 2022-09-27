@@ -3,11 +3,7 @@
 		<el-select
 			v-model="fieldValue"
 			filterable
-			remote
-			reserve-keyword
 			:placeholder="data.props?.placeholder"
-			:remote-method="remoteMethod"
-			:loading="loading"
 			:disabled="data.readOnly">
 				<el-option
 					v-for="item in options"
@@ -20,7 +16,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'	
+import { ref, onMounted } from 'vue'
 import { useFormField } from '@/services/form/field'
 import FieldBase from '@/components/form/FieldBase.vue'
 
@@ -32,31 +28,13 @@ const props = defineProps({
 
 const field = useFormField(props)
 const fieldValue = field.value([])
-const list = ref([])
 const options = ref([])
-const loading = ref(false)
 
 onMounted(() => {
 	Invicta.axios.get("/fields/resource-link/options")
 		.then(({data}) => {
-			list.value = data
-			remoteMethod()
+			options.value = data
 		})
 })
-
-function remoteMethod (query) {
-	if (query) {
-		loading.value = true
-		setTimeout(() => {
-			loading.value = false
-			options.value = list.value.filter((item) => {
-				return item.label.toLowerCase().includes(query.toLowerCase())
-			})
-		}, 200)
-	} else {
-		options.value = list.value
-	}
-}
-
 
 </script>

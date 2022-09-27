@@ -1,7 +1,6 @@
 <?php
 
-use Eteacher\InvictaAdmin\Admin\Models\Resources\GlobalSetting;
-use Illuminate\Support\Facades\App;
+use Eteacher\InvictaAdmin\Admin\Models\GlobalSetting;
 
 function invicta_path($path = null)
 {
@@ -24,9 +23,7 @@ if (! function_exists('global_set')) {
     function global_set($handle, $argument = null)
     {
         $cachedSet = Cache::rememberForever('global_set_'.$handle, function () use ($handle) {
-            $resource = App::make(GlobalSetting::class);
-
-            $model = $resource->model()->where('handle', $handle)->first();
+            $model = GlobalSetting::where('handle', $handle)->first();
 
             if ($model) {
                 return $model->content;

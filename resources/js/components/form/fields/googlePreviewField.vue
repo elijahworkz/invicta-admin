@@ -10,8 +10,8 @@
 </template>
 
 <script setup>
-import { useResourceForm } from '@/services/form'
 import {computed, watch, ref} from "vue";
+import { useResourceForm } from '@/services/form'
 
 const props = defineProps({
 	formId: String,
@@ -20,19 +20,19 @@ const props = defineProps({
 })
 
 const resourceForm = useResourceForm(props.formId)
-const uri = resourceForm.data.uri
+const uri = resourceForm.data?.uri
 const slug = computed(() => resourceForm.get('slug') ?? '')
-const previewUri = ref(uri)
 
-watch(slug, (newSlug) => {
-
-	if (! uri)
-		return uri
+const previewUri = computed(() => {
+	if (! uri) {
+		return slug.value
+	}
 
 	let uriParts = uri.split('/')
 
-	uriParts[uriParts.length - 1] = newSlug
-	previewUri.value = uriParts.join('/')
+	uriParts[uriParts.length - 1] = slug.value
+
+	return uriParts.join('/')
 })
 
 const preview = computed( () => {
