@@ -6,6 +6,8 @@ use Illuminate\Support\Str;
 
 trait AvailableForNavigation
 {
+    use EnableSeo;
+
     public $navTitle;
 
     public $hideDrafs = true;

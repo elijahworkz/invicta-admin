@@ -25,6 +25,6 @@ class ImpersonateUser extends Action
 
     public function authorize($user, $model)
     {
-        return $user->isSuper() && $user->id !== $model->id;
+        return $user->isDev() && $user->id !== $model->id;
     }
 }

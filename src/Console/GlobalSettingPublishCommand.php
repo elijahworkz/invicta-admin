@@ -11,7 +11,7 @@ class GlobalSettingPublishCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'invicta:globals';
+    protected $signature = 'invicta:globals {--only-seo}';
 
     /**
      * The console command description.
@@ -27,17 +27,41 @@ class GlobalSettingPublishCommand extends Command
      */
     public function handle()
     {
-        $this->comment('Publishing Invicta Global Settings Migration...');
+        // this option skip global settings publish
+        $seo = $this->option('only-seo');
 
-        $this->callSilent('vendor:publish', ['--tag' => 'invicta-global']);
+        if (! $seo) {
+            $this->comment('Publishing Invicta Global Settings Migration...');
 
-        $this->call('migrate');
+            $this->callSilent('vendor:publish', ['--tag' => 'invicta-global']);
 
-        $this->info('Invicta successfully published migrations.');
+            $this->call('migrate');
 
-        $this->makeBlueprintsDirectory();
+            $this->info('Invicta successfully published migrations.');
 
-        $this->createBlueprint();
+            $this->makeBlueprintsDirectory();
+
+            $this->createBlueprint();
+        }
+
+        //add seo blueprints and seeder
+        if ($seo || $this->confirm('Do you want to add seo?', true)) {
+            $this->callSilent('vendor:publish', ['--tag' => 'invicta-sitemap']);
+
+            $this->createSeoBlueprint();
+
+            $this->createSeoBlueprint(true);
+
+            if ($this->confirm('Do you want to add seo global setting seeder?', true)) {
+                $this->callSilent('vendor:publish', ['--tag' => 'invicta-global-seo']);
+
+                $this->call('db:seed', [
+                    '--class' => 'Database\Seeders\GlobalSettingSeeder',
+                ]);
+
+                $this->info('Invicta successfully published seeder.');
+            }
+        }
     }
 
     /**
@@ -48,6 +72,20 @@ class GlobalSettingPublishCommand extends Command
     protected function getBlueprintStub()
     {
         return __DIR__.'/stubs/blueprint.stub.php';
+    }
+
+    /**
+     * Get the stub of the blueprint file for the generator.
+     *
+     * @return string
+     */
+    protected function getSeoBlueprintStub($fieldset = false)
+    {
+        if ($fieldset) {
+            return __DIR__.'/stubs/seo_blueprint/fieldset.stub.php';
+        }
+
+        return __DIR__.'/stubs/seo_blueprint/global_settings.stub.php';
     }
 
     /**
@@ -73,13 +111,37 @@ class GlobalSettingPublishCommand extends Command
     {
         $path = $this->laravel['path'].'/Invicta/Resources/blueprints/GlobalSetting.php';
 
+        $blueprint = $this->getBlueprintStub();
+
         $this->makeDirectory($path);
 
-        $stub = $this->laravel['files']->get($this->getBlueprintStub());
+        $stub = $this->laravel['files']->get($blueprint);
 
         $this->laravel['files']->put($path, $stub);
 
         $this->info('Default blueprint created successfully.');
+    }
+
+    /**
+     * Cretae seo GlobalSetting blueprint and fieldset.
+     */
+    protected function createSeoBlueprint($fieldset = false)
+    {
+        if ($fieldset) {
+            $path = $this->laravel['path.resources'].'/fieldsets/seo.php';
+            $blueprint = $this->getSeoBlueprintStub(true);
+        } else {
+            $path = $this->laravel['path.resources'].'/blueprints/global_settings/seo.php';
+            $blueprint = $this->getSeoBlueprintStub();
+        }
+
+        $this->makeDirectory($path);
+
+        $stub = $this->laravel['files']->get($blueprint);
+
+        $this->laravel['files']->put($path, $stub);
+
+        $this->info(($fieldset ? 'Seo fieldset' : 'Seo global setting').' blueprint created successfully.');
     }
 
     /**

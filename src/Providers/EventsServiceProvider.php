@@ -3,6 +3,7 @@
 namespace Eteacher\InvictaAdmin\Providers;
 
 use Eteacher\InvictaAdmin\Events\BlueprintFound;
+use Eteacher\InvictaAdmin\Listeners\AddSeoBlueprint;
 use Eteacher\InvictaAdmin\Listeners\EnsureLocalizationFields;
 use Eteacher\InvictaAdmin\Listeners\ProcessBlueprint;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -17,6 +18,7 @@ class EventsServiceProvider extends ServiceProvider
     protected $listen = [
         BlueprintFound::class => [
             EnsureLocalizationFields::class,
+            AddSeoBlueprint::class,
             ProcessBlueprint::class,
         ],
     ];

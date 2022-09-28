@@ -125,10 +125,10 @@ class Invicta
 	}
 
 	can(ability: string) {
-		if(this.user.is_super == undefined || this.user.permissions == undefined)
+		if(this.user.dev == undefined || this.user.permissions == undefined)
 			return false
 
-		if(this.user.is_super) {
+		if(this.user.dev) {
 			return true
 		}
 		return this.user.permissions.includes(ability)

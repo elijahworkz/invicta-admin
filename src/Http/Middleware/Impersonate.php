@@ -9,7 +9,7 @@ class Impersonate
 {
     public function handle($request, Closure $next)
     {
-        if (Auth::check() && (method_exists(Auth::user(), 'isSuper') && Auth::user()->isSuper()) && session()->has('impersonated_id')) {
+        if (Auth::check() && (method_exists(Auth::user(), 'isDev') && Auth::user()->isDev()) && session()->has('impersonated_id')) {
             Auth::onceUsingId(session('impersonated_id'));
         }
 

@@ -1,6 +1,10 @@
 <?php
 
+use Eteacher\InvictaAdmin\Http\Controllers\AdminController;
 use Eteacher\InvictaAdmin\Http\Controllers\Auth\LoginController;
+
+Route::get('sitemap/{resource}.xml', [AdminController::class, 'subSitemap'])->name('subSitemap');
+Route::get('/sitemap.xml', [AdminController::class, 'sitemap'])->name('sitemap');
 
 Route::middleware(['invicta'])
     ->name('invicta.')

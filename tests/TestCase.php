@@ -64,26 +64,16 @@ class TestCase extends Orchestra
         );
     }
 
-    public function getUser($super = false)
+    public function getUser($dev = false)
     {
-        $user = User::factory()->create();
-
-        if ($super) {
-            $superGroup = $this->createGroupWithAbilities();
-
-            $user->groups()->sync($superGroup->id);
-        }
-
-        return $user;
+        return User::factory()->create(['dev' => $dev]);
     }
 
     public function createGroupWithAbilities($abilities = null, $name = 'test')
     {
-        $super = $abilities ? 0 : 1;
         $group = new Group();
-        $group->name = $super ? 'super' : $name;
-        $group->title = $super ? 'Super' : $name;
-        $group->is_super = $super;
+        $group->name = $name;
+        $group->title = $name;
         $group->save();
 
         if ($abilities) {
