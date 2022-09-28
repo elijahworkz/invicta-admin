@@ -1,5 +1,5 @@
 import { createApp, h, ref } from 'vue'
-import { App, plugin, Head } from '@inertiajs/inertia-vue3'
+import { App, plugin, Head, createInertiaApp } from '@inertiajs/inertia-vue3'
 import { InertiaProgress } from '@inertiajs/progress'
 import { createPinia } from 'pinia'
 import { setupAxios } from './services/axios'

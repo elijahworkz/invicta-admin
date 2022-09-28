@@ -70,5 +70,23 @@ class {{ class }} extends Resource
         ];
     }
 
+    /**
+     * List of filters to use on resource
+     *
+     * @return array of Filters
+     */
+    public function filters()
+    {
+        return null;
+    }
 
+    /**
+     * List of actions to use on resource
+     *
+     * @return array of actions
+     */
+    public function actions()
+    {
+        return null;
+    }
 }

@@ -52,7 +52,7 @@ class Action implements JsonSerializable
      */
     public function handle($fields, Collection $models, $user)
     {
-        // code...
+        //
     }
 
     /**
