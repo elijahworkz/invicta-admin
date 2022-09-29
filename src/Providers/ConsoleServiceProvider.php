@@ -35,7 +35,7 @@ class ConsoleServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__.'/../../public/vendor' => public_path('vendor'),
-        ], 'invicta-assets');
+        ], 'public-assets');
 
         if (! class_exists('CreateInvictaAuthTables')) {
             // Export migraion
@@ -61,6 +61,16 @@ class ConsoleServiceProvider extends ServiceProvider
                 __DIR__.'/../../database/migrations/invicta_assets_table.php.stub' => database_path('migrations/'.date('Y_m_d_His', time()).'_create_invicta_assets_table.php'),
             ], 'invicta-assets');
         }
+
+        if (! class_exists('GlobalSettingSeeder')) {
+            $this->publishes([
+                __DIR__.'/../../database/seeders/global_setting_seeder.php.stub' => database_path('seeders/GlobalSettingSeeder.php'),
+            ], 'invicta-global-seo');
+        }
+
+        $this->publishes([
+            __DIR__.'/../../resources/views/sitemap' => public_path('vendor/invicta/views/sitemap'),
+        ], 'invicta-sitemap');
     }
 
     /**

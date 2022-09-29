@@ -37,7 +37,7 @@ class User extends Resource
         return [
             'id' => $this->id,
             'active' => $this->active,
-            'isSuper' => method_exists($this->model(), 'isSuper') ? $this->isSuper() : false,
+            'dev' => $this->dev,
             'name' => function () {
                 $html = "<div class='mb-1 font-bold'>";
 
@@ -51,7 +51,7 @@ class User extends Resource
                 return $html;
             },
             'email' => $this->email,
-            'regisration' => Carbon::parse($this->created_at)->toFormattedDateString(),
+            'registration' => Carbon::parse($this->created_at)->toFormattedDateString(),
             'last_login' => $last_login
                 ? ($last_login->diffInMonths(Carbon::now()) <= 6 ? $last_login->diffForHumans() : $last_login->toFormattedDateString())
                 : '',
@@ -68,17 +68,17 @@ class User extends Resource
         return [
             'id' => Column::id(),
             'active' => Column::boolean('Active'),
-            'isSuper' => Column::boolean('Is Super'),
+            'dev' => Column::boolean('Is Dev'),
             'name' => Column::make('Name')->sortable(),
             'email' => Column::make('Email'),
-            'regisration' => Column::make('Registration Date'),
+            'registration' => Column::make('Registration Date'),
             'last_login' => Column::make('Last Login'),
         ];
     }
 
     public function blueprint($item = null)
     {
-        return [
+        $blueprint = [
             'fields' => [
                 [
                     'id' => 'id',
@@ -128,9 +128,28 @@ class User extends Resource
                         ],
                         'validation' => 'required',
                     ],
+
                 ],
             ],
         ];
+
+        if (request()->user()->isDev()) {
+            $blueprint['sidebar']['fields'][] = [
+                'id' => 'dev',
+                'label' => 'Dev Admin',
+                'type' => 'toggle',
+                'inline' => false,
+                'defaultValue' => 0,
+                'props' => [
+                    'active-value' => 1,
+                    'inactive-value' => 0,
+                    'active-text' => 'True',
+                    'inactive-text' => 'False',
+                ],
+            ];
+        }
+
+        return $blueprint;
     }
 
     public function filters()

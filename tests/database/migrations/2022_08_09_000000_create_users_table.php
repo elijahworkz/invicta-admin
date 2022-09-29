@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->integer('faculty_id')->nullable();
+            $table->boolean('dev')->default(false);
             $table->timestamp('last_login')->nullable();
             $table->rememberToken();
             $table->timestamps();
@@ -30,7 +31,6 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->string('title');
-            $table->boolean('is_super')->default(false);
             $table->timestamps();
         });
 

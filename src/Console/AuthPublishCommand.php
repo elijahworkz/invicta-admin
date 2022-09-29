@@ -3,7 +3,6 @@
 namespace Eteacher\InvictaAdmin\Console;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
 
 class AuthPublishCommand extends Command
 {
@@ -12,7 +11,7 @@ class AuthPublishCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'invicta:auth {--group-only}';
+    protected $signature = 'invicta:auth';
 
     /**
      * The console command description.
@@ -28,34 +27,20 @@ class AuthPublishCommand extends Command
      */
     public function handle()
     {
-        $groupOnly = $this->option('group-only');
+        $this->comment('Publishing Invicta Auth Migrations...');
 
-        if ($groupOnly) {
-            $this->comment('Creating super admin group');
-            $this->createSuperAdminGroup();
-            $this->info('Super admin group created.');
-        } else {
-            $this->comment('Publishing Invicta Auth Migrations...');
-            $this->callSilent('vendor:publish', ['--tag' => 'invicta-auth']);
+        $this->callSilent('vendor:publish', ['--tag' => 'invicta-auth']);
 
-            $this->call('migrate');
+        $this->call('migrate');
 
-            $this->createSuperAdminGroup();
+        $this->info('Invicta successfully published migrations.');
 
-            $this->info('Invicta successfully published migrations.');
-            $this->newLine(1);
-            $this->info('Please add `IsInvictaUser` trait to your User model.');
-        }
-    }
+        $this->newLine(1);
 
-    protected function createSuperAdminGroup()
-    {
-        $groupTable = config('invicta.auth_tables.groups');
+        $this->info('Please add `IsInvictaUser` trait to your User model.');
 
-        DB::table($groupTable)->insert([
-            'handle' => 'super_admin',
-            'title' => 'Super Admins',
-            'is_super' => true,
-        ]);
+        $this->newLine(1);
+
+        $this->info('Add `last_login` and `dev` fields to fillable array in User model.');
     }
 }

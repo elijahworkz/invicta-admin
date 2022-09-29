@@ -61,7 +61,8 @@ class Group extends Resource
                 ],
                 [
                     'id' => 'handle',
-                    'type' => 'text',
+                    'type' => 'slug',
+                    'source' => 'title',
                     'validation' => 'required',
                 ],
                 [

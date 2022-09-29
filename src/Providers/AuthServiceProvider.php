@@ -26,7 +26,7 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         Gate::before(function ($user, $ability) {
-            return method_exists($user, 'isSuper') && $user->isSuper() ? true : null;
+            return method_exists($user, 'isDev') && $user->isDev() ? true : null;
         });
 
         Gate::after(function ($user, $ability) {

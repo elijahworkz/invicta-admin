@@ -33,17 +33,6 @@ class Group extends Model
     }
 
     /**
-     * add addition query to the group list query.
-     *
-     * @param $query
-     * @return mixed
-     */
-    public function scopeInvictaList($query)
-    {
-        return $query->where('is_super', 0);
-    }
-
-    /**
      * model events.
      */
     protected static function boot()

@@ -26,6 +26,15 @@ class Blueprint extends Fluent
         }
     }
 
+    public function addSection($newSection)
+    {
+        $sections = Arr::has($this, 'sections') ? $this->sections : [];
+
+        $sections[] = $newSection;
+
+        $this->sections($sections);
+    }
+
     public function parseForFieldsets()
     {
         if (Arr::has($this, 'fields')) {

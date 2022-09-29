@@ -36,7 +36,7 @@ class InvictaAdmin
         return $user ? array_merge(
             $user->toArray(),
             [
-                'is_super' => method_exists($user, 'isSuper') ? $user->isSuper() : true,
+                'is_dev' => method_exists($user, 'isDev') ? $user->isDev() : true,
                 'permissions' => method_exists($user, 'permissions') ? $user->permissions() : [],
             ]
         ) : [];
