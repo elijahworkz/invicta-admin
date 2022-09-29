@@ -76,6 +76,48 @@ class Invicta
 		this.bootingCallbacks.forEach(callback => callback(this.app))
 	}
 
+	// initInertia() {
+
+	// 	let appElement = document.querySelector(this.mountElement)
+	// 	let inertiaData = appElement?.getAttribute('data-page') || ''
+
+	// 	createInertiaApp({
+	// 		title: (title: string) => `${title} - ${this.getConfig('appName')}`,
+	// 		resolve: async (name) => {
+	// 			let page = this.pages[name]
+
+	// 			if (typeof page === 'undefined') {
+	// 				throw new Error(`Page not found: ${name}`)
+	// 			}
+	// 			// page = typeof page === 'function' ? page() : page
+	// 			// const page = name.includes('Invicta.')
+	// 			// 	? (await this.pages[name]()).default
+	// 			// 	: this.pages[name]
+
+	// 			page = typeof page === 'function'
+	// 				? (await page()).default
+	// 				: page
+
+	// 			page.layout ??= MainLayout
+
+	// 			return page
+	// 		},
+	// 		setup: ({ app, props, plugin }) => {
+
+	// 			this.app = createApp({ render: () => h(app, props)})
+
+	// 			this.app.use(plugin)
+	// 			this.app.use(pinia)
+	// 			this.app.component('Head', Head)
+	// 			this.app.component('Link', Link)
+	// 			this.app.component('SvgIcon', SvgIcon)
+	// 			this.app.component('CheckTree', CheckTree)
+	// 			this.app.component('Drawer', Drawer)
+	// 			this.event('InvictaReady')
+	// 		}
+	// 	})
+	// }
+
 	initInertia() {
 
 		let appElement = document.querySelector(this.mountElement)
