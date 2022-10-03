@@ -60,6 +60,7 @@
 
 <script setup>
 import draggable from 'vuedraggable'
+import ItemListItem from './ItemListItem.vue'
 import { mdiLink, mdiLinkOff, mdiLinkPlus,  } from '@mdi/js'
 
 const props = defineProps({
