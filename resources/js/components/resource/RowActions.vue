@@ -14,10 +14,8 @@
 </template>
 
 <script setup>
-import { ref, unref } from 'vue'
 import { mdiDotsHorizontal } from '@mdi/js'
 import { Delete, Edit } from '@element-plus/icons-vue'
-import ActionsDropdown from '@/components/shared/ActionsDropdown.vue'
 
 const props = defineProps({
 	id: Number,

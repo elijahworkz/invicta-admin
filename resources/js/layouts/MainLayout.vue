@@ -11,11 +11,8 @@
 </template>
 
 <script setup>
-import { onMounted, computed, watch } from 'vue'
 import { usePage } from '@inertiajs/inertia-vue3'
 import { Inertia } from '@inertiajs/inertia'
-import Header from '@/components/app/Header.vue'
-import Sidebar from '@/components/app/Sidebar.vue'
 
 onMounted(() => document.body.classList.add('app-ready'))
 

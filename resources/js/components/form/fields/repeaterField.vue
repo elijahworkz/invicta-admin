@@ -22,14 +22,6 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import FieldBase from '@/components/form/FieldBase.vue'
-import CollapseRepeater from '@/components/form/CollapseRepeater.vue'
-import InlineRepeater from '@/components/form/InlineRepeater.vue'
-import FormField from '@/components/form/FormField.vue'
-import { useResourceForm, getFields } from '@/services/form'
-import { useFormField } from '@/services/form/field'
-
 const props = defineProps({
 	formId: String,
 	data: Object,

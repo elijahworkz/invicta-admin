@@ -15,10 +15,6 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import FieldBase from '@/components/form/FieldBase.vue'
-import { useFormField } from '@/services/form/field'
-import { onKeyStroke } from '@vueuse/core'
 import { Close } from '@element-plus/icons-vue'
 
 const props = defineProps({

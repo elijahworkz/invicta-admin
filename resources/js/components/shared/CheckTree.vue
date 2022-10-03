@@ -10,17 +10,14 @@
 	</div>
 </template>
 
-<script setup lang="ts">
-import { ref, watch } from 'vue'
-import { ICheckTree } from '@/interfaces'
+<script setup>
+const props = defineProps({
+	initialItems: Array,
+	disabled: Boolean,
+	depth: Number
+})
 
-const props = defineProps<{
-	initialItems: ICheckTree[],
-	disabled: boolean,
-	depth: number
-}>()
-
-const items = ref<ICheckTree[]>(props.initialItems)
+const items = ref(props.initialItems)
 
 watch(() => props.disabled, (disabled) => {
 	if (disabled) {

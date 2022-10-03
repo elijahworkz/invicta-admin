@@ -8,8 +8,6 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
-import { debounce } from '@/utils/functions'
 import { Search } from '@element-plus/icons-vue'
 
 const props = defineProps({

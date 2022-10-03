@@ -7,11 +7,6 @@
 </template>
 
 <script setup>
-import { watch, computed } from "vue";
-import { useFormField } from '@/services/form/field'
-import { useResourceForm } from '@/services/form'
-import FieldBase from '@/components/form/FieldBase.vue'
-
 const props = defineProps({
 	formId: String,
 	data: Object,

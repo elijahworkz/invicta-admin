@@ -33,10 +33,6 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
-import FieldBase from '@/components/form/FieldBase.vue'
-import { useResourceForm } from '@/services/form'
-import { useFormField } from '@/services/form/field'
 import { mdiStarOutline } from '@mdi/js';
 
 const props = defineProps({

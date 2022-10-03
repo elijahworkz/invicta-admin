@@ -19,14 +19,6 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed, watch } from 'vue'
-import FieldBase from '@/components/form/FieldBase.vue'
-import { useResourceForm } from '@/services/form'
-import { useFormField } from '@/services/form/field'
-import map from 'lodash/map'
-import get from 'lodash/get'
-import isNumber from 'lodash/isNumber'
-
 const props = defineProps({
 	formId: String,
 	data: Object,

@@ -29,12 +29,6 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue'
-import FieldBase from '@/components/form/FieldBase.vue'
-import { useFormField } from '@/services/form/field'
-import Uploader from '@/components/assets/Uploader.vue'
-import AssetSelector from '@/components/assets/AssetSelector.vue'
-import AssetForm from '@/components/assets/AssetForm.vue'
 import { Delete } from '@element-plus/icons-vue'
 
 const props = defineProps({

@@ -10,9 +10,6 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
-import { useResourceForm } from '@/services/form'
-
 const props = defineProps({
 	formId: String,
 	data: Object,

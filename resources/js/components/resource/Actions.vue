@@ -14,7 +14,6 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
 import { ArrowDown } from '@element-plus/icons-vue'
 
 const props = defineProps({

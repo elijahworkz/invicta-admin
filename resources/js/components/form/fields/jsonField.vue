@@ -11,9 +11,6 @@
 </template>
 
 <script setup>
-import FormField from '@/components/form/FormField.vue'
-import { useFormField } from '@/services/form/field'
-
 const props = defineProps({
 	formId: String,
 	data: Object,

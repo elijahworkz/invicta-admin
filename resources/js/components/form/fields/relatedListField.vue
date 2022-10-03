@@ -14,11 +14,6 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import FieldBase from '@/components/form/FieldBase.vue'
-import ItemsList from '@/components/form/ItemsList.vue'
-import { useResourceForm } from '@/services/form'
-
 const props = defineProps({
 	formId: String,
 	data: Object,

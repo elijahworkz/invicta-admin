@@ -7,9 +7,6 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import FormField from '@/components/form/FormField.vue'
-
 const props = defineProps({
 	formId: String,
 	data: Object,

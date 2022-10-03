@@ -28,12 +28,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
-import FieldBase from '@/components/form/FieldBase.vue'
-import { useFormField } from '@/services/form/field'
 import { Delete } from '@element-plus/icons-vue'
-import map from 'lodash/map'
-import isString from 'lodash/isString'
 
 const props = defineProps({
 	formId: String,

@@ -12,14 +12,10 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
-import FieldBase from '@/components/form/FieldBase.vue'
 import { Codemirror } from 'vue-codemirror'
 import { json } from '@codemirror/lang-json'
 import { oneDark } from '@codemirror/theme-one-dark'
-import { useFormField } from '@/services/form/field'
-import { ElMessage } from 'element-plus'
-import { debounce } from '@/utils/functions'
+// import { ElMessage } from 'element-plus'
 
 const props = defineProps({
 	formId: String,

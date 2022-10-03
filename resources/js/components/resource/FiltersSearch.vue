@@ -15,12 +15,12 @@
 </template>
 
 <script setup>
-import { ref, watch, computed } from 'vue'
-import { useResource } from '@/services'
-import { debounce } from '@/utils/functions'
-import Filters from '@/components/resource/Filters.vue'
+// import { ref, watch, computed } from 'vue'
+// import { useResource } from '@/services'
+// import { debounce } from '@/utils/functions'
+// import Filters from '@/components/resource/Filters.vue'
 import { Search, Refresh } from '@element-plus/icons-vue'
-import { isEmpty } from 'lodash'
+// import { isEmpty } from 'lodash'
 
 const props = defineProps({
 	currentSearch: String,

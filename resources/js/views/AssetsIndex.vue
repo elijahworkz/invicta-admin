@@ -55,16 +55,6 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed, unref } from 'vue'
-import { Inertia } from '@inertiajs/inertia'
-import { usePage } from '@inertiajs/inertia-vue3'
-import { useResource } from '@/services'
-import Search from '@/components/resource/Search.vue'
-import Uploader from '@/components/assets/Uploader.vue'
-import ListView from '@/components/assets/ListView.vue'
-import GridView from '@/components/assets/GridView.vue'
-import AssetForm from '@/components/assets/AssetForm.vue'
-import clone from 'lodash/clone'
 import { UploadFilled } from '@element-plus/icons-vue'
 import { mdiViewGridOutline, mdiFormatListText } from '@mdi/js';
 

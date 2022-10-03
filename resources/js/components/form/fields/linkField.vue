@@ -16,10 +16,6 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { useFormField } from '@/services/form/field'
-import FieldBase from '@/components/form/FieldBase.vue'
-
 const props = defineProps({
 	formId: String,
 	data: Object,

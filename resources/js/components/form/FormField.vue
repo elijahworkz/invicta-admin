@@ -9,10 +9,6 @@
 </template>
 
 <script setup>
-import { shallowRef, computed } from 'vue'
-import { useFieldCondition } from '@/services/form/condition'
-import FieldRow from '@/components/form/FieldRow.vue'
-
 const props = defineProps({
 	formId: String,
 	fieldData: Object,

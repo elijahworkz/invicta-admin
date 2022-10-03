@@ -34,13 +34,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watchEffect, onMounted } from 'vue'
-import { useResource } from '@/services'
-import Popover from '@/components/shared/Popover.vue'
-import SelectFilter from './SelectFilter.vue'
-import DateFilter from './DateFilter.vue'
 import { Filter, ArrowDown, Minus } from '@element-plus/icons-vue'
-import filterFn from 'lodash/filter'
 
 const props = defineProps({
 	resourceHandle: String,

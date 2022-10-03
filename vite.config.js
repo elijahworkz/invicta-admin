@@ -19,16 +19,21 @@ export default defineConfig({
 		AutoImport({
 			imports: [
 				'vue',
+				{
+					'@vueuse/core': ['onClickOutside', 'onKeyStroke', 'useClipboard', 'usePermission']
+				}
 			],
-			dirs: ['resources/js/services'],
-			resolvers: [ElementPlusResolver()],
+			dirs: ['resources/js/services/**', 'resources/js/utils/**'],
+			resolvers: [
+				ElementPlusResolver(),
+			],
 		}),
 		Components({
 			dirs: ['resources/js/components'],
 			resolvers: [ElementPlusResolver({
 				importStyle: 'sass'
 			})]
-		})
+		}),
 	],
 	resolve: {
 		alias: {
