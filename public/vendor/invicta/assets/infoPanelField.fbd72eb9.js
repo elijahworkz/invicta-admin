@@ -1,1 +1,0 @@
-import{o as t,c as n,g as a}from"./main.ecedd55a.js";const o=["innerHTML"],s={__name:"infoPanelField",props:{formId:String,data:Object,path:String},setup(e){return(c,r)=>e.data.content!=""?(t(),n("div",{key:0,class:"info-panel mb-4",innerHTML:e.data.content},null,8,o)):a("",!0)}};export{s as default};
