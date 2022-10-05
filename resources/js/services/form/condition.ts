@@ -17,8 +17,7 @@ export const useFieldCondition = (field: IFormField, formId: string) => {
         if (Array.isArray(condition)) {
 
             if ('if_all' in field) {
-
-                let allResult = condition.forEach((item) => {
+                let allResult = condition.every((item) => {
                     return processCondition(formId, item)
                 })
 
@@ -60,8 +59,8 @@ function processCondition(formId: string, condition: any) {
     let loperand = prepareOperand(target, operator)
     let roperand = prepareOperand(condition.value, operator)
 
-    if (operator == 'includes') {
-        return passesIncludesCondition(loperand, roperand)
+    if (operator == 'in' || operator == 'not in') {
+        return passesIncludesCondition(roperand, loperand, ! operator.includes('not'))
     }
 
     let expression = `${loperand} ${operator} ${roperand}`
@@ -71,8 +70,11 @@ function processCondition(formId: string, condition: any) {
     return eval(expression)
 }
 
-function passesIncludesCondition(target: any, search: any) {
-    return target.includes(search)
+function passesIncludesCondition(source: any, search: any, included: boolean) {
+    const isIncluded = source.includes(search)
+    console.log(`is ${search} includes in ${source}: ${isIncluded}`);
+    console.log(`included: ${included}`);
+    return included ? isIncluded : ! isIncluded
 }
 
 function prepareOperand(operand: any, operator: string) {
@@ -112,9 +114,6 @@ function prepareOperator(operator: string) {
         case 'less or equal':
         case 'less or equals':
             return '<='
-        case 'includes':
-        case 'contains':
-            return 'includes'
         default:
             return operator
     }

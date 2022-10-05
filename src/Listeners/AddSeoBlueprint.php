@@ -24,7 +24,7 @@ class AddSeoBlueprint
      */
     public function handle(BlueprintFound $event)
     {
-        if (method_exists($event->resource, 'navTitle')) {
+        if (config('invicta.seo') && method_exists($event->resource, 'navTitle')) {
             $event->blueprint->addSection($event->resource->getSeoSectionBlueprint());
         }
     }

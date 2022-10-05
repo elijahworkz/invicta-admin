@@ -56,6 +56,16 @@ trait CanEditItems
         return $blueprint;
     }
 
+    public function createItem($data, $item)
+    {
+        return false;
+    }
+
+    public function updateItem($data, $item)
+    {
+        return false;
+    }
+
     public function beforeSave($item)
     {
         return $item;
