@@ -244,8 +244,12 @@ class ResourceRequest extends InvictaRequest
         $massAssign = count($item->getFillable());
         $validated = request()->validate(request()->validation);
 
-        $relatedFields = [];
+        $actionMethod = "{$action}Item";
+        if ($resourceClass->$actionMethod($validated, $item)) {
+            return;
+        }
 
+        $relatedFields = [];
         foreach ($validated as $field => $value) {
             // Fix for 'data' column issue
             $field = $field == '_data' ? 'data' : $field;
@@ -265,7 +269,6 @@ class ResourceRequest extends InvictaRequest
         }
 
         $item = $resourceClass->beforeSave($item);
-
         if (! $massAssign) {
             $item->save();
         } else {
