@@ -26,12 +26,6 @@
 </template>
 
 <script setup>
-import {ref, onMounted, computed} from 'vue'
-import {useForm} from "@inertiajs/inertia-vue3";
-import {checked} from "../utils/functions";
-import CheckTree from '@/components/shared/CheckTree.vue'
-import {pickBy, isString} from "lodash";
-
 const props = defineProps({
 	tree: Object,
 	permissions: Object,
