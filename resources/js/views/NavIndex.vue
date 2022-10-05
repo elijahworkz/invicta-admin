@@ -37,11 +37,6 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
-import { Inertia } from '@inertiajs/inertia'
-import ActionsDropdown from '@/components/shared/ActionsDropdown.vue'
-import { usePage } from '@inertiajs/inertia-vue3'
-import { useResource } from '@/services'
 import { Delete } from '@element-plus/icons-vue'
 
 const props = defineProps({

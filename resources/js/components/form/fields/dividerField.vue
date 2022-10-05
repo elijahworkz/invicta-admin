@@ -7,10 +7,6 @@
 </template>
 
 <script setup>
-// import { computed } from 'vue'
-import get from 'lodash/get'
-import isString from 'lodash/isString'
-
 const props = defineProps({
 	formId: String,
 	data: Object,

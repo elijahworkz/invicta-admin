@@ -31,8 +31,6 @@
 
 <script setup>
 import draggable from 'vuedraggable'
-import DragHandle from '@/components/shared/DragHandle.vue'
-import ActionsDropdown from '@/components/shared/ActionsDropdown.vue'
 
 const props = defineProps({
 	list: Array,

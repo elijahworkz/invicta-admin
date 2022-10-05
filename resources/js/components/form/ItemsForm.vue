@@ -15,10 +15,6 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { useResourceForm } from '@/services/form'
-import FormBase from './FormBase.vue'
-
 const props = defineProps({
 	requestUrl: String,
 	createWith: Object

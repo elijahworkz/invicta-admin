@@ -21,9 +21,7 @@
 </template>
 
 <script setup>
-import clone from 'lodash/clone'
 import draggable from 'vuedraggable'
-import DragHandle from '@/components/shared/DragHandle.vue'
 import { Delete } from '@element-plus/icons-vue'
 
 const props = defineProps({

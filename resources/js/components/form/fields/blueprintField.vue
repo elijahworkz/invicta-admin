@@ -13,11 +13,6 @@
 </template>
 
 <script setup>
-import { Inertia } from '@inertiajs/inertia'
-import { usePage } from '@inertiajs/inertia-vue3'
-import { useFormField } from '@/services/form/field'
-import FieldBase from '@/components/form/FieldBase.vue'
-
 const props = defineProps({
 	formId: String,
 	data: Object,

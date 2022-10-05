@@ -5,9 +5,6 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import get from 'lodash/get'
-
 const props = defineProps({
 	fieldData: Object
 })

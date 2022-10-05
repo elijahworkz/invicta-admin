@@ -85,13 +85,6 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue'
-// import { Inertia } from '@inertiajs/inertia'
-import { useResourceForm } from '@/services/form'
-import { onKeyStroke } from '@vueuse/core'
-import has from 'lodash/has'
-import get from 'lodash/get'
-import FormField from './FormField.vue'
 import { ArrowLeft, Close, Plus, ArrowDown } from '@element-plus/icons-vue'
 
 const props = defineProps({

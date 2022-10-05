@@ -42,10 +42,7 @@
 </template>
 
 <script setup>
-import { Inertia } from '@inertiajs/inertia'
-import { usePage } from '@inertiajs/inertia-vue3'
 import draggable from 'vuedraggable'
-import DragHandle from '@/components/shared/DragHandle.vue'
 
 const props = defineProps({
 	resource: Object

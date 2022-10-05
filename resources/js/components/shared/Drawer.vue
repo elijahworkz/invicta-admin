@@ -11,9 +11,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { onClickOutside } from '@vueuse/core'
-import { uniqueId } from 'lodash'
+// import { onClickOutside } from '@vueuse/core'
 
 defineProps({
 	style: Object

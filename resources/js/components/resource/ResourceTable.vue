@@ -52,15 +52,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import { Inertia } from '@inertiajs/inertia'
-import map from 'lodash/map'
-import pickBy from 'lodash/pickBy'
 import { SetUp, MoreFilled } from '@element-plus/icons-vue'
-
-import { checked } from '@/utils/functions'
-import Column from './Column.vue'
-import RowActions from './RowActions.vue'
 
 const props = defineProps({
 	data: Array,

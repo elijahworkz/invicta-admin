@@ -29,7 +29,6 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
 import { Close, Loading } from '@element-plus/icons-vue'
 import { mdiOpenInNew } from '@mdi/js';
 

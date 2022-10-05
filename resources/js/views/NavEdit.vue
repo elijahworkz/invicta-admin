@@ -12,8 +12,6 @@
 </template>
 
 <script setup>
-import FormBase from '@/components/form/FormBase.vue'
-
 defineProps({
 	title: String,
 	resource: Object,

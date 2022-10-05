@@ -5,10 +5,6 @@
 </template>
 
 <script setup>
-import { ref, computed, watch } from 'vue'
-import FieldBase from '@/components/form/FieldBase.vue'
-import { useResourceForm } from '@/services/form'
-import { useFormField } from '@/services/form/field'
 import slugify from 'speakingurl'
 
 const props = defineProps({

@@ -62,12 +62,6 @@
 </template>
 
 <script setup>
-import { ref, reactive, computed } from 'vue'
-import { Inertia } from '@inertiajs/inertia'
-import NavTree from '@/components/nav/NavTree.vue'
-import NavItemForm from '@/components/nav/NavItemForm.vue'
-import ItemsSelector from '@/components/form/ItemsSelector.vue'
-import map from 'lodash/map'
 import { ArrowLeft, ArrowDown } from '@element-plus/icons-vue'
 
 const props = defineProps({

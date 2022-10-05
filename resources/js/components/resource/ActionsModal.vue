@@ -23,11 +23,6 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import { Inertia } from '@inertiajs/inertia'
-import { useResourceForm } from '@/services/form'
-import FormBase from '@/components/form/FormBase.vue'
-import isEmpty from 'lodash/isEmpty'
 
 const props = defineProps({
 	actionsUrl: String,

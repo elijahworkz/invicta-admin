@@ -14,12 +14,6 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
-import FieldBase from '@/components/form/FieldBase.vue'
-import ItemsList from '@/components/form/ItemsList.vue'
-import { useResourceForm } from '@/services/form'
-import map from 'lodash/map'
-
 const props = defineProps({
 	formId: String,
 	data: Object,

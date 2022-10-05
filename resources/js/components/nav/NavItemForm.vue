@@ -38,7 +38,6 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
 import { Close } from '@element-plus/icons-vue'
 
 const props = defineProps({

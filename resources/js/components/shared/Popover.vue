@@ -12,11 +12,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
 import { createPopper } from '@popperjs/core/lib/popper-lite'
-import flip from '@popperjs/core/lib/modifiers/flip';
-import preventOverflow from '@popperjs/core/lib/modifiers/preventOverflow';
-import { onClickOutside, onKeyStroke } from '@vueuse/core'
+import flip from '@popperjs/core/lib/modifiers/flip'
+import preventOverflow from '@popperjs/core/lib/modifiers/preventOverflow'
 
 const props = defineProps({
 	disabled: {

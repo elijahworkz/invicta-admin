@@ -3,8 +3,6 @@
 </template>
 
 <script setup>
-import { useFormField } from '@/services/form/field'
-
 const props = defineProps({
 	formId: String,
 	data: Object,

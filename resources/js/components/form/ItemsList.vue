@@ -59,12 +59,8 @@
 </template>
 
 <script setup>
-import { reactive, ref, computed } from 'vue'
 import draggable from 'vuedraggable'
-import DragHandle from '@/components/shared/DragHandle.vue'
 import ItemListItem from './ItemListItem.vue'
-import ItemsSelector from './ItemsSelector.vue'
-import ItemsForm from './ItemsForm.vue'
 import { mdiLink, mdiLinkOff, mdiLinkPlus,  } from '@mdi/js'
 
 const props = defineProps({

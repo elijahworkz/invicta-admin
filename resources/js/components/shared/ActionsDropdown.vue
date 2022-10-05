@@ -23,8 +23,6 @@
 </template>
 
 <script setup>
-import { ref, unref } from 'vue'
-import Popover from '@/components/shared/Popover.vue'
 import { mdiDotsHorizontal } from '@mdi/js'
 
 const props = defineProps({

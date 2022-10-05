@@ -23,10 +23,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { Inertia } from '@inertiajs/inertia'
 import { Delete } from '@element-plus/icons-vue'
-import ResourceTable from '@/components/resource/ResourceTable.vue'
 
 const props = defineProps({
 	resource: Object,

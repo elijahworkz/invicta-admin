@@ -60,12 +60,6 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
-import { useResource } from '@/services'
-import Search from '@/components/resource/Search.vue'
-import ResourceTable from '@/components/resource/ResourceTable.vue'
-import GridView from '@/components/assets/GridView.vue'
-import Loading from '@/components/shared/Loading.vue'
 import { mdiViewGridOutline, mdiFormatListText } from '@mdi/js';
 
 const emit = defineEmits(['selected'])

@@ -53,12 +53,8 @@
 </template>
 
 <script setup>
-import { Picture as IconPicture } from '@element-plus/icons-vue'
-import { Inertia } from '@inertiajs/inertia'
-import Uploader from '@/components/assets/Uploader.vue'
-import { useClipboard, usePermission } from '@vueuse/core'
 import { mdiOpenInNew } from '@mdi/js';
-import { DocumentCopy, Delete, Edit } from '@element-plus/icons-vue'
+import { DocumentCopy, Delete, Edit, Picture as IconPicture } from '@element-plus/icons-vue'
 
 const props = defineProps({
 	resource: Object,

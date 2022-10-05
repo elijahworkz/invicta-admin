@@ -60,14 +60,6 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
-import ResourceTable from '@/components/resource/ResourceTable.vue'
-import Search from '@/components/resource/Search.vue'
-import Filters from '@/components/resource/Filters.vue'
-import FilterBadges from '@/components/resource/FilterBadges.vue'
-import Loading from '@/components/shared/Loading.vue'
-import { useResource } from '@/services'
-
 const props = defineProps({
 	resourceHandle: String,
 	exclude: Array,

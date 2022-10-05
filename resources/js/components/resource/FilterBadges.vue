@@ -10,9 +10,6 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import map from 'lodash/map'
-
 const props = defineProps({
 	badges: Object
 })

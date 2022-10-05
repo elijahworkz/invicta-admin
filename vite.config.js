@@ -17,13 +17,23 @@ export default defineConfig({
 		}),
 		vue(),
 		AutoImport({
-			resolvers: [ElementPlusResolver()],
+			imports: [
+				'vue',
+				{
+					'@vueuse/core': ['onClickOutside', 'onKeyStroke', 'useClipboard', 'usePermission']
+				}
+			],
+			dirs: ['resources/js/services/**', 'resources/js/utils/**'],
+			resolvers: [
+				ElementPlusResolver(),
+			],
 		}),
 		Components({
+			dirs: ['resources/js/components'],
 			resolvers: [ElementPlusResolver({
 				importStyle: 'sass'
 			})]
-		})
+		}),
 	],
 	resolve: {
 		alias: {

@@ -76,18 +76,6 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
-import { Inertia } from '@inertiajs/inertia'
-import { usePage } from '@inertiajs/inertia-vue3'
-import { useResource } from '@/services'
-// import Search from '@/components/resource/Search.vue'
-import FiltersSearch from '@/components/resource/FiltersSearch.vue'
-import ResourceTable from '@/components/resource/ResourceTable.vue'
-import Filters from '@/components/resource/Filters.vue'
-import FilterBadges from '@/components/resource/FilterBadges.vue'
-import Actions from '@/components/resource/Actions.vue'
-import ActionsModal from '@/components/resource/ActionsModal.vue'
-import FormBase from '@/components/form/FormBase.vue'
 import { Delete } from '@element-plus/icons-vue'
 
 const props = defineProps({

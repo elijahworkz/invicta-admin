@@ -26,13 +26,6 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, watch } from 'vue'
-import FieldBase from '@/components/form/FieldBase.vue'
-import TextEditorBase from '@/components/form/TextEditorBase.vue'
-import AssetSelector from '@/components/assets/AssetSelector.vue'
-import ItemsSelector from '@/components/form/ItemsSelector.vue'
-import { useFormField } from '@/services/form/field'
-
 const props = defineProps({
 	formId: String,
 	data: Object,

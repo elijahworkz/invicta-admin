@@ -61,11 +61,6 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import has from 'lodash/has'
-import { useForm, usePage } from '@inertiajs/inertia-vue3'
-import { useResourceForm } from '@/services/form'
-import FormField from '@/components/form/FormField.vue'
 import { Back, ArrowLeft, Plus, ArrowDown } from '@element-plus/icons-vue'
 
 const props = defineProps({
