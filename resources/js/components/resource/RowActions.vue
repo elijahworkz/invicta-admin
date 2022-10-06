@@ -7,6 +7,7 @@
 			@selected="handleAction" 
 			class="ml-3" />
 
+		<span v-show="hasDetail" class="action-icon" @click="$emit('show', id)" title="Show Item"><View /></span>
 		<span v-show="canEdit" class="action-icon" @click="$emit('edit', id)" title="Edit Item"><Edit /></span>
 		<span v-show="canDelete" class="action-icon" @click="$emit('delete', [id])" title="Delete Item"><Delete /></span>
 
@@ -15,11 +16,12 @@
 
 <script setup>
 import { mdiDotsHorizontal } from '@mdi/js'
-import { Delete, Edit } from '@element-plus/icons-vue'
+import { Delete, Edit, View } from '@element-plus/icons-vue'
 
 const props = defineProps({
 	id: Number,
 	actions: Array,
+	hasDetail: Boolean,
 	canEdit: Boolean,
 	canDelete: Boolean,
 })

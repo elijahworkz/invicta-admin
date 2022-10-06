@@ -46,6 +46,8 @@ trait ListsItems
         $sortBy = request()->query('sort_by', 'id');
         $sortOrder = request()->query('sort_order', 'desc');
 
+        $table = $this->model()->getTable();
+
         if (request()->has('search')) {
             $query = $this->applySearch($query, request()->get('search'));
         }
@@ -60,7 +62,7 @@ trait ListsItems
             $query = $query->with($this->indexWith);
         }
 
-        $result = $query->orderBy($this->handle().'.'.$sortBy, $sortOrder)->paginate($perPage);
+        $result = $query->orderBy($table.'.'.$sortBy, $sortOrder)->paginate($perPage);
 
         return $result->withQueryString();
     }

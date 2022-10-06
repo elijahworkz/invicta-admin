@@ -36,7 +36,9 @@
 				:columns="resource.columns"
 				:can-edit="canEdit"
 				:can-delete="canDelete"
+				:has-detail="resource.hasDetail"
 				@select="handleSelect"
+				@show="handleShow"
 				@edit="handleEdit"
 				@delete="handleDelete" />
 
@@ -86,7 +88,9 @@ const props = defineProps({
 })
 
 const { pageUrl } = usePage().props.value
-const resourceIndex = useResource()
+const resourceIndex = useResource(props.resource.handle)
+
+console.log('I want to see what is inside', resourceIndex)
 resourceIndex.init(pageUrl)
 resourceIndex.setActiveFilters(props.resource.meta.filters)
 
@@ -133,21 +137,32 @@ const handleSelect = (selection) => {
 	selectedRows.value = selection.map(row => row.id)
 }
 
+// Handle Show
+const handleShow = (item) => {
+	if (! props.resource.indexEdit) {
+		Inertia.visit(`${props.resource.meta.path}/${item}`)
+	} else {
+		// if we want to show details in drawer ?
+	}
+}
+
 // Handle Edit
 const handleEdit = (item) => {
 
 	if (! props.resource.indexEdit) {
-		Inertia.visit(`${props.resource.meta.path}/${item}`)
+		Inertia.visit(`${props.resource.meta.path}/${item}/edit`)
+	} else {
+
+		apiSubmit.value = false
+
+		Invicta.axios.get(`resource/${props.resource.handle}/${item}`)
+			.then(({data}) => {
+				resourceFormId.value = `${props.resource.handle}.${data.item.id}`
+				resourceItem.value = data
+				drawer.value = true
+			})
 	}
 
-	apiSubmit.value = false
-
-	Invicta.axios.get(`resource/${props.resource.handle}/${item}`)
-		.then(({data}) => {
-			resourceFormId.value = `${props.resource.handle}.${data.item.id}`
-			resourceItem.value = data
-			drawer.value = true
-		})
 }
 
 /* Handle Delete Actions */

@@ -12,10 +12,16 @@
 			:key="tableKey"
 			v-loading="loading">
 
-			<el-table-column v-if="!singleSelect" type="selection" fixed />
+			<el-table-column v-if="!singleSelect && !noSelect" type="selection" fixed />
 
 			<template v-for="(column, key) in visibleColumns">
-				<Column :id="key" :props="column" :can-edit="canEdit" @edit="$emit('edit', $event)"/>
+				<Column 
+					:id="key"
+					:props="column"
+					:can-edit="canEdit"
+					:has-detail="hasDetail"
+					@show="$emit('show', $event)"
+					@edit="$emit('edit', $event)"/>
 			</template>
 
 			<el-table-column
@@ -41,7 +47,9 @@
 						:id="scope.row.id" 
 						:actions="scope.row.actions || []" 
 						:can-edit="canEdit" 
-						:can-delete="canDelete" 
+						:can-delete="canDelete"
+						:has-detail="hasDetail"
+						@show="$emit('show', $event)"
 						@edit="$emit('edit', $event)" 
 						@delete="$emit('delete', $event)" />
 				</template>
@@ -60,11 +68,16 @@ const props = defineProps({
 	columns: Object,
 	canEdit: Boolean,
 	canDelete: Boolean,
+	hasDetail: Boolean,
 	noActions: {
 		type: Boolean,
 		default: false,
 	},
 	singleSelect: {
+		type: Boolean,
+		default: false
+	},
+	noSelect: {
 		type: Boolean,
 		default: false
 	}

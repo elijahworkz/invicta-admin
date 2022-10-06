@@ -18,6 +18,12 @@
 				class="edit-link"
 				v-html="scope.row[id]">
 			</div>
+			<div
+				v-else-if="props.detailLink && hasDetail"
+				@click.prevent="$emit('show', scope.row.id)"
+				class="edit-link"
+				v-html="scope.row[id]">
+			</div>
 			<div v-else v-html="scope.row[id]"/>
 		</template>
 
@@ -28,7 +34,8 @@
 defineProps({
 	id: String,
 	props: Object,
-	canEdit: Boolean
+	canEdit: Boolean,
+	hasDetail: Boolean,
 })
 
 const align = (props, header = false) => props.boolean ? 'center' : (header ? props.headerAlign : props.align)

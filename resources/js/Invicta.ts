@@ -4,6 +4,7 @@ import { InertiaProgress } from '@inertiajs/progress'
 import { createPinia } from 'pinia'
 import { setupAxios } from './services/axios'
 import { AxiosInstance } from 'axios'
+import { AxiosInstance } from 'axios'
 import mitt from 'mitt'
 import isNil from 'lodash/isNil'
 // import { InvictaConfigObject } from './common/interfaces'
@@ -57,12 +58,14 @@ class Invicta
 			'Invicta.Resource': () => import('./views/ResourceIndex.vue'),
 			'Invicta.Resource.Reorder': () => import('./views/ResourceReorder.vue'),
 			'Invicta.Resource.Create': () => import('./views/ResourceEdit.vue'),
+			'Invicta.Resource.Detail': () => import('./views/ResourceDetail.vue'),
 			'Invicta.Resource.Edit': () => import('./views/ResourceEdit.vue'),
 			'Invicta.Permission.Edit': () => import('./views/PermissionEdit.vue'),
 			'NavIndex': () => import('./views/NavIndex.vue'),
 			'NavEdit': () => import('./views/NavEdit.vue'),
 			'NavItemsEdit': () => import('./views/NavItemsEdit.vue'),
 			'AssetsIndex': () => import('./views/AssetsIndex.vue'),
+			'Invicta.Page': () => import('./views/Page.vue'),
 		}
 	}
 
@@ -75,48 +78,6 @@ class Invicta
 		console.log('in boot', this.bootingCallbacks)
 		this.bootingCallbacks.forEach(callback => callback(this.app))
 	}
-
-	// initInertia() {
-
-	// 	let appElement = document.querySelector(this.mountElement)
-	// 	let inertiaData = appElement?.getAttribute('data-page') || ''
-
-	// 	createInertiaApp({
-	// 		title: (title: string) => `${title} - ${this.getConfig('appName')}`,
-	// 		resolve: async (name) => {
-	// 			let page = this.pages[name]
-
-	// 			if (typeof page === 'undefined') {
-	// 				throw new Error(`Page not found: ${name}`)
-	// 			}
-	// 			// page = typeof page === 'function' ? page() : page
-	// 			// const page = name.includes('Invicta.')
-	// 			// 	? (await this.pages[name]()).default
-	// 			// 	: this.pages[name]
-
-	// 			page = typeof page === 'function'
-	// 				? (await page()).default
-	// 				: page
-
-	// 			page.layout ??= MainLayout
-
-	// 			return page
-	// 		},
-	// 		setup: ({ app, props, plugin }) => {
-
-	// 			this.app = createApp({ render: () => h(app, props)})
-
-	// 			this.app.use(plugin)
-	// 			this.app.use(pinia)
-	// 			this.app.component('Head', Head)
-	// 			this.app.component('Link', Link)
-	// 			this.app.component('SvgIcon', SvgIcon)
-	// 			this.app.component('CheckTree', CheckTree)
-	// 			this.app.component('Drawer', Drawer)
-	// 			this.event('InvictaReady')
-	// 		}
-	// 	})
-	// }
 
 	initInertia() {
 

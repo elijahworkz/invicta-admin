@@ -12,7 +12,21 @@ declare global {
 
 const Invicta = window.Invicta
 
-export const useResource = defineStore('resourceStore', () => {
+const definedResources = new Map()
+
+export const useResource = (id: string = 'store') => {
+	let resourceId = `resource-${id}`
+	if (!definedResources.has(resourceId)) {
+		definedResources.set(
+			resourceId,
+			defineResource(id)
+		)
+	}
+
+	return definedResources.get(resourceId)
+}
+
+const defineResource = (id: string) => defineStore(`resource-${id}`, () => {
 	const data = ref<any>([])
 	const search = ref<any>('')
 	const currentPage = ref<any>(1)
@@ -178,4 +192,4 @@ export const useResource = defineStore('resourceStore', () => {
 		// sortOrder,
 		// sortBy
 	}
-})
+})()

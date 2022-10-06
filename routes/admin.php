@@ -21,7 +21,8 @@ Route::controller(ResourceController::class)->name('resource.')->prefix('/resour
     Route::get('{resource}/reorder', 'reorder')->name('reorder');
     Route::post('{resource}/reorder', 'reorderUpdate');
     Route::post('{resource}', 'store')->name('store');
-    Route::get('{resource}/{item}', 'edit')->name('edit');
+    Route::get('{resource}/{item}', 'show')->name('show');
+    Route::get('{resource}/{item}/edit', 'edit')->name('edit');
     Route::post('{resource}/{item}', 'update')->name('update');
 });
 
