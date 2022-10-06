@@ -180,4 +180,14 @@ return [
 
     'assets_build_tool' => env('INVICTA_ASSETS_BUILD_TOOL', 'vite'),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Enable SEO
+    |--------------------------------------------------------------------------
+    |
+    | This option determines is resource include seo section
+    |
+     */
+    'seo' => false,
+
 ];
