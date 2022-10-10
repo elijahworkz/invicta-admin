@@ -22,6 +22,9 @@
 </template>
 
 <script setup>
+import InlineRepeater from '@/components/form/InlineRepeater.vue'
+import CollapseRepeater from '@/components/form/CollapseRepeater.vue'
+
 const props = defineProps({
 	formId: String,
 	data: Object,

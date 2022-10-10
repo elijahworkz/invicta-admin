@@ -11,7 +11,7 @@
     <link rel="icon" href="{{ config('invicta.favicon') }}" type="image/png" />
 
     <!-- Font -->
-    <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,400i,500,500i,600,600i,700,700i&display=swap" rel="stylesheet" type="text/css">
 
     @inertiaHead
 
