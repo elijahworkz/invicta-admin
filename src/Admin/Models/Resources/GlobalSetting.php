@@ -51,6 +51,10 @@ class GlobalSetting extends Resource
     {
         $blueprint->addToSidebar([
             [
+                'id' => 'id',
+                'type' => 'hidden',
+            ],
+            [
                 'id' => 'blueprint',
                 'type' => 'blueprint',
                 'options' => $this->availableBlueprints(),

@@ -45,4 +45,28 @@ class GlobalSetting extends Model
             Cache::forget('global_set_'.$model->handle);
         });
     }
+
+    public static function getFilterOptions($globalSet, $attribute, $id = 'slug', $label = 'title')
+    {
+        $globalSet = global_set($globalSet, $attribute);
+
+        foreach ($globalSet as $global) {
+            $options[$global[$id]] = $global[$label];
+        }
+
+        return $options;
+    }
+
+    public static function getBlueprintOptions($globalSet, $attribute, $id = 'slug', $label = 'title')
+    {
+        $globalSet = global_set($globalSet, $attribute);
+
+        $options = ! empty($globalSet) ? collect($globalSet)->map(
+            function ($item) use ($id, $label) {
+                return ['label' => $item[$label], 'value' => $item[$id]];
+            }
+        ) : [];
+
+        return $options;
+    }
 }

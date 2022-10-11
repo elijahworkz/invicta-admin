@@ -71,6 +71,7 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 		prepareFields(blueprint: IResourceItem) {
 			const getFieldData = (field: any) => {
 				let id = 'path' in field ? field.path : field.id
+				id = id.includes('.') ? split(id, '.')[0] : id
 				let defaultValue = 'defaultValue' in field ? field.defaultValue : null
 				return this.data
 					? (id in this.data ? this.data[id] : defaultValue)
