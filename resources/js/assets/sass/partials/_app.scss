@@ -16,7 +16,7 @@ $sidebar-mini-width: 54px;
 		box-shadow: var(--el-box-shadow-light);
 		border-bottom: 1px solid var(--el-border-color-light);
 		padding: 0 1rem 0 0;
-		z-index: 2016;
+		z-index: 2001;
 	}
 
 	&-body {
@@ -86,6 +86,7 @@ $sidebar-mini-width: 54px;
 	&-main {
 		height: 100%;
 		flex: 1;
+		min-width: 0;
 
 		.sidebar-mini & {
 			padding-left: $sidebar-mini-width;
