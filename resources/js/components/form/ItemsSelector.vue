@@ -13,7 +13,7 @@
 						:label="resource.label"
 						:value="resource"/>
 				</el-select>
-				<Search />
+				<Search v-if="currentResource.handle" :handle="currentResource.handle" />
 				<Filters v-if="currentResource.handle" :resource-handle="currentResource.handle" />
 			</div>
 		</header>

@@ -12,7 +12,7 @@
 				<el-button v-show="canCreate" type="primary" size="large"><Link :href="`${resource.meta.path}/create`">Create new</Link></el-button>
 			</div>
 		</div>
-		<el-card body-style="padding: 0px">
+		<el-card body-style="padding: 0px;">
 			<div class="flex items-center justify-start p-3">
 				<div class="mr-2">Total: <strong>{{ resource.meta.total }}</strong></div>
 				<div><FilterBadges :badges="resource.meta.filterBadges" /></div>
@@ -137,7 +137,7 @@ const handleSelect = (selection) => {
 	selectedRows.value = selection.map(row => row.id)
 }
 
-// Handle Show
+// Handle Show (detail view)
 const handleShow = (item) => {
 	if (! props.resource.indexEdit) {
 		Inertia.visit(`${props.resource.meta.path}/${item}`)
