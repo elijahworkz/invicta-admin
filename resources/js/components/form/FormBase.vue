@@ -134,6 +134,18 @@ if (hasSections && blueprint.sections.length) {
 }
 const hasSidebar = has(blueprint, 'sidebar');
 
+// Set active tab from hash
+onMounted(() => {
+	if (window.location.hash.length > 0) {
+		let hash = window.location.hash.substr(1) || '';
+		activeTab.value = hash;
+	}
+})
+
+watch(activeTab, (newTab) => {
+	window.location.hash = newTab
+})
+
 // Set form class
 const formClass = computed(() => {
 	let width = props.headless

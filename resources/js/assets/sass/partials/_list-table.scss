@@ -43,7 +43,10 @@ $action-icon-size: 18px;
 				&.heading {
 					strong,
 					span {
-						color: var(--el-text-color-primary)
+						color: var(--el-text-color-regular)
+					}
+					strong {
+						font-weight: 600;
 					}
 				}
 			}

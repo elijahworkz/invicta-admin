@@ -5,7 +5,7 @@
 		width="30%">
 
 		<FormBase
-			v-if="! isEmpty(action.blueprint)"
+			v-if="hasForm"
 			:headless="true"
 			:form-id="formId"
 			:resource="resource"
@@ -23,7 +23,6 @@
 </template>
 
 <script setup>
-
 const props = defineProps({
 	actionsUrl: String,
 })
@@ -36,6 +35,7 @@ const action = ref({
 	blueprint: [],
 	dangerous: false
 })
+
 const selected = ref([])
 const actionData = computed(() => ({
 	class: action.value.class,
@@ -43,6 +43,7 @@ const actionData = computed(() => ({
 }))
 const api = computed(() => action.value.blueprint.fields?.length ? actionData.value : false)
 
+const hasForm = computed(() => ! isEmpty(action.value.blueprint))
 const formId = ref()
 const actionType = computed(() => {
 	return action.value.dangerous ? 'danger' : 'primary'

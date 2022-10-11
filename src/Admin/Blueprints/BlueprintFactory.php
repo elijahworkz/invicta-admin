@@ -28,6 +28,16 @@ class BlueprintFactory
         return $this->maybeGetCachedBlueprint($handle);
     }
 
+    public function detailBlueprint($resource, $item)
+    {
+        if (method_exists($resource, 'detailBlueprint')) {
+            return $resource->detailBlueprint($item);
+        }
+        // if (config('invicta.cache_blueprints')) {
+        //     return Cache::rememberForever('blueprint-view-'.
+        // }
+    }
+
     private function maybeGetCachedBlueprint($handle = 'default')
     {
         $cacheHandle = $this->resource->handle();

@@ -46,6 +46,7 @@ class ResourceRequest extends InvictaRequest
                 'handle' => $resourceClass->handle(),
                 'sortable' => $resourceClass->sortable(),
                 'indexEdit' => $resourceClass->indexEdit,
+                'hasDetail' => method_exists($resourceClass, 'showDetail'),
             ]);
     }
 
@@ -93,6 +94,30 @@ class ResourceRequest extends InvictaRequest
         }
 
         return $response;
+    }
+
+    public function viewItem()
+    {
+        $resourceClass = $this->resourceClass();
+        $item = $resourceClass->findModel($this->route('item'));
+        $handle = $resourceClass->handle();
+
+        return [
+            'item' => $item,
+            'meta' => [
+                'id' => $item->id,
+                'handle' => $handle,
+                'indexUrl' => $resourceClass->route(),
+                'indexTitle' => $resourceClass->menuTitle(),
+                'titleField' => $resourceClass->titleField,
+                'pageTitle' => $item[$resourceClass->titleField],
+            ],
+            'blueprint' => Blueprint::detailBlueprint($resourceClass, $item),
+            'header' => [
+                'title' => $resourceClass->detailTitle($item),
+                'info' => $resourceClass->detailInfo($item),
+            ],
+        ];
     }
 
     public function editItem()

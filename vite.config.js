@@ -55,7 +55,11 @@ export default defineConfig({
 			'@inertiajs/inertia-vue3',
 			'@inertiajs/progress',
 			'pusher-js',
-			'axios'
+			'axios',
+			'lodash-es'
 		]
+	},
+	rollupOptions: {
+		external: ['vue']
 	}
 })

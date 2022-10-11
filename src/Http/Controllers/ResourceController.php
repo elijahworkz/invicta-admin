@@ -12,8 +12,14 @@ class ResourceController extends Controller
     {
         $this->authorize('view '.$request->handle());
 
+        $resource = $request->resourceList();
+
+        if ($request->wantsJson()) {
+            return $resource;
+        }
+
         return Inertia::render('Invicta.Resource', [
-            'resource' => $request->resourceList(),
+            'resource' => $resource,
             'can-create' => $request->canCreate() && request()->user()->can('create '.$request->handle()),
             'can-edit' => request()->user()->can('edit '.$request->handle()),
             'can-delete' => request()->user()->can('delete '.$request->handle()),
@@ -30,6 +36,13 @@ class ResourceController extends Controller
         $this->authorize('create '.$request->handle());
 
         return Inertia::render('Invicta.Resource.Create', ['resource' => $request->createItem()]);
+    }
+
+    public function show(ResourceRequest $request)
+    {
+        $this->authorize('view '.$request->handle());
+
+        return Inertia::render('Invicta.Resource.Detail', ['resource' => $request->viewItem()]);
     }
 
     public function edit(ResourceRequest $request)

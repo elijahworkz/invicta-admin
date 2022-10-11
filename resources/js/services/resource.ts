@@ -12,11 +12,26 @@ declare global {
 
 const Invicta = window.Invicta
 
-export const useResource = defineStore('resourceStore', () => {
+const definedResources = new Map()
+
+export const useResource = (id: string = 'store') => {
+	let resourceId = `resource-${id}`
+	if (!definedResources.has(resourceId)) {
+		definedResources.set(
+			resourceId,
+			defineResource(id)
+		)
+	}
+
+	return definedResources.get(resourceId)
+}
+
+const defineResource = (id: string) => defineStore(`resource-${id}`, () => {
+	const resourceHandle = id
 	const data = ref<any>([])
 	const search = ref<any>('')
 	const currentPage = ref<any>(1)
-	const perPage = ref<any>(10)
+	const perPage = ref<any>(5)
 	const sortOrder = ref()
 	const sortBy = ref()
 	const activeFilters = ref([])
@@ -28,35 +43,41 @@ export const useResource = defineStore('resourceStore', () => {
 	const columns = ref<any>({})
 
 	const pageChange = (page: number) => {
-		console.log('see that you want to change page')
-		currentPage.value = page == 1 ? null : page
+		console.log('see that you want to change page', resourceHandle)
+		currentPage.value = page//page == 1 ? null : page
 	}
 
 	const pageSizeChange = (size: number) => {
 		perPage.value = size
 	}
 
-	Invicta.on('sort-change', ({ prop, order }: { prop: string, order: string}) => {
-		console.log('hear sort', prop, order)
-		sortOrder.value = order == 'ascending' ? 'asc' : 'desc'
-		sortBy.value = prop
+	Invicta.on('sort-change', ({ prop, order, handle }: { prop: string, order: string, handle: string}) => {
+		console.log('hear sort', prop, order, handle)
+		if (resourceHandle == handle) {
+			sortOrder.value = order == 'ascending' ? 'asc' : 'desc'
+			sortBy.value = prop
+		}
 	})
 
-	Invicta.on('search-change', (query: string) => {
-		currentPage.value = null
-		search.value = query
+	Invicta.on('search-change', ({query, handle}: {query: string, handle: string}) => {
+		if (resourceHandle == handle) {
+			currentPage.value = 1
+			search.value = query
+		}
 	})
 
-	Invicta.on('clear-filters', () => {
-		console.log('clearing filter')
-		currentPage.value = null
-		activeFilters.value = []
+	Invicta.on('clear-filters', (handle: string) => {
+		console.log('clearing filter for', handle)
+		if (resourceHandle == handle) {
+			currentPage.value = 1
+			activeFilters.value = []
+		}
 	})
 
 	/* Filters */
 	const requestFilters = ref(false)
 	const updateFilters = (filters: IFilterObject): void => {
-
+		// should check for resource id here?
 		currentPage.value = null
 
 		for (const [key, item] of Object.entries(filters)) {
@@ -178,4 +199,4 @@ export const useResource = defineStore('resourceStore', () => {
 		// sortOrder,
 		// sortBy
 	}
-})
+})()
