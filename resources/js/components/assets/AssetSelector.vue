@@ -2,7 +2,7 @@
 	<div class="w-full flex flex-col asset-library">
 		<header class="p-3">
 			<div class="flex items-center justify-between">
-				<Search class="flex-1" />
+				<Search class="flex-1" handle="assets" />
 				<div class="ml-2">
 					<el-button-group>
 						<el-button @click="setLayout('list')" title="List view" :active="layout == 'list'">
@@ -64,7 +64,7 @@ import { mdiViewGridOutline, mdiFormatListText } from '@mdi/js';
 
 const emit = defineEmits(['selected'])
 
-const itemsResource = useResource()
+const itemsResource = useResource('assets')
 const loading = ref(false)
 
 /* Layout Setup */

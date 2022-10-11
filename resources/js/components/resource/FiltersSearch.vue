@@ -15,15 +15,13 @@
 </template>
 
 <script setup>
-// import { ref, watch, computed } from 'vue'
-// import { useResource } from '@/services'
-// import { debounce } from '@/utils/functions'
-// import Filters from '@/components/resource/Filters.vue'
 import { Search, Refresh } from '@element-plus/icons-vue'
-// import { isEmpty } from 'lodash'
 
 const props = defineProps({
-	currentSearch: String,
+	currentSearch: {
+		type: String,
+		default: '',
+	},
 	searchStrings: {
 		type: Object,
 		default: () => ({ placeholder: 'Search', title: 'Type to search' })
@@ -32,13 +30,12 @@ const props = defineProps({
 	filters: String,
 })
 
-const resourceIndex = useResource()
+const resourceIndex = useResource(props.handle)
 const search = ref(props.currentSearch)
-const canReset = computed(() => !isEmpty(resourceIndex.activeFilters) && search )
+const canReset = computed(() => !isEmpty(resourceIndex.activeFilters) || search.value !== '')
 
 watch(search, debounce(newSearch => {
-	// console.log('debouncing works', newSearch)
-	Invicta.emit('search-change', newSearch)
+	Invicta.emit('search-change', {query: newSearch, handle: props.handle})
 
 }, 400))
 

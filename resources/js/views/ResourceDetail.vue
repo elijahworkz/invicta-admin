@@ -10,7 +10,7 @@
 					<el-icon><ArrowLeft /></el-icon> {{ resource.meta.indexTitle  }}</Link>
 				<div v-html="resource.header.title"></div>
 			</div>
-			<div class="header-details" v-if="resource.header.info">{{ resource.header.info }}</div>
+			<div class="header-details text-right" v-if="resource.header.info" v-html="resource.header.info"></div>
 		</div>
 
 		<FormBase
