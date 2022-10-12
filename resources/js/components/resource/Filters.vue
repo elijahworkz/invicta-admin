@@ -41,7 +41,7 @@ const props = defineProps({
 	filters: String
 })
 
-const resourceIndex = useResource()
+const resourceIndex = useResource(props.resourceHandle)
 
 const requestFilters = ref(null)
 const resourceFilters = ref([])
