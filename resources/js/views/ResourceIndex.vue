@@ -8,6 +8,10 @@
 				<FiltersSearch :currentSearch="resource.meta.search" :handle="resource.handle" :filters="resource.meta.filters" />
 			</div>
 			<div class="ml-auto">
+				<Actions
+					v-if="globalActions.length"
+					:actions="globalActions"
+				/>
 				<el-button v-if="resource.sortable"><Link :href="`${resource.meta.path}/reorder`">Reorder</Link></el-button>
 				<el-button v-show="canCreate" type="primary" size="large"><Link :href="`${resource.meta.path}/create`">Create new</Link></el-button>
 			</div>
@@ -18,8 +22,8 @@
 				<div><FilterBadges :badges="resource.meta.filterBadges" /></div>
 				<div class="ml-auto flex items-center">
 					<Actions
-						v-if="actions.length && selectedRows.length"
-						:actions="actions"
+						v-if="bulkActions.length && selectedRows.length"
+						:actions="bulkActions"
 						:selected="selectedRows"
 					/>
 					<!-- <Filters :resource-handle="resource.handle" :filters="resource.meta.filters" /> -->
@@ -101,7 +105,7 @@ const resourceItem = ref()
 const apiSubmit = ref(false)
 
 /* Handle Actions */
-const actions = ref([])
+let actions = ref([])
 const actionsUrl = `/resource/${props.resource.handle}/actions`
 onMounted(() => {
 	Invicta.axios.get(actionsUrl)
@@ -110,9 +114,17 @@ onMounted(() => {
 		})
 })
 
+const globalActions = computed(() => {
+	return actions.value.filter((el) => el.type == 'global')
+})
+
+const bulkActions = computed(() => {
+	return actions.value.filter((el) => el.type == 'bulk')
+})
+
 Invicta.on('action-called', (event) => {
 	
-	if (event.action.type == 'modal') {
+	if (event.action.modal) {
 		Invicta.emit('show-action-modal', event)
 	} else {
 

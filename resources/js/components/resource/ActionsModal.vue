@@ -17,7 +17,7 @@
 
 		<template #footer>
 				<el-button @click="open = false">Cancel</el-button>
-				<el-button :type="actionType" @click="processAction">Run Action</el-button>
+				<el-button :type="actionType" @click="processAction">{{actionButtonTitle}}</el-button>
 		</template>		
 	</el-dialog>
 </template>
@@ -47,6 +47,10 @@ const hasForm = computed(() => ! isEmpty(action.value.blueprint))
 const formId = ref()
 const actionType = computed(() => {
 	return action.value.dangerous ? 'danger' : 'primary'
+})
+
+const actionButtonTitle = computed(() => {
+	return action.value.action_button ?? 'Run Action'
 })
 
 Invicta.on('show-action-modal', (event) => {

@@ -7,35 +7,49 @@ use Illuminate\Database\Eloquent\Collection;
 
 class {{ class }} extends Action
 {
-    /**
-     * Bulk or single model action if set to true
-     *
-     * @var boolean
-     */
-    public $inline = false;
+	/**
+	 * Action type - possible values: 'inline', 'bulk', 'global'.
+	 * defaul value = 'inline'
+	 *
+	 * @var string
+	 */
+	public $type = 'inline';
 
-    /**
-     * Changes the color of the action button
-     * 
-     * @var boolean
-     */
-    public $dangerous = false;
+	/**
+	 * Open in modal window or in drawer.
+	 * defauld value = true
+	 *
+	 * @var string
+	 */
+	public $modal = true;
 
-    /**
-     * Indicates whether action should be pushed to queue
-     *
-     * @var boolean
-     */
-    public $shouldQueue = false;
+	/**
+	 * Indicates whether action should be pushed to queue
+	 * defauld value = false
+	 *
+	 * @var boolean
+	 */
+	public $shouldQueue = false;
 
-    /**
-     * Action type - possible values: 'modal', 'drawer' or 'link'
-     * 
-     * @var string
-     */
-    public $type = 'modal';
-    
-    /**
+
+	/**
+	 * Changes the color of the action button
+	 * defauld value = false
+	 *
+	 * @var boolean
+	 */
+	public $dangerous = false;
+
+	/**
+	 * Changes submission button. 'false' value is hide the button
+	 * defauld value = 'Run Action'
+	 *
+	 * @var string
+	 */
+	public $actionButton =  'Run Action';
+
+
+	/**
      * Perform the action on the given models.
      * @param  Fluent     $fields available fields
      * @param  Collection $models modelds to perform action on

@@ -16,18 +16,18 @@ class Action implements JsonSerializable
     public $name;
 
     /**
-     * Bulk or single model action if set to true.
+     * Action type - possible values: 'inline', 'bulk', 'global'.
      *
-     * @var bool
+     * @var string
      */
-    public $inline = false;
+    public $type = 'inline';
 
     /**
-     * Changes the color of the action button.
+     * Open in modal window or in drawer.
      *
-     * @var bool
+     * @var string
      */
-    public $dangerous = false;
+    public $modal = true;
 
     /**
      * Indicates whether action should be pushed to queue.
@@ -37,11 +37,19 @@ class Action implements JsonSerializable
     public $shouldQueue = false;
 
     /**
-     * Action type - possible values: 'modal', 'drawer'.
+     * Changes the color of the action button.
+     *
+     * @var bool
+     */
+    public $dangerous = false;
+
+    /**
+     * Changes submission button. 'false' value is hide the button
+     * defauld value = 'Run Action'.
      *
      * @var string
      */
-    public $type = 'modal';
+    public $actionButton = 'Run Action';
 
     /**
      * Perform the action on the given models.
@@ -87,13 +95,13 @@ class Action implements JsonSerializable
     }
 
     /**
-     * Get inline attribute for the action.
+     * Check is action inline.
      *
      * @return bool
      */
-    protected function inline()
+    public function inline()
     {
-        return $this->inline;
+        return $this->type == 'inline';
     }
 
     /**
@@ -107,13 +115,38 @@ class Action implements JsonSerializable
     }
 
     /**
-     * Get type attribute for the action.
+     * Get modal attribute for the action.
+     *
+     * @return bool
+     */
+    protected function modal()
+    {
+        return $this->modal;
+    }
+
+    /**
+     * Get modal attribute for the action.
      *
      * @return bool
      */
     protected function type()
     {
         return $this->type;
+    }
+
+    /**
+     * Get actionButton attribute for the action.
+     *
+     * @return bool
+     */
+    protected function actionButton()
+    {
+        return $this->actionButton;
+    }
+
+    protected function getBlueprint()
+    {
+        return $this->modal() ? $this->blueprint() : [];
     }
 
     /**
@@ -134,9 +167,11 @@ class Action implements JsonSerializable
         return [
             'class' => $this->key(),
             'name' => $this->name(),
-            'blueprint' => $this->type == 'drawer' ? [] : $this->blueprint(),
+            'blueprint' => $this->blueprint(),
             'dangerous' => $this->dangerous(),
+            'action_button' => $this->actionButton(),
             'type' => $this->type(),
+            'modal' => $this->modal(),
         ];
     }
 }
