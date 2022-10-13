@@ -110,7 +110,7 @@ onMounted(() => {
 	if (props.resources.length) {
 		currentResource.value = props.resources[0]
 	}
-
+	itemsResource.pageChange(1)
 	requestResourceItems()
 })
 
