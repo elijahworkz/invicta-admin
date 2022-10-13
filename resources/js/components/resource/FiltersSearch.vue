@@ -41,6 +41,6 @@ watch(search, debounce(newSearch => {
 
 const reset = () => {
 	search.value = ''
-	Invicta.emit('clear-filters', true)
+	Invicta.emit('clear-filters', props.handle)
 }
 </script>

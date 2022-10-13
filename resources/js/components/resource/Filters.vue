@@ -30,7 +30,7 @@
 			</div>
 		</template>
 	</popover>
-	<el-icon v-else><Minus/></el-icon>
+	<el-icon v-else class="opacity-30 cursor-not-allowed"><Filter/></el-icon>
 </template>
 
 <script setup>

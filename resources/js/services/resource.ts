@@ -31,7 +31,7 @@ const defineResource = (id: string) => defineStore(`resource-${id}`, () => {
 	const data = ref<any>([])
 	const search = ref<any>('')
 	const currentPage = ref<any>(1)
-	const perPage = ref<any>(5)
+	const perPage = ref<any>(10)
 	const sortOrder = ref()
 	const sortBy = ref()
 	const activeFilters = ref([])
