@@ -152,6 +152,18 @@ return [
 
     'cache_blueprints' => env('INVICTA_CACHE_BLUEPRINTS', false),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Enable caching for navigation menues
+    |--------------------------------------------------------------------------
+    |
+    | This setting will determine if navigation menues will be cached. Set to
+    | 'false' only for local testing.
+    |
+    */
+
+    'cache_navigation' => env('INVICTA_CACHE_NAVIGATION', false),
+
     /* DEVELOPMENT SETTINGS */
 
     /*

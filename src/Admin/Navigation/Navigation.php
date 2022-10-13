@@ -11,9 +11,9 @@ class Navigation
 
     public function menu($handle)
     {
-        if (! app()->environment('local')) {
+        if (config('invicta.cache_navigation')) {
             return Cache::rememberForever('nav-'.$handle, function () use ($handle) {
-                $this->build($handle);
+                return $this->build($handle);
             });
         }
 
