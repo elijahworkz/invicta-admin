@@ -13,6 +13,7 @@
 						v-if="filter.type == 'select'"
 						class="mb-4"
 						:handle="filter.class"
+						:resource-handle="resourceHandle"
 						:remote="filter.remote"
 						:filter-options="filter.options"
 						:initial-value="filter.initialValue"
@@ -22,6 +23,7 @@
 					<DateFilter
 						v-if="filter.type == 'date' || filter.type == 'daterange'"
 						:handle="filter.class"
+						:resource-handle="resourceHandle"
 						:type="filter.type"
 						:initial-value="filter.initialValue == '' ? [] : filter.initialValue"
 						@selected="scope.close()"
