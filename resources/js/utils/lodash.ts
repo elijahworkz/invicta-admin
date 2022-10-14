@@ -9,6 +9,7 @@ import {
 	isString,
 	isNumber,
 	clone,
+	startCase,
 } from 'lodash'
 
 export {
@@ -22,4 +23,5 @@ export {
 	isString,
 	isNumber,
 	clone,
+	startCase
 }

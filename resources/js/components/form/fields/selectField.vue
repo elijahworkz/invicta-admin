@@ -6,7 +6,7 @@
 			:value-key="data.props?.remote ? 'id' : null"
 			:teleported="false"
 			:remote-method="getOptions"
-			:disabled="data.readOnly">
+			:disabled="data.disabled">
 				<el-option
 					v-for="(item, index) in options"
 					:key="index"

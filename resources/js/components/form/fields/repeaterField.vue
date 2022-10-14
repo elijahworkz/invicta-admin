@@ -1,6 +1,5 @@
 <template>
 	<FieldBase :form-id="formId" :field-props="props">
-	<!-- <label class="el-form-item__label">{{ field.label() }}</label> -->
 	<component :is="repeaterBase" 
 		v-model="rows" 
 		item-name="row" 
