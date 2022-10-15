@@ -1,7 +1,9 @@
 <template>
 	<FieldBase :form-id="formId" :field-props="props">
 		<el-select
-			v-model="value" @change="changeBlueprint">
+			v-model="value" 
+			@change="changeBlueprint"
+			:disabled="field.disabled">
 				<el-option
 					v-for="item in data.options"
 					:key="item.value"

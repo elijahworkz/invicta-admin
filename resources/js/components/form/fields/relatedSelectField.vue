@@ -6,7 +6,7 @@
 			:remote-method="getRemote"
 			:loading="loading"
 			:teleported="false"
-			:disabled="data.disabled"
+			:disabled="field.disabled"
 			v-bind="data.props">
 				<el-option
 					v-for="item in relatedOptions"
