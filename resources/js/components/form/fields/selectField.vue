@@ -25,7 +25,7 @@ const props = defineProps({
 })
 
 const field = useFormField(props)
-const fieldValue = field.value([])
+const fieldValue = field.value()
 const options = ref([])
 
 const valueField = props.data.valueField || 'value'

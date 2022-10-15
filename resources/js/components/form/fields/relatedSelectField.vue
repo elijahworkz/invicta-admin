@@ -28,7 +28,7 @@ const props = defineProps({
 const loading = ref(false)
 
 const field = useFormField(props)
-const fieldValue = field.value([])
+const fieldValue = field.value()
 
 const resourceForm = useResourceForm(props.formId)
 
