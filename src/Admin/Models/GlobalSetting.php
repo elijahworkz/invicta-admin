@@ -65,7 +65,7 @@ class GlobalSetting extends Model
             function ($item) use ($id, $label) {
                 return ['label' => $item[$label], 'value' => $item[$id]];
             }
-        ) : [];
+        ) : collect([]);
 
         return $options;
     }

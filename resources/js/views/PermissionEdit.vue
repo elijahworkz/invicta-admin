@@ -26,6 +26,8 @@
 </template>
 
 <script setup>
+import { useForm } from '@inertiajs/inertia-vue3'
+
 const props = defineProps({
 	tree: Object,
 	permissions: Object,

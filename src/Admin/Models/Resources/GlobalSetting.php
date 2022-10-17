@@ -49,28 +49,43 @@ class GlobalSetting extends Resource
 
     public function modifyBlueprint($blueprint)
     {
-        $blueprint->addToSidebar([
+        $sidebar = [
             [
                 'id' => 'id',
                 'type' => 'hidden',
             ],
-            [
-                'id' => 'blueprint',
-                'type' => 'blueprint',
-                'options' => $this->availableBlueprints(),
-                'defaultValue' => 'default',
-            ],
-            [
-                'id' => 'title',
-                'type' => 'text',
-                'validation' => 'required',
-            ],
-            [
-                'id' => 'handle',
-                'type' => 'slug',
-                'source' => 'title',
-                'validation' => 'required',
-            ],
-        ]);
+        ];
+
+        if (auth()->user()->can('super')) {
+            $sidebar = array_merge($sidebar, [
+                [
+                    'id' => 'blueprint',
+                    'type' => 'blueprint',
+                    'options' => $this->availableBlueprints(),
+                    'defaultValue' => 'default',
+                ],
+                [
+                    'id' => 'title',
+                    'type' => 'text',
+                    'validation' => 'required',
+                ],
+                [
+                    'id' => 'handle',
+                    'type' => 'slug',
+                    'source' => 'title',
+                    'validation' => 'required',
+                ],
+            ]);
+        } else {
+            $sidebar = array_merge($sidebar, [
+                [
+                    'id' => 'title',
+                    'type' => 'text',
+                    'validation' => 'required',
+                    'readOnly' => true,
+                ],
+            ]);
+        }
+        $blueprint->addToSidebar($sidebar);
     }
 }
