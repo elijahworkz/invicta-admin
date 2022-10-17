@@ -20,6 +20,7 @@
 
 			<ResourceTable
 				v-if="!loading && layout == 'list'"
+				resource-handle="assets"
 				:data="itemsResource.resource"
 				:columns="itemsResource.columns"
 				:no-actions="true"

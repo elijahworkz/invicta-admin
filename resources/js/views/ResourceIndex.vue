@@ -35,6 +35,7 @@
 
 			<ResourceTable
 				:key="resource.slug"
+				:resource-handle="resource.handle"
 				:data="resource.data"
 				:table-props="resource.table"
 				:columns="resource.columns"

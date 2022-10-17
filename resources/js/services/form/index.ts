@@ -167,8 +167,11 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 				fields.map(item => {
 					if (item.fields) {
 						return readOnly(item.fields)
-					} else if (item.id == field) {
-						item.readOnly = true
+					} else {
+						let id = 'path' in item ? item.path : item.id
+						if (id == field) {
+							item.readOnly = true
+						}
 					}
 					return item
 				})

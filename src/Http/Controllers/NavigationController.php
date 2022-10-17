@@ -4,6 +4,7 @@ namespace Eteacher\InvictaAdmin\Http\Controllers;
 
 use Eteacher\InvictaAdmin\Admin\Models\Navigation;
 use Eteacher\InvictaAdmin\Admin\Resources\ResourceRegistrar;
+use Eteacher\InvictaAdmin\Events\NavigationUpdated;
 use Eteacher\InvictaAdmin\Http\Resources\NavResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -165,6 +166,8 @@ class NavigationController extends Controller
 
         $menu->tree = $request->tree;
         $menu->save();
+
+        NavigationUpdated::dispatch($menu->handle);
 
         return Redirect::back()->with('message', [
             'type' => 'success',

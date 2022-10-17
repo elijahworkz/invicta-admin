@@ -4,7 +4,7 @@
 			v-model="fieldValue"
 			filterable
 			:placeholder="data.props?.placeholder"
-			:disabled="data.readOnly">
+			:disabled="field.disabled">
 				<el-option
 					v-for="item in options"
 					:key="item.value"

@@ -40,7 +40,7 @@ const prepopulateFields = () => {
 	if (createWith) {
 		const resourceForm = useResourceForm(formId.value)
 
-		console.log('I see createWith', createWith.field, resourceForm.form)
+		console.log('I see createWith', createWith, createWith.field, createWith.value, resourceForm.form)
 
 		// resource.value.blueprint.fields[3]['readOnly'] = true
 

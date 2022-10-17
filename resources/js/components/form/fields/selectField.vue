@@ -6,7 +6,7 @@
 			:value-key="data.props?.remote ? 'id' : null"
 			:teleported="false"
 			:remote-method="getOptions"
-			:disabled="data.readOnly">
+			:disabled="field.disabled">
 				<el-option
 					v-for="(item, index) in options"
 					:key="index"
@@ -25,7 +25,7 @@ const props = defineProps({
 })
 
 const field = useFormField(props)
-const fieldValue = field.value([])
+const fieldValue = field.value()
 const options = ref([])
 
 const valueField = props.data.valueField || 'value'

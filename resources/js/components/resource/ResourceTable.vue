@@ -63,6 +63,7 @@
 import { SetUp, MoreFilled } from '@element-plus/icons-vue'
 
 const props = defineProps({
+	resourceHandle: String,
 	data: Array,
 	tableProps: Object,
 	columns: Object,
@@ -102,7 +103,8 @@ const visibleColumns = computed(() => {
 
 // Handle sorting
 const handleSortChange = ({ prop, order }) => {
-	Invicta.emit('sort-change', { prop, order })
+	console.log('before sort event', prop, order)
+	Invicta.emit('sort-change', { prop, order, handle: props.resourceHandle })
 }
 
 // Handle Row click

@@ -249,9 +249,9 @@ class ResourceRequest extends InvictaRequest
         $resourceClass = $this->resourceClass();
         $item = $resourceClass->model();
 
-        $this->processItem($resourceClass, $item, 'create');
+        $itemId = $this->processItem($resourceClass, $item, 'create');
 
-        return $resourceClass->handle();
+        return [$itemId, $resourceClass->handle()];
     }
 
     public function updateItem()
@@ -259,9 +259,9 @@ class ResourceRequest extends InvictaRequest
         $resourceClass = $this->resourceClass();
         $item = $resourceClass->findModel($this->route('item'), false);
 
-        $this->processItem($resourceClass, $item, 'update');
+        $itemId = $this->processItem($resourceClass, $item, 'update');
 
-        return $resourceClass->handle();
+        return [$itemId, $resourceClass->handle()];
     }
 
     protected function processItem($resourceClass, $item, $action)
@@ -306,5 +306,7 @@ class ResourceRequest extends InvictaRequest
         foreach ($relatedFields as $field => $value) {
             $resourceClass->updateRelationship($item, $field, $value);
         }
+
+        return $item->id;
     }
 }

@@ -6,7 +6,7 @@
 			:remote-method="getRemote"
 			:loading="loading"
 			:teleported="false"
-			:disabled="data.readOnly"
+			:disabled="field.disabled"
 			v-bind="data.props">
 				<el-option
 					v-for="item in relatedOptions"
@@ -28,7 +28,7 @@ const props = defineProps({
 const loading = ref(false)
 
 const field = useFormField(props)
-const fieldValue = field.value([])
+const fieldValue = field.value()
 
 const resourceForm = useResourceForm(props.formId)
 

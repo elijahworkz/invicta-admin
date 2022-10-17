@@ -66,15 +66,13 @@ class AppServiceProvider extends ServiceProvider
 
     protected function registerBladeDirectives()
     {
-        Blade::directive('invictaScripts', function ($expression) {
-            $class = Vite::class;
+        $class = Vite::class;
 
+        Blade::directive('invictaScripts', function ($expression) use ($class) {
             return "<?php echo app('$class')(); ?>";
         });
 
-        Blade::directive('invictaAssets', function ($expression) {
-            $class = Vite::class;
-
+        Blade::directive('invictaAssets', function ($expression) use ($class) {
             return "<?php echo app('$class')->assets() ?>";
         });
     }

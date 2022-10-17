@@ -3,7 +3,9 @@
 namespace Eteacher\InvictaAdmin\Providers;
 
 use Eteacher\InvictaAdmin\Events\BlueprintFound;
+use Eteacher\InvictaAdmin\Events\NavigationUpdated;
 use Eteacher\InvictaAdmin\Listeners\AddSeoBlueprint;
+use Eteacher\InvictaAdmin\Listeners\ClearNavigationCache;
 use Eteacher\InvictaAdmin\Listeners\EnsureLocalizationFields;
 use Eteacher\InvictaAdmin\Listeners\ProcessBlueprint;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -20,6 +22,9 @@ class EventsServiceProvider extends ServiceProvider
             EnsureLocalizationFields::class,
             AddSeoBlueprint::class,
             ProcessBlueprint::class,
+        ],
+        NavigationUpdated::class => [
+            ClearNavigationCache::class,
         ],
     ];
 

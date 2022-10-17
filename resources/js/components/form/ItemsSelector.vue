@@ -14,7 +14,7 @@
 						:value="resource"/>
 				</el-select>
 				<Search v-if="currentResource.handle" :handle="currentResource.handle" />
-				<Filters v-if="currentResource.handle" :resource-handle="currentResource.handle" />
+				<Filters :resource-handle="currentResource.handle" />
 			</div>
 		</header>
 
@@ -27,6 +27,7 @@
 
 			<el-scrollbar v-else>
 				<ResourceTable
+					:resource-handle="currentResource.handle"
 					:data="itemsResource.resource"
 					:columns="columns"
 					:no-actions="true"
@@ -92,7 +93,7 @@ const props = defineProps({
 const emit = defineEmits(['selected'])
 
 const loading = ref(false)
-const itemsResource = useResource()
+const itemsResource = useResource(props.resourceHandle)
 
 /* Setup multiple resources selection */
 const currentResource = ref({
@@ -109,7 +110,7 @@ onMounted(() => {
 	if (props.resources.length) {
 		currentResource.value = props.resources[0]
 	}
-
+	itemsResource.pageChange(1)
 	requestResourceItems()
 })
 

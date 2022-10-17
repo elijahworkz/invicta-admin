@@ -78,7 +78,8 @@ class ResourceController extends Controller
 
     protected function processItem($request, $action)
     {
-        $handle = $request->$action();
+        [$itemId, $handle] = $request->$action();
+        $postSubmitAction = request()->input('postSubmitAction');
 
         $message = [
             'type' => 'success',
@@ -86,10 +87,28 @@ class ResourceController extends Controller
         ];
 
         // should deal with redirects here
-        if (request()->input('postSubmitAction') == 'back') {
+        if ($postSubmitAction == 'back') {
             return Redirect::route('invicta.resource.index', ['resource' => $handle])->with('message', $message);
         } else {
-            return Redirect::back()->with('message', $message);
+            $back = ($action == 'updateItem' && $postSubmitAction == 'edit') ||
+                ($action == 'storeItem' && $postSubmitAction == 'create');
+            /*
+                1. we are editing and select 'edit' - return back
+                2. we are editing and selecte 'create' => return to create view
+                3. we are creating and select 'create' => return back
+                4. we are creating and select 'edit' => return to edit view
+            */
+            if ($back) {
+                return Redirect::back()->with('message', $message);
+            }
+
+            if ($action == 'storeItem' && $postSubmitAction == 'edit') {
+                return Redirect::route('invicta.resource.edit', ['resource' => $handle, 'item' => $itemId])->with('message', $message);
+            }
+
+            if ($action == 'updateItem' && $postSubmitAction == 'create') {
+                return Redirect::route('invicta.resource.create', ['resource' => $handle])->with('message', $message);
+            }
         }
     }
 
