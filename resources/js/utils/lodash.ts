@@ -4,11 +4,12 @@ import {
 	has,
 	isEmpty,
 	pickBy,
-	filterFn,
+	filter,
 	uniqueId,
 	isString,
 	isNumber,
 	clone,
+	startCase,
 } from 'lodash'
 
 export {
@@ -17,9 +18,10 @@ export {
 	has,
 	isEmpty,
 	pickBy,
-	filterFn,
+	filter as filterFn,
 	uniqueId,
 	isString,
 	isNumber,
 	clone,
+	startCase
 }

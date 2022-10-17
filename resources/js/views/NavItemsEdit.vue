@@ -96,9 +96,13 @@ const excludeItems = computed(() => {
 
 const updateChildItems = (tree, items) => {
 	tree.forEach(item => {
-		if (item.id == currentItem.value.id && item.handle == currentItem.value.handle) {
+		if (item.id == currentItem.value.id 
+			&& item.handle == currentItem.value.handle
+			&& item.label == currentItem.value.label) {
+			console.log('debugging items', item.id, currentItem.value.id, item.handle, currentItem.value.handle)
 			item.children.push(...items)
 		} else if (item.children.length) {
+			console.log('nav items have children')
 			updateChildItems(item.children, items)
 		}
 	})

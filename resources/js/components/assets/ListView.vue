@@ -11,6 +11,7 @@
 
 		<ResourceTable
 			:key="resource.slug"
+			resource-handle="assets"
 			:data="resource.data"
 			:table-props="resource.table"
 			:columns="resource.columns"

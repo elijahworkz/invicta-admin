@@ -1,9 +1,4 @@
-import { computed } from 'vue'
-import { useResourceForm } from '@/services/form'
 import { IFormField } from '@/interfaces'
-import has from 'lodash/has'
-import get from 'lodash/get'
-import startCase from 'lodash/startCase'
 
 export const useFormField = (props: { formId: string, data: IFormField, path: string }) => {
     
@@ -24,13 +19,20 @@ export const useFormField = (props: { formId: string, data: IFormField, path: st
 
                 value = (cb) ? cb(value) : value
                 resourceForm.set(path, value)
-
-                // if (!defaultValue) {
-                //     resourceForm.dirty = true
-                // }
             }
         })
     }
+
+    const isReadOnly = computed(() => {
+        if (field.readOnly) {
+            if (typeof field.readOnly === 'boolean') {
+                return field.readOnly
+            } else {
+                return useFieldCondition(field.readOnly, props.formId).value
+            }
+        }
+        return false
+    })
     
     return {
         has(param: string) {
@@ -45,9 +47,9 @@ export const useFormField = (props: { formId: string, data: IFormField, path: st
             return get(field, param, ifNull)
         },
 
-        label(readOnly = false) {
+        label() {
             
-            let readOnlyString = readOnly 
+            let readOnlyString = isReadOnly.value
                 ? ' <span>Read Only</span>'
                 : ''
 
@@ -63,7 +65,9 @@ export const useFormField = (props: { formId: string, data: IFormField, path: st
             get(field, 'info', false)
         },
 
-        value
+        value,
+
+        disabled: isReadOnly.value
     }
 }
 

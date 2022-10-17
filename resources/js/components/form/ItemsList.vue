@@ -142,15 +142,21 @@ const populateWith = computed(() => {
 		let field = (typeof createWith === 'object')
 			? createWith.field
 			: createWith
-		let value = (typeof createWith === 'object' && createWith.multiple)
-			? [{ id: props.itemId }]
-			: { id: props.itemId }
+
+		let value = props.itemId
+
+		if (typeof createWith === 'object') {
+			value = 'multiple' in createwith && createWith.multiple
+				? [{ id: props.itemId }]
+				: { id: props.itemId }
+		}
 
 		return {
 			field,
 			value
 		}
 	}
+	
 	return null
 })
 

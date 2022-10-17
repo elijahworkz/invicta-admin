@@ -13,6 +13,7 @@
 						v-if="filter.type == 'select'"
 						class="mb-4"
 						:handle="filter.class"
+						:resource-handle="resourceHandle"
 						:remote="filter.remote"
 						:filter-options="filter.options"
 						:initial-value="filter.initialValue"
@@ -22,6 +23,7 @@
 					<DateFilter
 						v-if="filter.type == 'date' || filter.type == 'daterange'"
 						:handle="filter.class"
+						:resource-handle="resourceHandle"
 						:type="filter.type"
 						:initial-value="filter.initialValue == '' ? [] : filter.initialValue"
 						@selected="scope.close()"
@@ -30,7 +32,7 @@
 			</div>
 		</template>
 	</popover>
-	<el-icon v-else><Minus/></el-icon>
+	<el-icon v-else class="opacity-30 cursor-not-allowed"><Filter/></el-icon>
 </template>
 
 <script setup>
@@ -41,7 +43,7 @@ const props = defineProps({
 	filters: String
 })
 
-const resourceIndex = useResource()
+const resourceIndex = useResource(props.resourceHandle)
 
 const requestFilters = ref(null)
 const resourceFilters = ref([])

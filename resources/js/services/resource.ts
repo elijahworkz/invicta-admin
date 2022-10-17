@@ -1,8 +1,6 @@
-import { ref, reactive, computed, watch } from 'vue'
 import { defineStore } from 'pinia'
 import { Inertia } from '@inertiajs/inertia'
 import { IResourceObject, IFilterObject} from '@/interfaces'
-import pickBy from 'lodash/pickBy'
 
 declare global {
 	interface Window {
@@ -31,7 +29,7 @@ const defineResource = (id: string) => defineStore(`resource-${id}`, () => {
 	const data = ref<any>([])
 	const search = ref<any>('')
 	const currentPage = ref<any>(1)
-	const perPage = ref<any>(5)
+	const perPage = ref<any>(10)
 	const sortOrder = ref()
 	const sortBy = ref()
 	const activeFilters = ref([])
@@ -76,20 +74,22 @@ const defineResource = (id: string) => defineStore(`resource-${id}`, () => {
 
 	/* Filters */
 	const requestFilters = ref(false)
-	const updateFilters = (filters: IFilterObject): void => {
+	const updateFilters = ({filter, handle}: {filter: IFilterObject, handle: string}): void => {
 		// should check for resource id here?
-		currentPage.value = null
+		if (resourceHandle == handle) {		
+			currentPage.value = null
 
-		for (const [key, item] of Object.entries(filters)) {
+			for (const [key, item] of Object.entries(filter)) {
 
-			if (typeof item === 'string' && item === '') {
-				// @ts-ignore
-				delete activeFilters.value[key]
-			} else {
-				activeFilters.value = {...activeFilters.value, ...filters}
+				if (typeof item === 'string' && item === '') {
+					// @ts-ignore
+					delete activeFilters.value[key]
+				} else {
+					activeFilters.value = {...activeFilters.value, ...filter}
+				}
 			}
+			requestFilters.value = false
 		}
-		requestFilters.value = false
 	}
 	Invicta.on('update-filters', updateFilters as any)
 
@@ -159,6 +159,7 @@ const defineResource = (id: string) => defineStore(`resource-${id}`, () => {
 			query = additionalParams.value
 				? { ...query, ...additionalParams.value }
 				: query
+				
 			console.log(' I should ask api', query)
 
 			Invicta.axios.get(requestUrl.value, { params: query })

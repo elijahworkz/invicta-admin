@@ -20,6 +20,7 @@
 		<ResourceTable
 			v-else
 			:key="data.id"
+			:resource-handle="resource.handle"
 			:data="tableResource.resource"
 			:columns="tableResource.columns"
 			:can-edit="false"

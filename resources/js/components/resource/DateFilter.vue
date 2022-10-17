@@ -10,6 +10,7 @@
 <script setup>
 const props = defineProps({
 	handle: String,
+	resourceHandle: String,
 	type: String,
 	initialValue: Array,
 })
@@ -21,7 +22,7 @@ const filterValue = ref(props.initialValue)
 const onChange = () => {
 	let filterObject = {}
 	filterObject[props.handle] = filterValue.value
-	Invicta.emit('update-filters', filterObject)
+	Invicta.emit('update-filters', { filter: filterObject, handle: props.resourceHandle })
 	emit('selected')
 }
 

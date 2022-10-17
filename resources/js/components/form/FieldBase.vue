@@ -1,7 +1,7 @@
 <template>
 	<el-form-item :class="[...fieldClasses, resourceForm.errors[id] ? 'is-error' : '']">
 		<template #label>
-			<div v-html="field.label(fieldProps.data.readOnly)"/>
+			<div v-html="field.label()"/>
 			<div class="info info-top opacity-60" v-if="info && infoPosition == 'top'">{{ info }}</div>
 		</template>
 

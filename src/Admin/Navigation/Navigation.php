@@ -3,6 +3,7 @@
 namespace Eteacher\InvictaAdmin\Admin\Navigation;
 
 use Eteacher\InvictaAdmin\Admin\Models\Navigation as NavigationModel;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
 class Navigation
@@ -11,16 +12,18 @@ class Navigation
 
     public function menu($handle)
     {
-        if (! app()->environment('local')) {
-            return Cache::rememberForever('nav-'.$handle, function () use ($handle) {
-                $this->build($handle);
+        if (config('invicta.cache_navigation')) {
+            $tree = Cache::rememberForever('nav-'.$handle, function () use ($handle) {
+                return $this->build($handle);
             });
+        } else {
+            $tree = $this->build($handle);
         }
 
-        return $this->build($handle);
+        return $this->setCurrent($tree);
     }
 
-    public function build($handle)
+    protected function build($handle)
     {
         $menu = NavigationModel::where('handle', $handle)->first();
 
@@ -28,15 +31,12 @@ class Navigation
         $this->collectResources($menu->tree);
         $this->items->getResources();
 
-        $tree = $this->buildTree($menu->tree);
+        return $this->buildTree($menu->tree);
 
-        return $tree;
-
-        // 1. walk through tree
-        // 2. reduce all resources
+        return $this->setCurrent($tree);
     }
 
-    public function collectResources($tree)
+    protected function collectResources($tree)
     {
         foreach ($tree as $branch) {
             $this->items->setItem($branch);
@@ -47,7 +47,7 @@ class Navigation
         }
     }
 
-    public function buildTree($branches, $depth = 1)
+    protected function buildTree($branches, $depth = 1)
     {
         return collect($branches)->map(function ($branch) use ($depth) {
             $children = empty($branch['children']) ? [] : $this->buildTree($branch['children'], $depth + 1);
@@ -64,7 +64,7 @@ class Navigation
         })->filter();
     }
 
-    private function setUrl($item)
+    protected function setUrl($item)
     {
         if ($item['handle'] == 'custom') {
             return $item['url'] ?? '';
@@ -73,13 +73,31 @@ class Navigation
         return $this->items->url($item);
     }
 
-    public function setExternal($item)
+    protected function setExternal($item)
     {
         return (isset($item['url'])) ? Str::of($item['url'])->contains('http') : false;
     }
 
-    private function setTarget($item)
+    protected function setTarget($item)
     {
         return (isset($item['external']) && $item['external']) ? '_blank' : '';
+    }
+
+    protected function setCurrent($branches, $child = false)
+    {
+        return collect($branches)->map(function ($branch) {
+            $children = empty($branch['children']) ? [] : $this->setCurrent($branch['children'], true);
+            $branch['children'] = $children;
+
+            $is_current = Str::of(request()->path())->rtrim('/')->start('/') == rtrim($branch['url'], '/');
+
+            if (! empty($children) && ! $is_current) {
+                $is_current = collect($children)->where('is_current', true)->IsNotEmpty();
+            }
+
+            $branch['is_current'] = $is_current;
+
+            return $branch;
+        });
     }
 }
