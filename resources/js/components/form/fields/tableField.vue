@@ -1,6 +1,6 @@
 <template>
 	<div class="mb-2">
-		<div class="flex items-center">
+		<div class="flex items-center" v-if="! loading">
 			<FiltersSearch 
 				v-if="resource && data.searchFilter" 
 				:currentSearch="resource.meta.search" 
@@ -9,16 +9,16 @@
 			<strong class="ml-auto">Total: {{ tableResource.total }}</strong>
 		</div>
 
-		<div class="my-3">
+		<div class="my-3" v-if="! loading">
 			<FilterBadges :badges="tableResource.filterBadges" />
 		</div>
 
-		<div class="flex items-center justify-center h-full" v-if="loading">
+		<div class="flex items-center justify-center h-full py-10" v-if="loading">
 			<Loading />
 		</div>
 
 		<ResourceTable
-			v-else
+			v-else-if="resource"
 			:key="data.id"
 			:resource-handle="resource.handle"
 			:data="tableResource.resource"
