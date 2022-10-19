@@ -57,7 +57,7 @@ class GlobalSetting extends Resource
             ],
         ];
 
-        if (request()->user()->can('edit blueprint '.$this->handle())) {
+        if (request()->user()->can('edit blueprint global_settings')) {
             $sidebar = array_merge($sidebar, [
                 [
                     'id' => 'blueprint',
@@ -92,10 +92,8 @@ class GlobalSetting extends Resource
 
     public function permissions()
     {
-        $label = str($this->handle())->ucfirst()->replace('_', ' ');
-
         return [
-            Permission::make('edit blueprint '.$this->handle())->label('Edit blueprint '.$label),
+            Permission::make('edit blueprint global_settings')->label('Edit blueprint Global settings'),
         ];
     }
 }

@@ -44,8 +44,8 @@ class Action implements JsonSerializable
     public $dangerous = false;
 
     /**
-     * Changes submission button. 'false' value is hide the button
-     * defauld value = 'Run Action'.
+     * Changes submission button. 'false' value will hide the button
+     * default value = 'Run Action'.
      *
      * @var string
      */
