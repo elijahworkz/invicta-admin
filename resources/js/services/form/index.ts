@@ -105,7 +105,7 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 						
 						let value = getFieldData(item)
 
-						if (item.type == 'toggle') {
+						if (item.type == 'toggle' && typeof value == "number") {
 							value = Boolean(value)
 						}
 

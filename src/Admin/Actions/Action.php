@@ -167,7 +167,7 @@ class Action implements JsonSerializable
         return [
             'class' => $this->key(),
             'name' => $this->name(),
-            'blueprint' => $this->blueprint(),
+            'blueprint' => $this->getBlueprint(),
             'dangerous' => $this->dangerous(),
             'action_button' => $this->actionButton(),
             'type' => $this->type(),

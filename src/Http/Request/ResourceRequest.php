@@ -301,11 +301,11 @@ class ResourceRequest extends InvictaRequest
             $item = $item->id ? $item : $result;
         }
 
-        $resourceClass->afterSave($item);
-
         foreach ($relatedFields as $field => $value) {
             $resourceClass->updateRelationship($item, $field, $value);
         }
+
+        $resourceClass->afterSave($item);
 
         return $item->id;
     }

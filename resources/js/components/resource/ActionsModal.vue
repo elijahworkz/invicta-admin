@@ -11,6 +11,7 @@
 			:resource="resource"
 			:action-url="actionsUrl"
 			:api="api"
+			:key="formKey"
 		/>
 
 		<div v-else>Are you sure you want to run this action?</div>
@@ -42,6 +43,8 @@ const actionData = computed(() => ({
 	selected: selected.value,
 }))
 const api = computed(() => action.value.blueprint.fields?.length ? actionData.value : false)
+
+const formKey = computed(() => `${formId.value}.${selected.value.join('')}`)
 
 const hasForm = computed(() => ! isEmpty(action.value.blueprint))
 const formId = ref()

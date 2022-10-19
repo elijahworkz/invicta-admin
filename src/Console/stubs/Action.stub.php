@@ -9,7 +9,7 @@ class {{ class }} extends Action
 {
 	/**
 	 * Action type - possible values: 'inline', 'bulk', 'global'.
-	 * defaul value = 'inline'
+	 * default value = 'inline'
 	 *
 	 * @var string
 	 */
@@ -17,7 +17,7 @@ class {{ class }} extends Action
 
 	/**
 	 * Open in modal window or in drawer.
-	 * defauld value = true
+	 * default value = true
 	 *
 	 * @var string
 	 */
@@ -25,7 +25,7 @@ class {{ class }} extends Action
 
 	/**
 	 * Indicates whether action should be pushed to queue
-	 * defauld value = false
+	 * default value = false
 	 *
 	 * @var boolean
 	 */
@@ -34,15 +34,15 @@ class {{ class }} extends Action
 
 	/**
 	 * Changes the color of the action button
-	 * defauld value = false
+	 * default value = false
 	 *
 	 * @var boolean
 	 */
 	public $dangerous = false;
 
 	/**
-	 * Changes submission button. 'false' value is hide the button
-	 * defauld value = 'Run Action'
+	 * Changes submission button. 'false' value will hide the button
+	 * default value = 'Run Action'
 	 *
 	 * @var string
 	 */

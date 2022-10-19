@@ -106,7 +106,7 @@ const resourceItem = ref()
 const apiSubmit = ref(false)
 
 /* Handle Actions */
-let actions = ref([])
+const actions = ref([])
 const actionsUrl = `/resource/${props.resource.handle}/actions`
 onMounted(() => {
 	Invicta.axios.get(actionsUrl)

@@ -4,6 +4,7 @@ namespace Eteacher\InvictaAdmin\Admin\Models\Resources;
 
 use Eteacher\InvictaAdmin\Admin\Components\Column;
 use Eteacher\InvictaAdmin\Admin\Resources\Resource;
+use Eteacher\InvictaAdmin\Facades\Permission;
 
 class GlobalSetting extends Resource
 {
@@ -56,7 +57,7 @@ class GlobalSetting extends Resource
             ],
         ];
 
-        if (auth()->user()->can('super')) {
+        if (request()->user()->can('edit blueprint '.$this->handle())) {
             $sidebar = array_merge($sidebar, [
                 [
                     'id' => 'blueprint',
@@ -87,5 +88,14 @@ class GlobalSetting extends Resource
             ]);
         }
         $blueprint->addToSidebar($sidebar);
+    }
+
+    public function permissions()
+    {
+        $label = str($this->handle())->ucfirst()->replace('_', ' ');
+
+        return [
+            Permission::make('edit blueprint '.$this->handle())->label('Edit blueprint '.$label),
+        ];
     }
 }
