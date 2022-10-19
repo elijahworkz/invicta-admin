@@ -305,6 +305,8 @@ class ResourceRequest extends InvictaRequest
             $resourceClass->updateRelationship($item, $field, $value);
         }
 
+        $resourceClass->afterSave($item);
+
         return $item->id;
     }
 }

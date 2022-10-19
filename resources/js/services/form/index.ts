@@ -56,6 +56,7 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 
 			let formData = this.prepareFields(this.blueprint)
 			this.form = useForm(formData)
+
 			Invicta.emit('resource-form-ready')
 		},
 		get(id: string, defaultValue?: any): any {
@@ -71,6 +72,7 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 		prepareFields(blueprint: IResourceItem) {
 			const getFieldData = (field: any) => {
 				let id = 'path' in field ? field.path : field.id
+				id = id.includes('.') ? split(id, '.')[0] : id
 				let defaultValue = 'defaultValue' in field ? field.defaultValue : null
 				return this.data
 					? (id in this.data ? this.data[id] : defaultValue)
@@ -102,6 +104,10 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 						_id = _id.includes('.') ? split(_id, '.')[0] : _id
 						
 						let value = getFieldData(item)
+
+						if (item.type == 'toggle' && typeof value == "number") {
+							value = Boolean(value)
+						}
 
 						obj[_id] = value
 

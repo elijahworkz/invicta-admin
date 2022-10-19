@@ -4,6 +4,7 @@ namespace Eteacher\InvictaAdmin\Admin\Models\Resources;
 
 use Eteacher\InvictaAdmin\Admin\Components\Column;
 use Eteacher\InvictaAdmin\Admin\Resources\Resource;
+use Eteacher\InvictaAdmin\Facades\Permission;
 
 class GlobalSetting extends Resource
 {
@@ -49,24 +50,50 @@ class GlobalSetting extends Resource
 
     public function modifyBlueprint($blueprint)
     {
-        $blueprint->addToSidebar([
+        $sidebar = [
             [
-                'id' => 'blueprint',
-                'type' => 'blueprint',
-                'options' => $this->availableBlueprints(),
-                'defaultValue' => 'default',
+                'id' => 'id',
+                'type' => 'hidden',
             ],
-            [
-                'id' => 'title',
-                'type' => 'text',
-                'validation' => 'required',
-            ],
-            [
-                'id' => 'handle',
-                'type' => 'slug',
-                'source' => 'title',
-                'validation' => 'required',
-            ],
-        ]);
+        ];
+
+        if (request()->user()->can('edit blueprint global_settings')) {
+            $sidebar = array_merge($sidebar, [
+                [
+                    'id' => 'blueprint',
+                    'type' => 'blueprint',
+                    'options' => $this->availableBlueprints(),
+                    'defaultValue' => 'default',
+                ],
+                [
+                    'id' => 'title',
+                    'type' => 'text',
+                    'validation' => 'required',
+                ],
+                [
+                    'id' => 'handle',
+                    'type' => 'slug',
+                    'source' => 'title',
+                    'validation' => 'required',
+                ],
+            ]);
+        } else {
+            $sidebar = array_merge($sidebar, [
+                [
+                    'id' => 'title',
+                    'type' => 'text',
+                    'validation' => 'required',
+                    'readOnly' => true,
+                ],
+            ]);
+        }
+        $blueprint->addToSidebar($sidebar);
+    }
+
+    public function permissions()
+    {
+        return [
+            Permission::make('edit blueprint global_settings')->label('Edit blueprint Global settings'),
+        ];
     }
 }

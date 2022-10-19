@@ -11,13 +11,14 @@
 			:resource="resource"
 			:action-url="actionsUrl"
 			:api="api"
+			:key="formKey"
 		/>
 
 		<div v-else>Are you sure you want to run this action?</div>
 
 		<template #footer>
 				<el-button @click="open = false">Cancel</el-button>
-				<el-button :type="actionType" @click="processAction">Run Action</el-button>
+				<el-button :type="actionType" @click="processAction">{{actionButtonTitle}}</el-button>
 		</template>		
 	</el-dialog>
 </template>
@@ -43,10 +44,16 @@ const actionData = computed(() => ({
 }))
 const api = computed(() => action.value.blueprint.fields?.length ? actionData.value : false)
 
+const formKey = computed(() => `${formId.value}.${selected.value.join('')}`)
+
 const hasForm = computed(() => ! isEmpty(action.value.blueprint))
 const formId = ref()
 const actionType = computed(() => {
 	return action.value.dangerous ? 'danger' : 'primary'
+})
+
+const actionButtonTitle = computed(() => {
+	return action.value.action_button ?? 'Run Action'
 })
 
 Invicta.on('show-action-modal', (event) => {

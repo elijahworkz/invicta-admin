@@ -30,7 +30,7 @@ class ResourceController extends Controller
     public function actions(ResourceRequest $request)
     {
         return collect($request->resourceClass()->actions())->filter(function ($action) {
-            return ! $action->inline;
+            return ! $action->inline();
         })->values();
     }
 

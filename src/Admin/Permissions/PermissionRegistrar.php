@@ -2,8 +2,6 @@
 
 namespace Eteacher\InvictaAdmin\Admin\Permissions;
 
-use Illuminate\Support\Str;
-
 class PermissionRegistrar
 {
     public $groups = [];
@@ -27,18 +25,18 @@ class PermissionRegistrar
             return false;
         }
 
-        $label = Str::ucfirst($handle);
+        $label = str($handle)->ucfirst()->replace('_', ' ');
 
         $this->group($handle)->label($label)
             ->permissions(
                 [
-                    $this->make('view '.$handle)->children(
+                    $this->make('view '.$handle)->label('View '.$label)->children(
                         [
-                            $this->make('edit '.$handle)->children(
+                            $this->make('edit '.$handle)->label('Edit '.$label)->children(
                                 array_merge(
                                     [
-                                        $this->make('create '.$handle),
-                                        $this->make('delete '.$handle),
+                                        $this->make('create '.$handle)->label('Create '.$label),
+                                        $this->make('delete '.$handle)->label('Delete '.$label),
                                     ],
                                     $resource->permissions()
                                 )

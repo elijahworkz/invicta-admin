@@ -70,4 +70,9 @@ trait CanEditItems
     {
         return $item;
     }
+
+    public function afterSave($item)
+    {
+        return true;
+    }
 }
