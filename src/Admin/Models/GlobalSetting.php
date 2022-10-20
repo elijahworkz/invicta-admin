@@ -19,7 +19,7 @@ class GlobalSetting extends Model
         'title',
         'handle',
         'blueprint',
-        'content',
+        'data',
     ];
 
     /**
@@ -31,7 +31,7 @@ class GlobalSetting extends Model
      * @var string[]
      */
     protected $casts = [
-        'content' => 'array',
+        'data' => 'array',
     ];
 
     /**
