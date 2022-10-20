@@ -21,7 +21,7 @@ class CreateInvictaGlobalSettingsTable extends Migration
             $table->string('handle')->unique();
             $table->string('blueprint');
             $table->unsignedInteger('origin_id')->nullable();
-            $table->json('content')->nullable();
+            $table->json('data')->nullable();
             $table->timestamps();
         });
     }
