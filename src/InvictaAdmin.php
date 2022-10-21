@@ -70,6 +70,7 @@ class InvictaAdmin
     {
         $nameIsPath = (Str::of($name)->endsWith('.svg'));
         $svgPath = $nameIsPath ? $name : __DIR__."/../resources/svg/{$name}.svg";
+        $attrStr = '';
 
         $svg = Str::squish(File::get($svgPath));
 
@@ -78,9 +79,15 @@ class InvictaAdmin
         }
 
         if ($attrs) {
-            $attrs = " class=\"{$attrs}\"";
+            if (is_array($attrs)) {
+                foreach ($attrs as $key => $value) {
+                    $attrStr .= " {$key}=\"{$value}\"";
+                }
+            } else {
+                $attrStr = " class=\"{$attrs}\"";
+            }
         }
 
-        return str_replace('<svg', sprintf('<svg%s', $attrs), $svg);
+        return str_replace('<svg', sprintf('<svg%s', $attrStr), $svg);
     }
 }

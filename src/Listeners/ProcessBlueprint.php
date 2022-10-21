@@ -25,6 +25,6 @@ class ProcessBlueprint
     public function handle(BlueprintFound $event)
     {
         $event->resource->modifyBlueprint($event->blueprint);
-        $event->blueprint->parseForFieldsets();
+        $event->blueprint->parseForFieldsets($event->model);
     }
 }

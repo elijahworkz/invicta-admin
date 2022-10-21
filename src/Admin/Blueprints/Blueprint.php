@@ -7,7 +7,7 @@ use Illuminate\Support\Fluent;
 
 class Blueprint extends Fluent
 {
-    // protected $blueprint;
+    protected $item;
 
     public function addToSidebar($fields)
     {
@@ -35,8 +35,10 @@ class Blueprint extends Fluent
         $this->sections($sections);
     }
 
-    public function parseForFieldsets()
+    public function parseForFieldsets($item = null)
     {
+        $this->item = $item;
+
         if (Arr::has($this, 'fields')) {
             $fields = $this->fields;
 
