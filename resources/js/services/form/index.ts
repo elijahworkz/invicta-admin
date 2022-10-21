@@ -95,8 +95,11 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 				return fields.reduce((obj, item) => {
 					if (item.id) {
 						let _id = 'path' in item ? item.path : item.id
+
+						let dotPath = _id.includes('.') ? split(_id, '.') : false
+
 						// Enable passing json fields without json wrapper
-						_id = _id.includes('.') ? split(_id, '.')[0] : _id
+						_id = dotPath ? dotPath[0] : _id
 						// Fix for conflict whith 'data' key
 						_id = _id == 'data' ? '_data' : _id
 						
@@ -130,9 +133,19 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 								obj = {...obj, ...nested}
 							}
 						}
+
+						// Deep relationship check
+						if (dotPath && item.type.includes('related')) {
+							// get last field
+							let relatedId = dotPath[dotPath.length - 1]
+							
+							obj[relatedId] = this.data[relatedId]
+						}
+
 						return obj
 					} else if (item.type == 'row') {
 						let rowFields = getFields(item.fields)
+
 						obj = {...obj, ...rowFields}
 					}
 

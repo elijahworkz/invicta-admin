@@ -31,9 +31,9 @@ const sortedIds = computed(() => resourceForm.get(props.path, false))
 
 const listValue = computed(() => {
 	let related = resourceForm.get(relationship, [])
-	if (sortable && sortedIds.length) {
-		let sortedList = sortedIds.value.map(id => related.find(item => item.id === id))
-		related = sortedList
+	
+	if (sortable && sortedIds.value.length) {
+		return sortedIds.value.map(id => related.find(item => item.id === id))
 	}
 	return related
 })
