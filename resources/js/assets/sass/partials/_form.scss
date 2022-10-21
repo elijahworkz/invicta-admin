@@ -259,6 +259,10 @@
 		.fieldset.group:not(.seamless) {
 			border-bottom: none;
 		}
+
+		.el-form-item {
+			margin-bottom: 18px !important;
+		}
 	}
 
 	.inline-repeater-field {

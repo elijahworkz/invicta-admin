@@ -1,7 +1,9 @@
 import {
 	map,
 	get,
+	set,
 	has,
+	split,
 	isEmpty,
 	pickBy,
 	filter,
@@ -15,7 +17,9 @@ import {
 export {
 	map,
 	get,
+	set,
 	has,
+	split,
 	isEmpty,
 	pickBy,
 	filter as filterFn,

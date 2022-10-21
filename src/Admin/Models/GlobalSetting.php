@@ -48,7 +48,12 @@ class GlobalSetting extends Model
 
     public static function getFilterOptions($globalSet, $attribute, $id = 'slug', $label = 'title')
     {
+        $options = [];
         $globalSet = global_set($globalSet, $attribute);
+
+        if (! $globalSet) {
+            return $options;
+        }
 
         foreach ($globalSet as $global) {
             $options[$global[$id]] = $global[$label];

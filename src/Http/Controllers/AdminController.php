@@ -23,6 +23,7 @@ class AdminController extends Controller
 
         Auth::loginUsingId($user->getAuthIdentifier());
 
+        session()->forget('impersonate_guard');
         session()->forget('impersonator_id');
         session()->forget('impersonated_id');
 

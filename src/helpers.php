@@ -26,7 +26,7 @@ if (! function_exists('global_set')) {
             $model = GlobalSetting::where('handle', $handle)->first();
 
             if ($model) {
-                return $model->content;
+                return $model->data;
             }
 
             return null;

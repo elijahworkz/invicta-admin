@@ -16,7 +16,8 @@ const props = defineProps({
 })
 
 let fieldComponent = shallowRef('textField')
-let path = props.dataPath == 'data' ? '_data' : props.dataPath
+let id = props.dataPath.includes('.') ? split(props.dataPath, '.')[0] : props.dataPath
+let path = id == 'data' ? `_${props.dataPath}` : props.dataPath
 
 const showField = useFieldCondition(props.fieldData, props.formId)
 if (showField) {
