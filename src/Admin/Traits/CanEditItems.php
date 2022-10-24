@@ -46,7 +46,7 @@ trait CanEditItems
 
             return [
                 'value' => $blueprint,
-                'label' => Str::of($blueprint)->ucfirst(),
+                'label' => Str::headline($blueprint),
             ];
         })->push(['value' => 'default', 'label' => 'Default']);
     }

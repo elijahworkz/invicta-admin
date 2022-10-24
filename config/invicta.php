@@ -137,7 +137,7 @@ return [
     |
     */
 
-    'assets_multi_upload' => env('INVICTA_ASSETS_MULTI_UPLOAD', '/'),
+    'assets_multi_upload' => env('INVICTA_ASSETS_MULTI_UPLOAD', true),
 
     /*
     |--------------------------------------------------------------------------

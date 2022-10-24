@@ -10,7 +10,7 @@
 			</div>
 			<el-icon class="ml-auto mr-3 action-icon" @click="fieldValue = null"><Delete/></el-icon>
 		</div>
-		<Uploader v-else type="browse" @upload-complete="updateAsset" @open-library="openLibrary" />
+		<Uploader v-else type="browse" @upload-complete="updateAsset" @open-library="openLibrary" :multiple="false" />
 	</FieldBase>
 
 	<Drawer 

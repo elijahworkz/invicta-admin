@@ -12,7 +12,7 @@
 
 				<input 
 					type="file" 
-					ref="uploadImage"
+					ref="uploadInput"
 					:multiple="multiple"
 					:accept="accept"
 					class="input-file"
@@ -20,7 +20,7 @@
 					@change="initUpload">
 
 				<div class="dropbox-initial" v-if="isInitial">
-					<div class="dropbox-text">
+					<div class="dropbox-text" @click="inputClick">
 						<SvgIcon :icon="mdiCloudUploadOutline" />
 						<span>Drop file here or <strong>click to select</strong></span>
 					</div>
@@ -31,10 +31,10 @@
 				</div>
 			</div>
 			<div v-else class="button-upload">
-				<span class="el-button el-button--primary" @click="clickUpload" title="Upload new asset">
+				<span class="el-button el-button--primary" @click="inputClick" title="Upload new asset">
 					<input
 						type="file"
-						ref="uploadImage"
+						ref="uploadInput"
 						:multiple="multiple"
 						:accept="accept"
 						class="input-file"
@@ -78,7 +78,7 @@ const isSaving = ref(false)
 const dragover = ref(false)
 
 /* Set Input Ref */
-const uploadImage = ref()
+const uploadInput = ref()
 
 /* Upload progress */
 const uploadProgress = ref(0)
@@ -101,13 +101,13 @@ const initUpload = (event) => {
 	}
 }
 
-const clickUpload = () => {
-	uploadImage.value.value = null
-	uploadImage.value.click()
+const inputClick = () => {
+	uploadInput.value.value = null
+	uploadInput.value.click()
 }
 
 function upload(file) {
-	uploadImage.value = null
+	uploadInput.value = null
 	
 	let formData = new FormData()
 	formData.append('file', file)
