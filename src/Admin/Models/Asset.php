@@ -44,7 +44,8 @@ class Asset extends Model
         $audio = Str::of($mime)->contains('audio');
 
         // Double check for svgs
-        $image = ($fileinfo['extension'] == 'svg') ? true : $image;
+        $svg = $fileinfo['extension'] == 'svg';
+        $image = $svg ? true : $image;
         $debug = ['image' => $image, 'document' => $document, 'audio' => $audio, 'mime' => $mime];
 
         $path = self::getPath();
@@ -83,8 +84,8 @@ class Asset extends Model
                     'extension' => $fileinfo['extension'],
                     'size' => ($filesize != 0) ? $filesize : 0,
                     'size_human' => ($filesize != 0) ? self::formatBytes($filesize, 0) : 0,
-                    'width' => $width,
-                    'height' => $height,
+                    'width' => $width ?? 0,
+                    'height' => $height ?? 0,
                 ];
 
                 $storage->putFileAs($path, $file, $filename);
