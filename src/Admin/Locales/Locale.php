@@ -38,20 +38,13 @@ class Locale
             return '/';
         }
 
-        return Str::removeRight($url, '/');
+        return Str::of($url)
+            ->rtrim('/')
+            ->start('/');
     }
 
     public function direction()
     {
         return $this->config['direction'] ?? 'ltr';
-    }
-
-    public function absoluteUrl()
-    {
-        if (Str::startsWith($url = $this->url(), '/')) {
-            $url = Str::ensureLeft($url, request()->getSchemeAndHttpHost());
-        }
-
-        return Str::removeRight($url, '/');
     }
 }

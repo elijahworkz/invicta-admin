@@ -1,23 +1,23 @@
 <template>
 	<FieldBase :form-id="formId" :field-props="props">
-	<component :is="repeaterBase" 
-		v-model="rows" 
-		item-name="row" 
-		:item-title="getTitle" 
-		:default-row="defaultRow"
-		:disable-draggable="disableDraggable"
-		panel-class="group">
+		<component :is="repeaterBase" 
+			v-model="rows" 
+			:item-name="itemName" 
+			:item-title="getTitle" 
+			:default-row="defaultRow"
+			:disable-draggable="disableDraggable"
+			panel-class="group">
 
-		<template v-slot:default="slotProps">
-			<FormField 
-				v-for="field in data.fields"
-				:form-id="formId"
-				:field-data="field" 
-				:data-path="dataPath(field.id, slotProps.index)"/>
+			<template v-slot:default="slotProps">
+				<FormField 
+					v-for="field in data.fields"
+					:form-id="formId"
+					:field-data="field" 
+					:data-path="dataPath(field.id, slotProps.index)"/>
 
-		</template>
-	</component>
-</FieldBase>
+			</template>
+		</component>
+	</FieldBase>
 </template>
 
 <script setup>
@@ -44,6 +44,8 @@ const disableDraggable = !field.get('draggable', true)
 const defaultRow = computed(() => getFields(data.fields))
 
 let rows = field.value([defaultRow.value])
+
+const itemName = field.get('itemName', 'row')
 
 function getTitle(item, index) {
 	return resourceForm.get(`${path}.${index}.${data.title}`, `${data.title} #${index}`)

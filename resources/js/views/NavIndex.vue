@@ -1,6 +1,6 @@
 <template>
 	<Head :title="title"/>
-	<div class="p-10 w-1/2 mx-auto">
+	<div class="p-10 w-2/3 mx-auto">
 		<div class="flex items-end justify-start mb-4">
 			<div>
 				<h1 class="mb-1">{{ title }}</h1>

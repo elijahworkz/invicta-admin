@@ -283,7 +283,6 @@ class ResourceRequest extends InvictaRequest
         }
 
         foreach ($validated as $field => $value) {
-
             // first we check if it's a mutator
             if (! $item->hasAttributeMutator($field)) {
                 // check if relationship
