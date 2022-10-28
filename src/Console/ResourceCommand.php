@@ -144,18 +144,21 @@ class ResourceCommand extends GeneratorCommand
             return;
         }
 
+        $namePlural = Str::plural($this->resourceName);
+        $nameLower = Str::lower($namePlural);
+
         if ($this->model) {
-            $path = $this->laravel['path.database'].'/migrations/'.date('Y_m_d_His', time()).'_create_'.Str::lower($this->resourceName).'_table.php';
+            $path = $this->laravel['path.database'].'/migrations/'.date('Y_m_d_His', time()).'_create_'.$nameLower.'_table.php';
 
             $blueprint = __DIR__.'/../../database/migrations/invicta_resource_table.php.stub';
 
-            $replaceModel = 'Create'.Str::plural($this->resourceName).'Table';
+            $replaceModel = 'Create'.$namePlural.'Table';
         } else {
-            $path = $this->laravel['path.database'].'/migrations/'.date('Y_m_d_His', time()).'_add_seo_field_to_'.Str::lower($this->resourceName).'_table.php';
+            $path = $this->laravel['path.database'].'/migrations/'.date('Y_m_d_His', time()).'_add_seo_field_to_'.$nameLower.'_table.php';
 
             $blueprint = __DIR__.'/../../database/migrations/invicta_update_resource_table.php.stub';
 
-            $replaceModel = 'AddSeoFieldTo'.Str::plural($this->resourceName).'Table';
+            $replaceModel = 'AddSeoFieldTo'.$namePlural.'Table';
         }
 
         $replaceSeo = $this->seo ? '$table->string(\'uri\')->nullable();
@@ -166,7 +169,7 @@ class ResourceCommand extends GeneratorCommand
         $stub = $this->files->get($blueprint);
 
         $search = ['{{ class }}', '{{ table }}', '{{ seo }}'];
-        $replace = [$replaceModel, str($this->resourceName)->lower()->plural(), $replaceSeo];
+        $replace = [$replaceModel, $nameLower, $replaceSeo];
 
         $stub = str_replace($search, $replace, $stub);
 

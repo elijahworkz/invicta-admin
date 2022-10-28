@@ -49,8 +49,8 @@ class CreateInvictaAuthTables extends Migration
     public function down()
     {
         $tables = config('invicta.auth_tables');
-        Schema::dropIfExists($tables['groups']);
         Schema::dropIfExists($tables['group_user']);
         Schema::dropIfExists($tables['permissions']);
+        Schema::dropIfExists($tables['groups']);
     }
 };
