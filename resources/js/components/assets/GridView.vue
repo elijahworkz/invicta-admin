@@ -3,7 +3,7 @@
 		<Uploader v-if="!selector" type="drag" :multiple="multiple" />
 		<div class="assets-grid">
 			<div class="asset-card"
-				v-for="(item, index) in resource"
+				v-for="(item, index) in resource.data"
 				:key="item.img_name"
 				:title="item.img_name">
 
@@ -27,13 +27,20 @@
 								<DocumentCopy/>
 							</span>
 							<span
-								v-if="item.type == 'image'" class="preview-item" @click="$emit('edit', item)" title="Click to preview image">
+								v-if="item.type == 'image' && canEdit" 
+								class="preview-item" 
+								@click="$emit('edit', item)" 
+								title="Click to preview image">
 								<Edit/>
 							</span>
 							<span class="preview-item" @click="handleOpenMedia(item.src)" :title="`Click to open ${item.type} in new tab`">
 								<SvgIcon :icon="mdiOpenInNew"/>
 							</span>
-							<span class="delete-item" @click="handleDelete([item.id])" title="Click to delete image">
+							<span 
+								v-if="canDelete"
+								class="delete-item" 
+								@click="handleDelete([item.id])" 
+								title="Click to delete image">
 								<Delete/>
 							</span>
 						</div>
@@ -58,6 +65,8 @@ import { DocumentCopy, Delete, Edit, Picture as IconPicture } from '@element-plu
 
 const props = defineProps({
 	resource: Object,
+	canEdit: Boolean,
+	canDelete: Boolean,
 	multiple: Boolean,
 	selector: {
 		type: Boolean,
@@ -70,7 +79,7 @@ const permissionWrite = usePermission('clipboard-write')
 
 /* Handle Delete Actions */
 const handleDelete = (selected) => {
-
+console.log('deleting', selected)
 	ElMessageBox.confirm(
 		'This action will permanently delete records from database. Are you sure you want to continue?',
 		'Deleting',
@@ -82,7 +91,7 @@ const handleDelete = (selected) => {
 	).then(() => {
 		Inertia.delete(props.resource.meta.path, {data: { selected }})
 	})
-	.catch(() => console.log('cancel'))
+	.catch((error) => console.log('cancel', error))
 }
 
 /* Handle Preview Image */

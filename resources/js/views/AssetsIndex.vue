@@ -28,7 +28,9 @@
 				@edit="handleEdit" />
 
 			<GridView v-if="layout == 'grid'" 
-				:resource="resource.data" 
+				:resource="resource"
+				:can-edit="canEdit"
+				:can-delete="canDelete" 
 				:multiple="multiUpload" 
 				@edit="handleEdit" />
 
@@ -50,7 +52,7 @@
 	</div>
 
 	<Drawer v-if="drawer" @close="drawer = false">
-		<AssetForm :asset="currentAsset" />
+		<AssetForm :asset="currentAsset" @close="drawer = false"/>
 	</Drawer>
 </template>
 
