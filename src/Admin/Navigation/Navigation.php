@@ -55,6 +55,7 @@ class Navigation
             return [
                 'title' => $branch['label'],
                 'url' => $this->setUrl($branch),
+                'hasChildren' => ! empty($children),
                 'children' => $children,
                 'depth' => $depth,
                 'css' => $branch['css'] ?? null,
