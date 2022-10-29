@@ -2,6 +2,7 @@
 	<Head :title="resource.meta.pageTitle"/>
 	<div class="py-6 px-10">
 		<FormBase
+			:key="resource.meta?.id || 'new'"
 			:form-id="`${resource.meta.handle}.${resource.meta?.id || 'new'}`"
 			:resource="resource"
 			:action-url="resource.meta.actionUrl"
