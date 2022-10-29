@@ -117,9 +117,10 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 
 						if (item.fields) {
 
-							if (item.type == 'json' && item.hasOwnProperty('prepopulate') && item.prepopulate) {
+							if (item.type == 'json' && item.hasOwnProperty('populateFields') && item.populateFields) {
 								// check if the current value is null - we don't want to overwrite the existing
 								// values
+								
 								if (value === null) {
 
 									obj[_id] = item.fields.reduce((_obj: any, _item: any) => {
