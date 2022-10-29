@@ -38,23 +38,25 @@ class FieldsController extends Controller
     {
         $resources = ResourceRegistrar::all();
 
-        $result = [
-            [
-                'value' => null,
-                'label' => 'None',
-            ],
-        ];
+        $result = [];
 
         foreach ($resources as $resource) {
             if (method_exists($resource, 'navTitle')) {
                 $items = $resource->model()->select('id', $resource->titleField)->get();
 
+                $options = [];
+
                 foreach ($items as $item) {
-                    $result[] = [
+                    $options[] = [
                         'value' => $resource->handle().'::'.$item->id,
-                        'label' => Str::ucfirst($resource->handle()).' | '.$item[$resource->titleField],
+                        'label' => $item[$resource->titleField],
                     ];
                 }
+
+                $result[] = [
+                    'label' => Str::ucfirst($resource->handle()),
+                    'options' => $options,
+                ];
             }
         }
 
