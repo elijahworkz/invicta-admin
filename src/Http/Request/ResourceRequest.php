@@ -4,6 +4,7 @@ namespace Eteacher\InvictaAdmin\Http\Request;
 
 use Eteacher\InvictaAdmin\Admin\Actions\ActionJob;
 use Eteacher\InvictaAdmin\Admin\Resources\ResourceRegistrar;
+use Eteacher\InvictaAdmin\Events\ResourceUpdated;
 use Eteacher\InvictaAdmin\Facades\Blueprint;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
@@ -310,6 +311,8 @@ class ResourceRequest extends InvictaRequest
         }
 
         $resourceClass->afterSave($item);
+
+        ResourceUpdated::dispatch($resourceClass->handle(), $item);
 
         return $item->id;
     }
