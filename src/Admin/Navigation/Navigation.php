@@ -27,6 +27,10 @@ class Navigation
     {
         $menu = NavigationModel::where('handle', $handle)->first();
 
+        if (! $menu) {
+            return [];
+        }
+
         $this->items = new NavigationItems;
         $this->collectResources($menu->tree);
         $this->items->getResources();

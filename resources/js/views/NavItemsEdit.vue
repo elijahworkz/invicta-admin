@@ -34,7 +34,8 @@
 				:list="treeItems" 
 				:child-actions="childActions" 
 				@add-child="addChild"
-				@edit-item="editItem" />
+				@edit-item="editItem"
+				@remove-item="dirtyState = true"/>
 
 		</div>
 	</div>

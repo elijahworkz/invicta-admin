@@ -23,7 +23,8 @@
 					:list="element.children" 
 					:child-actions="childActions" 
 					@add-child="handleAction" 
-					@edit-item="handleEdit" />
+					@edit-item="handleEdit"
+					@remove-item="$emit('removeItem', true)"/>
 			</li>
 		</template>
 	</draggable>
@@ -37,14 +38,14 @@ const props = defineProps({
 	childActions: Array
 })
 
-const emit = defineEmits(['addChild', 'editItem'])
+const emit = defineEmits(['addChild', 'editItem', 'removeItem'])
 
 /* Menu Items actions */
 const handleAction = (event) => {
-	console.log('got event', event)
 
 	if (event.action == 'remove') {
 		props.list.splice(event.item.index, 1)
+		emit('removeItem', true)
 	} else {
 		emit('addChild', event)
 	}
