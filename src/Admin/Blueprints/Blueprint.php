@@ -72,7 +72,14 @@ class Blueprint extends Fluent
                 $parsed[] = $field;
             } else {
                 $fieldsetFields = $this->getFieldset($field['fieldset']);
-                $parsed = [...$parsed, ...$this->getFieldsets($fieldsetFields)];
+
+                if (isset($field['id'])) {
+                    $field['fields'] = [...$this->getFieldsets($fieldsetFields)];
+                    unset($field['fieldset']);
+                    $parsed[] = $field;
+                } else {
+                    $parsed = [...$parsed, ...$this->getFieldsets($fieldsetFields)];
+                }
             }
         }
 
