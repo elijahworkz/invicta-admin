@@ -49,6 +49,7 @@
 			:request-url="itemsUrl"
 			:title-field="titleField"
 			:select="select"
+			:where="where"
 			@selected="updateItems"
 			@cancel="drawer.state = false" />
 
@@ -85,7 +86,8 @@ const props = defineProps({
 	select: {
 		type: Array,
 		default: [],
-	}
+	},
+	where: String
 })
 const emit = defineEmits(['updated'])
 

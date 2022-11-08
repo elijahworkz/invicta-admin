@@ -8,6 +8,7 @@
 			:resource="data.resource"
 			:options="options"
 			:select="data.select"
+			:where="data.where"
 			@updated="updateRelated"
 		/>
 	</FieldBase>

@@ -87,7 +87,8 @@ const props = defineProps({
 	resources: {
 		type: Array,
 		default: []
-	}
+	},
+	where: String
 })
 
 const emit = defineEmits(['selected'])
@@ -138,7 +139,11 @@ function requestResourceItems() {
 		paginate: true,
 		title: titleField.value,
 		exclude: props.exclude,
-		select: props.select.length ? props.select : false
+		select: props.select.length ? props.select : false,
+	}
+
+	if (props.where) {
+		params.where = props.where
 	}
 
 	let requestUrl = props.resources.length

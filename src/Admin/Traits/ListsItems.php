@@ -98,11 +98,6 @@ trait ListsItems
             $related = $this->model()->$relationship()->getRelated();
         }
 
-        // need to apply any limitation on the query here
-        if ($where = request()->query('where', false)) {
-            $related = $related->whereRaw($where);
-        }
-
         return $this->itemsQuery($related);
     }
 
@@ -122,6 +117,11 @@ trait ListsItems
 
         if (request()->has('filters')) {
             $query = $this->applyFilters($query, request()->get('filters'));
+        }
+
+        // need to apply any limitation on the query here
+        if ($where = request()->query('where', false)) {
+            $query = $query->whereRaw($where);
         }
 
         // If no paginate then this is probably a request for a simple options list
@@ -154,7 +154,9 @@ trait ListsItems
                 'params' => [
                     'paginate' => true,
                     'title' => $title,
+                    'select' => $requestSelect,
                     'exclude' => $exclude,
+                    'where' => $where,
                 ],
                 'meta' => [
                     ...request()->only('search', 'filters'),
