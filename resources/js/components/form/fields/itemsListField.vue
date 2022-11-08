@@ -7,6 +7,7 @@
 			:field-data="data"
 			:resource="data.resource"
 			:options="options"
+			:select="data.select"
 			@updated="updateRelated"
 		/>
 	</FieldBase>

@@ -47,6 +47,7 @@
 			:resource-handle="resource"
 			:request-url="itemsUrl"
 			:title-field="titleField"
+			:select="select"
 			@selected="updateItems"
 			@cancel="drawer.state = false" />
 
@@ -79,6 +80,10 @@ const props = defineProps({
 		default: () => {
 			return {addItems: false, createItems: true}
 		}
+	},
+	select: {
+		type: Array,
+		default: [],
 	}
 })
 const emit = defineEmits(['updated'])
