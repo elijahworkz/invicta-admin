@@ -44,14 +44,14 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 	},
 	actions: {
 		init(resource: IResourceItem, actionUrl: string, api: boolean) {
-			this.data = resource.item ? resource.item : null
+			let itemData = resource.item ? resource.item : null
 			this.meta = resource.meta
 			this.mode = resource.meta?.id ? 'edit' : 'create'
 			this.actionUrl = actionUrl
 			this.blueprint = resource.blueprint
 			this.api = api
 
-			let formData = this.prepareFields(this.blueprint)
+			let formData = this.prepareFields(this.blueprint, itemData)
 			this.form = useForm(formData)
 
 			Invicta.emit('resource-form-ready')
@@ -66,13 +66,13 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 		setRelated(id: string) {
 			this.form[id] = this.data[id]
 		},
-		prepareFields(blueprint: IResourceItem) {
+		prepareFields(blueprint: IResourceItem, itemData: any = null) {
 			const getFieldData = (field: any) => {
 				let id = 'path' in field ? field.path : field.id
 				id = id.includes('.') ? split(id, '.')[0] : id
 				let defaultValue = 'defaultValue' in field ? field.defaultValue : null
-				return this.data
-					? (id in this.data ? this.data[id] : defaultValue)
+				return itemData
+					? (id in itemData ? itemData[id] : defaultValue)
 					: defaultValue
 			}
 
@@ -140,7 +140,7 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 							// get last field
 							let relatedId = dotPath[dotPath.length - 1]
 							
-							obj[relatedId] = this.data[relatedId]
+							obj[relatedId] = itemData[relatedId]
 						}
 
 						return obj
@@ -294,9 +294,9 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 
 			return title
 		},
-		id(): any {
-			return get(this.data, 'id')
-		}
+		// id(): any {
+		// 	return get(this.data, 'id')
+		// }
 	}
 })()
 

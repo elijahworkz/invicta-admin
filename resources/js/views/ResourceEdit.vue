@@ -12,7 +12,8 @@
 </template>
 
 <script setup>
-defineProps({
+const props = defineProps({
 	resource: Object
 })
+const resource = toRaw(props.resource)
 </script>

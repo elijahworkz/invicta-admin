@@ -42,7 +42,8 @@ const listValue = computed(() => {
 
 /* Update related value and possibly elsewhere */
 function updateRelated(value) {
-	resourceForm.set(props.path, toRaw(value))
+	let clone = [...toRaw(value)]
+	resourceForm.set(props.path, clone)
 }
 
 </script>

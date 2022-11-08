@@ -19,7 +19,8 @@
 					class="ml-1"
 				/>
 
-				<span class="ml-auto action-icon" title="Detach Item">
+				<span class="ml-auto action-icon" title="Remove Item">
+
 					<SvgIcon
 						v-if="options.addItems"
 						:icon="mdiLinkOff"
@@ -31,10 +32,10 @@
 		<template #footer>
 			<div class="flex mt-4">
 	   	 		<el-button v-if="canCreateItem" type="primary" text bg size="small" @click="handleCreateItem">
-	   	 			<SvgIcon :icon="mdiLinkPlus" :width="15" class="mr-1" /> Attach new
+	   	 			<SvgIcon :icon="mdiLinkPlus" :width="15" class="mr-1" /> Create new
 	   	 		</el-button>
 	   	 		<el-button v-if="options.addItems" type="primary" text bg size="small" @click="handleAddItem">
-		   	 		<SvgIcon :icon="mdiLink" :width="15" class="mr-1" /> Attach existing
+		   	 		<SvgIcon :icon="mdiLink" :width="15" class="mr-1" /> Add existing
 		   	 	</el-button>
 	   	 	</div>
   		</template>
