@@ -5,7 +5,7 @@
 		handle=".drag-handle"
 		item-key="index"
 		class="items-stack w-full"
-		@update="$emit('updated', list)">
+		@change="$emit('updated', list)">
 		<template #item="{element, index}">
 			<div class="item flex items-center justify-start mb-2 border rounded">
 				<DragHandle v-if="sortable" class="text-gray-300 hover:text-gray-400 mr-1"/>
@@ -124,7 +124,6 @@ const updateItems = (selected) => {
 const formUrl = ref('')
 
 const handleEditItem = (item) => {
-	console.log('want to edit', item)
 	drawer.context = 'form'
 	drawer.state = true
 

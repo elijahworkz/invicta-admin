@@ -6,7 +6,7 @@
 			:items-url="itemsUrl"
 			:field-data="data"
 			:resource="data.resource"
-			:options="{ addItems: true, createItems: true, actions: ['edit', 'delete']}"
+			:options="options"
 			@updated="updateRelated"
 		/>
 	</FieldBase>
@@ -24,6 +24,15 @@ const resourceForm = useResourceForm(props.formId)
 // const encodedModel = btoa(JSON.stringify(props.data.model))
 const itemsUrl = `/resource/${props.data.resource}/items`
 
+const options = computed(() => {
+	return 'actions' in props.data
+		? props.data.actions
+		: {
+			addItems: true,
+			createItems: true,
+		}
+})
+
 /* Build list to display */
 const listValue = computed(() => {
 	return resourceForm.get(props.path, [])
@@ -32,7 +41,7 @@ const listValue = computed(() => {
 
 /* Update related value and possibly elsewhere */
 function updateRelated(value) {
-	resourceForm.set(props.path, value)
+	resourceForm.set(props.path, toRaw(value))
 }
 
 </script>

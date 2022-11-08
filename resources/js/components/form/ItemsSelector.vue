@@ -122,7 +122,7 @@ const handleSelect = (selection) => {
 
 const selectedItems = computed(() => {
 	return selected.value.map(item => {
-		return { id: item.id, [titleField.value]: item.title, item }
+		return { id: item.id, [titleField.value]: item.title, item: toRaw(item) }
 	})
 })
 

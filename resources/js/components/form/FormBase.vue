@@ -106,6 +106,8 @@ const props = defineProps({
 const emit = defineEmits(['submit', 'form-ready'])
 
 const resourceForm = useResourceForm(props.formId)
+// const { resource } = props
+// console.log('this is formbase resource', resource, toRaw(resource), toRaw(props.resource))
 resourceForm.init(props.resource, props.actionUrl, props.api)
 
 emit('form-ready')
