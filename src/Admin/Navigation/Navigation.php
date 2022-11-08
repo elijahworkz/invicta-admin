@@ -94,7 +94,7 @@ class Navigation
             $children = empty($branch['children']) ? [] : $this->setCurrent($branch['children'], true);
             $branch['children'] = $children;
 
-            $is_current = Str::of(request()->path())->rtrim('/')->start('/') == rtrim($branch['url'], '/');
+            $is_current = Str::of(request()->path())->rtrim('/')->start('/') == Str::of($branch['url'])->rtrim('/');
 
             if (! empty($children) && ! $is_current) {
                 $is_current = collect($children)->where('is_current', true)->IsNotEmpty();
