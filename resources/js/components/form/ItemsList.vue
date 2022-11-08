@@ -124,7 +124,10 @@ function removeRow(id) {
 const updateItems = (selected) => {
 	drawer.state = false
 
-	let updated = [...props.list, ...selected]
+	let cloneList = toRaw(props.list)
+	let cloneSelected = toRaw(selected)
+
+	let updated = [...cloneList, ...cloneSelected]
 	emit('updated', updated)
 }
 
