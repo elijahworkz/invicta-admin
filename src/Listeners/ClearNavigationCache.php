@@ -25,6 +25,6 @@ class ClearNavigationCache
      */
     public function handle(NavigationUpdated $event)
     {
-        Cache::forget($event->handle.'-nav');
+        Cache::flush();
     }
 }
