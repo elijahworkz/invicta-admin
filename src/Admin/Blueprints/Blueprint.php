@@ -69,6 +69,9 @@ class Blueprint extends Fluent
 
         foreach ($fields as $field) {
             if (! isset($field['fieldset'])) {
+                if (isset($field['fields'])) {
+                    $field['fields'] = [...$this->getFieldsets($field['fields'])];
+                }
                 $parsed[] = $field;
             } else {
                 $fieldsetFields = $this->getFieldset($field['fieldset']);
