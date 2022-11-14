@@ -2,7 +2,7 @@
 	<FieldBase :form-id="formId" :field-props="props">
 		<div class="asset-wrap" v-if="fieldValue">
 			<div class="asset" @click="editAsset">
-				<img :src="fieldValue.src" />
+				<img :src="fieldValue.absoluteUrl" />
 			</div>
 			<div class="asset-details">
 				<strong>{{ fieldValue.name }}</strong>

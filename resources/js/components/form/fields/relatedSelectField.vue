@@ -33,7 +33,9 @@ const fieldValue = field.value()
 const resourceForm = useResourceForm(props.formId)
 
 const titleField = get(props.data, 'titleField', 'title')
-const remote = get(props.data, 'remote', false)
+const remote = 'props' in props.data
+	? get(props.data.props, 'remote', false)
+	: false
 const relatedUrl = `/resource/${resourceForm.meta.handle}/relationship/${props.data.id}`
 
 const relatedOptions = ref([])
@@ -42,7 +44,6 @@ const relatedFromValue = ref([])
 onMounted(() => {
 	
 	if (remote) {
-
 		relatedFromValue.value = relatedOptions.value = map(fieldValue.value, (item) => {
 			return { key: item.id, value: { id: item.id, name: item[titleField] }, label: item[titleField] }
 		})
@@ -62,6 +63,7 @@ onMounted(() => {
 })
 
 async function getRemote(query) {
+	console.log('why are you not running', query)
 	if (query !== '') {
 		let params = {
 			title: titleField,

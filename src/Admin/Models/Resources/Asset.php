@@ -36,6 +36,7 @@ class Asset extends Resource
             'type' => $this->type,
             'created' => $this->created_at->toFormattedDateString(),
             'src' => $this->src(),
+            'path' => $this->path,
             'img_name' => $this->name,
             'id' => $this->id,
             'width' => $this->width,

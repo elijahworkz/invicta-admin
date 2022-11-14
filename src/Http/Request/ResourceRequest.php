@@ -299,6 +299,7 @@ class ResourceRequest extends InvictaRequest
         }
 
         $item = $resourceClass->beforeSave($item);
+
         if (! $massAssign) {
             $item->save();
         } else {

@@ -140,7 +140,7 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 							// get last field
 							let relatedId = dotPath[dotPath.length - 1]
 							
-							obj[relatedId] = itemData[relatedId]
+							obj[relatedId] = itemData ? itemData[relatedId] : null
 						}
 
 						return obj

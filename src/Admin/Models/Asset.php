@@ -119,6 +119,7 @@ class Asset extends Model
             'asset' => [
                 'id' => $asset->id,
                 'src' => asset($asset->path),
+                'path' => $asset->path,
                 'alt' => '',
                 'name' => $asset->name,
                 'width' => $asset->width,

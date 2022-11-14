@@ -94,11 +94,12 @@ const handleSelect = (item) => {
 	console.log('selected item', item)
 	selected.value = {
 		id: item.id,
-		src: item.src, 
-		name: item.img_name, 
-		alt: item.alt, 
-		width: item.width, 
-		height: item.height 
+		absoluteUrl: item.src,
+		path: item.path,
+		name: item.img_name,
+		alt: item.alt,
+		width: item.width,
+		height: item.height
 	}
 }
 
