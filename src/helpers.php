@@ -39,3 +39,18 @@ if (! function_exists('global_set')) {
         return $cachedSet;
     }
 }
+
+if (! function_exists('_asset')) {
+    function _asset($asset)
+    {
+        $path = is_array($asset) ? $asset['path'] : $asset;
+
+        if (config('invicta.disk') == 's3') {
+            $domain = config('filesystems.disks.s3.url');
+
+            return Str::of($path)->start('/')->prepend($domain);
+        }
+
+        return asset($path);
+    }
+}

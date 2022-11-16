@@ -19,7 +19,7 @@ class Asset extends Model
         $disk = config('invicta.disk');
         $prefix = $disk == 'public' ? '/storage/' : '';
 
-        return asset($prefix.$this->path);
+        return _asset($prefix.$this->path);
     }
 
     public static function saveFile($file)
