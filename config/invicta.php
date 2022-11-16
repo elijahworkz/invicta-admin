@@ -164,6 +164,16 @@ return [
 
     'cache_navigation' => env('INVICTA_CACHE_NAVIGATION', false),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Enable SEO
+    |--------------------------------------------------------------------------
+    |
+    | This option determines is resource include seo section
+    |
+     */
+    'seo' => false,
+
     /* DEVELOPMENT SETTINGS */
 
     /*
@@ -191,15 +201,5 @@ return [
     */
 
     'assets_build_tool' => env('INVICTA_ASSETS_BUILD_TOOL', 'vite'),
-
-    /*
-    |--------------------------------------------------------------------------
-    | Enable SEO
-    |--------------------------------------------------------------------------
-    |
-    | This option determines is resource include seo section
-    |
-     */
-    'seo' => false,
 
 ];
