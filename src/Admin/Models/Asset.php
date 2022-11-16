@@ -118,7 +118,7 @@ class Asset extends Model
         return response()->json([
             'asset' => [
                 'id' => $asset->id,
-                'src' => asset($asset->path),
+                'src' => _asset($asset->path),
                 'path' => $asset->path,
                 'alt' => '',
                 'name' => $asset->name,
