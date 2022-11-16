@@ -91,10 +91,10 @@ const setLayout = (type) => {
 const selected = ref([])
 
 const handleSelect = (item) => {
-	console.log('selected item', item)
+	// console.log('selected item', item)
 	selected.value = {
 		id: item.id,
-		absoluteUrl: item.src,
+		src: item.src,
 		path: item.path,
 		name: item.img_name,
 		alt: item.alt,

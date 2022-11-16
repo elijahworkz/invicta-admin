@@ -98,11 +98,11 @@ class Vite
             }
 
             if ($this->buildTool == 'vite') {
-                $tags->push($this->makeTag(asset("{$buildDirectory}/{$manifest[$entrypoint]['file']}")));
+                $tags->push($this->makeTag(url("{$buildDirectory}/{$manifest[$entrypoint]['file']}")));
 
                 if (isset($manifest[$entrypoint]['css'])) {
                     foreach ($manifest[$entrypoint]['css'] as $css) {
-                        $tags->push($this->makeStylesheetTag(asset("{$buildDirectory}/{$css}")));
+                        $tags->push($this->makeStylesheetTag(url("{$buildDirectory}/{$css}")));
                     }
                 }
 
@@ -110,7 +110,7 @@ class Vite
                     foreach ($manifest[$entrypoint]['imports'] as $import) {
                         if (isset($manifest[$import]['css'])) {
                             foreach ($manifest[$import]['css'] as $css) {
-                                $tags->push($this->makeStylesheetTag(asset("{$buildDirectory}/{$css}")));
+                                $tags->push($this->makeStylesheetTag(url("{$buildDirectory}/{$css}")));
                             }
                         }
                     }
@@ -118,7 +118,7 @@ class Vite
             }
 
             if ($this->buildTool == 'mix') {
-                $tags->push($this->makeTag(asset("{$manifest[$entrypoint]}")));
+                $tags->push($this->makeTag(url("{$manifest[$entrypoint]}")));
             }
         }
 
