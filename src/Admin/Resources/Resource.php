@@ -2,6 +2,7 @@
 
 namespace Eteacher\InvictaAdmin\Admin\Resources;
 
+use Eteacher\InvictaAdmin\Admin\Models\Actions\EditDataRaw;
 use Eteacher\InvictaAdmin\Admin\Traits\CanEditItems;
 use Eteacher\InvictaAdmin\Admin\Traits\HasActions;
 use Eteacher\InvictaAdmin\Admin\Traits\HasFilters;
@@ -126,7 +127,7 @@ class Resource extends JsonResource
 
         if ($indexResource) {
             return collect($indexResource)
-                ->map(function ($item, $key) {
+                ->map(function ($item) {
                     return is_callable($item) ? $item() : $item;
                 })
                 // ->put('actions', $this->actions()); //$this->resourceActions($request->user(), $this->resource));
@@ -150,5 +151,12 @@ class Resource extends JsonResource
     public function permissions()
     {
         return [];
+    }
+
+    public function globalActions()
+    {
+        return [
+            new EditDataRaw,
+        ];
     }
 }
