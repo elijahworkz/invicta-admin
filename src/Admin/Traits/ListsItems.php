@@ -149,15 +149,20 @@ trait ListsItems
             ->paginate($perPage)
             ->withQueryString();
 
+        $params = [
+            'paginate' => true,
+            'title' => $title,
+            'select' => $requestSelect,
+            'exclude' => $exclude,
+        ];
+
+        if ($where) {
+            $params['where'] = $where;
+        }
+
         return (new ItemsCollection($result))
             ->additional([
-                'params' => [
-                    'paginate' => true,
-                    'title' => $title,
-                    'select' => $requestSelect,
-                    'exclude' => $exclude,
-                    'where' => $where,
-                ],
+                'params' => $params,
                 'meta' => [
                     ...request()->only('search', 'filters'),
                     'filterBadges' => $this->filterBadges(),
