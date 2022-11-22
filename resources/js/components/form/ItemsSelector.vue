@@ -139,10 +139,13 @@ function requestResourceItems() {
 		paginate: true,
 		title: titleField.value,
 		exclude: props.exclude,
-		select: props.select.length ? props.select : false,
 	}
 
-	if (props.where) {
+	if (props.select.length) {
+		params.select = props.select
+	}
+
+	if (props.where != '') {
 		params.where = props.where
 	}
 
