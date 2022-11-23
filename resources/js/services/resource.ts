@@ -41,7 +41,7 @@ const defineResource = (id: string) => defineStore(`resource-${id}`, () => {
 	const columns = ref<any>({})
 
 	const pageChange = (page: number) => {
-		console.log('see that you want to change page', resourceHandle)
+		console.log('see that you want to change page', resourceHandle, page)
 		currentPage.value = page//page == 1 ? null : page
 	}
 
