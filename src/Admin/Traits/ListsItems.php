@@ -111,17 +111,19 @@ trait ListsItems
 
         $title = request()->query('title', 'title');
 
+        $where = null;
+
         if ($search = request()->query('search', false)) {
             $query = $query->where($title, 'like', $search.'%');
         }
 
         if (request()->has('filters')) {
             $query = $this->applyFilters($query, request()->get('filters'));
-        }
-
-        // need to apply any limitation on the query here
-        if ($where = request()->query('where', false)) {
-            $query = $query->whereRaw($where);
+        } else {
+            // apply any limitation on the query here ONLY if there are no active filters
+            if ($where = request()->query('where', false)) {
+                $query = $query->whereRaw($where);
+            }
         }
 
         // If no paginate then this is probably a request for a simple options list
