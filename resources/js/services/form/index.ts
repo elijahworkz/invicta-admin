@@ -253,7 +253,7 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 
 			Invicta.axios.post(this.actionUrl, data)
 				.then(({data}: any) => {
-					console.log('ajax post submit', data)
+					// console.log('ajax post submit', data)
 					Invicta.message(data.message)
 					Invicta.emit('resource-form-submitted')
 				})

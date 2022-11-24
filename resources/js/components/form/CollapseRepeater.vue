@@ -2,11 +2,11 @@
 	<div class="repeater-field">
 		<el-collapse accordion>
 			<draggable
-				v-model="modelValue" 
+				:list="list" 
 				handle=".handle" 
 				item-key="index"
 				:disabled="disableDraggable"
-				@update="() => $emit('update:modelValue', modelValue)">
+				@update="$emit('updated', list)">
 				<template #item="{element, index}">
 					<el-collapse-item :name="index">
 						<template #title>
@@ -37,7 +37,7 @@ import draggable from 'vuedraggable'
 import { Close, Delete } from '@element-plus/icons-vue'
 
 const props = defineProps({
-	modelValue: {
+	list: {
 		type: Array,
 		default: [],
 		required: true
@@ -68,15 +68,19 @@ const props = defineProps({
 	}
 })
 
-const defaultRow = props.modelValue.length ? props.modelValue[0] : props.default
+const emit = defineEmits(['updated'])
+const defaultRow = props.list.length ? props.list[0] : props.default
 
 function addRow() {
 	let row = clone(defaultRow)
-	props.modelValue.push(row)
+	let cloneList = toRaw(props.list)
+
+	let updated = [...cloneList, row]
+	emit('updated', updated)
 }
 
 function removeRow(index) {
-	props.modelValue.splice(index, 1)
+	props.list.splice(index, 1)
 }
 </script>
 

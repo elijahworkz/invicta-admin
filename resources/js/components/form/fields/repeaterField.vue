@@ -1,12 +1,13 @@
 <template>
 	<FieldBase :form-id="formId" :field-props="props">
 		<component :is="repeaterBase" 
-			v-model="rows" 
+			:list="listValue" 
 			:item-name="itemName" 
 			:item-title="getTitle" 
 			:default-row="defaultRow"
 			:disable-draggable="disableDraggable"
-			panel-class="group">
+			panel-class="group"
+			@updated="updateValue">
 
 			<template v-slot:default="slotProps">
 				<FormField 
@@ -43,13 +44,25 @@ const disableDraggable = !field.get('draggable', true)
 // let's create default from the fields we got
 const defaultRow = computed(() => getFields(data.fields))
 
-let rows = field.value([defaultRow.value])
+// let rows = field.value([defaultRow.value])
+
+/* Build list to display */
+const listValue = computed(() => {
+	return resourceForm.get(props.path, [defaultRow.value])
+})
 
 const itemName = field.get('itemName', 'row')
 
 function getTitle(item, index) {
-	return resourceForm.get(`${path}.${index}.${data.title}`, `${data.title} #${index}`)
+	let titleField = 'titleField' in data ? data.titleField : 'title'
+	return resourceForm.get(`${path}.${index}.${titleField}`, `${titleField} #${index}`)
 }
 
 const dataPath = (id, index) => `${path}.${index}.${id}`
+
+/* Update value */
+function updateValue(value) {
+	let clone = [...toRaw(value)]
+	resourceForm.set(props.path, clone)
+}
 </script>
