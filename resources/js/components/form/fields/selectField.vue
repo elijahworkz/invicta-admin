@@ -3,7 +3,7 @@
 		<el-select
 			v-model="fieldValue"
 			v-bind="data.props"
-			:value-key="data.props?.remote ? 'id' : null"
+			:value-key="data.valueKey || null"
 			:teleported="false"
 			:remote-method="getOptions"
 			:disabled="field.disabled">
