@@ -1,0 +1,1 @@
+import{Q as t,o as a,c as o,p as s}from"./main.0c27a91f.js";const n={class:"app-empty"},_={__name:"EmptyLayout",setup(p){return t(()=>document.body.classList.add("app-ready")),(e,c)=>(a(),o("main",n,[s(e.$slots,"default")]))}};export{_};
