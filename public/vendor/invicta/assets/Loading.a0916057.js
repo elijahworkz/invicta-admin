@@ -1,0 +1,1 @@
+import{_ as o}from"./_plugin-vue_export-helper.cdc0426e.js";import{o as c,c as e}from"./main.dd120171.js";const n={},_={class:"pulse"};function s(t,r){return c(),e("div",_,"loading data...")}const p=o(n,[["render",s]]);export{p as _};
