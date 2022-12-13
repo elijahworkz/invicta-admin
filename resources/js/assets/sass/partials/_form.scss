@@ -28,6 +28,10 @@
 				box-shadow: var(--el-box-shadow-light);
 				border: 1px solid var(--el-border-color-light);
 
+				> .el-tabs__content {
+					overflow: visible;
+				}
+
 				.el-tabs__header {
 					margin: 0;
 					padding: 10px 20px 0;
@@ -46,18 +50,18 @@
 				}
 
 				> .el-tabs__content {
-					padding: 20px 0 0;
+					padding: 20px 0 0 !important;
 				}
 
 				&.el-tabs--left {
 					> .el-tabs__content {
-						padding: 10px 10px 10px 0;
+						padding: 10px 10px 10px 0 !important;
 					}
 				}
 
 				&.el-tabs--right {
 					> .el-tabs__content {
-						padding: 10px 0 10px 10px;
+						padding: 10px 0 10px 10px !important;
 					}
 				}
 
@@ -74,7 +78,7 @@
 					}
 
 					> .el-tabs__content {
-						padding: 20px 0 10px;
+						padding: 20px 0 10px !important;
 					}
 				}
 
@@ -109,7 +113,7 @@
 						border-radius: 0 0 4px 4px;
 						background: var(--el-fill-color-blank);
 						box-shadow: var(--el-box-shadow-light);
-						padding: 20px 0px;
+						padding: 20px 0px !important;
 					}
 
 					&.el-tabs--left {
