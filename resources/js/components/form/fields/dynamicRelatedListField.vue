@@ -28,12 +28,20 @@ const relatedUrl = `/resource/${resourceForm.meta.handle}/relationship/${relatio
 
 /* Build list to display */
 const listValue = computed(() => resourceForm.get(relationship, []))
+const titleField = 'titleField' in props.data 
+	? props.data.titleField
+	: 'title'
 
 onMounted(() => {
-	Invicta.axios.get(relatedUrl, { params: { item: itemId } })
+	let params = {
+		item: itemId,
+		title: titleField
+	}
+
+	Invicta.axios.get(relatedUrl, { params })
 		.then(({data}) => {
 			let list = map(data, (item, key) => {
-				return { id: parseInt(key), title: item}
+				return { id: parseInt(key), [titleField]: item}
 			})
 			resourceForm.set(relationship, list)
 		})
