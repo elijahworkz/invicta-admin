@@ -41,7 +41,7 @@ const defineResource = (id: string) => defineStore(`resource-${id}`, () => {
 	const columns = ref<any>({})
 
 	const pageChange = (page: number) => {
-		console.log('see that you want to change page', resourceHandle, page)
+		console.log('see that you want to change page', resourceHandle, page, currentPage.value)
 		currentPage.value = page//page == 1 ? null : page
 	}
 
@@ -140,6 +140,7 @@ const defineResource = (id: string) => defineStore(`resource-${id}`, () => {
 	function init(resourceUrl: string, apiResource: any = null) {
 		console.log('got some data', apiResource)
 		requestUrl.value = resourceUrl
+		currentPage.value = 1
 
 		if (apiResource) {
 			api.value = true

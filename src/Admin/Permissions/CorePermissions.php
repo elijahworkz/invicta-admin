@@ -2,7 +2,6 @@
 
 namespace Eteacher\InvictaAdmin\Admin\Permissions;
 
-use Eteacher\InvictaAdmin\Admin\Resources\ResourceRegistrar;
 use Eteacher\InvictaAdmin\Facades\Permission;
 
 class CorePermissions
@@ -18,17 +17,5 @@ class CorePermissions
                     Permission::make('delete navigation'),
                 ]),
             ]);
-
-        self::registerResourcesPermission();
-    }
-
-    public static function registerResourcesPermission()
-    {
-        $resources = ResourceRegistrar::all();
-
-        collect(array_values($resources))
-            ->map(function ($resource) {
-                return Permission::resource($resource);
-            });
     }
 }
