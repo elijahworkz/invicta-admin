@@ -62,7 +62,6 @@
 <script setup>
 import { mdiOpenInNew } from '@mdi/js';
 import { DocumentCopy, Delete, Edit, Picture as IconPicture } from '@element-plus/icons-vue'
-import {computed} from "vue";
 
 const props = defineProps({
 	resource: Object,
