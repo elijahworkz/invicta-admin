@@ -87,6 +87,6 @@ class {{ class }} extends Resource
      */
     public function actions()
     {
-        return null;
+        return [];
     }
 }
