@@ -66,12 +66,12 @@ trait CanEditItems
         return false;
     }
 
-    public function beforeSave($item)
+    public function beforeSave($item, $action)
     {
         return $item;
     }
 
-    public function afterSave($item)
+    public function afterSave($item, $action)
     {
         return true;
     }

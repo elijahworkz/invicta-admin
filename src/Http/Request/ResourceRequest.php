@@ -298,7 +298,7 @@ class ResourceRequest extends InvictaRequest
             }
         }
 
-        $item = $resourceClass->beforeSave($item);
+        $item = $resourceClass->beforeSave($item, $action);
 
         if (! $massAssign) {
             $item->save();
@@ -311,7 +311,7 @@ class ResourceRequest extends InvictaRequest
             $resourceClass->updateRelationship($item, $field, $value);
         }
 
-        $resourceClass->afterSave($item);
+        $resourceClass->afterSave($item, $action);
 
         ResourceUpdated::dispatch($resourceClass->handle(), $item);
 
