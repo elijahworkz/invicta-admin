@@ -15,8 +15,12 @@ const field = useFormField(props)
 const value = field.value()
 </script>
 
-<style>
+<style lang="scss">
 .el-date-editor {
 	--el-date-editor-width: 100%;
+
+	.el-input__wrapper {
+		width: 100%;
+	}
 }
 </style>
