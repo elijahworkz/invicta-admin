@@ -3,7 +3,7 @@
 		<Uploader v-if="!selector" type="drag" :multiple="multiple" />
 		<div class="assets-grid">
 			<div class="asset-card"
-				v-for="(item, index) in resource.data"
+				v-for="(item, index) in resourceList"
 				:key="item.img_name"
 				:title="item.img_name">
 
@@ -72,6 +72,10 @@ const props = defineProps({
 		type: Boolean,
 		default: false
 	}
+})
+
+const resourceList = computed(function () {
+	return props.resource.data ? props.resource.data : props.resource
 })
 const { isSupported, copy } = useClipboard()
 const permissionRead = usePermission('clipboard-read')

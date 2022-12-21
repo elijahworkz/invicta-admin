@@ -34,6 +34,15 @@ const options = ref([])
 onMounted(() => {
 	Invicta.axios.get("/fields/resource-link/options")
 		.then(({data}) => {
+			data.push({
+				'label': '',
+				'options': [
+					{
+						'label': 'None',
+						'value': ''
+					}
+				]
+			})
 			options.value = data
 		})
 })

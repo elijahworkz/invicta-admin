@@ -72,6 +72,8 @@ const loading = ref(false)
 const layout = ref()
 
 onMounted(() => {
+	itemsResource.pageChange(1)
+
 	loading.value = true
 	layout.value = Invicta.remember('media-layout') || 'grid'
 

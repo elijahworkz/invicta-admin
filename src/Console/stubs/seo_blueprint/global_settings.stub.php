@@ -8,7 +8,7 @@ return [
 			'title' => 'Title',
 			'fields' =>  [
 				[
-					'id' => 'content',
+					'id' => 'data',
 					'type' => 'json',
 					'fields' => [
 						[
@@ -28,7 +28,7 @@ return [
 							'id' => 'site_name',
 							'type' => 'text',
 							'label' => 'Website title',
-							'info'	=> 'The title for the website. <br>Defaults to Laravel\'s App Name.',
+							'info'	=> 'The title for the website. Defaults to Laravel\'s App Name.',
 						]
 					],
 				],
@@ -39,7 +39,7 @@ return [
 			'title' => 'Social',
 			'fields' =>  [
 				[
-					'id' => 'content',
+					'id' => 'data',
 					'type' => 'json',
 					'fields' => [
 						[
@@ -75,20 +75,20 @@ return [
 			'title' => 'Trackers',
 			'fields' =>  [
 				[
-					'id' => 'content',
+					'id' => 'data',
 					'type' => 'json',
 					'fields' => [
-						[
-							'id' => 'google_tag_manager',
-							'type' => 'textarea',
-							'label' => 'Google Tag Manager',
-							'info'	=> 'Add a google tag manager script to your head.',
-						],
 						[
 							'id' => 'google_tag_manager_script',
 							'type' => 'textarea',
 							'label' => 'Google Tag Manager Script',
-							'info'	=> 'Add a google tag manager script to your body.',
+							'info'	=> 'Add a google tag manager script to your head.',
+						],
+						[
+							'id' => 'google_tag_manager_noscript',
+							'type' => 'textarea',
+							'label' => 'Google Tag Manager Noscript',
+							'info'	=> 'Add a google tag manager to your body.',
 						]
 					],
 				],

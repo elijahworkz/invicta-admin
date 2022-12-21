@@ -49,7 +49,8 @@ class GlobalSetting extends Model
     public static function getFilterOptions($globalSet, $attribute, $id = 'slug', $label = 'title')
     {
         $options = [];
-        $globalSet = global_set($globalSet, $attribute);
+
+        $globalSet = gettype($globalSet) == 'string' ? global_set($globalSet, $attribute) : $globalSet[$attribute];
 
         if (! $globalSet) {
             return $options;
@@ -64,7 +65,7 @@ class GlobalSetting extends Model
 
     public static function getBlueprintOptions($globalSet, $attribute, $id = 'slug', $label = 'title')
     {
-        $globalSet = global_set($globalSet, $attribute);
+        $globalSet = gettype($globalSet) == 'string' ? global_set($globalSet, $attribute) : $globalSet[$attribute];
 
         $options = ! empty($globalSet) ? collect($globalSet)->map(
             function ($item) use ($id, $label) {

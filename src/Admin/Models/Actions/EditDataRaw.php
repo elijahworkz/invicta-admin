@@ -35,6 +35,8 @@ class EditDataRaw extends Action
 
     public function authorize($user, $model)
     {
-        return $user->can('run edit data raw action') && isset($model->data);
+        $attributes = $model->getAttributes();
+
+        return $user->can('run edit data raw action') && array_key_exists('data', $attributes);
     }
 }

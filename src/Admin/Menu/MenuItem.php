@@ -5,6 +5,7 @@ namespace Eteacher\InvictaAdmin\Admin\Menu;
 use BadMethodCallException;
 use Eteacher\InvictaAdmin\Admin\Resources\ResourceRegistrar;
 use Eteacher\InvictaAdmin\Admin\Traits\Makeable;
+use Eteacher\InvictaAdmin\Facades\Permission;
 use Eteacher\InvictaAdmin\InvictaAdmin;
 use Illuminate\Support\Facades\App;
 
@@ -106,6 +107,8 @@ class MenuItem
     {
         $resource = App::make($resourceClass);
         ResourceRegistrar::put($resource->handle(), $resource);
+
+        Permission::resource($resource);
 
         return (new static($resource->menuTitle()))
             ->route($resource->route())
