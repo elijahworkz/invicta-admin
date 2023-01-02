@@ -11,6 +11,10 @@ class SetAuthGuard
     {
         Auth::shouldUse(config('invicta.auth.guard', 'web'));
 
+        if (config('invicta.auth.guard') !== 'web') {
+            config(['auth.defaults.passwords' => config('invicta.auth.guard')]);
+        }
+
         return $next($request);
     }
 }
