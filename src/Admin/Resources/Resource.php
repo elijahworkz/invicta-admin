@@ -127,9 +127,9 @@ class Resource extends JsonResource
 
         if ($indexResource) {
             return collect($indexResource)
-                ->map(function ($item) {
-                    return is_callable($item) ? $item() : $item;
-                })
+                // ->map(function ($item) {
+                //     return is_callable($item) ? $item() : $item;
+                // })
                 // ->put('actions', $this->actions()); //$this->resourceActions($request->user(), $this->resource));
                 ->put('actions', $this->resourceActions($request->user(), $this->resource));
         }
