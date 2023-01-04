@@ -80,7 +80,7 @@ class AppServiceProvider extends ServiceProvider
     protected function registerMacros()
     {
         /**
-         * Macro for Str::initials.
+         * Macro for Str::initials
          */
         Stringable::macro('initials', function () {
             $words = explode(' ', $this);
