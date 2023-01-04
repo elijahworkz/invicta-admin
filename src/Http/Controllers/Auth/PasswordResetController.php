@@ -44,7 +44,7 @@ class PasswordResetController extends Controller
         );
 
         if ($status == Password::RESET_LINK_SENT) {
-            return back()->with('message', __($status));
+            return back()->with('message', strip_tags(__($status, ['email' =>  $request->email]), 'span'));
         }
 
         throw ValidationException::withMessages([

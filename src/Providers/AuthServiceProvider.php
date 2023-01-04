@@ -38,14 +38,16 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         if (config('invicta.auth.enable_password_reset')) {
-            ResetPassword::createUrlUsing(
-                function ($notifiable, $token) {
-                    return route(
-                        'invicta.password.reset',
-                        ['token' => $token, 'email' => $notifiable->getEmailForPasswordReset()]
-                    );
-                }
-            );
+            if (request()->is(trim(config('invicta.path'), '/').'/*')) {
+                ResetPassword::createUrlUsing(
+                    function ($notifiable, $token) {
+                        return route(
+                            'invicta.password.reset',
+                            ['token' => $token, 'email' => $notifiable->getEmailForPasswordReset()]
+                        );
+                    }
+                );
+            }
         }
     }
 }
