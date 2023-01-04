@@ -13,6 +13,7 @@ class Term extends Model
 
     /**
      * Get all courses that have this term.
+     *
      * @relatedModel App\Models\Course
      */
     public function courses()
@@ -22,6 +23,7 @@ class Term extends Model
 
     /**
      * Get all faculty that have this term.
+     *
      * @relatedModel App\Models\Faculty
      */
     public function faculties()

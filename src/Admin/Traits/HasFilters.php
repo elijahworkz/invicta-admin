@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\App;
 trait HasFilters
 {
     public static $filterBadges;
+
     private static $filters;
 
     public function filters()

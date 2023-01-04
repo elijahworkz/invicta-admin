@@ -1,9 +1,9 @@
 <?php
 
 return [
-	'settings' => [],
-	'sections' => [],
-	'sidebar' => [
-		'fields' => []
-	],
+    'settings' => [],
+    'sections' => [],
+    'sidebar' => [
+        'fields' => [],
+    ],
 ];

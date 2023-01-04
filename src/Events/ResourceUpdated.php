@@ -12,7 +12,7 @@ class ResourceUpdated
     /**
      * Navigation menu updated.
      *
-     * @param string $handle
+     * @param  string  $handle
      */
     public function __construct(public $handle, public $item)
     {

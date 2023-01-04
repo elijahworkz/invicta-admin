@@ -10,6 +10,7 @@ use Illuminate\Notifications\Notifiable;
 class Student extends Authenticatable
 {
     use HasFactory, Notifiable;
+
     /**
      * The attributes that are mass assignable.
      *

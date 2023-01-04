@@ -37,7 +37,7 @@ class PermissionsTest extends TestCase
         $newPermissopns = ['access invicta', 'view groups', 'edit groups'];
 
         $response = $this->actingAs($this->user, config('invicta.auth.guard'))
-            ->post(route('invicta.permission.update', ['group'=>$editGroup->id]), ['permissions' => $newPermissopns]);
+            ->post(route('invicta.permission.update', ['group' => $editGroup->id]), ['permissions' => $newPermissopns]);
 
         $response->assertStatus(302);
 

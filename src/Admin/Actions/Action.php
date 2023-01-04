@@ -53,9 +53,10 @@ class Action implements JsonSerializable
 
     /**
      * Perform the action on the given models.
-     * @param  Fluent     $fields available fields
-     * @param  Collection $models modelds to perform action on
-     * @param  User       $user authenticated user
+     *
+     * @param  Fluent  $fields available fields
+     * @param  Collection  $models modelds to perform action on
+     * @param  User  $user authenticated user
      * @return mixed
      */
     public function handle($fields, Collection $models, $user)
@@ -66,7 +67,7 @@ class Action implements JsonSerializable
     /**
      * Get blueprint with fields if neccessary.
      *
-     * @param ModelInstance $item available only for inline/drawer actions
+     * @param  ModelInstance  $item available only for inline/drawer actions
      * @return array
      */
     public function blueprint($item = null)

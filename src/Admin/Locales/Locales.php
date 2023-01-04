@@ -5,7 +5,9 @@ namespace Eteacher\InvictaAdmin\Admin\Locales;
 class Locales
 {
     protected $config;
+
     protected $languages;
+
     protected $current;
 
     public function __construct($config)

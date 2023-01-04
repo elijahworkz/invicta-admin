@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 class NavigationItems
 {
     public $resources;
+
     protected $items;
 
     public function setItem($item)

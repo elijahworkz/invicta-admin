@@ -91,6 +91,7 @@ class Vite
                 // May be external link?
                 if (Str::of($entrypoint)->contains(['http://', 'https://', '//'])) {
                     $tags->push($this->makeTag($entrypoint));
+
                     continue;
                 } else {
                     throw new \Exception("Unable to locate file in manifest: {$entrypoint}.");

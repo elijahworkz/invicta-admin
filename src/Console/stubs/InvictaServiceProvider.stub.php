@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use Eteacher\InvictaAdmin\Facades\Menu;
 use Eteacher\InvictaAdmin\Admin\Models\Resources\Group;
+use Eteacher\InvictaAdmin\Facades\Menu;
 use Eteacher\InvictaAdmin\Providers\InvictaBaseServiceProvider;
 
 class InvictaServiceProvider extends InvictaBaseServiceProvider
@@ -25,7 +25,7 @@ class InvictaServiceProvider extends InvictaBaseServiceProvider
         parent::boot();
 
         $this->registerAssets();
-        $this->registerMenu();        
+        $this->registerMenu();
     }
 
     /**
@@ -48,5 +48,5 @@ class InvictaServiceProvider extends InvictaBaseServiceProvider
         // Menu::resource(User::class)->group('Admin');
         Menu::resource(Group::class);
         Menu::permissions();
-    }    
+    }
 }

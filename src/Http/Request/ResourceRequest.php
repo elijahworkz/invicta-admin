@@ -290,6 +290,7 @@ class ResourceRequest extends InvictaRequest
                 if (method_exists($item, $field)) {
                     $relatedFields[$field] = $value;
                     unset($validated[$field]);
+
                     continue;
                 }
             }

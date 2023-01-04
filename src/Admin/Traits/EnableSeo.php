@@ -29,7 +29,7 @@ trait EnableSeo
                         [
                             'id' => 'title',
                             'type' => 'meta',
-                            'props'=> [
+                            'props' => [
                                 'postfix' => $seoTitleSeparator.$seoSiteName,
                                 'source' => $this->titleField,
                             ],
@@ -37,7 +37,7 @@ trait EnableSeo
                         [
                             'id' => 'description',
                             'type' => 'meta',
-                            'props'=> [
+                            'props' => [
                                 'length_normal' => '50',
                                 'length_max' => '300',
                             ],

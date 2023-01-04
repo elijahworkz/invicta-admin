@@ -32,6 +32,7 @@ class AdminController extends Controller
 
     /**
      * generate list of sitemaps.
+     *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
     public function sitemap()
@@ -58,6 +59,7 @@ class AdminController extends Controller
 
     /**
      * generate resource sitemap.
+     *
      * @param $resource
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
@@ -75,6 +77,7 @@ class AdminController extends Controller
                         'uri' => url($model->uri),
                         'locale' => $model->site,
                     ];
+
                     continue;
                 }
                 $items[$model->id]['uri'] = url($model->uri);

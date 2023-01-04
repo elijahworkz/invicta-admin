@@ -15,7 +15,7 @@ trait CanEditItems
     /**
      * Set blueprint from function.
      *
-     * @param Illuminate\Database\Eloquent\Model $item
+     * @param  Illuminate\Database\Eloquent\Model  $item
      * @return array
      */
     public function blueprint($item = null)
