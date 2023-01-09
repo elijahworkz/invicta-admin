@@ -3,6 +3,7 @@
 namespace Eteacher\InvictaAdmin\Admin\Traits;
 
 use Eteacher\InvictaAdmin\Http\Resources\ItemsCollection;
+use Illuminate\Support\Str;
 
 trait ListsItems
 {
