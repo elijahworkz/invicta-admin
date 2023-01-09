@@ -62,7 +62,11 @@ trait ListsItems
             $query = $query->with($this->indexWith);
         }
 
-        $result = $query->orderBy($table.'.'.$sortBy, $sortOrder)->paginate($perPage);
+        $orderBy = Str::of($sortBy)->endsWith('_count')
+            ? $sortBy
+            : $table.'.'.$sortBy;
+
+        $result = $query->orderBy($orderBy, $sortOrder)->paginate($perPage);
 
         return $result->withQueryString();
     }
