@@ -4,6 +4,7 @@ namespace Eteacher\InvictaAdmin\Admin\Blueprints;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Fluent;
+use Illuminate\Support\Str;
 
 class Blueprint extends Fluent
 {
@@ -29,6 +30,22 @@ class Blueprint extends Fluent
     public function addSection($newSection)
     {
         $sections = Arr::has($this, 'sections') ? $this->sections : [];
+
+        $fields = Arr::has($this, 'fields') ? $this->fields : [];
+
+        if (count($fields)) {
+            $sections[] = [
+                'id' => 'main_'.Str::random(5).'_section',
+                'title' => 'Main',
+                'fields' => $fields,
+            ];
+
+            unset($this->fields);
+
+            if (! Arr::has($this, 'settings')) {
+                $this->settings([]);
+            }
+        }
 
         $sections[] = $newSection;
 
