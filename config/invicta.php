@@ -95,7 +95,7 @@ return [
     */
 
     'locales' => [
-        'default' => [
+        'en' => [
             'name' => 'English',
             'locale' => 'en_US',
             'iso' => 'en',

@@ -4,7 +4,6 @@ namespace Eteacher\InvictaAdmin\Admin\Blueprints;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Fluent;
-use Illuminate\Support\Str;
 
 class Blueprint extends Fluent
 {
@@ -35,7 +34,7 @@ class Blueprint extends Fluent
 
         if (count($fields)) {
             $sections[] = [
-                'id' => 'main_'.Str::random(5).'_section',
+                'id' => '__main',
                 'title' => 'Main',
                 'fields' => $fields,
             ];

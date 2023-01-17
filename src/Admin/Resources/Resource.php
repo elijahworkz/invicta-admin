@@ -117,6 +117,11 @@ class Resource extends JsonResource
         return method_exists($this->model(), 'orderColumnName');
     }
 
+    public function localizible()
+    {
+        return method_exists($this, 'locales');
+    }
+
     public function toArray($request)
     {
         if (is_null($this->resource)) {

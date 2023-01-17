@@ -49,6 +49,11 @@ trait ListsItems
 
         $table = $this->model()->getTable();
 
+        // localization
+        if ($this->localizible()) {
+            $query = $this->localizeQuery($query);
+        }
+
         if (request()->has('search')) {
             $query = $this->applySearch($query, request()->get('search'));
         }

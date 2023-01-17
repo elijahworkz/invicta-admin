@@ -4,10 +4,10 @@
 		<div class="flex items-end justify-start mb-4">
 			<div>
 				<h1 class="mb-1">{{ resource.title }}</h1>
-				<!-- <Search :currentSearch="resource.meta.search" /> -->
 				<FiltersSearch :currentSearch="resource.meta.search" :handle="resource.handle" :filters="resource.meta.filters" />
 			</div>
-			<div class="ml-auto">
+			<div class="ml-auto flex items-center">
+				<LocaleSwitch v-if="resource.locales" :locales="resource.locales" @change="resourceIndex.setLocale" />
 				<Actions
 					v-if="globalActions.length"
 					:actions="globalActions"

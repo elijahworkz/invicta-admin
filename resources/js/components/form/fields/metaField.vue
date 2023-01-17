@@ -1,7 +1,7 @@
 <template>
 	<FieldBase :form-id="formId" :field-props="props">
 		<el-input v-model="fieldValue" type="textarea" v-bind="data.props" :disabled="field.disabled" />
-		<el-progress class="mt-2" :percentage="validation.percentage" :stroke-width="3" text-inside="true" :status="validation.status"/>
+		<el-progress class="mt-2" :percentage="validation.percentage" :stroke-width="3" :text-inside="true" :status="validation.status"/>
 		<span class="info" v-if="validation.caption" v-html="validation.caption"/>
 	</FieldBase>
 </template>

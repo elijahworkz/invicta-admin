@@ -11,7 +11,8 @@
 					<el-icon><ArrowLeft /></el-icon> {{ breadcrumb.text }}</Link>
 				<h1 class="mb-1 flex items-center" v-html="resourceForm.title"></h1>
 			</div>
-			<div class="resource-actions">
+			<div class="resource-actions flex items-center ml-auto">
+				<Localizations v-if="resourceForm.localizations" :localizations="resourceForm.localizations" :resource-url="resource.meta.indexUrl"/>
 				<slot name="form-actions"/>
 				<el-button-group class="relative">
 					<el-button 

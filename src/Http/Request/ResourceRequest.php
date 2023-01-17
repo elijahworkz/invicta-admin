@@ -46,6 +46,7 @@ class ResourceRequest extends InvictaRequest
                 'table' => $resourceClass->indexTableSettings(),
                 'handle' => $resourceClass->handle(),
                 'sortable' => $resourceClass->sortable(),
+                'locales' => $resourceClass->localizible() ? $resourceClass->locales() : null,
                 'indexEdit' => $resourceClass->indexEdit,
                 'hasDetail' => method_exists($resourceClass, 'showDetail'),
             ]);
@@ -142,6 +143,7 @@ class ResourceRequest extends InvictaRequest
                 'titleField' => $resourceClass->titleField,
                 'pageTitle' => $item[$resourceClass->titleField],
             ],
+            'localizations' => $resourceClass->localizible() ? $resourceClass->localesForEdit($item) : null,
             'blueprint' => request()->has('blueprint')
                 ? Blueprint::findByHandle($resourceClass, request()->blueprint)
                 : Blueprint::getDefault($resourceClass, $item),

@@ -32,8 +32,8 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 		return <IResourceItem>{
 			mode: 'create',
 			form: null,
-			data: null,
 			meta: {},
+			localizations: null,
 			actionUrl: null,
 			// dirty: false,
 			blueprint: {},
@@ -49,6 +49,7 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 			this.mode = resource.meta?.id ? 'edit' : 'create'
 			this.actionUrl = actionUrl
 			this.blueprint = resource.blueprint
+			this.localizations = resource.localizations
 			this.api = api
 
 			let formData = this.prepareFields(this.blueprint, itemData)

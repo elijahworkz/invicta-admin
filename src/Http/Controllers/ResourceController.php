@@ -49,7 +49,7 @@ class ResourceController extends Controller
     {
         $this->authorize('edit '.$request->handle());
 
-        return Inertia::render('Invicta.Resource.Edit', ['resource' => $request->editItem()]);
+        return Inertia::render('Invicta.Resource.Edit', ['resource' => $request->editItem(), 'test' => 'bar']);
     }
 
     public function store(ResourceRequest $request)

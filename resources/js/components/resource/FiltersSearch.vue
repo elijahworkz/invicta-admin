@@ -9,13 +9,13 @@
 			<Filters :resource-handle="handle" :filters="filters" />
 		</template>
 		<template #append v-if="canReset">
-			<el-button  :icon="Refresh" @click="reset" title="Clear"></el-button>
+			<el-button :icon="RefreshLeft" @click="reset" title="Clear all filters"></el-button>
 		</template>
 	</el-input>
 </template>
 
 <script setup>
-import { Search, Refresh } from '@element-plus/icons-vue'
+import { Search, RefreshLeft } from '@element-plus/icons-vue'
 
 const props = defineProps({
 	currentSearch: {

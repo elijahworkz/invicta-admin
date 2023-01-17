@@ -27,7 +27,7 @@ export const useResource = (id: string = 'store') => {
 const defineResource = (id: string) => defineStore(`resource-${id}`, () => {
 	const resourceHandle = id
 	const data = ref<any>([])
-	const search = ref<any>('')
+	const search = ref<string | number>('')
 	const currentPage = ref<any>(1)
 	const perPage = ref<any>(10)
 	const sortOrder = ref()
@@ -39,6 +39,13 @@ const defineResource = (id: string) => defineStore(`resource-${id}`, () => {
 	const additionalParams = ref<any>(null)
 	const total = ref<any>(0)
 	const columns = ref<any>({})
+	const currentLocale = ref<string>('')
+
+	const setLocale = (locale: string) => {
+		console.log('see you change locale', locale)
+		currentLocale.value = locale
+		currentPage.value = 1
+	}
 
 	const pageChange = (page: number) => {
 		console.log('see that you want to change page', resourceHandle, page, currentPage.value)
@@ -115,6 +122,7 @@ const defineResource = (id: string) => defineStore(`resource-${id}`, () => {
 			sort_order: sortOrder.value,
 			search: search.value,
 			filters: encodedFilters.value,
+			locale: currentLocale.value,
 		}
 	})
 
@@ -126,7 +134,8 @@ const defineResource = (id: string) => defineStore(`resource-${id}`, () => {
 				encodedFilters.value +
 				perPage.value +
 				sortOrder.value +
-				sortBy.value
+				sortBy.value +
+				currentLocale.value,
 			)
 		},
 		() => {
@@ -194,7 +203,9 @@ const defineResource = (id: string) => defineStore(`resource-${id}`, () => {
 		pageChange,
 		pageSizeChange,
 		total,
-		columns
+		columns,
+		setLocale,
+		currentLocale,
 		// resourceData,
 		// requestQuery,
 		// activeFilters,
