@@ -1,1 +1,0 @@
-import{_ as e}from"./_plugin-vue_export-helper.cdc0426e.js";import{o as t,c as o}from"./main.0ef6c703.js";const r={name:"Home",data(){return{}}};function s(n,a,c,m,p,_){return t(),o("h1",null,"THis will be first test")}const l=e(r,[["render",s]]);export{l as default};
