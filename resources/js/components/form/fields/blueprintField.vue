@@ -25,8 +25,8 @@ const field = useFormField(props)
 const value = field.value()
 
 const changeBlueprint = (value) => {
-	const { pageUrl } = usePage().props.value
+	const { pageUrl } = usePage().props
 	
-	Inertia.get(pageUrl, { blueprint: value })
+	router.get(pageUrl, { blueprint: value })
 }
 </script>

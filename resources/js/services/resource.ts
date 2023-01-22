@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { Inertia } from '@inertiajs/inertia'
+import { router } from '@inertiajs/vue3'
 import { IResourceObject, IFilterObject} from '@/interfaces'
 
 declare global {
@@ -184,7 +184,7 @@ const defineResource = (id: string) => defineStore(`resource-${id}`, () => {
 		} else {
 
 			if (! requestFilters.value) {
-				Inertia.get(requestUrl.value, query, { preserveState: true})
+				router.get(requestUrl.value, query, { preserveState: true})
 			}
 			requestFilters.value = false
 		}

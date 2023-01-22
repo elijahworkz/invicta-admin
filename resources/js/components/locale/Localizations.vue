@@ -31,7 +31,7 @@ const changeLocale = (locale) => {
 	emit('change', locale)
 }
 
-const origin = find(props.localizations, 'origin')
+const origin = find(props.localizations.value, 'origin')
 
 const localeTitle = (locale) => {
 

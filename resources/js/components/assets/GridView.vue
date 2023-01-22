@@ -93,7 +93,7 @@ console.log('deleting', selected)
 			confirmButtonClass: 'el-button--danger'
 		}
 	).then(() => {
-		Inertia.delete(props.resource.meta.path, {data: { selected }})
+		router.delete(props.resource.meta.path, {data: { selected }})
 	})
 	.catch((error) => console.log('cancel', error))
 }

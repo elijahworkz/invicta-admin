@@ -1,5 +1,6 @@
 <template>
 	<h1>THis will be first test</h1>
+	{{ $page }}
 </template>
 
 <script>

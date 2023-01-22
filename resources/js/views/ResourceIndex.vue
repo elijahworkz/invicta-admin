@@ -92,7 +92,7 @@ const props = defineProps({
 	canDelete: Boolean,
 })
 
-const { pageUrl } = usePage().props.value
+const { pageUrl } = usePage().props
 const resourceIndex = useResource(props.resource.handle)
 
 console.log('I want to see what is inside', resourceIndex)
@@ -153,7 +153,7 @@ const handleSelect = (selection) => {
 // Handle Show (detail view)
 const handleShow = (item) => {
 	if (! props.resource.indexEdit) {
-		Inertia.visit(`${props.resource.meta.path}/${item}`)
+		router.visit(`${props.resource.meta.path}/${item}`)
 	} else {
 		// if we want to show details in drawer ?
 	}
@@ -163,7 +163,7 @@ const handleShow = (item) => {
 const handleEdit = (item) => {
 
 	if (! props.resource.indexEdit) {
-		Inertia.visit(`${props.resource.meta.path}/${item}/edit`)
+		router.visit(`${props.resource.meta.path}/${item}/edit`)
 	} else {
 
 		apiSubmit.value = false
@@ -189,7 +189,7 @@ const handleDelete = (selected) => {
 			confirmButtonClass: 'el-button--danger'
 		}
 	).then(() => {
-		Inertia.delete(props.resource.meta.path, {data: { selected }})
+		router.delete(props.resource.meta.path, {data: { selected }})
 	})
 	.catch(() => console.log('cancel'))
 }
@@ -202,11 +202,11 @@ const handleBulkDelete = () => {
 
 Invicta.on('refresh-resource', () => {
 	console.log('you want to refresh')
-	Inertia.reload()
+	router.reload()
 })
 
 Invicta.on('resource-form-submitted', () => {
 	drawer.value = false
-	Inertia.reload()
+	router.reload()
 })
 </script>

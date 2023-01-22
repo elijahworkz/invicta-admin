@@ -124,11 +124,11 @@ Invicta.on('close-sidebar-submenus', () => {
 
 // Set loading state
 const loading = ref(false)
-Inertia.on('start', () => {
+router.on('start', () => {
 	loading.value = true
 })
 
-Inertia.on('finish', () => {
+router.on('finish', () => {
 	loading.value = false
 	// loading.close()
 })

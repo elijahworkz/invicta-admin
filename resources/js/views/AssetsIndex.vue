@@ -68,7 +68,7 @@ const props = defineProps({
 	canDelete: Boolean,
 })
 
-const { pageUrl } = usePage().props.value
+const { pageUrl } = usePage().props
 const resourceIndex = useResource()
 resourceIndex.init(pageUrl)
 
@@ -96,7 +96,7 @@ const handleEdit = (item) => {
 }
 
 Invicta.on('refresh-resource', () => {
-	Inertia.reload()
+	router.reload()
 })
 
 </script>

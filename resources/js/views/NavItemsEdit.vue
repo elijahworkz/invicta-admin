@@ -216,6 +216,6 @@ const editItem = (item) => {
 /* Save Navigation */
 
 const saveNavigation = () => {
-	Inertia.post(props.actionUrl, { tree: treeItems.value })
+	router.post(props.actionUrl, { tree: treeItems.value })
 }
 </script>

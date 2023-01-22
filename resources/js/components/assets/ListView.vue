@@ -50,7 +50,7 @@ const handleDelete = (selected) => {
 			confirmButtonClass: 'el-button--danger'
 		}
 	).then(() => {
-		Inertia.delete(props.resource.meta.path, {data: { selected }})
+		router.delete(props.resource.meta.path, {data: { selected }})
 	})
 	.catch(() => console.log('cancel'))
 }

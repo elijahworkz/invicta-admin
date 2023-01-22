@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { useForm } from '@inertiajs/inertia-vue3'
+import { useForm } from '@inertiajs/vue3'
 
 declare global {
 	interface Window {

@@ -48,14 +48,14 @@ const props = defineProps({
 	resource: Object
 })
 
-const { pageUrl } = usePage().props.value
+const { pageUrl } = usePage().props
 
 function saveOrder() {
 	let newOrder = props.resource.data.map((item, index) => {
 		return { id: item.id, order: parseInt(`1100${index}`)}
 	})
 	
-	Inertia.post(pageUrl, { order: newOrder })
+	router.post(pageUrl, { order: newOrder })
 }
 </script>
 

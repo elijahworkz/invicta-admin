@@ -22,7 +22,6 @@
 <script setup>
 import { mdiMenuOpen, mdiLogoutVariant } from '@mdi/js'
 import { MoreFilled } from '@element-plus/icons-vue'
-// import Impersonator from './partials/Impersonator.vue'
 
 const toggleSidebar = () => {
 	document.body.classList.toggle('sidebar-mini')

@@ -17,7 +17,7 @@ class PasswordResetController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Invicta.ForgotPassword', [
+        return Inertia::render('Auth/ForgotPassword', [
             'actionUrl' => route('invicta.password.email'),
         ]);
     }

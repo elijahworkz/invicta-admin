@@ -1,16 +1,14 @@
 import { createApp, h, ref } from 'vue'
-import { App, plugin, Head, createInertiaApp } from '@inertiajs/inertia-vue3'
-import { InertiaProgress } from '@inertiajs/progress'
+import { Head, Link, createInertiaApp } from '@inertiajs/vue3'
+import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers'
 import { createPinia } from 'pinia'
 import { setupAxios } from './services/axios'
-import { AxiosInstance } from 'axios'
 import { AxiosInstance } from 'axios'
 import mitt from 'mitt'
 import isNil from 'lodash/isNil'
 // import { InvictaConfigObject } from './common/interfaces'
 
 // global components
-import { Link } from '@inertiajs/inertia-vue3'
 // import Loading from '@/components/shared/Loading.vue'
 import SvgIcon from '@/components/shared/SvgIcon.vue'
 import CheckTree from '@/components/shared/CheckTree.vue'
@@ -30,7 +28,7 @@ const pinia = createPinia()
 class Invicta
 {
 	app: any
-	mountElement: string
+	mountElement: any
 	config: any
 	user: any
 	bootingCallbacks: Function[]
@@ -50,23 +48,23 @@ class Invicta
 		this.axios = setupAxios(`${this.getConfig('appUrl')}${this.getConfig('appPath')}/api`)
 		this.errors = ref({})
 
-		this.pages = {
-			'Invicta.Login': () => import('./views/Auth/Login.vue'),
-			'Invicta.ForgotPassword': () => import('./views/Auth/ForgotPassword.vue'),
-			'Invicta.ResetPassword': () => import('./views/Auth/ResetPassword.vue'),
-			'Invicta.Home': () => import('./views/Home.vue'),
-			'Invicta.Resource': () => import('./views/ResourceIndex.vue'),
-			'Invicta.Resource.Reorder': () => import('./views/ResourceReorder.vue'),
-			'Invicta.Resource.Create': () => import('./views/ResourceEdit.vue'),
-			'Invicta.Resource.Detail': () => import('./views/ResourceDetail.vue'),
-			'Invicta.Resource.Edit': () => import('./views/ResourceEdit.vue'),
-			'Invicta.Permission.Edit': () => import('./views/PermissionEdit.vue'),
-			'NavIndex': () => import('./views/NavIndex.vue'),
-			'NavEdit': () => import('./views/NavEdit.vue'),
-			'NavItemsEdit': () => import('./views/NavItemsEdit.vue'),
-			'AssetsIndex': () => import('./views/AssetsIndex.vue'),
-			'Invicta.Page': () => import('./views/Page.vue'),
-		}
+		// this.pages = {
+		// 	'Invicta.Login': () => import('./views/Auth/Login.vue'),
+		// 	'Invicta.ForgotPassword': () => import('./views/Auth/ForgotPassword.vue'),
+		// 	'Invicta.ResetPassword': () => import('./views/Auth/ResetPassword.vue'),
+		// 	'Invicta.Home': () => import('./views/Home.vue'),
+		// 	'Invicta.Resource': () => import('./views/ResourceIndex.vue'),
+		// 	'Invicta.Resource.Reorder': () => import('./views/ResourceReorder.vue'),
+		// 	'Invicta.Resource.Create': () => import('./views/ResourceEdit.vue'),
+		// 	'Invicta.Resource.Detail': () => import('./views/ResourceDetail.vue'),
+		// 	'Invicta.Resource.Edit': () => import('./views/ResourceEdit.vue'),
+		// 	'Invicta.Permission.Edit': () => import('./views/PermissionEdit.vue'),
+		// 	'NavIndex': () => import('./views/NavIndex.vue'),
+		// 	'NavEdit': () => import('./views/NavEdit.vue'),
+		// 	'NavItemsEdit': () => import('./views/NavItemsEdit.vue'),
+		// 	'AssetsIndex': () => import('./views/AssetsIndex.vue'),
+		// 	'Invicta.Page': () => import('./views/Page.vue'),
+		// }
 	}
 
 	booting(callback: Function) {
@@ -79,36 +77,9 @@ class Invicta
 		this.bootingCallbacks.forEach(callback => callback(this.app))
 	}
 
-	initInertia() {
-
-		let appElement = document.querySelector(this.mountElement)
-		let inertiaData = appElement?.getAttribute('data-page') || ''
-
-		this.app = createApp({
-			render: () => h(App, {
-				initialPage: JSON.parse(inertiaData),
-				titleCallback: (title: string) => `${title} - ${this.getConfig('appName')}`,
-				resolveComponent: async (name) => {
-					let page = this.pages[name]
-
-					if (typeof page === 'undefined') {
-						throw new Error(`Page not found: ${name}`)
-					}
-					// page = typeof page === 'function' ? page() : page
-					// const page = name.includes('Invicta.')
-					// 	? (await this.pages[name]()).default
-					// 	: this.pages[name]
-
-					page = typeof page === 'function'
-						? (await page()).default
-						: page
-
-					page.layout ??= MainLayout
-
-					return page
-				}
-			})
-		})
+	setup({ el, App, props, plugin }) {
+		this.mountElement = el
+		this.app = createApp({ render: () => h(App, props) })
 
 		this.app.use(plugin)
 		this.app.use(pinia)
@@ -118,6 +89,82 @@ class Invicta
 		this.app.component('CheckTree', CheckTree)
 		this.app.component('Drawer', Drawer)
 		this.event('InvictaReady')
+	}
+
+	initInertia() {
+
+		// let appElement = document.querySelector(this.mountElement)
+		// let inertiaData = appElement?.getAttribute('data-page') || ''
+		// const inertiaApp = createInertiaApp.bind(this)
+
+		createInertiaApp({
+			title: (title) => `${title} - ${this.getConfig('appName')}`,
+			resolve: (name) => {
+				console.log('checking', name)
+				const page = resolvePageComponent(`./views/${name}.vue`, import.meta.glob('./views/**/*.vue'))
+
+				page.then((module) => {
+		            module.default.layout = module.default.layout || MainLayout;
+		        });
+
+		        return page;
+				// const pages = import.meta.glob('./views/**/*.vue')
+				// return pages[`./views/${name}.vue`]()
+
+				// let page = this.pages[name]
+
+				// page = typeof page === 'function'
+				// 	? (await page()).default
+				// 	: page
+
+				// page.layout ??= MainLayout
+
+				// console.log(page)
+
+				// return page
+
+				// if (typeof page === 'undefined') {
+				// 	throw new Error(`Page not found: ${name}`)
+				// }
+
+
+
+				// return page
+			},
+			setup: this.setup.bind(this)
+		})
+
+
+		// this.app = createApp({
+		// 	render: () => h(App, {
+		// 		initialPage: JSON.parse(inertiaData),
+		// 		titleCallback: (title: string) => `${title} - ${this.getConfig('appName')}`,
+		// 		resolveComponent: async (name) => {
+		// 			let page = this.pages[name]
+
+		// 			if (typeof page === 'undefined') {
+		// 				throw new Error(`Page not found: ${name}`)
+		// 			}
+
+		// 			page = typeof page === 'function'
+		// 				? (await page()).default
+		// 				: page
+
+		// 			page.layout ??= MainLayout
+
+		// 			return page
+		// 		}
+		// 	})
+		// })
+
+		// // this.app.use(plugin)
+		// this.app.use(pinia)
+		// this.app.component('Head', Head)
+		// this.app.component('Link', Link)
+		// this.app.component('SvgIcon', SvgIcon)
+		// this.app.component('CheckTree', CheckTree)
+		// this.app.component('Drawer', Drawer)
+		// this.event('InvictaReady')
 	}
 
 	getConfig(key: string) {
@@ -141,22 +188,22 @@ class Invicta
 		console.log(' i am starting')
 		this.boot()
 
-		InertiaProgress.init({
-			// The color of the progress bar.
-			color: '#29d',
+		// InertiaProgress.init({
+		// 	// The color of the progress bar.
+		// 	color: '#29d',
 
-			// Whether to include the default NProgress styles.
-			includeCSS: true,
+		// 	// Whether to include the default NProgress styles.
+		// 	includeCSS: true,
 
-			// Whether the NProgress spinner will be shown.
-			showSpinner: false,
-		})
+		// 	// Whether the NProgress spinner will be shown.
+		// 	showSpinner: false,
+		// })
 
-		this.app.mount('#app')
+		this.app.mount(this.mountElement)
 
 		console.log('started Invicta', this.pages)
 
-		console.log('checking components', this.app._context.components)
+		// console.log('checking components', this.app._context.components)
 	}
 
 	inertia(name: string, component: any) {

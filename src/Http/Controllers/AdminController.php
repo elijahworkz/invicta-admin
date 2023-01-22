@@ -12,7 +12,7 @@ class AdminController extends Controller
 {
     public function home()
     {
-        return Inertia::render('Invicta.Home', []);
+        return Inertia::render('Home', []);
     }
 
     public function impersonateLeave()

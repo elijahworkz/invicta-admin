@@ -11,12 +11,13 @@
 </template>
 
 <script setup>
-import { usePage } from '@inertiajs/inertia-vue3'
-import { Inertia } from '@inertiajs/inertia'
+import { usePage, router } from '@inertiajs/vue3'
 
 onMounted(() => document.body.classList.add('app-ready'))
 
-const notification = computed(() => usePage().props.value.flash.message)
+// const page = usePage().props
+
+const notification = computed(() => usePage().props.flash.message)
 
 watch(notification, (value) => {
 	if (value) {
@@ -28,7 +29,7 @@ watch(notification, (value) => {
 	}
 })
 
-Inertia.on('error', (data) => {
+router.on('error', (data) => {
   		let errors = data.detail.errors
   		Invicta.setErrors(errors)
 })

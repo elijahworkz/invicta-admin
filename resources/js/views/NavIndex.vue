@@ -68,7 +68,7 @@ const handleAction = (event) => {
 	console.log('got event', event)
 
 	if (event.action == 'edit') {
-		Inertia.get(`${props.editUrl}/${event.item}`)
+		router.get(`${props.editUrl}/${event.item}`)
 	}
 
 	if (event.action == 'delete') {
@@ -86,7 +86,7 @@ function handleDelete (item) {
 			confirmButtonClass: 'el-button--danger'
 		}
 	).then(() => {
-		Inertia.delete(`${props.editUrl}/${item}`)
+		router.delete(`${props.editUrl}/${item}`)
 	})
 	.catch(() => console.log('cancel'))
 }
