@@ -1,1 +1,0 @@
-import{_ as e}from"./_plugin-vue_export-helper-c27b6911.js";import{b as t,l as o}from"./runtime-core.esm-bundler-c1453c87.js";const r={name:"Home",data(){return{}}};function s(n,a,c,l,m,p){return t(),o("h1",null,"THis will be first test")}const i=e(r,[["render",s]]);export{i as default};
