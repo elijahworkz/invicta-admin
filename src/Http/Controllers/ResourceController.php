@@ -35,7 +35,7 @@ class ResourceController extends Controller
     {
         $this->authorize('create '.$request->handle());
 
-        return Inertia::render('ResourceCreate', ['resource' => $request->createItem()]);
+        return Inertia::render('ResourceEdit', ['resource' => $request->createItem()]);
     }
 
     public function show(ResourceRequest $request)
