@@ -7,6 +7,7 @@ use Eteacher\InvictaAdmin\Admin\Components\Column;
 use Eteacher\InvictaAdmin\Admin\Models\Actions\ImpersonateUser;
 use Eteacher\InvictaAdmin\Admin\Models\Filters\GroupFilter;
 use Eteacher\InvictaAdmin\Admin\Resources\Resource;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Resource
 {
@@ -38,18 +39,7 @@ class User extends Resource
             'id' => $this->id,
             'active' => $this->active,
             'dev' => $this->dev,
-            'name' => function () {
-                $html = "<div class='mb-1 font-bold'>";
-
-                if (auth()->user()->can('edit users')) {
-                    $html .= "<a href='{$this->route()}/{$this->id}' class='edit-link'>{$this->name}</a>";
-                } else {
-                    $html .= $this->name;
-                }
-                $html .= "</div>{$this->email}";
-
-                return $html;
-            },
+            'name' => $this->displayUserName($request),
             'email' => $this->email,
             'registration' => Carbon::parse($this->created_at)->toFormattedDateString(),
             'last_login' => $last_login
@@ -76,6 +66,22 @@ class User extends Resource
         ];
     }
 
+    public function displayUserName($request)
+    {
+        $editRoute = route('invicta.resource.edit', ['resource' => 'users', 'item' => $this->id]);
+
+        $name = $request->user()->can('edit users')
+            ? "<a href='{$editRoute}' class='edit-link'>{$this->name}</a>"
+            : $this->name;
+
+        return <<<HTML
+            <div class="mb-1 font-bold">
+                {$name}
+            </div>
+            <span>{$this->email}</span>
+        HTML;
+    }
+
     public function blueprint($item = null)
     {
         $blueprint = [
@@ -99,34 +105,23 @@ class User extends Resource
                     'type' => 'text',
                     'validation' => 'required_if:id,null|min:8|nullable',
                 ],
+                [
+                    'id' => 'data.avatar',
+                    'type' => 'asset',
+                    'props' => [
+                        'folder' => 'avatars',
+                    ],
+                ],
             ],
             'sidebar' => [
                 'fields' => [
-                    [
-                        'id' => 'active',
-                        'label' => 'Active Status',
-                        'type' => 'toggle',
-                        'inline' => false,
-                        'defaultValue' => 1,
-                        'props' => [
-                            'active-value' => 1,
-                            'inactive-value' => 0,
-                            'active-text' => 'Active',
-                            'inactive-text' => 'Inactive',
-                        ],
-                        'if' => [
-                            'id' => 'id',
-                            'operator' => '!=',
-                            'value' => null,
-                        ],
-                    ],
                     [
                         'id' => 'groups',
                         'type' => 'relatedSelect',
                         'props' => [
                             'multiple' => true,
                         ],
-                        'validation' => 'required',
+                        'validation' => 'required_unless:dev,true',
                     ],
 
                 ],
@@ -138,14 +133,9 @@ class User extends Resource
                 'id' => 'dev',
                 'label' => 'Dev Admin',
                 'type' => 'toggle',
-                'inline' => false,
-                'defaultValue' => 0,
-                'props' => [
-                    'active-value' => 1,
-                    'inactive-value' => 0,
-                    'active-text' => 'True',
-                    'inactive-text' => 'False',
-                ],
+                'inline' => true,
+                'customClass' => 'divided',
+                'defaultValue' => false,
             ];
         }
 
@@ -164,5 +154,30 @@ class User extends Resource
         return [
             new ImpersonateUser(),
         ];
+    }
+
+    public function afterSave($item, $action)
+    {
+        $avatar = isset($item->data['avatar']) ? $item->data['avatar'] : null;
+
+        if ($avatar) {
+            $nameData = explode('.', $avatar['name']);
+            $avatarName = 'avatar-'.$item->id.'.'.$nameData[1];
+            $avatarPath = '/users/'.$avatarName;
+
+            if ($avatar['path'] != $avatarPath) {
+                Storage::move($avatar['path'], $avatarPath);
+
+                $avatar['name'] = $avatarName;
+                $avatar['path'] = $avatarPath;
+                $avatar['src'] = _asset($avatarPath);
+
+                $item->data = [
+                    ...$item->data,
+                    'avatar' => $avatar,
+                ];
+                $item->save();
+            }
+        }
     }
 }

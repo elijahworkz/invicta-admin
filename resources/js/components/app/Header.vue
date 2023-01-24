@@ -6,7 +6,9 @@
 		<div class="app-branding">Invicta Admin</div>
 		<div class="ml-auto flex items-center">
 			<Impersonator v-if="$page.props.auth.impersonator" />
-			<div class="font-bold mr-2 leading-0">{{ $page.props.auth.user.name }}</div>
+			
+			<User />
+
 			<el-dropdown>
 				<el-button :icon="MoreFilled" size="small" text></el-button>
 				<template #dropdown>
