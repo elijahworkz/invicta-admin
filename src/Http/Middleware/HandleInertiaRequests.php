@@ -41,7 +41,10 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         $user = $request->user();
-        $user->initials = Str::of($user->name)->initials();
+
+        if ($user) {
+            $user->initials = Str::of($user->name)->initials();
+        }
 
         $auth = [
             'user' => $user,
