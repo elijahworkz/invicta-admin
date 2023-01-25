@@ -295,9 +295,9 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 
 			return title
 		},
-		// id(): any {
-		// 	return get(this.data, 'id')
-		// }
+		id(): any {
+			return get(this.form, 'id')
+		}
 	}
 })()
 

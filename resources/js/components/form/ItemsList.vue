@@ -19,14 +19,16 @@
 					class="ml-1"
 				/>
 
-				<span class="ml-auto action-icon" title="Remove Item">
+				<div class="ml-auto flex items-center">
+					<span v-if="element.locale" class="mr-2 text-gray-400">{{ element.locale }}</span>
 
-					<SvgIcon
-						v-if="options.addItems"
-						:icon="mdiLinkOff"
-						@click="removeRow(element.id)"
-						:width="16" />
-				</span>
+					<span v-if="options.addItems" class="action-icon" title="Remove Item">
+						<SvgIcon
+							:icon="mdiLinkOff"
+							@click="removeRow(element.id)"
+							:width="16" />
+					</span>
+				</div>
 			</div>
 		</template>
 		<template #footer>
