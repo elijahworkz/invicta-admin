@@ -11,7 +11,7 @@
 					:command="locale"
 					:disabled="locale.current"
 					:title="localeTitle(locale)">
-					<i class="icon-status" :class="{'success': locale.translation || locale.origin}"></i> {{ locale.name }}
+					<i class="icon-status" :class="{'success': locale.translation || locale.origin}"></i> <span class="ml-2">{{ locale.name }}</span>
 				</el-dropdown-item>
 			</el-dropdown-menu>
 		</template>
@@ -23,15 +23,18 @@ import { mdiTranslate } from '@mdi/js'
 
 const props = defineProps({
 	localizations: Object,
+	formId: String,
 	resourceUrl: String,
 })
-const emit = defineEmits(['change'])
 
-const changeLocale = (locale) => {
-	emit('change', locale)
-}
+const resourceForm = useResourceForm(props.formId)
 
-const origin = find(props.localizations.value, 'origin')
+const origin = computed(() => {
+	let { localizations } = props
+	return Object.values(localizations).filter((l) => {
+		return l.origin !== null
+	})[0].origin
+})
 
 const localeTitle = (locale) => {
 
@@ -46,13 +49,15 @@ const localeTitle = (locale) => {
 }
 
 const handleCommand = (locale) => {
-	console.log('handle me', locale)
 	let id = locale.translation
 		? locale.translation
 		: (locale.origin ? locale.origin : null)
-	let url = id ? `${id}/edit` : `${origin.value}/duplicate`
+	let url = id ? `${id}/edit` : `${origin.value}/localize`
 
-	console.log('getting', url)
-	// Inertia.get(`${props.resourceUrl}/${url}`)
+	if (id) {
+		router.get(`${props.resourceUrl}/${url}`)
+	} else {
+		router.get(`${props.resourceUrl}/${url}/${locale.iso}`)
+	}
 }
 </script>

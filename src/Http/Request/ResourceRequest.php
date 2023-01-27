@@ -267,6 +267,25 @@ class ResourceRequest extends InvictaRequest
         return [$itemId, $resourceClass->handle()];
     }
 
+    public function localizeItem()
+    {
+        $resourceClass = $this->resourceClass();
+        $item = $resourceClass->findModel($this->route('item'), false);
+        $locale = $this->route('locale');
+
+        $copy = $item->replicate([
+            'content', 'seo',
+        ])->fill([
+            'title' => $item->title.'-'.$locale,
+            'slug' => $item->slug.'-'.$locale,
+            'origin_id' => $item->id,
+            'locale' => $locale,
+        ]);
+        $copy->save();
+
+        return [$copy->id, $resourceClass->handle()];
+    }
+
     protected function processItem($resourceClass, $item, $action)
     {
         $massAssign = count($item->getFillable());

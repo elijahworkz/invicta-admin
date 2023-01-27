@@ -49,7 +49,7 @@ class ResourceController extends Controller
     {
         $this->authorize('edit '.$request->handle());
 
-        return Inertia::render('ResourceEdit', ['resource' => $request->editItem(), 'test' => 'bar']);
+        return Inertia::render('ResourceEdit', ['resource' => $request->editItem()]);
     }
 
     public function store(ResourceRequest $request)
@@ -73,6 +73,16 @@ class ResourceController extends Controller
         return Redirect::route('invicta.resource.index', ['resource' => $handle])->with('message', [
             'type' => 'success',
             'title' => 'Order Updated',
+        ]);
+    }
+
+    public function localize(ResourceRequest $request)
+    {
+        [$itemId, $handle] = $request->localizeItem();
+
+        return Redirect::route('invicta.resource.edit', ['resource' => $handle, 'item' => $itemId])->with('message', [
+            'type' => 'success',
+            'title' => 'Translation created',
         ]);
     }
 

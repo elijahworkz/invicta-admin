@@ -24,6 +24,7 @@ Route::controller(ResourceController::class)->name('resource.')->prefix('/resour
     Route::get('{resource}/{item}', 'show')->name('show');
     Route::get('{resource}/{item}/edit', 'edit')->name('edit');
     Route::post('{resource}/{item}', 'update')->name('update');
+    Route::get('{resource}/{item}/localize/{locale}', 'localize')->name('localize');
 });
 
 Route::controller(NavigationController::class)->name('nav.')->prefix('/navigation/')->group(function () {
