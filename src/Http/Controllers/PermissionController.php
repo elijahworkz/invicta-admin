@@ -19,7 +19,7 @@ class PermissionController extends Controller
 
         $groupPermission = $group->permissions()->pluck('ability');
 
-        return Inertia::render('Invicta.Permission.Edit', [
+        return Inertia::render('Permission/Edit', [
             'tree' => $permissionTree,
             'permissions' => $groupPermission,
             'actionUrl' => route('invicta.permission.update', ['group' => $group->id]),

@@ -1,7 +1,7 @@
 <template>
 	<div class="user flex items-center">
 		<span class="avatar">
-			{{ $page.props.auth.user.initials }}
+			{{ userInitials }}
 		</span>
 		<div class="font-bold mr-2 leading-0">
 			{{ $page.props.auth.user.name }}
@@ -13,6 +13,18 @@
 const user = usePage().props.auth.user
 const userAvatar = ref()
 const textColor = ref()
+
+const userInitials = computed(() => {
+	let initials = user.name || ''
+	const nameSplit = initials.split(' ')
+
+	if (nameSplit.length == 1) {
+		initials = nameSplit[0] ? nameSplit[0].charAt(0):'?';
+	} else {
+		initials = nameSplit[0].charAt(0) + nameSplit[1].charAt(0);
+	}
+	return initials
+})
 
 userAvatar.value = user.data?.avatar 
 	? `url(${user.data.avatar.src})`

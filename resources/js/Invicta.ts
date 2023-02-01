@@ -4,6 +4,7 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers'
 import { createPinia } from 'pinia'
 import { setupAxios } from './services/axios'
 import { AxiosInstance } from 'axios'
+// import { setupEcho } from './services/echo'
 import mitt from 'mitt'
 import isNil from 'lodash/isNil'
 // import { InvictaConfigObject } from './common/interfaces'
@@ -35,6 +36,7 @@ class Invicta
 	pages: any
 	eventBus: any
 	axios: AxiosInstance | null
+	echo: any | null
 	errors: any
 
 	constructor(config: any) {
@@ -46,25 +48,8 @@ class Invicta
 		this.bootingCallbacks = []
 		this.eventBus = mitt()
 		this.axios = setupAxios(`${this.getConfig('appUrl')}${this.getConfig('appPath')}/api`)
+		this.echo = null
 		this.errors = ref({})
-
-		// this.pages = {
-		// 	'Invicta.Login': () => import('./views/Auth/Login.vue'),
-		// 	'Invicta.ForgotPassword': () => import('./views/Auth/ForgotPassword.vue'),
-		// 	'Invicta.ResetPassword': () => import('./views/Auth/ResetPassword.vue'),
-		// 	'Invicta.Home': () => import('./views/Home.vue'),
-		// 	'Invicta.Resource': () => import('./views/ResourceIndex.vue'),
-		// 	'Invicta.Resource.Reorder': () => import('./views/ResourceReorder.vue'),
-		// 	'Invicta.Resource.Create': () => import('./views/ResourceEdit.vue'),
-		// 	'Invicta.Resource.Detail': () => import('./views/ResourceDetail.vue'),
-		// 	'Invicta.Resource.Edit': () => import('./views/ResourceEdit.vue'),
-		// 	'Invicta.Permission.Edit': () => import('./views/PermissionEdit.vue'),
-		// 	'NavIndex': () => import('./views/NavIndex.vue'),
-		// 	'NavEdit': () => import('./views/NavEdit.vue'),
-		// 	'NavItemsEdit': () => import('./views/NavItemsEdit.vue'),
-		// 	'AssetsIndex': () => import('./views/AssetsIndex.vue'),
-		// 	'Invicta.Page': () => import('./views/Page.vue'),
-		// }
 	}
 
 	booting(callback: Function) {
@@ -75,6 +60,15 @@ class Invicta
 	boot() {
 		console.log('in boot', this.bootingCallbacks)
 		this.bootingCallbacks.forEach(callback => callback(this.app))
+	}
+
+	setupEcho(Echo) {
+		console.log('setting up echo')
+		this.echo = Echo
+	}
+
+	Echo() {
+		return this.echo
 	}
 
 	setup({ el, App, props, plugin }) {
@@ -206,11 +200,11 @@ class Invicta
 		// console.log('checking components', this.app._context.components)
 	}
 
-	inertia(name: string, component: any) {
-		// this.pages = {...this.pages, ...name}
-		this.pages[name] = component
-		console.log('want to add', name, this.pages)
-	}
+	// inertia(name: string, component: any) {
+	// 	// this.pages = {...this.pages, ...name}
+	// 	this.pages[name] = component
+	// 	console.log('want to add', name, this.pages)
+	// }
 
 	componentExists(name: string) {
 		return !isNil(this.app._context.components[name])

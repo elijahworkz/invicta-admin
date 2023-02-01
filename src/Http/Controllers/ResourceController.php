@@ -18,7 +18,7 @@ class ResourceController extends Controller
             return $resource;
         }
 
-        return Inertia::render('ResourceIndex', [
+        return Inertia::render('Resource/Index', [
             'resource' => $resource,
             'can-create' => $request->canCreate() && request()->user()->can('create '.$request->handle()),
             'can-edit' => request()->user()->can('edit '.$request->handle()),
@@ -28,28 +28,28 @@ class ResourceController extends Controller
 
     public function reorder(ResourceRequest $request)
     {
-        return Inertia::render('ResourceReorder', ['resource' => $request->resourceOrderedList()]);
+        return Inertia::render('Resource/Reorder', ['resource' => $request->resourceOrderedList()]);
     }
 
     public function create(ResourceRequest $request)
     {
         $this->authorize('create '.$request->handle());
 
-        return Inertia::render('ResourceEdit', ['resource' => $request->createItem()]);
+        return Inertia::render('Resource/Edit', ['resource' => $request->createItem()]);
     }
 
     public function show(ResourceRequest $request)
     {
         $this->authorize('view '.$request->handle());
 
-        return Inertia::render('ResourceDetail', ['resource' => $request->viewItem()]);
+        return Inertia::render('Resource/Detail', ['resource' => $request->viewItem()]);
     }
 
     public function edit(ResourceRequest $request)
     {
         $this->authorize('edit '.$request->handle());
 
-        return Inertia::render('ResourceEdit', ['resource' => $request->editItem()]);
+        return Inertia::render('Resource/Edit', ['resource' => $request->editItem()]);
     }
 
     public function store(ResourceRequest $request)

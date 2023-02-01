@@ -16,7 +16,7 @@ class NavigationController extends Controller
     {
         $this->authorize('view navigation');
 
-        return Inertia::render('NavIndex', [
+        return Inertia::render('Nav/Index', [
             'title' => 'Navigation',
             'navs' => NavResource::collection(Navigation::all()),
             'createUrl' => invicta_route('nav.create'),
@@ -31,7 +31,7 @@ class NavigationController extends Controller
     {
         $this->authorize('create new navigation');
 
-        return Inertia::render('NavEdit', [
+        return Inertia::render('Nav/Edit', [
             'indexUrl' => invicta_route('nav.index'),
             'actionUrl' => invicta_route('nav.index'),
             'resource' => [
@@ -80,7 +80,7 @@ class NavigationController extends Controller
     {
         $this->authorize('create new navigation');
 
-        return Inertia::render('NavEdit', [
+        return Inertia::render('Nav/Edit', [
             'actionUrl' => invicta_route('nav.update', ['menu' => $menu->id]),
             'indexUrl' => invicta_route('nav.index'),
             'resource' => [
@@ -152,7 +152,7 @@ class NavigationController extends Controller
             ];
         });
 
-        return Inertia::render('NavItemsEdit', [
+        return Inertia::render('Nav/ItemsEdit', [
             'indexUrl' => invicta_route('nav.index'),
             'actionUrl' => invicta_route('nav.updateItems', ['menu' => $menu->id]),
             'menu' => $menu,

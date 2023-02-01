@@ -17,15 +17,8 @@ class InvictaAdmin
             'appName' => config('app.name'),
             'appPath' => config('invicta.path'),
             'impersonateRoute' => route('invicta.impersonate-leave'),
-            // 'editorUrl' => route('editor'),
-            // 'assetsUrl' => config('frontend.assetsUrl'),
-            // 'screenshotsPath' => config('services.screenshots.key'),
             'menu' => self::menu(),
             'user' => self::user(),
-            // 'brands' => self::brands(),
-            // 'templates' => self::templates(),
-            // 'languages' => self::languages(),
-            // 'helper_links' => self::helperLinks(),
         ];
     }
 

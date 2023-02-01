@@ -42,9 +42,9 @@ class HandleInertiaRequests extends Middleware
     {
         $user = $request->user();
 
-        if ($user) {
-            $user->initials = Str::of($user->name)->initials();
-        }
+        // if ($user) {
+        //     $user->initials = Str::of($user->name)->initials();
+        // }
 
         $auth = [
             'user' => $user,

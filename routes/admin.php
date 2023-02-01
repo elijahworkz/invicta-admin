@@ -9,9 +9,6 @@ use Eteacher\InvictaAdmin\Http\Controllers\ResourceController;
 Route::controller(AdminController::class)->group(function () {
     Route::get('/', 'home')->name('home');
     Route::get('/impersonate/leave', 'impersonateLeave')->name('impersonate-leave');
-    Route::get('/test', function () {
-        return inertia('Student');
-    });
 });
 
 Route::controller(ResourceController::class)->name('resource.')->prefix('/resource/')->group(function () {
