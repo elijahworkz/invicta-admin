@@ -24,6 +24,10 @@ export const useFormField = (props: { formId: string, data: IFormField, path: st
     }
 
     const isReadOnly = computed(() => {
+
+        if (resourceForm.readOnly)
+            return true
+
         if (field.readOnly) {
             if (typeof field.readOnly === 'boolean') {
                 return field.readOnly

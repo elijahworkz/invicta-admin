@@ -35,7 +35,7 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 			meta: {},
 			localizations: null,
 			actionUrl: null,
-			// dirty: false,
+			readOnly: true,
 			blueprint: {},
 			rules: {},
 			api: false,
