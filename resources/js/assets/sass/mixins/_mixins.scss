@@ -1,0 +1,48 @@
+@mixin reset-list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+@mixin icon-list($align: center, $justify: flex-start) {
+	@include reset-list;
+
+	li {
+		@include flexbox(row, $align, $justify);
+	}
+}
+
+@mixin flexbox($rowDirection: row, $alignItems: center, $justifyContent: space-between) {
+	display: flex;
+	flex-direction: $rowDirection;
+	align-items: $alignItems;
+	justify-content: $justifyContent;
+}
+
+@mixin fluid($property, $minValue, $maxValue, $wide: $display-wide, $narrow: $display-narrow) {
+	$x: ($maxValue - $minValue) / ($wide - $narrow);
+	$y: $maxValue - $wide * $x;
+	#{$property}: calc(#{100*$x}vw + #{$y}px);
+}
+
+// Resolution breakpoints
+$breakpoints: ("mobile-small": 360px,
+	"mobile": 767px,
+	"tablet": 991px,
+	"tablet-wide": 1024px,
+	"desktop": 1280px,
+	"desktop-wide": 1440px);
+
+@mixin res($width, $type: max) {
+	@if map_has_key($breakpoints, $width) {
+		$width: map_get($breakpoints, $width);
+
+		@if $type==min {
+			$width: $width + 1px;
+		}
+
+		@media only screen and (#{$type}-width: $width) {
+			@content;
+		}
+	}
+}

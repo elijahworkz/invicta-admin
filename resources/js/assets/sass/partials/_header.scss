@@ -1,0 +1,38 @@
+.app {
+
+	&-header {
+
+	}
+
+	.sidebar-toggle {
+		@include flexbox(row, center, center);
+		width: $sidebar-mini-width;
+		cursor: pointer;
+		line-height: 0;
+		opacity: .6;
+
+		svg {
+			transition: all .2s;
+
+			.sidebar-mini & {
+				transform: rotate(180deg);
+			}
+		}
+	}
+
+	&-branding {
+		font-size: 20px;
+		font-weight: 500;
+		
+		a {
+			@include flexbox(row, center, flex-start);
+			line-height: 50px;
+			padding: 0 1rem;
+
+			svg {
+				color: var(--color-highlight);
+				font-size: 1.6rem;
+			}
+		}
+	}
+}

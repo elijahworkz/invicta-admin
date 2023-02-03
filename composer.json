@@ -6,6 +6,14 @@
     "autoload": {
         "psr-4": {
             "Eteacher\\InvictaAdmin\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Eteacher\\InvictaAdmin\\Tests\\": "tests"
         }
     },
     "authors": [
@@ -14,5 +22,28 @@
             "email": "ilyag@eteachergroup.com"
         }
     ],
-    "require": {}
+    "require": {
+        "inertiajs/inertia-laravel": "^0.6.9",
+        "laravel/pint": "^1.3"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Eteacher\\InvictaAdmin\\InvictaServiceProvider"
+            ],
+            "aliases": {
+                "InvictaAdmin": "Eteacher\\InvictaAdmin\\InvictaAdmin"
+            }
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5",
+        "orchestra/testbench": "^7.0"
+    },
+    "scripts": {
+        "check-style": "vendor/bin/pint --test",
+        "fix-style": "vendor/bin/pint",
+        "test": "vendor/bin/phpunit",
+        "test-f": "vendor/bin/phpunit --filter"
+    }
 }
