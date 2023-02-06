@@ -9,7 +9,7 @@ Route::controller(ResourceController::class)->name('resource.')->prefix('resourc
     Route::get('/{resource}/create', 'create');
     Route::get('/{resource}/filters', 'filters');
     Route::get('/{resource}/actions', 'actions');
-    Route::get('/{resource}/actions/blueprint/{item}', 'actionBlueprint');
+    Route::get('/{resource}/actions/blueprint/{item?}', 'actionBlueprint');
     Route::post('/{resource}/actions', 'handleActions')->name('handle-actions');
     Route::get('/{resource}/items', 'items');
     Route::get('/{resource}/relationship/{related}', 'related');

@@ -1,21 +1,9 @@
 <template>
-	<h1>THis will be first test</h1>
-	{{ $page }}
+	<Head title="Invicta Admin"/>
+	<div class="py-6 px-10">
+		<h1>Welcome, {{ $page.props.auth.user.name }}</h1>
+	</div>
 </template>
 
-<script>
-export default {
-
-	name: 'Home',
-
-	data() {
-		return {
-
-		}
-	}
-}
+<script setup>
 </script>
-
-<style lang="scss">
-
-</style>

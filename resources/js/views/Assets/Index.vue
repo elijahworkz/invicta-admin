@@ -4,7 +4,7 @@
 		<div class="flex items-end justify-start mb-4">
 			<div>
 				<h1 class="mb-1">{{ resource.title }}</h1>
-				<Search :currentSearch="resource.meta.search" />
+				<Search :currentSearch="resource.meta.search" :handle="resource.handle" />
 			</div>
 			<div class="ml-auto">
 				<el-button-group class="mr-2" >
@@ -69,7 +69,10 @@ const props = defineProps({
 })
 
 const { pageUrl } = usePage().props
-const resourceIndex = useResource()
+const resourceIndex = useResource(props.resource.handle)
+resourceIndex.init(pageUrl)
+
+console.log('I want to see what is inside', resourceIndex)
 resourceIndex.init(pageUrl)
 
 /* Layout Setup */

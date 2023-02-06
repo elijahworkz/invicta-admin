@@ -12,7 +12,10 @@ import { Search } from '@element-plus/icons-vue'
 
 const props = defineProps({
 	handle: String,
-	currentSearch: String,
+	currentSearch: {
+		type: String,
+		default: '',
+	},
 	searchStrings: {
 		type: Object,
 		default: () => ({ placeholder: 'Search', title: 'Type to search' })
@@ -26,4 +29,9 @@ watch(search, debounce(newSearch => {
 	Invicta.emit('search-change', {query: newSearch, handle: props.handle})
 
 }, 400))
+
+// watch(search, debounce(newSearch => {
+// 	Invicta.emit('search-change', {query: newSearch, handle: props.handle})
+
+// }, 400))
 </script>

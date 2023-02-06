@@ -59,9 +59,11 @@ const actionButtonTitle = computed(() => {
 Invicta.on('show-action-modal', (event) => {
 	action.value = event.action
 	formId.value = `action.${event.action.name}`
-	selected.value = event.selected
+	selected.value = event.selected || []
 	open.value = true
 })
+
+Invicta.on('resource-form-submitted', () => open.value = false)
 
 const resource = computed(() => ({
 	blueprint: action.value.blueprint
@@ -72,12 +74,13 @@ const processAction = () => {
 	// Check if action has fields
 	if (api.value) {
 
-		console.log('we have form - form will submit')
+		// console.log('we have form - form will submit')
 		const resourceForm = useResourceForm(formId.value)
 		resourceForm.apiSubmit()
+
 	} else {
 
-		console.log('no form call')
+		// console.log('no form call')
 		let data = { ...actionData.value, fields: [], validation: [] }
 
 		Invicta.axios.post(props.actionsUrl, data)
@@ -85,8 +88,9 @@ const processAction = () => {
 				Invicta.message(data.message)
 				Invicta.emit('refresh-resource')
 			})
+
+		open.value = false
 	}
 
-	open.value = false
 }
 </script>

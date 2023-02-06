@@ -194,7 +194,7 @@ trait ListsItems
                 collect($this->search)->filter(function ($column) {
                     return $column != 'id';
                 })->each(function ($column) use ($query, $search) {
-                    $query->orWhere($column, 'like', $search.'%');
+                    $query->orWhere($column, 'like', '%'.$search.'%');
                 });
             }
         }

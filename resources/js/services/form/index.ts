@@ -259,6 +259,7 @@ const defineResourceForm = (id: string) => defineStore(`resourceForm-${id}`, {
 					Invicta.emit('resource-form-submitted')
 				})
 				.catch(({response}: any) => {
+					// console.log('api submit errors', response.status, response)
 					// Check if error is from validation
 					if (response.status == 422) {
 

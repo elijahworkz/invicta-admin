@@ -33,9 +33,50 @@ class BlueprintFactory
         if (method_exists($resource, 'detailBlueprint')) {
             return $resource->detailBlueprint($item);
         }
-        // if (config('invicta.cache_blueprints')) {
-        //     return Cache::rememberForever('blueprint-view-'.
-        // }
+    }
+
+    public function getFields($resource, $handle, $fieldType = null)
+    {
+        $blueprint = $this->findByHandle($resource, $handle)->toArray();
+        $fields = [];
+
+        if (isset($blueprint['fields'])) {
+            $fields = $this->filterFields($blueprint->fields, $fieldType);
+        }
+
+        if (isset($blueprint['sidebar'])) {
+            $sidebar = $blueprint['sidebar'];
+            $fields = [...$fields, ...$this->filterFields($blueprint['sidebar']['fields'], $fieldType)];
+        }
+
+        if (isset($blueprint['sections'])) {
+            $sections = $blueprint['sections'];
+
+            foreach ($sections as $key => $section) {
+                if (isset($section['fields'])) {
+                    $fields = [...$fields, ...$this->filterFields($section['fields'], $fieldType)];
+                }
+            }
+        }
+
+        return count($fields) > 0 ? $fields : null;
+    }
+
+    private function filterFields($fields, $fieldType = null)
+    {
+        $allFields = [];
+
+        foreach ($fields as $field) {
+            if (isset($field['fields'])) {
+                $allFields = [...$allFields, ...$this->filterFields($field['fields'], $fieldType)];
+            } else {
+                if (isset($field['id']) && ($fieldType ? $field['type'] == $fieldType : true)) {
+                    $allFields[] = $field;
+                }
+            }
+        }
+
+        return $allFields;
     }
 
     private function maybeGetCachedBlueprint($handle = 'default')

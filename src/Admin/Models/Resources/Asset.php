@@ -23,7 +23,7 @@ class Asset extends Resource
 
     public $icon = 'images';
 
-    public $search = ['name'];
+    public $search = ['name', 'path'];
 
     protected $routePrefix = '/';
 
