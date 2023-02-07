@@ -4,7 +4,6 @@ namespace Eteacher\InvictaAdmin\Admin\Models\Actions;
 
 use Eteacher\InvictaAdmin\Admin\Actions\Action;
 use Eteacher\InvictaAdmin\Admin\Models\GlobalSetting;
-use Illuminate\Database\Eloquent\Collection;
 
 class ImportSettings extends Action
 {
@@ -24,7 +23,7 @@ class ImportSettings extends Action
      * Perform the action on the given models.
      *
      * @param  Fluent  $fields available fields
-     * @param  $models modelds to perform action on
+     * @param    $models modelds to perform action on
      * @param  User  $user authenticated user
      * @return mixed
      */
