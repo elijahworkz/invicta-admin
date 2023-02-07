@@ -8,12 +8,12 @@
 				:disabled="disableDraggable"
 				@update="$emit('updated', list)">
 				<template #item="{element, index}">
-					<el-collapse-item :name="index">
+					<el-collapse-item :name="index" :disabled="readOnly">
 						<template #title>
 							<DragHandle v-if="!disableDraggable" class="handle cursor-grab" />
 							<span class="ml-2">{{ itemTitle(element, index) }}</span>
 							<div class="delete-row-button ml-auto mr-4">
-								<el-button text :icon="Delete" @click="removeRow(index)"></el-button>
+								<el-button v-if="!readOnly" text :icon="Delete" @click="removeRow(index)"></el-button>
 							</div>
 						</template>
 						<div class="fieldset py-3" :class="panelClass">
@@ -26,7 +26,7 @@
 				</template>
 			</draggable>
 		</el-collapse>
-		<div class="mt-3">
+		<div class="mt-3" v-if="!readOnly">
 			<el-button type="primary" @click="addRow">Add {{ itemName }}</el-button>
 		</div>
 	</div>
@@ -63,6 +63,10 @@ const props = defineProps({
 		default: ''
 	},
 	disableDraggable: {
+		type: Boolean,
+		default: false
+	},
+	readOnly: {
 		type: Boolean,
 		default: false
 	}

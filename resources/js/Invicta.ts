@@ -36,7 +36,6 @@ class Invicta
 	pages: any
 	eventBus: any
 	axios: AxiosInstance | null
-	echo: any | null
 	errors: any
 
 	constructor(config: any) {
@@ -48,7 +47,6 @@ class Invicta
 		this.bootingCallbacks = []
 		this.eventBus = mitt()
 		this.axios = setupAxios(`${this.getConfig('appUrl')}${this.getConfig('appPath')}/api`)
-		this.echo = null
 		this.errors = ref({})
 	}
 
@@ -60,15 +58,6 @@ class Invicta
 	boot() {
 		console.log('in boot', this.bootingCallbacks)
 		this.bootingCallbacks.forEach(callback => callback(this.app))
-	}
-
-	setupEcho(Echo) {
-		console.log('setting up echo')
-		this.echo = Echo
-	}
-
-	Echo() {
-		return this.echo
 	}
 
 	setup({ el, App, props, plugin }) {
@@ -242,6 +231,7 @@ class Invicta
 
 	remember(key: string, value?: unknown) {
 		key = `invicta-${key}`
+
 		if (! value) {
 			return localStorage.getItem(key)
 		} else {

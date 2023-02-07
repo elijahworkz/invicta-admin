@@ -203,7 +203,10 @@ class ResourceRequest extends InvictaRequest
     public function actionBlueprint()
     {
         $resourceClass = $this->resourceClass();
-        $item = $resourceClass->findModel($this->route('item'));
+        $item = $this->route('item')
+            ? $resourceClass->findModel($this->route('item'))
+            : $resourceClass->model();
+
         $action = App::make(request()->class);
         $handle = $resourceClass->handle();
 
@@ -221,7 +224,10 @@ class ResourceRequest extends InvictaRequest
     public function processAction()
     {
         $resource = $this->resourceClass();
-        $models = $resource->model()->whereIn('id', request()->selected)->get();
+        $models = request()->has('selected')
+            ? $resource->model()->whereIn('id', request()->selected)->get()
+            : null;
+
         $action = App::make(request()->class);
 
         Validator::make(request()->fields, request()->validation)

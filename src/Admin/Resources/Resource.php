@@ -3,6 +3,7 @@
 namespace Eteacher\InvictaAdmin\Admin\Resources;
 
 use Eteacher\InvictaAdmin\Admin\Models\Actions\EditDataRaw;
+use Eteacher\InvictaAdmin\Admin\Models\Actions\ImportResourceItem;
 use Eteacher\InvictaAdmin\Admin\Traits\CanEditItems;
 use Eteacher\InvictaAdmin\Admin\Traits\HasActions;
 use Eteacher\InvictaAdmin\Admin\Traits\HasFilters;
@@ -161,7 +162,8 @@ class Resource extends JsonResource
     public function globalActions()
     {
         return [
-            new EditDataRaw,
+            // new ImportResourceItem,
+            // new EditDataRaw,
         ];
     }
 }

@@ -17,6 +17,7 @@
 
 		.main-panel {
 			flex: 1;
+			overflow: hidden;
 
 			&.has-sidebar {
 				max-width: calc(100% - 320px);
@@ -196,6 +197,18 @@
 
 					.el-form-item {
 						margin: 10px 0
+					}
+
+					&.top {
+						border-bottom: none;
+						margin-bottom: 0;
+					}
+
+					&:last-child {
+						border-bottom: none;
+						.el-form-item {
+							margin: 10px 0 0;
+						}
 					}
 				}
 			}

@@ -105,17 +105,35 @@ const props = defineProps({
 		type: Array,
 		default: ['back', 'edit', 'create']
 	},
-	api: Boolean | Object
+	api: Boolean | Object,
+	readOnly: {
+		type: Boolean,
+		default: false
+	}
 })
 
 const emit = defineEmits(['submit', 'form-ready'])
 
 const resourceForm = useResourceForm(props.formId)
+resourceForm.readOnly = props.readOnly
 // const { resource } = props
 // console.log('this is formbase resource', resource, toRaw(resource), toRaw(props.resource))
 resourceForm.init(toRaw(props.resource), props.actionUrl, props.api)
 
 emit('form-ready')
+
+Invicta.on('lock-form', (formId) => {
+	console.log('I hear a call to lock form', formId, props.formId)
+	if (formId == props.formId) {
+		resourceForm.readOnly = true
+	}
+})
+
+Invicta.on('unlock-form', (formId) => {
+	if (formId == props.formId) {
+		resourceForm.readOnly = false
+	}
+})
 
 /* Layout setup */
 const blueprint = resourceForm.blueprint

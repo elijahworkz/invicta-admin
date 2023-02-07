@@ -8,9 +8,10 @@
 				<strong>{{ fieldValue.name }}</strong>
 				{{ fieldValue.width }}x{{ fieldValue.height }} | {{ fieldValue.alt ? fieldValue.alt : 'No Alt!' }}
 			</div>
-			<el-icon class="ml-auto mr-3 action-icon" @click="fieldValue = null"><Delete/></el-icon>
+			<el-icon class="ml-auto mr-3 action-icon" @click="fieldValue = null" v-if="!field.disabled"><Delete/></el-icon>
 		</div>
-		<Uploader v-else type="browse" @upload-complete="updateAsset" @open-library="openLibrary" :multiple="false" />
+		<Uploader v-else-if="!field.disabled" type="browse" @upload-complete="updateAsset" @open-library="openLibrary" :multiple="false" />
+		<div class="asset-wrap" v-else-if="field.disabled">No image</div>
 	</FieldBase>
 
 	<Drawer 
@@ -51,6 +52,9 @@ const updateAsset = (asset) => {
 }
 
 const editAsset = () => {
+	if (field.disabled)
+		return
+
 	drawer.context = 'edit'
 	drawer.state = true
 }

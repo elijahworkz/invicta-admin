@@ -10,10 +10,12 @@
 				<LocaleSwitch v-if="resource.locales" :locales="resource.locales" @change="resourceIndex.setLocale" />
 				<Actions
 					v-if="globalActions.length"
+					:global="true"
 					:actions="globalActions"
+					name="Resource Actions"
 				/>
 				<el-button v-if="resource.sortable"><Link :href="`${resource.meta.path}/reorder`">Reorder</Link></el-button>
-				<el-button v-show="canCreate" type="primary" size="large"><Link :href="`${resource.meta.path}/create`">Create new</Link></el-button>
+				<el-button v-show="canCreate" type="primary"><Link :href="`${resource.meta.path}/create`">Create new</Link></el-button>
 			</div>
 		</div>
 		<el-card body-style="padding: 0px;">
@@ -23,6 +25,7 @@
 				<div class="ml-auto flex items-center">
 					<Actions
 						v-if="bulkActions.length && selectedRows.length"
+						name="Bulk Actions"
 						:actions="bulkActions"
 						:selected="selectedRows"
 					/>
@@ -130,17 +133,27 @@ Invicta.on('action-called', (event) => {
 	} else {
 
 		apiSubmit.value = {
-			class: event.action.class,
-			selected: event.selected
+			class: event.action.class
 		}
 
-		Invicta.axios.get(`/resource/${props.resource.handle}/actions/blueprint/${event.selected[0]}`, { params: {...event.action}})
-			.then(({data}) => {
-				resourceItem.value = data
-				resourceFormId.value = `${data.handle}.${event.action.class}`
-				drawer.value = true
-				// console.log('I got some info about the edit item', data)
-			})
+		let item = null
+		if (event.selected.length) {
+			apiSubmit.value.selected = event.selected
+			item = event.selected[0]
+		}
+
+			Invicta.axios.get(`/resource/${props.resource.handle}/actions/blueprint/${item}`, { params: {...event.action}})
+				.then(({data}) => {
+					resourceItem.value = data
+					resourceFormId.value = `${data.handle}.${event.action.class}`
+					drawer.value = true
+				})
+
+		// if (event.action.type == 'global') {
+		// 	resourceFormId.value = `${props.resource.handle}.${event.action.class}`
+		// 	drawer.value = true
+		// }
+
 	}
 })
 

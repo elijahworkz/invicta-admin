@@ -5,7 +5,8 @@
                 <SvgIcon :icon="item.icon"/>
             </span>
             <span class="sidebar-normal">{{ item.name }}</span>
-            <span v-if="item.badge" class="badge">{{ item.badge }}</span>
+            <Badge :data="item.badge || null" />
+            <!-- <span v-if="item.badge" class="badge">{{ item.badge }}</span> -->
         </NavLink>
 	</template>
     <div

@@ -1,1 +1,0 @@
-import{_ as o}from"./_plugin-vue_export-helper-c27b6911.js";import{b as e,l as n}from"./runtime-core.esm-bundler-7f0fe3b3.js";const _={},c={class:"pulse"};function s(t,r){return e(),n("div",c,"loading data...")}const l=o(_,[["render",s]]);export{l as _};

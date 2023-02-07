@@ -1,7 +1,7 @@
 <template>
 	<el-dropdown trigger="click" @command="handleCommand" class="mr-2">
 		<el-button>
-			Actions <el-icon class="el-icon--right"><ArrowDown /></el-icon>
+			{{ name }} <el-icon class="el-icon--right"><ArrowDown /></el-icon>
 		</el-button>
 		<template #dropdown>
 			<el-dropdown-item
@@ -17,12 +17,32 @@
 import { ArrowDown } from '@element-plus/icons-vue'
 
 const props = defineProps({
+	name: {
+		type: String,
+		default: 'Actions'
+	},
+	global: {
+		type: Boolean,
+		default: false,
+	},
 	actions: Array,
-	selected: Array
+	selected: {
+		type: Array,
+		default: []
+	}
 })
+
+
 
 const handleCommand = (command) => {
 	console.log('have command', command)
-	Invicta.emit('show-action-modal', { action: command, selected: props.selected })
+
+	let actionData = {
+		action: command,
+		selected: props.selected.length ? props.selected : []
+	}
+
+	// Invicta.emit('show-action-modal', actionData)
+	Invicta.emit('action-called', actionData)
 }
 </script>

@@ -15,17 +15,15 @@ class BroadcastServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Broadcast::routes(['prefix' => 'admin', 'middleware' => ['auth:sanctum']]);
+        Broadcast::routes(['prefix' => 'admin', 'middleware' => ['invicta']]);
 
-        Broadcast::channel('resource.{resource}.{item}', function ($user, $resource, $item) {
-            dd($user);
-
-            return $this->userToArray($user);
+        Broadcast::channel('invicta-admin', function ($user) {
+            return true;
         });
 
-        // Broadcast::channel('globals.{id}.{site}', function ($user, $id, $site) {
-        //     return $this->userToArray($user);
-        // }, ['guards' => ['statamic']]);
+        Broadcast::channel('resource.{resource}.{item}', function ($user, $resource, $item) {
+            return $this->userToArray($user);
+        });
     }
 
     private function userToArray($user)

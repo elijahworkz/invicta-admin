@@ -58,10 +58,17 @@
 	}
 }
 
-.el-notification__content {
-	text-align: start;
-	margin: 0;
-	line-height: 1.2;
+
+.el-notification {
+	.el-notification--info {
+		color: var(--el-color-primary-dark-2);
+	}
+
+	.el-notification__content {
+		text-align: start;
+		margin: 0;
+		line-height: 1.2;
+	}
 }
 
 .el-dropdown {
