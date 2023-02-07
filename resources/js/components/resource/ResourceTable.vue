@@ -90,13 +90,17 @@ console.log(props.canDelete);
 const resourceTableRef = ref()
 
 // Handle column setup and visibility
-const columnTree = map(props.columns, (item, index) => {
+const columns = map(props.columns, (item, index) => {
 	return { label: item.label, value: index, checked: item.hidden ? false : true }
 })
+const columnTree = JSON.parse(Invicta.remember(`${props.resourceHandle}-index-columns`)) || columns
+
 const treeModel = ref(columnTree)
 
 const visibleColumns = computed(() => {
 	let visible = checked(treeModel.value)
+
+	Invicta.remember(`${props.resourceHandle}-index-columns`, JSON.stringify(treeModel.value))
 
 	return pickBy(props.columns, (column, index) => visible.includes(index))
 })

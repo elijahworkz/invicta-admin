@@ -231,6 +231,7 @@ class Invicta
 
 	remember(key: string, value?: unknown) {
 		key = `invicta-${key}`
+
 		if (! value) {
 			return localStorage.getItem(key)
 		} else {
