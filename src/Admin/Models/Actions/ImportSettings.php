@@ -24,11 +24,11 @@ class ImportSettings extends Action
      * Perform the action on the given models.
      *
      * @param  Fluent  $fields available fields
-     * @param  Collection  $models modelds to perform action on
+     * @param  $models modelds to perform action on
      * @param  User  $user authenticated user
      * @return mixed
      */
-    public function handle($fields, Collection $models, $user)
+    public function handle($fields, $models, $user)
     {
         return GlobalSetting::create($fields->global);
     }
