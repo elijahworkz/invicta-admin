@@ -171,7 +171,6 @@ class User extends Resource
             if ($avatar['path'] != $avatarPath) {
                 Storage::move($avatar['path'], $avatarPath);
 
-
                 $avatar['name'] = $avatarName;
                 $avatar['path'] = $avatarPath;
                 $avatar['src'] = $avatarSrc;

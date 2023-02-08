@@ -29,7 +29,7 @@ class Asset extends Model
         $file_path = $file->getPathName();
         $filename = $file->getClientOriginalName();
         $fileinfo = pathinfo($filename);
-        
+
         $path = self::getPath();
 
         // Normalize file names
@@ -49,7 +49,6 @@ class Asset extends Model
         $svg = $fileinfo['extension'] == 'svg';
         $image = $svg ? true : $image;
         $debug = ['image' => $image, 'document' => $document, 'audio' => $audio, 'mime' => $mime];
-
 
         if ($image !== false) {
             // Send to Cloudinary ?
@@ -146,7 +145,7 @@ class Asset extends Model
         $path = config('invicta.assets_path');
         $pathArray = collect(explode('/', $path))->filter()->toArray();
 
-        $folder = 
+        $folder =
         $folderArray = request()->has('folder')
             ? collect(explode('/', request()->get('folder')))->filter()->toArray()
             : [];
