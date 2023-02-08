@@ -240,7 +240,7 @@ class Invicta
 	}
 
 	message(args: Object) {
-		ElNotification({...args, position: 'bottom-left'})
+		ElNotification({...args})
 	}
 
 	log(message: string, payload: any = null): void {

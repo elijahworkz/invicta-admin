@@ -10,7 +10,13 @@
 			</div>
 			<el-icon class="ml-auto mr-3 action-icon" @click="fieldValue = null" v-if="!field.disabled"><Delete/></el-icon>
 		</div>
-		<Uploader v-else-if="!field.disabled" type="browse" @upload-complete="updateAsset" @open-library="openLibrary" :multiple="false" />
+		<Uploader 
+			v-else-if="!field.disabled" 
+			type="browse" 
+			@upload-complete="updateAsset" 
+			@open-library="openLibrary" 
+			:multiple="false"
+			:folder="data.props.folder" />
 		<div class="asset-wrap" v-else-if="field.disabled">No image</div>
 	</FieldBase>
 
