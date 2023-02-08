@@ -30,10 +30,12 @@ class Asset extends Model
         $filename = $file->getClientOriginalName();
         $fileinfo = pathinfo($filename);
 
+        $path = self::getPath();
+
         // Normalize file names
         $filename = Str::of($filename)->replace(' ', '-');
 
-        if (self::where('name', '=', $filename)->exists()) {
+        if (self::where('path', '=', $path.$filename)->exists()) {
             return response()->json(['message' => 'Asset with this name already exists!'], 409);
         }
 
@@ -47,8 +49,6 @@ class Asset extends Model
         $svg = $fileinfo['extension'] == 'svg';
         $image = $svg ? true : $image;
         $debug = ['image' => $image, 'document' => $document, 'audio' => $audio, 'mime' => $mime];
-
-        $path = self::getPath();
 
         if ($image !== false) {
             // Send to Cloudinary ?
@@ -143,7 +143,15 @@ class Asset extends Model
     private static function getPath()
     {
         $path = config('invicta.assets_path');
+        $pathArray = collect(explode('/', $path))->filter()->toArray();
 
-        return Str::of($path)->start('/')->finish('/');
+        $folder =
+        $folderArray = request()->has('folder')
+            ? collect(explode('/', request()->get('folder')))->filter()->toArray()
+            : [];
+
+        $fullPathArray = [...$pathArray, ...$folderArray];
+
+        return Str::of(implode('/', $fullPathArray))->start('/')->finish('/');
     }
 }

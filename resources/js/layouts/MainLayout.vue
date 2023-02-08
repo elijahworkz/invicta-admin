@@ -15,8 +15,6 @@ import { usePage, router } from '@inertiajs/vue3'
 
 onMounted(() => document.body.classList.add('app-ready'))
 
-// const page = usePage().props
-
 const notification = computed(() => usePage().props.flash.message)
 
 watch(notification, (value) => {

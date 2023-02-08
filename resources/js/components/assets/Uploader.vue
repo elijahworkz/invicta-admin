@@ -67,7 +67,8 @@ const props = defineProps({
 	multiple: {
 		type: Boolean,
 		default: true
-	}
+	},
+	folder: String
 })
 
 const emit = defineEmits(['upload-complete', 'open-library'])
@@ -111,6 +112,10 @@ function upload(file) {
 	
 	let formData = new FormData()
 	formData.append('file', file)
+
+	if (props.folder != '') {
+		formData.append('folder', props.folder)
+	}
 
 	const config = {
 		onUploadProgress: (event) => {
