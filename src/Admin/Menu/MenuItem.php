@@ -19,8 +19,6 @@ class MenuItem
 
     public $icon = null;
 
-    public $abilities;
-
     public $badge = null;
 
     public $group = null;
@@ -109,8 +107,10 @@ class MenuItem
         ResourceRegistrar::put($resource->handle(), $resource);
 
         Permission::resource($resource);
+        $viewResource = 'view '.$resource->handle();
 
         return (new static($resource->menuTitle()))
+            ->can($viewResource)
             ->route($resource->route())
             ->icon($resource->icon())
             ->badge($resource->badge());
