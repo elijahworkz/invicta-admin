@@ -8,7 +8,6 @@ use Eteacher\InvictaAdmin\Admin\Models\Actions\ImpersonateUser;
 use Eteacher\InvictaAdmin\Admin\Models\Asset;
 use Eteacher\InvictaAdmin\Admin\Models\Filters\GroupFilter;
 use Eteacher\InvictaAdmin\Admin\Resources\Resource;
-use Illuminate\Support\Facades\Storage;
 
 class User extends Resource
 {
@@ -110,7 +109,7 @@ class User extends Resource
                     'id' => 'data.avatar',
                     'type' => 'asset',
                     'props' => [
-                        'folder' => 'temp',
+                        'folder' => 'users',
                     ],
                 ],
             ],
@@ -159,34 +158,6 @@ class User extends Resource
 
     public function afterSave($item, $action)
     {
-        $avatar = isset($item->data['avatar']) ? $item->data['avatar'] : null;
-        $assetsPath = config('invicta.assets_path');
-
-        if ($avatar) {
-            $nameData = explode('.', $avatar['name']);
-            $avatarName = 'avatar-'.$item->id.'.'.$nameData[1];
-            $avatarPath = $assetsPath.'/users/'.$avatarName;
-            $avatarSrc = _asset($avatarPath);
-
-            if ($avatar['path'] != $avatarPath) {
-                Storage::move($avatar['path'], $avatarPath);
-
-                $avatar['name'] = $avatarName;
-                $avatar['path'] = $avatarPath;
-                $avatar['src'] = $avatarSrc;
-
-                $item->data = [
-                    ...$item->data,
-                    'avatar' => $avatar,
-                ];
-                $item->save();
-
-                Asset::where('id', $avatar['id'])
-                    ->update([
-                        'path' => $avatarPath,
-                        'name' => $avatarName,
-                    ]);
-            }
-        }
+        Asset::updateResourceAsset($item, 'data.avatar', $item->id);
     }
 }

@@ -3,6 +3,7 @@
 namespace Eteacher\InvictaAdmin\Admin\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -145,7 +146,6 @@ class Asset extends Model
         $path = config('invicta.assets_path');
         $pathArray = collect(explode('/', $path))->filter()->toArray();
 
-        $folder =
         $folderArray = request()->has('folder')
             ? collect(explode('/', request()->get('folder')))->filter()->toArray()
             : [];
@@ -153,5 +153,46 @@ class Asset extends Model
         $fullPathArray = [...$pathArray, ...$folderArray];
 
         return Str::of(implode('/', $fullPathArray))->start('/')->finish('/');
+    }
+
+    public static function updateResourceAsset($item, $field, $name)
+    {
+        $fieldData = explode('.', $field);
+        $mainField = $fieldData[0];
+        unset($fieldData[0]);
+        $field = implode('.', $fieldData);
+
+        $asset = Arr::get($item[$mainField], $field);
+
+        if ($asset) {
+            $nameData = explode('.', $asset['name']);
+            $assetName = $name.'.'.$nameData[1];
+
+            $assetPath = explode('/', $asset['path']);
+            $assetPath[count($assetPath) - 1] = $assetName;
+            $assetPath = Str::start(implode('/', $assetPath), '/');
+
+            if ($asset['path'] != $assetPath) {
+                Storage::move($asset['path'], $assetPath);
+
+                $asset['name'] = $assetName;
+                $asset['path'] = $assetPath;
+                $asset['src'] = _asset($assetPath);
+
+                $temp = $item[$mainField];
+                Arr::set($temp, $field, $asset);
+
+                $item[$mainField] = $temp;
+                $item->save();
+
+                Asset::where('id', $asset['id'])
+                    ->update([
+                        'path' => $assetPath,
+                        'name' => $assetName,
+                    ]);
+            }
+        }
+
+        return $item;
     }
 }

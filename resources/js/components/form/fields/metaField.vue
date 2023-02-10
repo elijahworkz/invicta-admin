@@ -50,6 +50,7 @@ const validation = computed(() => {
 	const result = {}
 
 	result.percentage = Math.ceil(length * 100 / lengths.max)
+	result.percentage = result.percentage > 100 ? 100 : result.percentage
 
 	switch (true) {
 		case length < lengths.normal:
