@@ -8,7 +8,6 @@ use Eteacher\InvictaAdmin\Admin\Models\Actions\ImpersonateUser;
 use Eteacher\InvictaAdmin\Admin\Models\Asset;
 use Eteacher\InvictaAdmin\Admin\Models\Filters\GroupFilter;
 use Eteacher\InvictaAdmin\Admin\Resources\Resource;
-use Illuminate\Support\Facades\Storage;
 
 class User extends Resource
 {
@@ -159,6 +158,6 @@ class User extends Resource
 
     public function afterSave($item, $action)
     {
-    	Asset::updateResourceAsset($item, 'data.avatar', $item->id);
+        Asset::updateResourceAsset($item, 'data.avatar', $item->id);
     }
 }

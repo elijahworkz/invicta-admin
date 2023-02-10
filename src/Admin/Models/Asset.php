@@ -3,9 +3,9 @@
 namespace Eteacher\InvictaAdmin\Admin\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use Illuminate\Support\Arr;
 
 class Asset extends Model
 {
@@ -156,44 +156,43 @@ class Asset extends Model
     }
 
     public static function updateResourceAsset($item, $field, $name)
-	{
+    {
+        $fieldData = explode('.', $field);
+        $mainField = $fieldData[0];
+        unset($fieldData[0]);
+        $field = implode('.', $fieldData);
 
-		$fieldData = explode('.', $field);
-		$mainField = $fieldData[0];
-		unset($fieldData[0]);
-		$field = implode('.', $fieldData);
+        $asset = Arr::get($item[$mainField], $field);
 
-		$asset = Arr::get($item[$mainField], $field);
+        if ($asset) {
+            $nameData = explode('.', $asset['name']);
+            $assetName = $name.'.'.$nameData[1];
 
-		if ($asset) {
-			$nameData = explode('.', $asset['name']);
-			$assetName = $name . '.' . $nameData[1];
+            $assetPath = explode('/', $asset['path']);
+            $assetPath[count($assetPath) - 1] = $assetName;
+            $assetPath = Str::start(implode('/', $assetPath), '/');
 
-			$assetPath = explode('/', $asset['path']);
-			$assetPath[count($assetPath)-1] = $assetName;
-			$assetPath = Str::start(implode('/', $assetPath), '/');
+            if ($asset['path'] != $assetPath) {
+                Storage::move($asset['path'], $assetPath);
 
-			if ($asset['path'] != $assetPath) {
-				Storage::move($asset['path'], $assetPath);
+                $asset['name'] = $assetName;
+                $asset['path'] = $assetPath;
+                $asset['src'] = _asset($assetPath);
 
-				$asset['name'] = $assetName;
-				$asset['path'] = $assetPath;
-				$asset['src'] = _asset($assetPath);
+                $temp = $item[$mainField];
+                Arr::set($temp, $field, $asset);
 
-				$temp = $item[$mainField];
-				Arr::set($temp, $field, $asset);
+                $item[$mainField] = $temp;
+                $item->save();
 
-				$item[$mainField] = $temp;
-				$item->save();
+                Asset::where('id', $asset['id'])
+                    ->update([
+                        'path' => $assetPath,
+                        'name' => $assetName,
+                    ]);
+            }
+        }
 
-				Asset::where('id', $asset['id'])
-					->update([
-						'path' => $assetPath,
-						'name' => $assetName,
-					]);
-			}
-		}
-
-		return $item;
-	}
+        return $item;
+    }
 }
