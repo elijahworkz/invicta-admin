@@ -5,7 +5,6 @@ namespace Eteacher\InvictaAdmin\Admin\Models\Resources;
 use Carbon\Carbon;
 use Eteacher\InvictaAdmin\Admin\Components\Column;
 use Eteacher\InvictaAdmin\Admin\Models\Actions\ImpersonateUser;
-use Eteacher\InvictaAdmin\Admin\Models\Asset;
 use Eteacher\InvictaAdmin\Admin\Models\Filters\GroupFilter;
 use Eteacher\InvictaAdmin\Admin\Resources\Resource;
 
@@ -158,6 +157,6 @@ class User extends Resource
 
     public function afterSave($item, $action)
     {
-        Asset::updateResourceAsset($item, 'data.avatar', $item->id);
+        $this->updateResourceAsset($item, 'data.avatar');
     }
 }
