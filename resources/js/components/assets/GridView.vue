@@ -4,7 +4,7 @@
 		<div class="assets-grid">
 			<div class="asset-card"
 				v-for="(item, index) in resourceList"
-				:key="item.img_name"
+				:key="item.path"
 				:title="item.img_name">
 
 				<div class="wrap">
