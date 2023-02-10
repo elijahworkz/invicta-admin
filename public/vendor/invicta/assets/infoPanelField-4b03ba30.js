@@ -1,1 +1,0 @@
-import{b as t,l as n,j as a}from"./runtime-core.esm-bundler-83f11067.js";const o=["innerHTML"],l={__name:"infoPanelField",props:{formId:String,data:Object,path:String},setup(e){return(r,c)=>e.data.content!=""?(t(),n("div",{key:0,class:"info-panel mb-4",innerHTML:e.data.content},null,8,o)):a("",!0)}};export{l as default};
