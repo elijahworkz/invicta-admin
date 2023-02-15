@@ -10,27 +10,27 @@ use Inertia\Inertia;
 
 class CacheController extends Controller
 {
-	public function index(InvictaRequest $request)
-	{
-		$this->authorize('edit cache');
+    public function index(InvictaRequest $request)
+    {
+        $this->authorize('edit cache');
 
-		return Inertia::render('Cache/Index');
-	}
+        return Inertia::render('Cache/Index');
+    }
 
-	public function clearCache(InvictaRequest $request)
-	{
-		$message = 'Application cache cleared';
+    public function clearCache(InvictaRequest $request)
+    {
+        $message = 'Application cache cleared';
 
-		if (! empty($handle = $request->input('tag'))) {
-			Cache::tags($handle)->flush();
-			$message = Str::ucfirst($handle) . ' cache cleared';
-		} else if (! empty($handle = $request->input('key'))) {
-			Cache::forget($handle);
-			$message = Str::ucfirst(Str::replace('-', ' ', $handle)) . ' cache cleared';
-		} else {
-			Artisan::call('cache:clear');
-		}
+        if (! empty($handle = $request->input('tag'))) {
+            Cache::tags($handle)->flush();
+            $message = Str::ucfirst($handle).' cache cleared';
+        } elseif (! empty($handle = $request->input('key'))) {
+            Cache::forget($handle);
+            $message = Str::ucfirst(Str::replace('-', ' ', $handle)).' cache cleared';
+        } else {
+            Artisan::call('cache:clear');
+        }
 
-		return response()->json(['message' => $message]);
-	}
+        return response()->json(['message' => $message]);
+    }
 }

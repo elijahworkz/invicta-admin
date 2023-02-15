@@ -2,10 +2,10 @@
 
 use Eteacher\InvictaAdmin\Http\Controllers\AdminController;
 use Eteacher\InvictaAdmin\Http\Controllers\AssetController;
+use Eteacher\InvictaAdmin\Http\Controllers\CacheController;
 use Eteacher\InvictaAdmin\Http\Controllers\NavigationController;
 use Eteacher\InvictaAdmin\Http\Controllers\PermissionController;
 use Eteacher\InvictaAdmin\Http\Controllers\ResourceController;
-use Eteacher\InvictaAdmin\Http\Controllers\CacheController;
 
 Route::controller(AdminController::class)->group(function () {
     Route::get('/', 'home')->name('home');
@@ -48,5 +48,3 @@ Route::controller(PermissionController::class)->name('permission.')->prefix('/gr
 
 //tools
 Route::get('cache', [CacheController::class, 'index'])->name('cache');
-
-

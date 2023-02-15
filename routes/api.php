@@ -31,6 +31,5 @@ Route::controller(FieldsController::class)->name('fields.')->prefix('/fields/')-
     Route::get('/resource-link/options', 'linkableResourcesOptions');
 });
 
-
 //tools
 Route::post('cache/clear', [CacheController::class, 'clearCache'])->name('cache.clear');

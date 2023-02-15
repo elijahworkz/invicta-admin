@@ -43,32 +43,31 @@ class Menu
 
     /**
      * Creates Tools Menu Item
-	 *
+     *
      *
      * @return instance of MenuItem::class
      */
     public function tools($items = [])
     {
-    	// items is array of handle.
-		// If need to change title of one of children item need to put array where `key` is handle and `value` is title.
-		if (! count($items)) {
-			return null;
-		}
+        // items is array of handle.
+        // If need to change title of one of children item need to put array where `key` is handle and `value` is title.
+        if (! count($items)) {
+            return null;
+        }
 
-		$children = [];
-		foreach ($items as $item) {
+        $children = [];
+        foreach ($items as $item) {
+            if (is_array($item)) {
+                $itemHandle = array_key_first($item);
+                $itemTitle = $item[$itemHandle];
+            } else {
+                $itemHandle = $item;
+                $itemTitle = Str::ucfirst($item);
+            }
 
-			if (is_array($item)) {
-				$itemHandle = array_key_first($item);
-				$itemTitle = $item[$itemHandle];
-			} else {
-				$itemHandle = $item;
-				$itemTitle = Str::ucfirst($item);
-			}
-
-			$route = config('invicta.path') . '/' . $itemHandle;
-			$children[] = MenuItem::make($itemTitle)->route($route)->can('edit ' . $itemHandle);
-		}
+            $route = config('invicta.path').'/'.$itemHandle;
+            $children[] = MenuItem::make($itemTitle)->route($route)->can('edit '.$itemHandle);
+        }
 
         return $this->createItem('Tools')
             ->icon('tools')
