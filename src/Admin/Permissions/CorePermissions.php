@@ -16,6 +16,9 @@ class CorePermissions
                     Permission::make('edit navigation'),
                     Permission::make('delete navigation'),
                 ]),
+				Permission::make('view tools')->children([
+                    Permission::make('edit cache'),
+                ]),
             ]);
     }
 }
