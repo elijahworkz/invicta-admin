@@ -3,6 +3,7 @@
 use Eteacher\InvictaAdmin\Http\Controllers\Api\AssetController;
 use Eteacher\InvictaAdmin\Http\Controllers\Api\FieldsController;
 use Eteacher\InvictaAdmin\Http\Controllers\Api\ResourceController;
+use Eteacher\InvictaAdmin\Http\Controllers\CacheController;
 
 Route::controller(ResourceController::class)->name('resource.')->prefix('resource')->group(function () {
     Route::get('/{resource}', 'index');
@@ -29,3 +30,6 @@ Route::controller(FieldsController::class)->name('fields.')->prefix('/fields/')-
     Route::get('/texteditor/resources', 'linkableResources');
     Route::get('/resource-link/options', 'linkableResourcesOptions');
 });
+
+//tools
+Route::post('cache/clear', [CacheController::class, 'clearCache'])->name('cache.clear');

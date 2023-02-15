@@ -6,6 +6,7 @@ use Eteacher\InvictaAdmin\Admin\Models\Group;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Str;
 use Statamic\CP\Navigation\Nav;
 
 class Menu
@@ -38,6 +39,40 @@ class Menu
     public function item($name)
     {
         return $this->createItem($name);
+    }
+
+    /**
+     * Creates Tools Menu Item
+     *
+     *
+     * @return instance of MenuItem::class
+     */
+    public function tools($items = [])
+    {
+        // items is array of handle.
+        // If need to change title of one of children item need to put array where `key` is handle and `value` is title.
+        if (! count($items)) {
+            return null;
+        }
+
+        $children = [];
+        foreach ($items as $item) {
+            if (is_array($item)) {
+                $itemHandle = array_key_first($item);
+                $itemTitle = $item[$itemHandle];
+            } else {
+                $itemHandle = $item;
+                $itemTitle = Str::ucfirst($item);
+            }
+
+            $route = config('invicta.path').'/'.$itemHandle;
+            $children[] = MenuItem::make($itemTitle)->route($route)->can('edit '.$itemHandle);
+        }
+
+        return $this->createItem('Tools')
+            ->icon('tools')
+            ->children($children)
+            ->can('view tools');
     }
 
     /**

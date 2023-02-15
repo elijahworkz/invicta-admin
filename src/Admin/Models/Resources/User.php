@@ -38,7 +38,7 @@ class User extends Resource
             'id' => $this->id,
             'active' => $this->active,
             'dev' => $this->dev,
-            'name' => $this->displayUserName($request),
+            'title' => $this->displayUserName($request),
             'email' => $this->email,
             'registration' => Carbon::parse($this->created_at)->toFormattedDateString(),
             'last_login' => $last_login
@@ -58,7 +58,7 @@ class User extends Resource
             'id' => Column::id(),
             'active' => Column::boolean('Active'),
             'dev' => Column::boolean('Is Dev'),
-            'name' => Column::make('Name')->sortable(),
+            'title' => Column::make('Name')->sortable(),
             'email' => Column::make('Email'),
             'registration' => Column::make('Registration Date'),
             'last_login' => Column::make('Last Login'),
