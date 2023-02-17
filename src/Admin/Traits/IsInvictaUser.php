@@ -29,7 +29,6 @@ trait IsInvictaUser
      * Check if user belongs to a group either by id or handle.
      *
      * @param  int|string  $identifier
-     * @return  bool
      */
     public function group($identifier): bool
     {
@@ -83,8 +82,6 @@ trait IsInvictaUser
 
     /**
      *  password mutator.
-     *
-     * @return Attribute
      */
     protected function password(): Attribute
     {

@@ -60,7 +60,6 @@ class AdminController extends Controller
     /**
      * generate resource sitemap.
      *
-     * @param $resource
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
     public function subSitemap($resource)
