@@ -6,13 +6,12 @@
             </span>
             <span class="sidebar-normal">{{ item.name }}</span>
             <Badge :data="item.badge || null" />
-            <!-- <span v-if="item.badge" class="badge">{{ item.badge }}</span> -->
         </NavLink>
 	</template>
     <div
     	v-if="item.children"
         class="has-children"
-        :class="{ open: showSubmenu}">
+        :class="{ open: showSubmenu, 'has-badges': childrenHaveBadges(item.children) }">
         <div class="nav-link" @click="showSubmenu = !showSubmenu">
             <span class="sidebar-mini">
                 <SvgIcon :icon="item.icon"/>
@@ -31,7 +30,7 @@
                         class="nav-item">
                             <NavLink :item="child">
                                 <span class="sidebar-normal">{{ child.name }}</span>
-                                <span v-if="child.badge" class="badge">{{ child.badge }}</span>
+                                <Badge :data="child.badge || null" />
                             </NavLink>
                         </li>
                 </ul>
@@ -41,15 +40,17 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import NavLink from './NavLink.vue'
 import { mdiChevronDown } from '@mdi/js'
 
 defineProps({
-	item: Object
+    item: Object
 })
 
 const showSubmenu = ref(false)
+
+const childrenHaveBadges = (items) => {
+    return items.filter(i => i.badge).length
+}
 
 Invicta.on('close-sidebar-submenus', () => showSubmenu.value = false)
 </script>
