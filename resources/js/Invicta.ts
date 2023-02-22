@@ -10,7 +10,6 @@ import isNil from 'lodash/isNil'
 // import { InvictaConfigObject } from './common/interfaces'
 
 // global components
-// import Loading from '@/components/shared/Loading.vue'
 import SvgIcon from '@/components/shared/SvgIcon.vue'
 import CheckTree from '@/components/shared/CheckTree.vue'
 import Drawer from '@/components/shared/Drawer.vue'
@@ -18,7 +17,6 @@ import { ElNotification, ElMessageBox } from 'element-plus'
 import 'element-plus/es/components/message-box/style/index'
 import 'element-plus/es/components/notification/style/index'
 import 'element-plus/es/components/button-group/style/index'
-
 
 // Layouts
 import MainLayout from '@/layouts/MainLayout.vue'
@@ -76,10 +74,6 @@ class Invicta
 
 	initInertia() {
 
-		// let appElement = document.querySelector(this.mountElement)
-		// let inertiaData = appElement?.getAttribute('data-page') || ''
-		// const inertiaApp = createInertiaApp.bind(this)
-
 		createInertiaApp({
 			title: (title) => `${title} - ${this.getConfig('appName')}`,
 			resolve: (name) => {
@@ -87,67 +81,13 @@ class Invicta
 				const page = resolvePageComponent(`./views/${name}.vue`, import.meta.glob('./views/**/*.vue'))
 
 				page.then((module) => {
-		            module.default.layout = module.default.layout || MainLayout;
+		            module.default.layout = module.default.layout || MainLayout
 		        });
 
-		        return page;
-				// const pages = import.meta.glob('./views/**/*.vue')
-				// return pages[`./views/${name}.vue`]()
-
-				// let page = this.pages[name]
-
-				// page = typeof page === 'function'
-				// 	? (await page()).default
-				// 	: page
-
-				// page.layout ??= MainLayout
-
-				// console.log(page)
-
-				// return page
-
-				// if (typeof page === 'undefined') {
-				// 	throw new Error(`Page not found: ${name}`)
-				// }
-
-
-
-				// return page
+		        return page
 			},
 			setup: this.setup.bind(this)
 		})
-
-
-		// this.app = createApp({
-		// 	render: () => h(App, {
-		// 		initialPage: JSON.parse(inertiaData),
-		// 		titleCallback: (title: string) => `${title} - ${this.getConfig('appName')}`,
-		// 		resolveComponent: async (name) => {
-		// 			let page = this.pages[name]
-
-		// 			if (typeof page === 'undefined') {
-		// 				throw new Error(`Page not found: ${name}`)
-		// 			}
-
-		// 			page = typeof page === 'function'
-		// 				? (await page()).default
-		// 				: page
-
-		// 			page.layout ??= MainLayout
-
-		// 			return page
-		// 		}
-		// 	})
-		// })
-
-		// // this.app.use(plugin)
-		// this.app.use(pinia)
-		// this.app.component('Head', Head)
-		// this.app.component('Link', Link)
-		// this.app.component('SvgIcon', SvgIcon)
-		// this.app.component('CheckTree', CheckTree)
-		// this.app.component('Drawer', Drawer)
-		// this.event('InvictaReady')
 	}
 
 	getConfig(key: string) {
@@ -189,12 +129,6 @@ class Invicta
 		// console.log('checking components', this.app._context.components)
 	}
 
-	// inertia(name: string, component: any) {
-	// 	// this.pages = {...this.pages, ...name}
-	// 	this.pages[name] = component
-	// 	console.log('want to add', name, this.pages)
-	// }
-
 	componentExists(name: string) {
 		return !isNil(this.app._context.components[name])
 	}
@@ -204,7 +138,7 @@ class Invicta
 			this.app.component(name, component)
 		}
 	}
-	//
+
 	// Emits dom events
 	event(name: string, data: Object | null = null) {
 		let e = (data)

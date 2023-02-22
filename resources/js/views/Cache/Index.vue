@@ -36,7 +36,7 @@
 </template>
 
 <script setup>
-import {useForm} from "@inertiajs/vue3";
+import { useForm } from "@inertiajs/vue3";
 
 const actionUrl = 'cache/clear'
 

@@ -18,6 +18,7 @@ class CorePermissions
                 ]),
                 Permission::make('view tools')->children([
                     Permission::make('edit cache'),
+                    Permission::make('deploy site'),
                 ]),
             ]);
     }
