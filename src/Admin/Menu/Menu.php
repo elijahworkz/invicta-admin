@@ -49,7 +49,7 @@ class Menu
      */
     public function tools($items = [])
     {
-        // items is array of handle.
+        // items is an array of handles.
         // If need to change title of one of children item need to put array where `key` is handle and `value` is title.
         if (! count($items)) {
             return null;
@@ -65,7 +65,7 @@ class Menu
                 $itemTitle = Str::ucfirst($item);
             }
 
-            $route = config('invicta.path').'/'.$itemHandle;
+            $route = config('invicta.path').'/tools/'.$itemHandle;
             $children[] = MenuItem::make($itemTitle)->route($route)->can('edit '.$itemHandle);
         }
 

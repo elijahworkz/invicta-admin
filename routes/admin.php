@@ -3,6 +3,7 @@
 use Eteacher\InvictaAdmin\Http\Controllers\AdminController;
 use Eteacher\InvictaAdmin\Http\Controllers\AssetController;
 use Eteacher\InvictaAdmin\Http\Controllers\CacheController;
+use Eteacher\InvictaAdmin\Http\Controllers\DeploymentController;
 use Eteacher\InvictaAdmin\Http\Controllers\NavigationController;
 use Eteacher\InvictaAdmin\Http\Controllers\PermissionController;
 use Eteacher\InvictaAdmin\Http\Controllers\ResourceController;
@@ -46,5 +47,8 @@ Route::controller(PermissionController::class)->name('permission.')->prefix('/gr
     Route::post('{group}/permission', 'update')->name('update');
 });
 
-//tools
-Route::get('cache', [CacheController::class, 'index'])->name('cache');
+/* Admin tools */
+Route::prefix('/tools/')->group(function () {
+    Route::get('cache', [CacheController::class, 'index'])->name('cache');
+    Route::get('deploy', [DeploymentController::class, 'index'])->name('deploy');
+});
