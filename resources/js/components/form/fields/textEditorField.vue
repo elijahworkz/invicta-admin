@@ -1,6 +1,6 @@
 <template>
 	<FieldBase :form-id="formId" :field-props="props">
-		<TextEditorBase :initial-value="fieldValue" @updated="onUpdated" />
+		<TextEditorBase :initial-value="fieldValue" @updated="onUpdated" :read-only="field.disabled" />
 	</FieldBase>
 
 	<Drawer 

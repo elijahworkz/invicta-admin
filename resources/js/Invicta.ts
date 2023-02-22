@@ -219,6 +219,11 @@ class Invicta
 		this.eventBus.on(name, callback)
 	}
 
+	// Remove mitt events
+	off(name: string, callback: Function) {
+		this.eventBus.off(name, callback)
+	}
+
 	// Emits mitt events
 	emit(name: string, data?: unknown) {
 		this.eventBus.emit(name, data)
