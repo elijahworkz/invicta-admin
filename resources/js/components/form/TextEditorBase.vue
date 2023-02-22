@@ -1,6 +1,6 @@
 <template>
 	<div class="ckeditor">
-		<ckeditor ref="ckeditor" @ready="onReady" :editor="editor" v-model="editorValue" :disabled="readOnly"/>
+		<ckeditor ref="ckeditor" @ready="onReady" :editor="editor" v-model="editorValue" :disabled="disabled"/>
 	</div>
 </template>
 
@@ -13,7 +13,7 @@ export default {
 
 	props: {
 		initialValue: String,
-		readOnly: Boolean
+		disabled: Boolean
 	},
 
 	components: {
