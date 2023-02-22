@@ -6,7 +6,7 @@
 			:item-title="getTitle" 
 			:default-row="defaultRow"
 			:disable-draggable="disableDraggable"
-			:read-only="resourceForm.readOnly"
+			:read-only="field.disabled"
 			panel-class="group"
 			@updated="updateValue">
 
