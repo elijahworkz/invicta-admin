@@ -112,10 +112,16 @@ const apiSubmit = ref(false)
 const actions = ref([])
 const actionsUrl = `/resource/${props.resource.handle}/actions`
 onMounted(() => {
+	Invicta.on('action-called', actionCalled)
+
 	Invicta.axios.get(actionsUrl)
 		.then(({data}) => {
 			actions.value = data
 		})
+})
+
+onUnmounted( () => {
+	Invicta.off('action-called', actionCalled)
 })
 
 const globalActions = computed(() => {
@@ -126,8 +132,8 @@ const bulkActions = computed(() => {
 	return actions.value.filter((el) => el.type == 'bulk')
 })
 
-Invicta.on('action-called', (event) => {
-	
+const actionCalled = (event) => {
+	console.log('action-called', event);
 	if (event.action.modal) {
 		Invicta.emit('show-action-modal', event)
 	} else {
@@ -142,12 +148,12 @@ Invicta.on('action-called', (event) => {
 			item = event.selected[0]
 		}
 
-			Invicta.axios.get(`/resource/${props.resource.handle}/actions/blueprint/${item}`, { params: {...event.action}})
-				.then(({data}) => {
-					resourceItem.value = data
-					resourceFormId.value = `${data.handle}.${event.action.class}`
-					drawer.value = true
-				})
+		Invicta.axios.get(`/resource/${props.resource.handle}/actions/blueprint/${item}`, { params: {...event.action}})
+			.then(({data}) => {
+				resourceItem.value = data
+				resourceFormId.value = `${data.handle}.${event.action.class}`
+				drawer.value = true
+			})
 
 		// if (event.action.type == 'global') {
 		// 	resourceFormId.value = `${props.resource.handle}.${event.action.class}`
@@ -155,7 +161,7 @@ Invicta.on('action-called', (event) => {
 		// }
 
 	}
-})
+}
 
 /* Setup Selection */
 const selectedRows = ref([])

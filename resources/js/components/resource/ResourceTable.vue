@@ -84,9 +84,6 @@ const props = defineProps({
 	}
 })
 
-console.log(props.canEdit);
-console.log(props.canDelete);
-
 const resourceTableRef = ref()
 
 // Handle column setup and visibility
