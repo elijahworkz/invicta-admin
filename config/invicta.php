@@ -174,6 +174,30 @@ return [
      */
     'seo' => false,
 
+    /* DEPLOYMENT SETTINGS */
+
+    /*
+    |--------------------------------------------------------------------------
+    | Deployment Settings
+    |--------------------------------------------------------------------------
+    |
+    | These define the settings needed for deployment scenarios, such as
+    | driver... (TBD)
+    |
+    | Supported: "elb" (TBD)
+     */
+
+    'deployment' => [
+        'enabled' => env('INVICTA_DEPLOYMENT_ENABLED', false),
+        'driver' => env('INVICTA_DEPLOYMENT_DRIVER', 'elb'),
+        'script' => env('INVICTA_DEPLOYMENT_SCRIPT', ''),
+        'elb' => [
+            'environment' => env('ELB_ENVIRONMENT', ''),
+            'region' => env('ELB_REGION', 'us-west-2'),
+            'version' => env('ELB_VERSION', 'latest'),
+        ],
+    ],
+
     /* DEVELOPMENT SETTINGS */
 
     /*

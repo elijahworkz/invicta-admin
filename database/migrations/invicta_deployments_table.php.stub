@@ -16,9 +16,9 @@ class CreateInvictaDeploymentsTable extends Migration
 
         Schema::create('deployments', function (Blueprint $table) {
             $table->id();
-            $table->string('handle')->unique();
+            $table->string('version')->unique();
             $table->unsignedInteger('user_id');
-            $table->boolean('status');
+            $table->tinyText('status');
             $table->json('data')->nullable();
             $table->timestamps();
         });

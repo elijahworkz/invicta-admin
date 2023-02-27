@@ -50,5 +50,10 @@ Route::controller(PermissionController::class)->name('permission.')->prefix('/gr
 /* Admin tools */
 Route::prefix('/tools/')->group(function () {
     Route::get('cache', [CacheController::class, 'index'])->name('cache');
-    Route::get('deploy', [DeploymentController::class, 'index'])->name('deploy');
+
+    Route::controller(DeploymentController::class)->name('deploy.')->group(function () {
+        Route::get('deploy', 'index')->name('index');
+        Route::post('deploy', 'deploy')->name('start');
+        Route::delete('deploy', 'destroy')->name('destroy');
+    });
 });

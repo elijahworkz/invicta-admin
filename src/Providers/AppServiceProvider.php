@@ -2,6 +2,7 @@
 
 namespace Eteacher\InvictaAdmin\Providers;
 
+use Eteacher\InvictaAdmin\Admin\Deploy\Drivers\ElasticBeanstalk;
 use Eteacher\InvictaAdmin\Foundation\Vite;
 use Eteacher\InvictaAdmin\Http\Middleware\Authorize;
 use Eteacher\InvictaAdmin\Http\Middleware\HandleInertiaRequests;
@@ -22,6 +23,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(ResourceRegistrar::class, function ($app) {
             return new ResourceRegistrar;
         });
+
+        $this->registerDeployDriver();
     }
 
     public function boot()
@@ -57,6 +60,17 @@ class AppServiceProvider extends ServiceProvider
         $router->middlewareGroup('invicta.auth', [
             Authorize::class,
         ]);
+    }
+
+    protected function registerDeployDriver()
+    {
+        $drivers = [
+            'elb' => ElasticBeanstalk::class,
+        ];
+
+        $this->app->bind('deploy', function ($app) use ($drivers) {
+            return $app->make($drivers[config('invicta.deployment.driver')]);
+        });
     }
 
     protected function registerBladeDirectives()
