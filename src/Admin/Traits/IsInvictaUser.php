@@ -17,7 +17,7 @@ trait IsInvictaUser
 
     public function isDev(): bool
     {
-        return $this->dev;
+        return $this->dev ?? false;
     }
 
     public function groups(): BelongsToMany
