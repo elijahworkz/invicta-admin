@@ -112,7 +112,7 @@ class ResourceRequest extends InvictaRequest
                 'indexUrl' => $resourceClass->route(),
                 'indexTitle' => $resourceClass->menuTitle(),
                 'titleField' => $resourceClass->titleField,
-                'pageTitle' => $item[$resourceClass->titleField],
+                'pageTitle' => $resourceClass->viewTitle($item),
             ],
             'blueprint' => Blueprint::detailBlueprint($resourceClass, $item),
             'header' => [
@@ -141,7 +141,7 @@ class ResourceRequest extends InvictaRequest
                 'indexUrl' => $resourceClass->route(),
                 'indexTitle' => $resourceClass->menuTitle(),
                 'titleField' => $resourceClass->titleField,
-                'pageTitle' => $item[$resourceClass->titleField],
+                'pageTitle' => $resourceClass->viewTitle($item),
             ],
             'localizations' => $resourceClass->localizible() ? $resourceClass->localesForEdit($item) : null,
             'blueprint' => request()->has('blueprint')
