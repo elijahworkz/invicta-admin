@@ -2,13 +2,13 @@
 
 namespace Eteacher\InvictaAdmin\Admin\Models;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Deployment extends Model
 {
-    /**
-     * @var string[]
-     */
+    protected $fillable = ['version', 'user_id', 'status'];
+
     protected $casts = [
         'data' => 'array',
     ];

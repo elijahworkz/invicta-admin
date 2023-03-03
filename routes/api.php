@@ -36,8 +36,6 @@ Route::controller(FieldsController::class)->name('fields.')->prefix('/fields/')-
 Route::post('cache/clear', [CacheController::class, 'clearCache'])->name('cache.clear');
 
 Route::controller(DeploymentController::class)->prefix('deploy')->group(function () {
-    Route::get('/versions', 'versions');
-    Route::get('/status', 'status');
-    Route::get('/check', 'check');
-    Route::post('/start', 'deploy');
+    Route::get('/lastDeployment', 'lastDeployment');
+    Route::get('/{deployment}', 'details');
 });

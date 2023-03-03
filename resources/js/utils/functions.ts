@@ -4,6 +4,8 @@ import { ICheckTree } from '@/interfaces'
 
 dayjs.extend(relativeTime)
 
+export { dayjs }
+
 export function getTime() {
     let now = new Date()
 
