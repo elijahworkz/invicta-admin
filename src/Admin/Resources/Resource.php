@@ -98,13 +98,13 @@ class Resource extends JsonResource
 
     public function viewTitle($item)
     {
-		$pageTitle = $this->titleField == 'id' ? Str::singular($this->menuTitle()) . ' ' . $item[$this->titleField] : $item[$this->titleField];
+        $pageTitle = $this->titleField == 'id' ? Str::singular($this->menuTitle()).' '.$item[$this->titleField] : $item[$this->titleField];
 
-		if (! $pageTitle && count($titleRelated = explode('.', $this->titleField)) > 1) {
-			$related = $titleRelated[0];
-			$relatedModel = $item->$related;
-			$pageTitle = $relatedModel ? $relatedModel[$titleRelated[1]] : $pageTitle;
-		}
+        if (! $pageTitle && count($titleRelated = explode('.', $this->titleField)) > 1) {
+            $related = $titleRelated[0];
+            $relatedModel = $item->$related;
+            $pageTitle = $relatedModel ? $relatedModel[$titleRelated[1]] : $pageTitle;
+        }
 
         return $pageTitle;
     }

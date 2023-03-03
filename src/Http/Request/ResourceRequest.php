@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Fluent;
-use Illuminate\Support\Str;
 
 class ResourceRequest extends InvictaRequest
 {
