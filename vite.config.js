@@ -12,7 +12,7 @@ export default defineConfig({
 	server: serverConfig,
 	plugins: [
 		laravel({
-			input: ['resources/js/main.ts'],
+			input: ['resources/js/main.js'],
 			buildDirectory: '/vendor/invicta/'
 		}),
 		vue(),
@@ -21,9 +21,12 @@ export default defineConfig({
 				'vue',
 				{
 					'@vueuse/core': ['onClickOutside', 'onKeyStroke', 'useClipboard', 'usePermission']
+				},
+				{
+					'@inertiajs/vue3': ['useForm', 'usePage', 'router']
 				}
 			],
-			dirs: ['resources/js/services/**', 'resources/js/utils/**'],
+			dirs: ['resources/js/services/**', 'resources/js/utils'],
 			resolvers: [
 				ElementPlusResolver(),
 			],

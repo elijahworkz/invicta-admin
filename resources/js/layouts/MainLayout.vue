@@ -11,7 +11,6 @@
 </template>
 
 <script setup>
-import { usePage, router } from '@inertiajs/vue3'
 
 onMounted(() => {
 	document.body.classList.add('app-ready')

@@ -24,7 +24,7 @@ class InvictaAdmin
 
     public static function user()
     {
-        $user = auth()->user();
+        $user = request()->user();
 
         return $user ? array_merge(
             $user->toArray(),

@@ -31,9 +31,11 @@ class AuthPublishCommand extends Command
 
         $this->callSilent('vendor:publish', ['--tag' => 'invicta-auth']);
 
-        $this->call('migrate');
-
         $this->info('Invicta successfully published migrations.');
+
+        $this->newLine(1);
+
+        $this->info('Review published migration file and run `php artisan migrate`.');
 
         $this->newLine(1);
 

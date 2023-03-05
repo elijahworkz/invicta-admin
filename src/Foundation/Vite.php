@@ -25,7 +25,7 @@ class Vite
 
             return new HtmlString(<<<HTML
                 <script type="module" src="{$url}/@vite/client" crossorigin="use-credentials"></script>
-                <script type="module" src="{$url}/resources/js/main.ts" crossorigin="use-credentials"></script>
+                <script type="module" src="{$url}/resources/js/main.js" crossorigin="use-credentials"></script>
             HTML);
         }
 
@@ -34,8 +34,8 @@ class Vite
         ), true);
 
         return new HtmlString(<<<HTML
-            <script type="module" src="/vendor/invicta/{$manifest['resources/js/main.ts']['file']}"></script>
-            <link rel="stylesheet" href="/vendor/invicta/{$manifest['resources/js/main.ts']['css'][0]}">
+            <script type="module" src="/vendor/invicta/{$manifest['resources/js/main.js']['file']}"></script>
+            <link rel="stylesheet" href="/vendor/invicta/{$manifest['resources/js/main.js']['css'][0]}">
         HTML);
     }
 

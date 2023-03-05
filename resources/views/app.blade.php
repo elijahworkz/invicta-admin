@@ -15,9 +15,6 @@
 
     @inertiaHead
 
-    <!-- Push Js -->
-    <!-- <script src="https://js.pusher.com/7.0/pusher.min.js" defer></script> -->
-
     @invictaScripts
 
 </head>
@@ -66,11 +63,8 @@
 
     <div id="poppers"></div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            window.Invicta = new InvictaApp(@json(InvictaAdmin::jsonVariables()))
-            Invicta.initInertia()
-        })
+    <script type="module">
+        Invicta.initInertia(@json(InvictaAdmin::jsonVariables()))
     </script>
 
     @auth
