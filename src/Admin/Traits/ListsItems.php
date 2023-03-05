@@ -121,6 +121,8 @@ trait ListsItems
 
         $title = request()->query('title', 'title');
 
+        $title = Str::of($title)->contains('.') ? 'id' : $title;
+
         $where = null;
 
         if ($search = request()->query('search', false)) {

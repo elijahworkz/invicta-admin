@@ -88,12 +88,25 @@ class Resource extends JsonResource
     {
         return $this->menuTitle
             ? $this->menuTitle
-            : Str::of($this->model)->classBasename()->plural();
+            : Str::of($this->model)->classBasename()->snake(' ')->ucfirst()->plural();
     }
 
     public function createTitle()
     {
-        return Str::of($this->model)->classBasename()->prepend('New ');
+        return Str::of($this->model)->classBasename()->snake(' ')->prepend('New ');
+    }
+
+    public function viewTitle($item)
+    {
+        $pageTitle = $this->titleField == 'id' ? Str::singular($this->menuTitle()).' '.$item[$this->titleField] : $item[$this->titleField];
+
+        if (! $pageTitle && count($titleRelated = explode('.', $this->titleField)) > 1) {
+            $related = $titleRelated[0];
+            $relatedModel = $item->$related;
+            $pageTitle = $relatedModel ? $relatedModel[$titleRelated[1]] : $pageTitle;
+        }
+
+        return $pageTitle;
     }
 
     public function resource()
