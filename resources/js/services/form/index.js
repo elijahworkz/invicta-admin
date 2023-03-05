@@ -273,7 +273,7 @@ const defineResourceForm = (id) => defineStore(`resourceForm-${id}`, {
 		}
 	},
 	getters: {
-		title(): string {
+		title() {
 			let title = this.meta.pageTitle
 
 			if (this.mode == 'edit' && this.meta.titleField !== 'id' && this.meta.titleField in this.form  ) {
