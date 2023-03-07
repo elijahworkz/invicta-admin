@@ -3,7 +3,6 @@
 namespace Eteacher\InvictaAdmin\Http\Middleware;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
