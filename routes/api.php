@@ -1,15 +1,10 @@
 <?php
 
-use Eteacher\InvictaAdmin\Http\Controllers\AdminController;
 use Eteacher\InvictaAdmin\Http\Controllers\Api\AssetController;
 use Eteacher\InvictaAdmin\Http\Controllers\Api\FieldsController;
 use Eteacher\InvictaAdmin\Http\Controllers\Api\ResourceController;
 use Eteacher\InvictaAdmin\Http\Controllers\CacheController;
 use Eteacher\InvictaAdmin\Http\Controllers\DeploymentController;
-
-Route::controller(AdminController::class)->prefix('admin')->group(function () {
-    Route::get('user', 'user');
-});
 
 Route::controller(ResourceController::class)->name('resource.')->prefix('resource')->group(function () {
     Route::get('/{resource}', 'index');
