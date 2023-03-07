@@ -10,7 +10,7 @@ class InvictaAdmin
 {
     public static $assets = [];
 
-    public static function jsonVariables()
+    public static function appVariables()
     {
         return [
             'appUrl' => config('app.url'),
@@ -18,8 +18,10 @@ class InvictaAdmin
             'appPath' => config('invicta.path'),
             'impersonateRoute' => route('invicta.impersonate-leave'),
             'menu' => self::menu(),
-            'user' => self::user(),
+            'user' => base64_encode(json_encode(self::user())),
         ];
+
+        // return base64_encode(json_encode($data));
     }
 
     public static function user()

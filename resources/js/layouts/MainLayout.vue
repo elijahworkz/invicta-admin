@@ -29,8 +29,8 @@ watch(notification, (value) => {
 })
 
 router.on('error', (data) => {
-  		let errors = data.detail.errors
-  		Invicta.setErrors(errors)
+	let errors = data.detail.errors
+	Invicta.setErrors(errors)
 })
 
 /*

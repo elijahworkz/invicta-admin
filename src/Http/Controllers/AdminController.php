@@ -4,6 +4,7 @@ namespace Eteacher\InvictaAdmin\Http\Controllers;
 
 use Carbon\Carbon;
 use Eteacher\InvictaAdmin\Admin\Resources\ResourceRegistrar;
+use Eteacher\InvictaAdmin\InvictaAdmin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Inertia\Inertia;
@@ -13,6 +14,11 @@ class AdminController extends Controller
     public function home()
     {
         return Inertia::render('Home', []);
+    }
+
+    public function user()
+    {
+        return InvictaAdmin::user();
     }
 
     public function impersonateLeave()

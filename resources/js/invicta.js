@@ -6,10 +6,7 @@ import { setupAxios } from './services/axios'
 import mitt from 'mitt'
 import isNil from 'lodash/isNil'
 
-// global components
-import SvgIcon from '@/components/shared/SvgIcon.vue'
-import CheckTree from '@/components/shared/CheckTree.vue'
-import Drawer from '@/components/shared/Drawer.vue'
+// components
 import { ElNotification } from 'element-plus'
 import 'element-plus/es/components/message-box/style/index'
 import 'element-plus/es/components/notification/style/index'
@@ -29,6 +26,15 @@ class Invicta
 		this.bootingCallbacks = []
 		this.eventBus = mitt()
 		this.errors = ref({})
+		this.loadingElement = document.querySelector('.loading.pulse')
+		this.user = {
+			data: null,
+			name: null
+		}
+	}
+
+	loadingStatus(status) {
+		this.loadingElement.textContent = status
 	}
 
 	booting(callback) {
@@ -49,15 +55,15 @@ class Invicta
 		this.app.use(pinia)
 		this.app.component('Head', Head)
 		this.app.component('Link', Link)
-		this.app.component('SvgIcon', SvgIcon)
-		this.app.component('CheckTree', CheckTree)
-		this.app.component('Drawer', Drawer)
 		this.event('InvictaReady')
 	}
 
 	initInertia(config) {
+
 		this.config = config
 		this.axios = setupAxios(`${this.getConfig('appUrl')}${this.getConfig('appPath')}/api`)
+		this.user = JSON.parse(atob(this.getConfig('user')))
+		delete(this.config.user)
 
 		createInertiaApp({
 			title: (title) => `${title} - ${this.getConfig('appName')}`,
@@ -74,6 +80,7 @@ class Invicta
 			setup: this.setup.bind(this)
 		})
 	}
+
 
 	getConfig(key) {
 		if (this.config && Object.prototype.hasOwnProperty.call(this.config, key)) {

@@ -4,15 +4,13 @@
 			{{ userInitials }}
 		</span>
 		<div class="font-bold mr-2 leading-0">
-			{{ $page.props.auth.user.name }}
+			{{ user.name }}
 		</div>
 	</div>
 </template>
 
 <script setup>
-const user = usePage().props.auth.user
-const userAvatar = ref()
-const textColor = ref()
+const user = Invicta.user
 
 const userInitials = computed(() => {
 	let initials = user.name || ''
@@ -26,13 +24,17 @@ const userInitials = computed(() => {
 	return initials
 })
 
-userAvatar.value = user.data?.avatar 
-	? `url(${user.data.avatar.src})`
-	: 'var(--el-color-primary-dark-2)'
+const userAvatar = computed(() => {
+	return 'avatar' in user.data 
+		? `url(${user.data.avatar.src})`
+		: 'var(--el-color-primary-dark-2)'
+})
 
-textColor.value = user.data?.avatar
-	? 'transparent'
-	: '#fff'
+const textColor = computed(() => {
+	return 'avatar' in user.data
+		? 'transparent'
+		: '#fff'
+})
 </script>
 
 <style lang="scss">
