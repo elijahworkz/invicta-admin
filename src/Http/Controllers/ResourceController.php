@@ -135,4 +135,10 @@ class ResourceController extends Controller
             'title' => 'Selected '.$resource->handle().' deleted',
         ]);
     }
+
+	public function handleRedirectActions(ResourceRequest $request)
+	{
+		return $request->processAction();
+	}
+
 }
