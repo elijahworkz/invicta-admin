@@ -3,7 +3,6 @@
 namespace Eteacher\InvictaAdmin\Http\Middleware;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -34,22 +33,9 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        $user = $request->user();
-
-        // if ($user) {
-        //     $user->initials = Str::of($user->name)->initials();
-        // }
-
-        $auth = [
-            'user' => $user,
-        ];
-
-        if ($impersonator = session('impersonator_id')) {
-            $auth['impersonator'] = $impersonator;
-        }
-
         return array_merge(parent::share($request), [
-            'auth' => $auth,
+            'impersonator' => session('impersonator_id'),
+            'notifications' => $request->user()->unreadNotifications,
             'flash' => [
                 'message' => fn () => $request->session()->get('message'),
             ],

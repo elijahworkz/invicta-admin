@@ -33,6 +33,7 @@
             padding: 0;
             margin: 0;
             height: 100vh;
+            font-family: Nunito;
             font-size: 14px;
             display: flex;
             align-items: center;
@@ -54,7 +55,7 @@
     </style>
 
     <div class="loading pulse">
-        <span>Loading Admin...</span>
+        Loading Admin...
     </div>
 
     <div id="app" class="app" data-page="{{ json_encode($page) }}"></div>
@@ -64,7 +65,7 @@
     <div id="poppers"></div>
 
     <script type="module">
-        Invicta.initInertia(@json(InvictaAdmin::jsonVariables()))
+        Invicta.initInertia(@json(InvictaAdmin::appVariables()))
     </script>
 
     @auth

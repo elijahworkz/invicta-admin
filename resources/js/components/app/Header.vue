@@ -5,7 +5,10 @@
 		</span>
 		<div class="app-branding">Invicta Admin</div>
 		<div class="ml-auto flex items-center">
-			<Impersonator v-if="$page.props.auth.impersonator" />
+
+			<Notifications />
+
+			<Impersonator v-if="$page.props.impersonator" />
 			
 			<User />
 

@@ -17,20 +17,20 @@ const props = defineProps({
 	resource: Object
 })
 
-const user = usePage().props.auth.user
+const user = Invicta.user
 const activeUsers = ref([])
 const channel = computed(() => {
 	return `resource.${props.resource.meta.handle}.${props.resource.meta.id}`
 })
 
 onMounted(() => {
-	window.Echo.join(channel.value)
-		.here(users => {
-			console.log('I got these users', users)
-		})
-		.joining(user => console.log('someone came in', user))
-		.leaving(user => console.log('someone just left', user))
-		.error(error => console.log('there was an error', error))
+	// window.Echo.join(channel.value)
+	// 	.here(users => {
+	// 		console.log('I got these users', users)
+	// 	})
+	// 	.joining(user => console.log('someone came in', user))
+	// 	.leaving(user => console.log('someone just left', user))
+	// 	.error(error => console.log('there was an error', error))
 })
 
 const resource = toRaw(props.resource)

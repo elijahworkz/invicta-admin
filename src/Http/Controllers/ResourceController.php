@@ -28,6 +28,8 @@ class ResourceController extends Controller
 
     public function reorder(ResourceRequest $request)
     {
+        $this->authorize('edit '.$request->handle());
+
         return Inertia::render('Resource/Reorder', ['resource' => $request->resourceOrderedList()]);
     }
 
