@@ -232,9 +232,9 @@ class ResourceRequest extends InvictaRequest
 
         $fields = request()->has('fields') ? request()->fields : [];
         if ($fields) {
-			Validator::make($fields, request()->validation)
-				->validate();
-		}
+            Validator::make($fields, request()->validation)
+                ->validate();
+        }
 
         $fields = new Fluent($fields);
         $user = request()->user();
@@ -251,13 +251,13 @@ class ResourceRequest extends InvictaRequest
         $response = $action->handle($fields, $models, $user);
 
         if (request()->method() == 'GET') {
-			return $response;
-		} else {
-			return ['message' => [
-				'type' => 'success',
-				'title' => 'Action Run successfully',
-			]];
-		}
+            return $response;
+        } else {
+            return ['message' => [
+                'type' => 'success',
+                'title' => 'Action Run successfully',
+            ]];
+        }
     }
 
     public function storeItem()

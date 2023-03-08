@@ -136,9 +136,8 @@ class ResourceController extends Controller
         ]);
     }
 
-	public function handleRedirectActions(ResourceRequest $request)
-	{
-		return $request->processAction();
-	}
-
+    public function handleRedirectActions(ResourceRequest $request)
+    {
+        return $request->processAction();
+    }
 }

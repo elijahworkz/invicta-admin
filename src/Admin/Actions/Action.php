@@ -31,7 +31,7 @@ class Action implements JsonSerializable
 
     /**
      * sent api request if redirect = false.
-	 * make http link if redirect = true
+     * make http link if redirect = true
      *
      * @var string
      */
@@ -133,7 +133,7 @@ class Action implements JsonSerializable
         return $this->modal;
     }
 
-	/**
+    /**
      * Get redirect attribute for the action.
      *
      * @return bool
