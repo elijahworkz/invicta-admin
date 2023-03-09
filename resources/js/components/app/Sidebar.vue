@@ -14,8 +14,6 @@
 </template>
 
 <script setup>
-import NavItem from './partials/NavItem.vue'
-
 const menuItems = Invicta.getConfig('menu')
 
 Invicta.log('Menu', menuItems)
