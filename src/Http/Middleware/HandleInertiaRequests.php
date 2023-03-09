@@ -35,7 +35,7 @@ class HandleInertiaRequests extends Middleware
     {
         return array_merge(parent::share($request), [
             'impersonator' => session('impersonator_id'),
-            'notifications' => $request->user()->unreadNotifications,
+            'notifications' => $request->user()->unreadNotifications ?? null,
             'flash' => [
                 'message' => fn () => $request->session()->get('message'),
             ],

@@ -294,7 +294,6 @@ class ResourceRequest extends InvictaRequest
 
     protected function processItem($resourceClass, $item, $action)
     {
-        $massAssign = count($item->getFillable());
         $validated = request()->validate(request()->validation);
 
         $actionMethod = "{$action}Item";
@@ -321,19 +320,13 @@ class ResourceRequest extends InvictaRequest
                     continue;
                 }
             }
-            if (! $massAssign) {
-                $item[$field] = $value;
-            }
+
+            $item[$field] = $value;
         }
 
         $item = $resourceClass->beforeSave($item, $action);
 
-        if (! $massAssign) {
-            $item->save();
-        } else {
-            $result = $item->$action($validated);
-            $item = $item->id ? $item : $result;
-        }
+        $item->save();
 
         foreach ($relatedFields as $field => $value) {
             $resourceClass->updateRelationship($item, $field, $value);
