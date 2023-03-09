@@ -25,7 +25,8 @@
     "require": {
         "inertiajs/inertia-laravel": "^0.6.9",
         "laravel/pint": "^1.5",
-        "aws/aws-sdk-php": "^3.259"
+        "aws/aws-sdk-php": "^3.259",
+        "marcocesarato/php-conventional-changelog": "^1.16"
     },
     "extra": {
         "laravel": {
@@ -45,6 +46,12 @@
         "check-style": "vendor/bin/pint --test",
         "fix-style": "vendor/bin/pint",
         "test": "vendor/bin/phpunit",
-        "test-f": "vendor/bin/phpunit --filter"
-    }
+        "test-f": "vendor/bin/phpunit --filter",
+        "changelog": "conventional-changelog",
+        "release": "conventional-changelog --commit",
+        "release:patch": "conventional-changelog --patch --commit",
+        "release:minor": "conventional-changelog --minor --commit",
+        "release:major": "conventional-changelog --major --commit"
+    },
+    "version": "0.1.0"
 }
