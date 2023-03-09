@@ -3,6 +3,7 @@
 namespace Eteacher\InvictaAdmin\Admin\Models\Resources;
 
 use Eteacher\InvictaAdmin\Admin\Components\Column;
+use Eteacher\InvictaAdmin\Admin\Models\Actions\EditJsonField;
 use Eteacher\InvictaAdmin\Admin\Models\Actions\ExportSettings;
 use Eteacher\InvictaAdmin\Admin\Models\Actions\ImportSettings;
 use Eteacher\InvictaAdmin\Admin\Resources\Resource;
@@ -97,6 +98,7 @@ class GlobalSetting extends Resource
         return [
             new ExportSettings,
             new ImportSettings,
+            new EditJsonField,
         ];
     }
 
