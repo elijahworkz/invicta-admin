@@ -20,8 +20,6 @@ class InvictaAdmin
             'menu' => self::menu(),
             'user' => base64_encode(json_encode(self::user())),
         ];
-
-        // return base64_encode(json_encode($data));
     }
 
     public static function user()
@@ -33,6 +31,7 @@ class InvictaAdmin
             [
                 'is_dev' => method_exists($user, 'isDev') ? $user->isDev() : true,
                 'permissions' => method_exists($user, 'permissions') ? $user->permissions() : [],
+                'data' => $user->data ?? [],
             ]
         ) : [];
     }
