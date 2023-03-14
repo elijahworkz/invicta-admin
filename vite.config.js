@@ -55,12 +55,11 @@ export default defineConfig({
 		include: [
 			'vue',
 			'@inertiajs/vue3',
-			'pusher-js',
 			'axios',
 			'lodash-es'
 		]
 	},
 	rollupOptions: {
-		external: ['vue']
+		external: ['vue', 'axios']
 	}
 })

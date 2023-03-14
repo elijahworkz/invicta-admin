@@ -119,7 +119,7 @@ getLastDeployment()
 
 function getLastDeployment() {
 	loading.value = true
-	Invicta.axios.get('deploy/lastDeployment')
+	Invicta.axios.get('api/deploy/lastDeployment')
 		.then(({data}) => {
 			// console.log('I got something', data)
 			lastDeployment.value = data
@@ -143,7 +143,7 @@ function deploy() {
 
 function showDetails(item) {
 	console.log('I am showing something here', item)
-	Invicta.axios.get(`deploy/${item}`)
+	Invicta.axios.get(`api/deploy/${item}`)
 		.then(({data}) => {
 			console.log('I got these details', data)
 			detailsData.value = data.error !== '' ? data.error : data.output

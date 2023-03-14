@@ -19,10 +19,10 @@ export const useResource = (id = 'store') => {
 
 const defineResource = (id) => defineStore(`resource-${id}`, () => {
 	const resourceHandle = id
-	const data = ref([])
+	const resourceData = ref([])
 	const search = ref('')
 	const currentPage = ref(1)
-	const perPage = ref(10)
+	const perPage = ref()
 	const sortOrder = ref()
 	const sortBy = ref()
 	const activeFilters = ref([])
@@ -93,6 +93,10 @@ const defineResource = (id) => defineStore(`resource-${id}`, () => {
 	}
 	Invicta.on('update-filters', updateFilters)
 
+	// check if there are already active filters coming with resource
+	// this can happen on a page reload with filters in url - in this case
+	// we need to set activeFilters manually from what came with resource
+	// but prevent the getResource function from loading it again
 	const setActiveFilters = (filters = null) => {
 		if (filters) {
 			activeFilters.value = JSON.parse(atob(filters))
@@ -139,55 +143,58 @@ const defineResource = (id) => defineStore(`resource-${id}`, () => {
 	// 	console.log('we have some changes here', newState)
 	// })
 
-	function init(resourceUrl, apiResource = null) {
-		console.log('got some data', apiResource)
+	function init(resourceUrl, resource, useApi = false) {
+		console.log('got some data', resource)
 		requestUrl.value = resourceUrl
-		currentPage.value = 1
+		currentPage.value = resource.meta.current_page
+		resourceData.value = resource.data
+		total.value = resource.meta.total
+		filterBadges.value = resource.meta.filterBadges
 
-		if (apiResource) {
+		if (useApi) {
 			api.value = true
-			data.value = apiResource.data
-			total.value = apiResource.meta.total
-			additionalParams.value = apiResource.params
-			filterBadges.value = apiResource.meta.filterBadges
-			columns.value = apiResource.columns
+			additionalParams.value = resource.params
+			columns.value = resource.meta.columns
 		}
 	}
 
 	function getResource() {
 		let query = pickBy(requestQuery.value)
-		console.log('I should change', requestQuery.value, query, api)
+
+		// console.log('I should change', requestUrl, requestQuery.value, api.value)
+
 		
 		if (api.value) {
 			query = additionalParams.value
 				? { ...query, ...additionalParams.value }
 				: query
-				
 			console.log(' I should ask api', query)
+		}
+
+		// we send request only if it's api or if requestFilters is false
+		if (api.value || !requestFilters.value) {
+
+			if (! api.value) {
+				let queryString = Object.keys(query).map(key => key + '=' + query[key]).join('&')
+				window.history.replaceState(null, null, `?${queryString}`)
+			}
 
 			Invicta.axios.get(requestUrl.value, { params: query })
 				.then(({data}) => {
 					console.log('got some new data', data)
-					data.value = data.data
+					resourceData.value = data.data
 					currentPage.value = data.meta.current_page
 					total.value = data.meta.total
 					filterBadges.value = data.meta.filterBadges
 				})
 
-		} else {
-
-			if (! requestFilters.value) {
-				router.get(requestUrl.value, query, { preserveState: true})
-			}
-			requestFilters.value = false
 		}
+		requestFilters.value = false // we always reset requestFilters
 	}
-
-	const resource = computed(() => data.value)
 	
 	return {
+		handle: resourceHandle,
 		init,
-		resource,
 		filterBadges,
 		activeFilters,
 		setActiveFilters,
@@ -199,10 +206,6 @@ const defineResource = (id) => defineStore(`resource-${id}`, () => {
 		columns,
 		setLocale,
 		currentLocale,
-		// resourceData,
-		// requestQuery,
-		// activeFilters,
-		// sortOrder,
-		// sortBy
+		resourceData,
 	}
 })()

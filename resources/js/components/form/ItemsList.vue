@@ -93,7 +93,7 @@ const props = defineProps({
 })
 const emit = defineEmits(['updated'])
 
-
+const baseRequestUrl = `api/resource/${props.resource}`
 const drawer = reactive({
 	state: false,
 	context: 'list'
@@ -140,7 +140,7 @@ const handleEditItem = (item) => {
 	drawer.context = 'form'
 	drawer.state = true
 
-	formUrl.value = `resource/${props.resource}/${item}`
+	formUrl.value = `${baseRequestUrl}/${item}`
 }
 
 const handleAddItem = () => {
@@ -176,7 +176,7 @@ const handleCreateItem = () => {
 	drawer.context = 'form'
 	drawer.state = true
 
-	formUrl.value = `resource/${props.resource}/create`
+	formUrl.value = `${baseRequestUrl}/create`
 }
 </script>
 

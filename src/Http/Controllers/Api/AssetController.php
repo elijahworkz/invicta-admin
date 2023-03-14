@@ -13,7 +13,7 @@ class AssetController extends Controller
     {
         $this->authorize('view assets');
 
-        return $request->assetList();
+        return $request->assetList(true);
     }
 
     public function store(Request $request)

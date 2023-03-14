@@ -1,27 +1,27 @@
 <template>
-	<Head :title="resource.title"/>
+	<Head :title="title"/>
 	<div class="py-6 px-10">
 		<div class="flex items-end justify-start mb-4">
 			<div>
-				<h1 class="mb-1">{{ resource.title }}</h1>
-				<FiltersSearch :currentSearch="resource.meta.search" :handle="resource.handle" :filters="resource.meta.filters" />
+				<h1 class="mb-1">{{ title }}</h1>
+				<FiltersSearch :currentSearch="resource.meta.search" :handle="settings.handle" :filters="resource.meta.filters" />
 			</div>
 			<div class="ml-auto flex items-center">
-				<LocaleSwitch v-if="resource.locales" :locales="resource.locales" @change="resourceIndex.setLocale" />
+				<LocaleSwitch v-if="settings.locales" :locales="settings.locales" @change="resourceIndex.setLocale" />
 				<Actions
 					v-if="globalActions.length"
 					:global="true"
 					:actions="globalActions"
 					name="Resource Actions"
 				/>
-				<el-button v-if="resource.sortable"><Link :href="`${resource.meta.path}/reorder`">Reorder</Link></el-button>
-				<el-button v-show="canCreate" type="primary"><Link :href="`${resource.meta.path}/create`">Create new</Link></el-button>
+				<el-button v-if="settings.sortable"><Link :href="`${resource.meta.path}/reorder`">Reorder</Link></el-button>
+				<el-button v-show="settings.canCreate" type="primary"><Link :href="`${resource.meta.path}/create`">Create new</Link></el-button>
 			</div>
 		</div>
 		<el-card body-style="padding: 0px;">
 			<div class="flex items-center justify-start p-3">
-				<div class="mr-2">Total: <strong>{{ resource.meta.total }}</strong></div>
-				<div><FilterBadges :badges="resource.meta.filterBadges" /></div>
+				<div class="mr-2">Total: <strong>{{ resourceIndex.total }}</strong></div>
+				<div><FilterBadges :badges="resourceIndex.filterBadges" /></div>
 				<div class="ml-auto flex items-center">
 					<Actions
 						v-if="bulkActions.length && selectedRows.length"
@@ -30,35 +30,35 @@
 						:selected="selectedRows"
 					/>
 					<!-- <Filters :resource-handle="resource.handle" :filters="resource.meta.filters" /> -->
-					<div v-show="canDelete" class="ml-3" title="Delete Selected">
+					<div v-show="settings.canDelete" class="ml-3" title="Delete Selected">
 						<el-button :icon="Delete" @click="handleBulkDelete" :disabled="!selectedRows.length" />
 					</div>
 				</div>
 			</div>
 
 			<ResourceTable
-				:key="resource.slug"
-				:resource-handle="resource.handle"
-				:data="resource.data"
-				:table-props="resource.table"
-				:columns="resource.columns"
-				:can-edit="canEdit"
-				:can-delete="canDelete"
-				:has-detail="resource.hasDetail"
+				:key="settings.slug"
+				:resource-handle="settings.handle"
+				:data="resourceIndex.resourceData"
+				:table-props="resource.meta.table"
+				:columns="resource.meta.columns"
+				:can-edit="settings.canEdit"
+				:can-delete="settings.canDelete"
+				:has-detail="settings.hasDetail"
 				@select="handleSelect"
 				@show="handleShow"
 				@edit="handleEdit"
 				@delete="handleDelete" />
 
 			<div class="flex items-center justify-between p-3 mt-2">
-				<div>Total: <strong>{{ resource.meta.total }}</strong></div>
+				<div>Total: <strong>{{ resourceIndex.total }}</strong></div>
 				<el-pagination
 					background
 					small
 					layout="jumper, prev, pager, next, sizes"
-					:current-page="resource.meta.current_page"
-					:page-size="resource.meta.per_page"
-					:total="resource.meta.total"
+					:current-page="resourceIndex.currentPage"
+					:page-size="resourceIndex.perPage"
+					:total="resourceIndex.total"
 					@update:page-size="resourceIndex.pageSizeChange"
 					@update:current-page="resourceIndex.pageChange"
 				/>
@@ -88,19 +88,12 @@
 <script setup>
 import { Delete } from '@element-plus/icons-vue'
 
-const props = defineProps({
-	resource: Object,
-	canCreate: Boolean,
-	canEdit: Boolean,
-	canDelete: Boolean,
-})
-
-const { pageUrl } = usePage().props
-const resourceIndex = useResource(props.resource.handle)
+const { title, resource, settings } = usePage().props
+const resourceIndex = useResource(settings.handle)
 
 console.log('I want to see what is inside', resourceIndex)
-resourceIndex.init(pageUrl)
-resourceIndex.setActiveFilters(props.resource.meta.filters)
+resourceIndex.init(settings.resourceUrl, resource)
+resourceIndex.setActiveFilters(resource.meta.filters)
 
 /* Setup drawer */
 const drawer = ref(false)
@@ -110,7 +103,7 @@ const apiSubmit = ref(false)
 
 /* Handle Actions */
 const actions = ref([])
-const actionsUrl = `/resource/${props.resource.handle}/actions`
+const actionsUrl = `${settings.resourceUrl}/actions`
 onMounted(() => {
 	Invicta.on('action-called', actionCalled)
 
@@ -148,7 +141,7 @@ const actionCalled = (event) => {
 			item = event.selected[0]
 		}
 
-		Invicta.axios.get(`/resource/${props.resource.handle}/actions/blueprint/${item}`, { params: {...event.action}})
+		Invicta.axios.get(`${actionsUrl}/blueprint/${item}`, { params: {...event.action}})
 			.then(({data}) => {
 				resourceItem.value = data
 				resourceFormId.value = `${data.handle}.${event.action.class}`
@@ -171,8 +164,8 @@ const handleSelect = (selection) => {
 
 // Handle Show (detail view)
 const handleShow = (item) => {
-	if (! props.resource.indexEdit) {
-		router.visit(`${props.resource.meta.path}/${item}`)
+	if (! settings.indexEdit) {
+		router.visit(`${resource.meta.path}/${item}`)
 	} else {
 		// if we want to show details in drawer ?
 	}
@@ -181,15 +174,15 @@ const handleShow = (item) => {
 // Handle Edit
 const handleEdit = (item) => {
 
-	if (! props.resource.indexEdit) {
-		router.visit(`${props.resource.meta.path}/${item}/edit`)
+	if (! settings.indexEdit) {
+		router.visit(`${resource.meta.path}/${item}/edit`)
 	} else {
 
 		apiSubmit.value = false
 
-		Invicta.axios.get(`resource/${props.resource.handle}/${item}`)
+		Invicta.axios.get(`${settings.resourceUrl}/${item}`)
 			.then(({data}) => {
-				resourceFormId.value = `${props.resource.handle}.${data.item.id}`
+				resourceFormId.value = `${settings.handle}.${data.item.id}`
 				resourceItem.value = data
 				drawer.value = true
 			})
@@ -208,7 +201,7 @@ const handleDelete = (selected) => {
 			confirmButtonClass: 'el-button--danger'
 		}
 	).then(() => {
-		router.delete(props.resource.meta.path, {data: { selected }})
+		router.delete(resource.meta.path, {data: { selected }})
 	})
 	.catch(() => console.log('cancel'))
 }

@@ -15,7 +15,7 @@ class AssetController extends Controller
         $this->authorize('view assets');
 
         return Inertia::render('Assets/Index', [
-            'resource' => $request->assetList(),
+            ...$request->assetList(),
             'multiUpload' => config('invicta.assets_multi_upload'),
             'can-create' => request()->user()->can('create assets'),
             'can-edit' => request()->user()->can('edit assets'),

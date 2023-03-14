@@ -61,7 +61,7 @@ class Invicta
 	initInertia(config) {
 
 		this.config = config
-		this.axios = setupAxios(`${this.getConfig('appUrl')}${this.getConfig('appPath')}/api`)
+		this.axios = setupAxios(`${this.getConfig('appUrl')}${this.getConfig('appPath')}`)
 		this.user = JSON.parse(atob(this.getConfig('user')))
 		delete(this.config.user)
 

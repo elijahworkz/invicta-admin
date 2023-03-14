@@ -9,7 +9,7 @@ class ResourceController extends Controller
 {
     public function index(ResourceRequest $request)
     {
-        return $request->resource();
+        return $request->resourceList(true);
     }
 
     public function create(ResourceRequest $request)

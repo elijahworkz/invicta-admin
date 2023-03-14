@@ -6,22 +6,33 @@ use Eteacher\InvictaAdmin\Admin\Models\Resources\Asset;
 
 class AssetRequest extends InvictaRequest
 {
-    public function assetList()
+    public function assetList($api = false)
     {
         $resourceClass = new Asset;
         $resource = $resourceClass->resource();
 
-        return $resourceClass::collection($resource)
+        $collection = $resourceClass::collection($resource)
             ->additional([
-                'title' => $resourceClass->menuTitle(),
                 'meta' => [
                     ...request()->only('search', 'filters'),
                     'filterBadges' => $resourceClass->filterBadges(),
                 ],
+            ]);
+
+        if ($api) {
+            return $collection;
+        }
+
+        return [
+            'title' => $resourceClass->menuTitle(),
+            'resource' => $collection,
+            'settings' => [
                 'columns' => $resourceClass->indexColumns(),
                 'table' => $resourceClass->indexTableSettings(),
                 'handle' => $resourceClass->handle(),
                 'sortable' => $resourceClass->sortable(),
-            ]);
+                'resourceUrl' => route('invicta.api.assets.index'),
+            ],
+        ];
     }
 }

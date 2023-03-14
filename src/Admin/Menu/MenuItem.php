@@ -79,6 +79,13 @@ class MenuItem
         return $this;
     }
 
+    protected function getBadge()
+    {
+        return $this->resource
+            ? $this->resource->badge() ?? null
+            : $this->badge;
+    }
+
     public function divider()
     {
         $this->hasDivider = true;
@@ -109,11 +116,14 @@ class MenuItem
         Permission::resource($resource);
         $viewResource = 'view '.$resource->handle();
 
-        return (new static($resource->menuTitle()))
+        $self = new static($resource->menuTitle());
+
+        $self->resource = $resource;
+
+        return $self
             ->can($viewResource)
             ->route($resource->route())
-            ->icon($resource->icon())
-            ->badge($resource->badge());
+            ->icon($resource->icon());
     }
 
     public function children(array $items)
@@ -133,7 +143,7 @@ class MenuItem
             'name' => $this->name,
             'url' => $this->url,
             'icon' => $this->icon,
-            'badge' => $this->badge,
+            'badge' => $this->getBadge(),
             'inertia' => $this->inertia,
             'group' => $this->group,
             'divider' => $this->hasDivider,

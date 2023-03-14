@@ -77,10 +77,10 @@ onMounted(() => {
 	loading.value = true
 	layout.value = Invicta.remember('media-layout') || 'grid'
 
-	Invicta.axios.get('assets')
+	Invicta.axios.get('api/assets')
 		.then(({data}) => {
 			loading.value = false
-			itemsResource.init('assets', data)
+			itemsResource.init('assets', data, true)
 		})
 })
 

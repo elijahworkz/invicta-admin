@@ -23,8 +23,7 @@ const props = defineProps({
 
 const resourceForm = useResourceForm(props.formId)
 
-// const encodedModel = btoa(JSON.stringify(props.data.model))
-const itemsUrl = `/resource/${props.data.resource}/items`
+const itemsUrl = `/api/resource/${props.data.resource}/items`
 
 const options = computed(() => {
 	return 'actions' in props.data

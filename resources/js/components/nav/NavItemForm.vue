@@ -52,7 +52,7 @@ onMounted(() => {
 
 	if ('id' in props.itemData && props.itemData.id) {
 		resource.value = true
-		let itemUrl = `/resource/${props.itemData.handle}/${props.itemData.id}/uri`
+		let itemUrl = `/api/resource/${props.itemData.handle}/${props.itemData.id}/uri`
 		Invicta.axios.get(itemUrl)
 			.then(({data}) => {
 				itemForm.value.url = data

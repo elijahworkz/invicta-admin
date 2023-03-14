@@ -14,7 +14,7 @@
 						:value="resource"/>
 				</el-select>
 				<Search v-if="currentResource.handle" :handle="currentResource.handle" />
-				<Filters :resource-handle="currentResource.handle" />
+				<Filters v-if="currentResource.handle" :resource-handle="currentResource.handle" />
 			</div>
 		</header>
 
@@ -28,7 +28,7 @@
 			<el-scrollbar v-else>
 				<ResourceTable
 					:resource-handle="currentResource.handle"
-					:data="itemsResource.resource"
+					:data="itemsResource.resourceData"
 					:columns="columns"
 					:no-actions="true"
 					:single-select="singleSelect"
@@ -150,12 +150,12 @@ function requestResourceItems() {
 	}
 
 	let requestUrl = props.resources.length
-		? `resource/${currentResource.value.handle}/items`
+		? `api/resource/${currentResource.value.handle}/items`
 		: props.requestUrl
 
 	Invicta.axios.get(requestUrl, { params })
 		.then(({data}) => {
-			itemsResource.init(requestUrl, data)
+			itemsResource.init(requestUrl, data, true)
 			loading.value = false
 		})	
 }

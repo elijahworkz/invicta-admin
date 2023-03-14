@@ -4,7 +4,7 @@
 			<FiltersSearch 
 				v-if="resource && data.searchFilter" 
 				:currentSearch="resource.meta.search" 
-				:handle="resource.handle" 
+				:handle="tableResource.handle" 
 				:filters="resource.meta.filters" />
 			<strong class="ml-auto">Total: {{ tableResource.total }}</strong>
 		</div>
@@ -20,9 +20,10 @@
 		<ResourceTable
 			v-else-if="resource"
 			:key="data.id"
-			:resource-handle="resource.handle"
-			:data="tableResource.resource"
-			:columns="tableResource.columns"
+			:resource-handle="tableResource.handle"
+			:data="tableResource.resourceData"
+			:table-props="resource.meta.table"
+			:columns="resource.meta.columns"
 			:can-edit="false"
 			:can-delete="false"
 			:has-detail="false"
@@ -54,15 +55,13 @@ const props = defineProps({
 const loading = ref(false)
 const resource = ref()
 const tableResource = useResource(props.data.id)
-const resourceForm = useResourceForm(props.formId)
 
 onMounted(() => {
 	loading.value = true
 
 	Invicta.axios.get(props.data.resourceUrl)
 		.then(({data}) => {
-			console.log('got this from data')
-			tableResource.init(props.data.resourceUrl, data)
+			tableResource.init(props.data.resourceUrl, data, true)
 			resource.value = data
 			loading.value = false
 		})

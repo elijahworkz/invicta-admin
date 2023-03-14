@@ -24,7 +24,7 @@ const resourceForm = useResourceForm(props.formId)
 
 const itemId = resourceForm.id
 const relationship = props.data.id //resourceForm.get(props.data.id) // determine relationship
-const relatedUrl = `/resource/${resourceForm.meta.handle}/relationship/${relationship}`
+const relatedUrl = `/api/resource/${resourceForm.meta.handle}/relationship/${relationship}`
 
 /* Build list to display */
 const listValue = computed(() => resourceForm.get(relationship, []))

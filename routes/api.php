@@ -7,7 +7,7 @@ use Eteacher\InvictaAdmin\Http\Controllers\CacheController;
 use Eteacher\InvictaAdmin\Http\Controllers\DeploymentController;
 
 Route::controller(ResourceController::class)->name('resource.')->prefix('resource')->group(function () {
-    Route::get('/{resource}', 'index');
+    Route::get('/{resource}', 'index')->name('index');
     Route::get('/{resource}/create', 'create');
     Route::get('/{resource}/filters', 'filters');
     Route::get('/{resource}/actions', 'actions');

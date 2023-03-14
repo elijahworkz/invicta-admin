@@ -32,7 +32,7 @@ const fieldValue = field.value([])
 const options = ref([])
 
 onMounted(() => {
-	Invicta.axios.get("/fields/resource-link/options")
+	Invicta.axios.get('/api/fields/resource-link/options')
 		.then(({data}) => {
 			data.push({
 				'label': '',

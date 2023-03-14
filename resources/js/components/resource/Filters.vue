@@ -62,7 +62,7 @@ watchEffect(() => {
 })
 
 function getFilters() {
-	Invicta.axios.get(`/resource/${props.resourceHandle}/filters`)
+	Invicta.axios.get(`/api/resource/${props.resourceHandle}/filters`)
 		.then(({data}) => {
 
 			if (data.length) {

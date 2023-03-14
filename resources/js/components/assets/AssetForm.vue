@@ -45,7 +45,7 @@ const isSaving = ref(false)
 
 const updateAsset = () => {
 	isSaving.value = true
-	Invicta.axios.post(`assets/${props.asset.id}`, { alt: props.asset.alt })
+	Invicta.axios.post(`api/assets/${props.asset.id}`, { alt: props.asset.alt })
 		.then(() => {
 			isSaving.value = false
 			emit('close', true)

@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="flex items-center justify-start p-3">
-			<div class="mr-2">Total: <strong>{{ resource.meta.total }}</strong></div>
+			<div class="mr-2">Total: <strong>{{ assetsResource.total }}</strong></div>
 			<div class="ml-auto flex items-center">
 				<div v-show="canDelete" class="ml-3" title="Delete Selected">
 					<el-button :icon="Delete" @click="handleBulkDelete" :disabled="!selectedRows.length" />
@@ -10,11 +10,11 @@
 		</div>
 
 		<ResourceTable
-			:key="resource.slug"
+			:key="settings.slug"
 			resource-handle="assets"
-			:data="resource.data"
-			:table-props="resource.table"
-			:columns="resource.columns"
+			:data="assetsResource.resourceData"
+			:table-props="settings.table"
+			:columns="settings.columns"
 			:can-edit="canEdit"
 			:can-delete="canDelete"
 			@select="handleSelect"
@@ -27,10 +27,12 @@
 import { Delete } from '@element-plus/icons-vue'
 
 const props = defineProps({
-	resource: Object,
+	settings: Object,
 	canEdit: Boolean,
 	canDelete: Boolean,
 })
+
+const assetsResource = useResource(props.settings.handle)
 
 /* Setup Selection */
 const selectedRows = ref([])
@@ -50,7 +52,7 @@ const handleDelete = (selected) => {
 			confirmButtonClass: 'el-button--danger'
 		}
 	).then(() => {
-		router.delete(props.resource.meta.path, {data: { selected }})
+		// router.delete(props.resource.meta.path, {data: { selected }})
 	})
 	.catch(() => console.log('cancel'))
 }

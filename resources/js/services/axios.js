@@ -8,6 +8,7 @@ export function setupAxios(baseURL) {
 	instance.defaults.withCredentials = true
 	instance.defaults.baseURL = baseURL
 
+
 	instance.interceptors.response.use(
 		response => response,
 		error => {

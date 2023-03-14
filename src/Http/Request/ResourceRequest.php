@@ -30,26 +30,43 @@ class ResourceRequest extends InvictaRequest
         return $this->resourceClass()->canCreate;
     }
 
-    public function resourceList()
+    public function resourceList($dataOnly = false)
     {
         $resourceClass = $this->resourceClass();
         $resource = $resourceClass->resource();
 
-        return $resourceClass::collection($resource)
+        $collection = $resourceClass::collection($resource)
             ->additional([
-                'title' => $resourceClass->menuTitle(),
                 'meta' => [
                     ...request()->only('search', 'filters'),
                     'filterBadges' => $resourceClass->filterBadges(),
+                    'table' => $resourceClass->indexTableSettings(),
+                    'columns' => $resourceClass->indexColumns(),
                 ],
-                'columns' => $resourceClass->indexColumns(),
-                'table' => $resourceClass->indexTableSettings(),
-                'handle' => $resourceClass->handle(),
+            ]);
+
+        if ($dataOnly) {
+            return $collection;
+        }
+
+        $handle = $resourceClass->handle();
+        $user = request()->user();
+
+        return [
+            'title' => $resourceClass->menuTitle(),
+            'resource' => $collection,
+            'settings' => [
+                'handle' => $handle,
                 'sortable' => $resourceClass->sortable(),
                 'locales' => $resourceClass->localizible() ? $resourceClass->locales() : null,
                 'indexEdit' => $resourceClass->indexEdit,
                 'hasDetail' => method_exists($resourceClass, 'showDetail'),
-            ]);
+                'resourceUrl' => route('invicta.api.resource.index', ['resource' => $handle]),
+                'canCreate' => $resourceClass->canCreate && $user->can('create '.$handle),
+                'canEdit' => $user->can('edit '.$handle),
+                'canDelete' => $user->can('delete '.$handle),
+            ],
+        ];
     }
 
     public function resourceOrderedList()

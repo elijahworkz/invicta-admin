@@ -47,7 +47,7 @@ const onUpdated = (value) => {
 /* Get Resources for Links */
 const resourcesForLinks = ref([])
 onMounted(() => {
-	Invicta.axios.get('/fields/texteditor/resources')
+	Invicta.axios.get('/api/fields/texteditor/resources')
 		.then(({data}) => {
 			resourcesForLinks.value = data
 		})

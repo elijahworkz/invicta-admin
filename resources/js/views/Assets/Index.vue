@@ -1,10 +1,10 @@
 <template>
-	<Head :title="resource.title"/>
+	<Head :title="title"/>
 	<div class="py-6 px-10 asset-library">
 		<div class="flex items-end justify-start mb-4">
 			<div>
-				<h1 class="mb-1">{{ resource.title }}</h1>
-				<Search :currentSearch="resource.meta.search" :handle="resource.handle" />
+				<h1 class="mb-1">{{ title }}</h1>
+				<Search :currentSearch="resource.meta.search" :handle="settings.handle" />
 			</div>
 			<div class="ml-auto">
 				<el-button-group class="mr-2" >
@@ -22,27 +22,27 @@
 		<el-card body-style="padding: 0px">
 
 			<ListView v-if="layout == 'list'"
-				:resource="resource"
+				:settings="settings"
 				:can-edit="canEdit"
 				:can-delete="canDelete"
 				@edit="handleEdit" />
 
 			<GridView v-if="layout == 'grid'" 
-				:resource="resource"
+				:resource="resourceIndex.resourceData"
 				:can-edit="canEdit"
 				:can-delete="canDelete" 
 				:multiple="multiUpload" 
 				@edit="handleEdit" />
 
 			<div class="flex items-center justify-between p-3 mt-2">
-				<div>Total: <strong>{{ resource.meta.total }}</strong></div>
+				<div>Total: <strong>{{ resourceIndex.total }}</strong></div>
 				<el-pagination
 					background
 					small
 					layout="jumper, prev, pager, next, sizes"
-					:current-page="resource.meta.current_page"
-					:page-size="resource.meta.per_page"
-					:total="resource.meta.total"
+					:current-page="resourceIndex.currentPage"
+					:page-size="resourceIndex.perPage"
+					:total="resourceIndex.total"
 					@update:page-size="resourceIndex.pageSizeChange"
 					@update:current-page="resourceIndex.pageChange"
 				/>
@@ -60,20 +60,9 @@
 import { UploadFilled } from '@element-plus/icons-vue'
 import { mdiViewGridOutline, mdiFormatListText } from '@mdi/js';
 
-const props = defineProps({
-	resource: Object,
-	multiUpload: Boolean,
-	canCreate: Boolean,
-	canEdit: Boolean,
-	canDelete: Boolean,
-})
-
-const { pageUrl } = usePage().props
-const resourceIndex = useResource(props.resource.handle)
-resourceIndex.init(pageUrl)
-
-console.log('I want to see what is inside', resourceIndex)
-resourceIndex.init(pageUrl)
+const { title, resource, settings, multiUpload, canCreate, canEdit, canDelete } = usePage().props
+const resourceIndex = useResource(settings.handle)
+resourceIndex.init(settings.resourceUrl, resource)
 
 /* Layout Setup */
 const layout = ref()
@@ -92,7 +81,7 @@ const currentAsset = ref()
 
 const handleEdit = (item) => {
 	let asset = (typeof item === 'number')
-		? props.resource.data.filter(i => i.id == item)[0]
+		? resource.data.filter(i => i.id == item)[0]
 		: item
 	drawer.value = true
 	currentAsset.value = asset
