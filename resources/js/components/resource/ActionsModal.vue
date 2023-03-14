@@ -42,7 +42,7 @@ const actionData = computed(() => ({
 	class: action.value.class,
 	selected: selected.value,
 }))
-const api = computed(() => action.value.blueprint.fields?.length ? actionData.value : false)
+const api = computed(() => action.value.blueprint?.fields?.length ? actionData.value : false)
 
 const formKey = computed(() => `${formId.value}.${selected.value.join('')}`)
 
@@ -83,11 +83,17 @@ const processAction = () => {
 		// console.log('no form call')
 		let data = { ...actionData.value, fields: [], validation: [] }
 
-		Invicta.axios.post(props.actionsUrl, data)
-			.then(({data}) => {
-				Invicta.message(data.message)
-				Invicta.emit('refresh-resource')
-			})
+		if (action.value.redirect) {
+			let url = '/admin' + props.actionsUrl + `?class=${actionData.value.class}&selected[]=${actionData.value.selected.join(',')}`
+			window.location = url
+		} else {
+
+			Invicta.axios.post(props.actionsUrl, data)
+				.then(({data}) => {
+					Invicta.message(data.message)
+					Invicta.emit('refresh-resource')
+				})
+		}
 
 		open.value = false
 	}

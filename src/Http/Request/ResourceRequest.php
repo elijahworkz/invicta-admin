@@ -247,10 +247,13 @@ class ResourceRequest extends InvictaRequest
 
         $action = App::make(request()->class);
 
-        Validator::make(request()->fields, request()->validation)
-            ->validate();
+        $fields = request()->has('fields') ? request()->fields : [];
+        if ($fields) {
+            Validator::make($fields, request()->validation)
+                ->validate();
+        }
 
-        $fields = new Fluent(request()->fields);
+        $fields = new Fluent($fields);
         $user = request()->user();
 
         if ($action->shouldQueue) {
@@ -262,12 +265,16 @@ class ResourceRequest extends InvictaRequest
             ]];
         }
 
-        $action->handle($fields, $models, $user);
+        $response = $action->handle($fields, $models, $user);
 
-        return ['message' => [
-            'type' => 'success',
-            'title' => 'Action Run successfully',
-        ]];
+        if (request()->method() == 'GET') {
+            return $response;
+        } else {
+            return ['message' => [
+                'type' => 'success',
+                'title' => 'Action Run successfully',
+            ]];
+        }
     }
 
     public function storeItem()

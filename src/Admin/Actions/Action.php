@@ -30,6 +30,14 @@ class Action implements JsonSerializable
     public $modal = true;
 
     /**
+     * sent api request if redirect = false.
+     * make http link if redirect = true
+     *
+     * @var string
+     */
+    public $redirect = false;
+
+    /**
      * Indicates whether action should be pushed to queue.
      *
      * @var bool
@@ -126,6 +134,16 @@ class Action implements JsonSerializable
     }
 
     /**
+     * Get redirect attribute for the action.
+     *
+     * @return bool
+     */
+    protected function redirect()
+    {
+        return $this->redirect;
+    }
+
+    /**
      * Get modal attribute for the action.
      *
      * @return bool
@@ -173,6 +191,7 @@ class Action implements JsonSerializable
             'action_button' => $this->actionButton(),
             'type' => $this->type(),
             'modal' => $this->modal(),
+            'redirect' => $this->redirect(),
         ];
     }
 }

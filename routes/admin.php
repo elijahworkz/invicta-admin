@@ -14,6 +14,7 @@ Route::controller(AdminController::class)->group(function () {
 });
 
 Route::controller(ResourceController::class)->name('resource.')->prefix('/resource/')->group(function () {
+    Route::get('{resource}/actions', 'handleRedirectActions')->name('handle-redirect-actions');
     Route::get('{resource}', 'index')->name('index');
     Route::delete('{resource}', 'destroy')->name('destroy');
     Route::get('{resource}/create', 'create')->name('create');

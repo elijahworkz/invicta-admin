@@ -25,11 +25,6 @@ class GlobalSetting extends Model
     /**
      * @var string[]
      */
-    protected $hidden = ['id'];
-
-    /**
-     * @var string[]
-     */
     protected $casts = [
         'data' => 'array',
     ];
