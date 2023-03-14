@@ -6,7 +6,7 @@ use Eteacher\InvictaAdmin\Admin\Actions\Action;
 
 class ImpersonateUser extends Action
 {
-    public $redurect = true;
+    public $redirect = true;
 
     public function handle($fields, $models, $user)
     {
