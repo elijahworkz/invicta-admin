@@ -16,6 +16,8 @@ class AssetRequest extends InvictaRequest
                 'meta' => [
                     ...request()->only('search', 'filters'),
                     'filterBadges' => $resourceClass->filterBadges(),
+                    'columns' => $resourceClass->indexColumns(),
+                    'table' => $resourceClass->indexTableSettings(),
                 ],
             ]);
 
@@ -23,15 +25,19 @@ class AssetRequest extends InvictaRequest
             return $collection;
         }
 
+        $user = request()->user();
+
         return [
             'title' => $resourceClass->menuTitle(),
             'resource' => $collection,
             'settings' => [
-                'columns' => $resourceClass->indexColumns(),
-                'table' => $resourceClass->indexTableSettings(),
                 'handle' => $resourceClass->handle(),
                 'sortable' => $resourceClass->sortable(),
                 'resourceUrl' => route('invicta.api.assets.index'),
+                'multiUpload' => config('invicta.assets_multi_upload'),
+                'canCreate' => $user->can('create assets'),
+                'canEdit' => $user->can('edit assets'),
+                'canDelete' => $user->can('delete assets'),
             ],
         ];
     }

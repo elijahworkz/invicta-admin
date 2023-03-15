@@ -3,7 +3,7 @@
 		<div class="flex items-center justify-start p-3">
 			<div class="mr-2">Total: <strong>{{ assetsResource.total }}</strong></div>
 			<div class="ml-auto flex items-center">
-				<div v-show="canDelete" class="ml-3" title="Delete Selected">
+				<div v-show="settings.canDelete" class="ml-3" title="Delete Selected">
 					<el-button :icon="Delete" @click="handleBulkDelete" :disabled="!selectedRows.length" />
 				</div>
 			</div>
@@ -13,10 +13,9 @@
 			:key="settings.slug"
 			resource-handle="assets"
 			:data="assetsResource.resourceData"
-			:table-props="settings.table"
-			:columns="settings.columns"
-			:can-edit="canEdit"
-			:can-delete="canDelete"
+			:columns="columns"
+			:can-edit="settings.canEdit"
+			:can-delete="settings.canDelete"
 			@select="handleSelect"
 			@edit="$emit('edit', $event)"
 			@delete="handleDelete" />
@@ -28,8 +27,7 @@ import { Delete } from '@element-plus/icons-vue'
 
 const props = defineProps({
 	settings: Object,
-	canEdit: Boolean,
-	canDelete: Boolean,
+	columns: Object,
 })
 
 const assetsResource = useResource(props.settings.handle)

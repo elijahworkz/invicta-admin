@@ -67,7 +67,7 @@
 		</el-card>
 	</div>
 
-	<ActionsModal :actions-url="actionsUrl"	/>
+	<ActionsModal :actions-url="actionsUrl" />
 
 	<Drawer v-if="drawer" @close="drawer = false">
 		<el-scrollbar>
@@ -76,7 +76,7 @@
 					class="mx-auto"
 					:form-id="resourceFormId"
 					:resource="resourceItem"
-					:action-url="resourceItem.meta.actionUrl"
+					:action-url="actionsUrl"
 					:api="apiSubmit"
 					:post-submit-actions="['close']">
 				</FormBase>
@@ -104,6 +104,7 @@ const apiSubmit = ref(false)
 /* Handle Actions */
 const actions = ref([])
 const actionsUrl = `${settings.resourceUrl}/actions`
+
 onMounted(() => {
 	Invicta.on('action-called', actionCalled)
 
@@ -125,26 +126,26 @@ const bulkActions = computed(() => {
 	return actions.value.filter((el) => el.type == 'bulk')
 })
 
-const actionCalled = (event) => {
-	console.log('action-called', event);
-	if (event.action.modal) {
-		Invicta.emit('show-action-modal', event)
+const actionCalled = ({action, selected}) => {
+	console.log('action-called', action, action.modal);
+	if (action.modal) {
+		Invicta.emit('show-action-modal', {action, selected})
 	} else {
 
 		apiSubmit.value = {
-			class: event.action.class
+			class: action.class
 		}
 
 		let item = null
-		if (event.selected.length) {
-			apiSubmit.value.selected = event.selected
-			item = event.selected[0]
+		if (selected.length) {
+			apiSubmit.value.selected = selected
+			item = selected[0]
 		}
 
-		Invicta.axios.get(`${actionsUrl}/blueprint/${item}`, { params: {...event.action}})
+		Invicta.axios.get(`${actionsUrl}/blueprint/${item}`, { params: {...action}})
 			.then(({data}) => {
 				resourceItem.value = data
-				resourceFormId.value = `${data.handle}.${event.action.class}`
+				resourceFormId.value = `${data.handle}.${action.class}`
 				drawer.value = true
 			})
 

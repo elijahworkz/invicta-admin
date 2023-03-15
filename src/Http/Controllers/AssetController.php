@@ -14,13 +14,7 @@ class AssetController extends Controller
     {
         $this->authorize('view assets');
 
-        return Inertia::render('Assets/Index', [
-            ...$request->assetList(),
-            'multiUpload' => config('invicta.assets_multi_upload'),
-            'can-create' => request()->user()->can('create assets'),
-            'can-edit' => request()->user()->can('edit assets'),
-            'can-delete' => request()->user()->can('delete assets'),
-        ]);
+        return Inertia::render('Assets/Index', $request->assetList());
     }
 
     public function destroy(Request $request)

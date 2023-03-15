@@ -1,6 +1,6 @@
 <template>
 	<div class="p-4">
-		<Uploader v-if="!selector" type="drag" :multiple="multiple" />
+		<Uploader v-if="!selector" type="drag" :multiple="settings.multiUpload" />
 		<div class="assets-grid">
 			<div class="asset-card"
 				v-for="(item, index) in resourceList"
@@ -27,7 +27,7 @@
 								<DocumentCopy/>
 							</span>
 							<span
-								v-if="item.type == 'image' && canEdit" 
+								v-if="item.type == 'image' && settings.canEdit" 
 								class="preview-item" 
 								@click="$emit('edit', item)" 
 								title="Click to preview image">
@@ -37,7 +37,7 @@
 								<SvgIcon :icon="mdiOpenInNew"/>
 							</span>
 							<span 
-								v-if="canDelete"
+								v-if="settings.canDelete"
 								class="delete-item" 
 								@click="handleDelete([item.id])" 
 								title="Click to delete image">
@@ -65,9 +65,7 @@ import { DocumentCopy, Delete, Edit, Picture as IconPicture } from '@element-plu
 
 const props = defineProps({
 	resource: Object,
-	canEdit: Boolean,
-	canDelete: Boolean,
-	multiple: Boolean,
+	settings: Object,
 	selector: {
 		type: Boolean,
 		default: false

@@ -23,15 +23,12 @@
 
 			<ListView v-if="layout == 'list'"
 				:settings="settings"
-				:can-edit="canEdit"
-				:can-delete="canDelete"
+				:columns="resource.meta.columns"
 				@edit="handleEdit" />
 
 			<GridView v-if="layout == 'grid'" 
 				:resource="resourceIndex.resourceData"
-				:can-edit="canEdit"
-				:can-delete="canDelete" 
-				:multiple="multiUpload" 
+				:settings="settings"
 				@edit="handleEdit" />
 
 			<div class="flex items-center justify-between p-3 mt-2">
@@ -60,7 +57,7 @@
 import { UploadFilled } from '@element-plus/icons-vue'
 import { mdiViewGridOutline, mdiFormatListText } from '@mdi/js';
 
-const { title, resource, settings, multiUpload, canCreate, canEdit, canDelete } = usePage().props
+const { title, resource, settings } = usePage().props
 const resourceIndex = useResource(settings.handle)
 resourceIndex.init(settings.resourceUrl, resource)
 

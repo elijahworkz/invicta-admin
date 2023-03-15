@@ -170,7 +170,7 @@ const addChild = (event) => {
 function selectItems(handle) {
 	drawer.context = 'list'
 	titleField.value = props.resources[handle].titleField
-	itemsUrl.value = `/resource/${handle}/items`
+	itemsUrl.value = `/api/resource/${handle}/items`
 	drawer.state = true
 }
 

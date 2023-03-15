@@ -229,7 +229,6 @@ class ResourceRequest extends InvictaRequest
 
         return [
             'meta' => [
-                'actionUrl' => route('invicta.api.resource.handle-actions', ['resource' => $handle]),
                 'handle' => $handle,
                 'titleField' => $resourceClass->titleField,
                 'pageTitle' => $action->name(),

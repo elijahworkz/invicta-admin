@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 class EditJsonField extends Action
 {
-    public $type = 'bulk';
+    public $type = 'inline';
 
     public $modal = false;
 
