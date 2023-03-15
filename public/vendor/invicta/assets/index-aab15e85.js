@@ -1,1 +1,0 @@
-import{D as o}from"./base-efd572b7.js";import{a as r,c as a}from"./runtime-core.esm-bundler-1c6b45c9.js";const t=r(0),c=()=>{const e=o("zIndex",2e3),n=a(()=>e.value+t.value);return{initialZIndex:e,currentZIndex:n,nextZIndex:()=>(t.value++,n.value)}};export{c as u};
