@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.2.1](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.2.0...v0.2.1) (2023-03-15)
+
+### Bug Fixes
+
+* Assets index, actions form submits and nav items selects ([32b490](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/32b490cefe01aeabcf43a76523809e7afce3bb6f))
+
+
+---
+
 ## [0.2.0](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.1.0...v0.2.0) (2023-03-15)
 
 ### Bug Fixes
