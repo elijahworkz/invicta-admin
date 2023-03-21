@@ -38,7 +38,7 @@
 <script setup>
 import { useForm } from "@inertiajs/vue3";
 
-const actionUrl = 'cache/clear'
+const actionUrl = 'api/cache/clear'
 
 const form = useForm({
 	'tag': '',
