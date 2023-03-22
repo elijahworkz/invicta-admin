@@ -327,7 +327,7 @@ class ResourceRequest extends InvictaRequest
         $relatedFields = [];
 
         // Fix for 'data' column issue
-        if (isset($validated['_data'])) {
+        if (array_key_exists('_data', $validated)) {
             $validated['data'] = $validated['_data'];
             unset($validated['_data']);
         }
