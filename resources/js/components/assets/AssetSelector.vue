@@ -21,7 +21,7 @@
 			<ResourceTable
 				v-if="!loading && layout == 'list'"
 				resource-handle="assets"
-				:data="itemsResource.resource"
+				:data="itemsResource.resourceData"
 				:columns="itemsResource.columns"
 				:no-actions="true"
 				:single-select="true"
@@ -29,7 +29,7 @@
 			/>
 
 			<GridView v-if="!loading && layout == 'grid'" 
-				:resource="itemsResource.resource"
+				:resource="itemsResource.resourceData"
 				:selector="true"
 				@asset-selected="gridSelect"/>
 
@@ -80,7 +80,7 @@ onMounted(() => {
 	Invicta.axios.get('api/assets')
 		.then(({data}) => {
 			loading.value = false
-			itemsResource.init('assets', data, true)
+			itemsResource.init('api/assets', data, true)
 		})
 })
 
