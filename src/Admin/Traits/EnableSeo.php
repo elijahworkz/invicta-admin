@@ -13,10 +13,10 @@ trait EnableSeo
             'id' => 'seo',
             'title' => 'SEO',
             'fields' => [
-            	[
-            	    'id' => 'uri',
-            	    'type' => 'hidden'
-            	],
+                [
+                    'id' => 'uri',
+                    'type' => 'hidden',
+                ],
                 [
                     'id' => 'seo',
                     'type' => 'json',
