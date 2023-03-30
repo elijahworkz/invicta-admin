@@ -24,20 +24,28 @@ const fieldValue = field.value('')
 const resourceForm = useResourceForm(props.formId)
 
 const source = computed(() => {
-	if(props.data.props && props.data.props.source) {
+	if (props.data.props && props.data.props.source) {
 		return resourceForm.get(props.data.props.source)
 	}
 	return null
 })
 
-function updateValue(newVal) {
-	if(resourceForm.mode == 'create') {
-		let postfix = props.data.props && props.data.props.postfix ? props.data.props.postfix : ''
-		fieldValue.value = newVal + postfix
+const postfix = computed(() => {
+	const separator = props.data.props?.separator ? ` ${props.data.props.separator} ` : ' | '
+	return props.data.props?.site_name ? separator + props.data.props.site_name : ''
+})
 
-		console.log(fieldValue.value);
+function updateValue(newVal) {
+	if (resourceForm.mode == 'create') {
+		fieldValue.value = newVal + postfix.value
 	}
 }
+
+onMounted(() => {
+	if (resourceForm.mode == 'edit' && ! fieldValue.value) {
+		fieldValue.value = source.value ? source.value + postfix.value : props.data.props?.site_name
+	}
+})
 
 watch(source, (newVal) => {
 	updateValue(newVal)

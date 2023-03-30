@@ -17,15 +17,16 @@ const props = defineProps({
 })
 
 const resourceForm = useResourceForm(props.formId)
-const uri = resourceForm.data?.uri
+// const uri = resourceForm.data?.uri
+const uri = computed(() => resourceForm.get('uri') ?? '')
 const slug = computed(() => resourceForm.get('slug') ?? '')
 
 const previewUri = computed(() => {
-	if (! uri) {
+	if (! uri.value) {
 		return slug.value
 	}
 
-	let uriParts = uri.split('/')
+	let uriParts = uri.value.split('/')
 
 	uriParts[uriParts.length - 1] = slug.value
 
@@ -38,7 +39,7 @@ const preview = computed( () => {
 	const descriptionFieldName = props.data.props && props.data.props.descriptionField ? props.data.props.descriptionField : 'seo.description'
 	return {
 		title: resourceForm.get(titleFieldName),
-		url: Invicta.config.appUrl + '/' + previewUri.value,
+		url: Invicta.config.appUrl + previewUri.value,
 		description: resourceForm.get(descriptionFieldName)
 	}
 })
