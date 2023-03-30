@@ -144,7 +144,6 @@ const childActions = map(props.resources, (item, handle) => {
 })
 childActions.push({ name: 'Custom Link', action: 'custom', divider: true })
 childActions.push({ name: 'Remove Item', action: 'remove', danger: true })
-childActions.push({ name: 'Change Comment Name', action: 'remove', danger: true })
 
 const handleCommand = (command) => {
 	if (command == 'custom') {

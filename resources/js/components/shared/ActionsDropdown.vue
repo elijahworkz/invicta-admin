@@ -6,7 +6,11 @@
 					<SvgIcon :icon="mdiDotsHorizontal" :width="18" />
 				</span>
 			</template>
-			<template #default="{ close }">				
+			<template #default="{ close }">
+				<template v-if="title">
+					<p class="text-center my-2 opacity-60">{{ title }}</p>
+					<div class="divider"></div>
+				</template>
 				<ul>
 					<template v-for="action in actions">
 						<li @click="handleActionClick(action); close()"
@@ -27,7 +31,8 @@ import { mdiDotsHorizontal } from '@mdi/js'
 
 const props = defineProps({
 	actions: Array,
-	item: Number | Object
+	item: Number | Object,
+	title: String
 })
 const emit = defineEmits(['close', 'selected'])
 const actionsDropdown = ref()

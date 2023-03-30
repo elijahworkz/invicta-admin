@@ -14,6 +14,10 @@ trait EnableSeo
             'title' => 'SEO',
             'fields' => [
                 [
+                    'id' => 'uri',
+                    'type' => 'hidden',
+                ],
+                [
                     'id' => 'seo',
                     'type' => 'json',
                     'fields' => [
@@ -30,7 +34,8 @@ trait EnableSeo
                             'id' => 'title',
                             'type' => 'meta',
                             'props' => [
-                                'postfix' => $seoTitleSeparator.$seoSiteName,
+                                'separator' => $seoTitleSeparator,
+                                'site_name' => $seoSiteName,
                                 'source' => $this->titleField,
                             ],
                         ],

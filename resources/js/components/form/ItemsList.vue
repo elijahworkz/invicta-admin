@@ -13,6 +13,7 @@
 				<component
 					:is="ItemListComponent"
 					:item="element"
+					:index="index"
 					:title-field="titleField"
 					:can-edit="canEditItem"
 					@edit="handleEditItem"
