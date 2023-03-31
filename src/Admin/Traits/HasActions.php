@@ -16,8 +16,15 @@ trait HasActions
 
     public function resourceActions($user, $model)
     {
-        return collect($this->allActions())->filter(function ($action) use ($user, $model) {
-            return $action->inline() && $action->authorize($user, $model);
-        })->values();
+        return collect($this->allActions())
+            ->filter(function ($action) use ($user, $model) {
+                if ($action->inline() && $action->authorize($user, $model)) {
+                    $action->setItem($model);
+
+                    return true;
+                }
+
+                return false;
+            })->values();
     }
 }

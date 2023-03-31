@@ -59,6 +59,8 @@ class Action implements JsonSerializable
      */
     public $actionButton = 'Run Action';
 
+    protected $item;
+
     /**
      * Perform the action on the given models.
      *
@@ -165,7 +167,12 @@ class Action implements JsonSerializable
 
     protected function getBlueprint()
     {
-        return $this->modal() ? $this->blueprint() : [];
+        return $this->modal() ? $this->blueprint($this->item) : [];
+    }
+
+    public function setItem($item)
+    {
+        $this->item = $item;
     }
 
     /**
