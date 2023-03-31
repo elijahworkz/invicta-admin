@@ -159,6 +159,7 @@ class ResourceRequest extends InvictaRequest
                 'indexTitle' => $resourceClass->menuTitle(),
                 'titleField' => $resourceClass->titleField,
                 'pageTitle' => $resourceClass->viewTitle($item),
+                'itemUrl' => (! empty($item->uri)) ? url($item->uri) : null,
             ],
             'localizations' => $resourceClass->localizible() ? $resourceClass->localesForEdit($item) : null,
             'blueprint' => request()->has('blueprint')
