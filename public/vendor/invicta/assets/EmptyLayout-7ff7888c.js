@@ -1,0 +1,1 @@
+import{g as t,o as a,c as o,H as s}from"./main-8a3d2edb.js";const n={class:"app-empty"},_={__name:"EmptyLayout",setup(c){return t(()=>document.body.classList.add("app-ready")),(e,p)=>(a(),o("main",n,[s(e.$slots,"default")]))}};export{_};

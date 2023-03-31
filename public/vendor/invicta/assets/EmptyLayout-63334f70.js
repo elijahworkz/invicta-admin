@@ -1,1 +1,0 @@
-import{o as t,b as a,l as o,k as s}from"./runtime-core.esm-bundler-71a52f09.js";const n={class:"app-empty"},_={__name:"EmptyLayout",setup(p){return t(()=>document.body.classList.add("app-ready")),(e,r)=>(a(),o("main",n,[s(e.$slots,"default")]))}};export{_};

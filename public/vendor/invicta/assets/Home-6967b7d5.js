@@ -1,1 +1,0 @@
-import{l as s,m as n,g as e,t as o,u as c,F as r,b as l,v as m}from"./runtime-core.esm-bundler-71a52f09.js";const _={class:"py-6 px-10"},v={__name:"Home",setup(p){const t=Invicta.user.name;return(i,u)=>{const a=m("Head");return l(),s(r,null,[n(a,{title:"Invicta Admin"}),e("div",_,[e("h1",null,"Welcome, "+o(c(t)),1)])],64)}}};export{v as default};
