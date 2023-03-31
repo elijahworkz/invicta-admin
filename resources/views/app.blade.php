@@ -42,9 +42,9 @@
         #app { display: none; }
         .app-ready .loading { display: none; }
         .app-ready #app { display: flex; }
-        .pulse { 
-            -webkit-animation: pulsate 2s ease-out; 
-            -webkit-animation-iteration-count: infinite; 
+        .pulse {
+            -webkit-animation: pulsate 2s ease-out;
+            -webkit-animation-iteration-count: infinite;
             opacity: 0.5;
         }
         @-webkit-keyframes pulsate {

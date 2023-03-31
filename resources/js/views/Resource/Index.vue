@@ -127,7 +127,7 @@ const bulkActions = computed(() => {
 })
 
 const actionCalled = ({action, selected}) => {
-	console.log('action-called', action, action.modal);
+	// console.log('action-called', action, action.modal);
 	if (action.modal) {
 		Invicta.emit('show-action-modal', {action, selected})
 	} else {

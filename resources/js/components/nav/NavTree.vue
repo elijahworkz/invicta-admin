@@ -15,7 +15,7 @@
 					<ActionsDropdown 
 						:actions="childActions" 
 						:item="{index, ...element}"
-						title="Child Item"
+						title="New Child Item"
 						@selected="handleAction" 
 						class="ml-3" />
 				</div>

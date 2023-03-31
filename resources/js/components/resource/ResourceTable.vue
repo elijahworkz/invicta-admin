@@ -44,7 +44,7 @@
 
 				<template #default="scope">
 					<RowActions 
-						:id="scope.row.id" 
+						:id="scope.row.id"
 						:actions="scope.row.actions || []" 
 						:can-edit="canEdit" 
 						:can-delete="canDelete"
