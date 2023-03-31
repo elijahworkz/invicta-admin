@@ -4,6 +4,20 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.3.0](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.2.3...v0.3.0) (2023-03-31)
+
+### Features
+
+* Add itemUrl to resources ([d5315c](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/d5315c71d88e78d6966520a6a6162f48d2374e0d))
+* Inline actions receive model for use in blueprint ([ff3350](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/ff3350a0769ee2eb8f07fb8e67f73ec8437e7991))
+
+### Bug Fixes
+
+* Pinia error when creating resourceform for action class ([5cab55](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/5cab5599b5d3014e3aef04f783248645497595b7))
+
+
+---
+
 ## [0.2.3](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.2.2...v0.2.3) (2023-03-23)
 
 ### Bug Fixes
