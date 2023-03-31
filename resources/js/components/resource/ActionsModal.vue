@@ -58,7 +58,7 @@ const actionButtonTitle = computed(() => {
 
 Invicta.on('show-action-modal', (event) => {
 	action.value = event.action
-	formId.value = `action.${event.action.name}`
+	formId.value = `action.${event.action.class}`
 	selected.value = event.selected || []
 	open.value = true
 })
