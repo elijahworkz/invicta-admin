@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.4.0](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.3.0...v0.4.0) (2023-04-08)
+
+### Features
+
+* Asset hooks and actions ([608917](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/608917f6b3a3abdd119675743cd7f515ff5ab5bb))
+
+
+---
+
 ## [0.3.0](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.2.3...v0.3.0) (2023-03-31)
 
 ### Features
