@@ -30,13 +30,15 @@ const props = defineProps({
 	columns: Object,
 })
 
+const emit = defineEmits('select')
+
 const assetsResource = useResource(props.settings.handle)
 
 /* Setup Selection */
 const selectedRows = ref([])
 const handleSelect = (selection) => {
-	console.log('selection', selection)
 	selectedRows.value = selection.map(row => row.id)
+	emit('select', selection)
 }
 
 /* Handle Delete Actions */

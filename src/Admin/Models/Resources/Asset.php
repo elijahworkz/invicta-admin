@@ -3,6 +3,7 @@
 namespace Eteacher\InvictaAdmin\Admin\Models\Resources;
 
 use Eteacher\InvictaAdmin\Admin\Components\Column;
+use Eteacher\InvictaAdmin\Admin\Models\Asset as AssetModel;
 use Eteacher\InvictaAdmin\Admin\Resources\Resource;
 use Illuminate\Support\HtmlString;
 
@@ -64,5 +65,15 @@ class Asset extends Resource
             'type' => Column::make('Type')->align('center'),
             'created' => Column::make('Uploaded')->sortable(),
         ];
+    }
+
+    public function actions()
+    {
+        return AssetModel::$resourceActions;
+    }
+
+    public function fieldActions()
+    {
+        return AssetModel::$fieldActions;
     }
 }

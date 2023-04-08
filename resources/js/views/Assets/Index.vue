@@ -7,6 +7,18 @@
 				<Search :currentSearch="resource.meta.search" :handle="settings.handle" />
 			</div>
 			<div class="ml-auto">
+				<Actions
+					v-if="bulkActions.length && selectedRows.length"
+					:actions="bulkActions"
+					:selected="selectedRows"
+					name="Bulk Actions"
+				/>
+				<Actions
+					v-if="globalActions.length"
+					:global="true"
+					:actions="globalActions"
+					name="Global Actions"
+				/>
 				<el-button-group class="mr-2" >
 					<el-button @click="setLayout('list')" title="List view" :active="layout == 'list'">
 						<SvgIcon :icon="mdiFormatListText" :width="16" />
@@ -16,7 +28,7 @@
 					</el-button>
 				</el-button-group>
 
-				<Uploader v-show="canCreate" :multiple="multiUpload" />
+				<Uploader v-show="settings.canCreate" :multiple="settings.multiUpload" />
 			</div>
 		</div>
 		<el-card body-style="padding: 0px">
@@ -24,6 +36,7 @@
 			<ListView v-if="layout == 'list'"
 				:settings="settings"
 				:columns="resource.meta.columns"
+				@select="handleSelect"
 				@edit="handleEdit" />
 
 			<GridView v-if="layout == 'grid'" 
@@ -48,6 +61,8 @@
 		</el-card>
 	</div>
 
+	<ActionsModal :actions-url="actionsUrl" />
+
 	<Drawer v-if="drawer" @close="drawer = false">
 		<AssetForm :asset="currentAsset" @close="drawer = false"/>
 	</Drawer>
@@ -66,10 +81,64 @@ const layout = ref()
 
 onMounted(() => {
 	layout.value = Invicta.remember('media-layout') || 'grid'
+
+	Invicta.on('action-called', actionCalled)
+
+	Invicta.axios.get(actionsUrl)
+		.then(({data}) => {
+			actions.value = data
+		})
 })
 const setLayout = (type) => {
 	layout.value = type
 	Invicta.remember('media-layout', type)
+}
+
+/* Setup Selection */
+const selectedRows = ref([])
+const handleSelect = (selection) => {
+	selectedRows.value = selection.map(row => row.id)
+}
+
+/* Handle Actions */
+const actions = ref([])
+const actionsUrl = `${settings.resourceUrl}/actions`
+
+onUnmounted( () => {
+	Invicta.off('action-called', actionCalled)
+})
+
+const globalActions = computed(() => {
+	return actions.value.filter((el) => el.type == 'global')
+})
+
+const bulkActions = computed(() => {
+	return actions.value.filter((el) => el.type == 'bulk')
+})
+
+const actionCalled = ({action, selected}) => {
+	// console.log('action-called', action, action.modal);
+	if (action.modal) {
+		Invicta.emit('show-action-modal', {action, selected})
+	} else {
+
+		apiSubmit.value = {
+			class: action.class
+		}
+
+		let item = null
+		if (selected.length) {
+			apiSubmit.value.selected = selected
+			item = selected[0]
+		}
+
+		Invicta.axios.get(`${actionsUrl}/blueprint/${item}`, { params: {...action}})
+			.then(({data}) => {
+				resourceItem.value = data
+				resourceFormId.value = `${data.handle}.${action.class}`
+				drawer.value = true
+			})
+	}
 }
 
 /* Editing */

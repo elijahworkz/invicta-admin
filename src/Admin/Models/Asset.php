@@ -12,7 +12,11 @@ class Asset extends Model
         'name', 'type', 'path', 'size', 'size_human', 'extension', 'width', 'height', 'alt',
     ];
 
-    protected static $enableCloudinary = false;
+    protected static $afterSaveHook;
+
+    public static $resourceActions = [];
+
+    public static $fieldActions = [];
 
     public function src()
     {
@@ -51,45 +55,21 @@ class Asset extends Model
         $debug = ['image' => $image, 'document' => $document, 'audio' => $audio, 'mime' => $mime];
 
         if ($image !== false) {
-            // Send to Cloudinary ?
-            if (! self::$enableCloudinary || in_array($fileinfo['extension'], ['svg', 'ico', 'gif'])) {
-                $result = false;
-            } else {
-                $result = CloudinaryService::upload($file_path, $filename);
-            }
+            $filesize = filesize($file);
+            [$width, $height] = getimagesize($file);
 
-            if ($result) {
-                $contents = file_get_contents($result['url']);
+            $item = [
+                'name' => $filename,
+                'path' => $path.$filename,
+                'type' => 'image',
+                'extension' => $fileinfo['extension'],
+                'size' => ($filesize != 0) ? $filesize : 0,
+                'size_human' => ($filesize != 0) ? self::formatBytes($filesize, 0) : 0,
+                'width' => $width ?? 0,
+                'height' => $height ?? 0,
+            ];
 
-                $item = [
-                    'name' => $filename,
-                    'path' => $path.$filename,
-                    'type' => 'image',
-                    'extension' => $result['format'],
-                    'size' => ($result['bytes'] != 0) ? $result['bytes'] : 0,
-                    'size_human' => ($result['bytes'] != 0) ? self::formatBytes($result['bytes'], 0) : 0,
-                    'width' => $result['width'],
-                    'height' => $result['height'],
-                ];
-
-                $storage->put($path.$filename, $contents);
-            } else {
-                $filesize = filesize($file);
-                [$width, $height] = getimagesize($file);
-
-                $item = [
-                    'name' => $filename,
-                    'path' => $path.$filename,
-                    'type' => 'image',
-                    'extension' => $fileinfo['extension'],
-                    'size' => ($filesize != 0) ? $filesize : 0,
-                    'size_human' => ($filesize != 0) ? self::formatBytes($filesize, 0) : 0,
-                    'width' => $width ?? 0,
-                    'height' => $height ?? 0,
-                ];
-
-                $storage->putFileAs($path, $file, $filename);
-            }
+            $storage->putFileAs($path, $file, $filename);
         } else {
             $folder = ($audio !== false) ? 'audio' : 'documents';
             $type = ($audio !== false) ? 'audio' : 'document';
@@ -115,6 +95,8 @@ class Asset extends Model
         // Save to DB
         $asset = self::create($item);
 
+        $asset = self::afterSave($asset);
+
         return response()->json([
             'asset' => [
                 'id' => $asset->id,
@@ -124,6 +106,7 @@ class Asset extends Model
                 'name' => $asset->name,
                 'width' => $asset->width,
                 'height' => $asset->height,
+                'size' => $asset->size,
             ],
             'message' => [
                 'type' => 'success',
@@ -152,5 +135,29 @@ class Asset extends Model
         $fullPathArray = [...$pathArray, ...$folderArray];
 
         return Str::of(implode('/', $fullPathArray))->start('/')->finish('/');
+    }
+
+    public static function resourceActions($actions)
+    {
+        static::$resourceActions = $actions;
+    }
+
+    public static function fieldActions($actions)
+    {
+        static::$fieldActions = $actions;
+    }
+
+    public static function runAfterSave($hook)
+    {
+        static::$afterSaveHook = $hook;
+    }
+
+    private static function afterSave($asset)
+    {
+        if ($hook = static::$afterSaveHook) {
+            $asset = $hook::run($asset);
+        }
+
+        return $asset;
     }
 }

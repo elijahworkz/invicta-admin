@@ -4,11 +4,17 @@
 			<div class="asset" @click="editAsset">
 				<img :src="fieldValue.src" />
 			</div>
-			<div class="asset-details">
+			<div class="asset-details mr-auto">
 				<strong>{{ fieldValue.name }}</strong>
-				{{ fieldValue.width }}x{{ fieldValue.height }} | {{ fieldValue.alt ? fieldValue.alt : 'No Alt!' }}
+				{{ fieldValue.width }}x{{ fieldValue.height }} | {{ fieldValue.size ? formatBytes(fieldValue.size) : 'n/a' }} {{ fieldValue.alt ? fieldValue.alt : 'No Alt!' }}
 			</div>
-			<el-icon class="ml-auto mr-3 action-icon" @click="fieldValue = null" v-if="!field.disabled"><Delete/></el-icon>
+			<ActionsDropdown
+				v-if="resourceForm.assetActions.length"
+				:actions="resourceForm.assetActions" 
+				:item="fieldValue" 
+				@selected="handleFieldAction" 
+				class="mr-3" />
+			<el-icon class="mr-3 action-icon" @click="fieldValue = null" v-if="!field.disabled"><Delete/></el-icon>
 		</div>
 		<Uploader 
 			v-else-if="!field.disabled" 
@@ -36,7 +42,9 @@
 </template>
 
 <script setup>
-import { Delete } from '@element-plus/icons-vue'
+import { formatBytes } from '@/utils/functions'
+import { Delete, Picture } from '@element-plus/icons-vue'
+import { mdiLightningBoltCircle } from '@mdi/js'
 
 const props = defineProps({
 	formId: String,
@@ -45,6 +53,8 @@ const props = defineProps({
 })
 const field = useFormField(props)
 const fieldValue = field.value()
+
+const resourceForm = useResourceForm(props.formId)
 
 const drawer = reactive({
 	state: false,
@@ -64,6 +74,34 @@ const editAsset = () => {
 	drawer.context = 'edit'
 	drawer.state = true
 }
+
+const handleFieldAction = ({action, item}) => {
+	console.log('action call', event)
+
+	ElMessageBox.confirm(
+		'Are you sure you want to run this action?',
+		action.name,
+		{
+			confirmButtonText: action.action_button,
+			cancelButtonText: 'Cancel',
+			confirmButtonClass: action.dangerous ? 'el-button--danger' : 'el-button--primary'
+		}
+	).then(() => {
+
+		let data = {
+			class: action.class,
+			asset: item, 
+		}
+
+		Invicta.axios.post('api/assets/actions', data)
+			.then(({data}) => {
+				Invicta.message(data.message)
+				fieldValue.value = data.asset
+			})
+	})
+	.catch(() => console.log('cancel'))
+}
+
 
 const openLibrary = () => {
 	drawer.context = 'library'

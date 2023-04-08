@@ -141,6 +141,22 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Enable conversion to webp for image assets
+    |--------------------------------------------------------------------------
+    |
+    | If enabled - it will save all uploaded image assets with webp extension.
+    | It needs a working lambda function to actually convert the images. In
+    | order to setup the function (if not already installed) - you need to run
+    | `php artisan invicta:imagetowebp` command which will install the function
+    | in your aws account. Function will need some variables which you need to
+    | provide here or in the .env file
+    |
+    */
+
+    'image_to_webp' => false,
+
+    /*
+    |--------------------------------------------------------------------------
     | Enable caching for blueprints
     |--------------------------------------------------------------------------
     |

@@ -37,4 +37,21 @@ class AssetController extends Controller
 
         $asset->update($validated);
     }
+
+    public function actions(AssetRequest $request)
+    {
+        return collect($request->resourceClass()->allActions())->filter(function ($action) {
+            return ! $action->inline();
+        })->values();
+    }
+
+    public function handleActions(AssetRequest $request)
+    {
+        return response()->json($request->processAction());
+    }
+
+    public function fieldActions(AssetRequest $request)
+    {
+        return $request->resourceClass()->fieldActions();
+    }
 }

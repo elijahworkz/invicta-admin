@@ -47,8 +47,13 @@ if (! function_exists('_asset')) {
 
         if (config('invicta.disk') == 's3') {
             $domain = config('filesystems.disks.s3.url');
+            $asset = Str::of($path);
 
-            return Str::of($path)->start('/')->prepend($domain);
+            if (config('invicta.image_to_webp')) {
+                $asset->finish('.webp');
+            }
+
+            return $asset->start('/')->prepend($domain);
         }
 
         return asset($path);

@@ -27,6 +27,7 @@ const defineResourceForm = (id) => defineStore(`resourceForm-${id}`, {
 			readOnly: true,
 			blueprint: {},
 			rules: {},
+			assetActions: [],
 			api: false,
 			errors: Invicta.errors
 		}
@@ -45,6 +46,7 @@ const defineResourceForm = (id) => defineStore(`resourceForm-${id}`, {
 			this.form = useForm(formData)
 
 			Invicta.emit('resource-form-ready')
+			this.getAssetActions()
 		},
 		get(id, defaultValue = null) {
 			let result = get(this.form, id, defaultValue)
@@ -198,6 +200,12 @@ const defineResourceForm = (id) => defineStore(`resourceForm-${id}`, {
 					}
 				})
 			}
+		},
+		getAssetActions() {
+			Invicta.axios.get('api/assets/field-actions')
+				.then(({data}) => {
+					this.assetActions = data
+				})
 		},
 		formData() {
 			return this.form

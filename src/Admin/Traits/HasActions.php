@@ -16,6 +16,7 @@ trait HasActions
 
     public function resourceActions($user, $model)
     {
+        // dump('resourceActions');
         return collect($this->allActions())
             ->filter(function ($action) use ($user, $model) {
                 if ($action->inline() && $action->authorize($user, $model)) {

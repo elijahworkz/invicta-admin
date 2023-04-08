@@ -75,6 +75,16 @@ class Action implements JsonSerializable
     }
 
     /**
+     * Perform action on a single item
+     *
+     * @param $item Single model or a model object
+     */
+    public function run($item)
+    {
+        // code...
+    }
+
+    /**
      * Get blueprint with fields if neccessary.
      *
      * @param  ModelInstance  $item available only for inline/drawer actions

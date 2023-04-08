@@ -69,3 +69,14 @@ export function intersectionBy (arr, ...args) {
     args.every((arr2)  => arr2.find(item2 => iteratee(item1) === iteratee(item2)))
   )
 }
+
+export function formatBytes(bytes, decimals) {
+   if (bytes == 0) return '0 B';
+
+   let k = 1024,
+       dm = decimals || 2,
+       sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+       i = Math.floor(Math.log(bytes) / Math.log(k));
+
+   return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+}
