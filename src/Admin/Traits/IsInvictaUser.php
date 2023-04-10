@@ -15,6 +15,10 @@ trait IsInvictaUser
 
     protected $permissions = null;
 
+    protected static $beforeSaveHook;
+
+    protected static $afterSaveHook;
+
     public function isDev(): bool
     {
         return $this->dev ?? false;
@@ -88,5 +92,15 @@ trait IsInvictaUser
         return Attribute::make(
             set: fn ($value) => $value ? Hash::make($value) : $this->password
         );
+    }
+
+    public static function runBeforeSave($hook)
+    {
+        static::$beforeSaveHook = $hook;
+    }
+
+    public static function runAfterSave($hook)
+    {
+        static::$afterSaveHook = $hook;
     }
 }

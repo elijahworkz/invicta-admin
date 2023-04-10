@@ -10,9 +10,7 @@ use Eteacher\InvictaAdmin\Admin\Traits\HasFilters;
 use Eteacher\InvictaAdmin\Admin\Traits\ListsItems;
 use Eteacher\InvictaAdmin\Admin\Traits\UpdatesRelationships;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class Resource extends JsonResource
@@ -168,44 +166,6 @@ class Resource extends JsonResource
     public function permissions()
     {
         return [];
-    }
-
-    public function updateResourceAsset($item, $fieldPath, $name = null)
-    {
-        $assetsPath = config('invicta.assets_path');
-        $root = Str::before($fieldPath, '.');
-        $last = Str::after($fieldPath, '.');
-
-        $fieldData = $item[$root];
-        $asset = Arr::get($fieldData, $last);
-
-        if ($asset) {
-            $extension = Str::afterLast($asset['name'], '.');
-
-            $assetName = $name
-                ? $name.'.'.$extension
-                : $item->id.'.'.$extension;
-
-            $assetPath = Str::of($assetsPath)
-                ->finish('/')
-                ->append($this->handle().'/')
-                ->append($assetName);
-
-            if ($asset['path'] != $assetPath) {
-                Storage::move($asset['path'], $assetPath);
-
-                $asset['name'] = $assetName;
-                $asset['path'] = $assetPath;
-                $asset['src'] = _asset($assetPath);
-
-                Arr::set($fieldData, $last, $asset);
-
-                $item[$root] = $fieldData;
-                $item->save();
-            }
-        }
-
-        return $item;
     }
 
     public function globalActions()

@@ -2,6 +2,7 @@
 
 namespace Eteacher\InvictaAdmin\Admin\Models\Resources;
 
+use App\Models\User as UserModel;
 use Carbon\Carbon;
 use Eteacher\InvictaAdmin\Admin\Components\Column;
 use Eteacher\InvictaAdmin\Admin\Models\Actions\ImpersonateUser;
@@ -155,8 +156,19 @@ class User extends Resource
         ];
     }
 
+    public function beforeSave($item, $action)
+    {
+        if ($hook = UserModel::$beforeSaveHook) {
+            $item = $hook::run($item, $action);
+        }
+
+        return $item;
+    }
+
     public function afterSave($item, $action)
     {
-        $this->updateResourceAsset($item, 'data.avatar');
+        if ($hook = UserModel::$afterSaveHook) {
+            $hook::run($item, $action);
+        }
     }
 }

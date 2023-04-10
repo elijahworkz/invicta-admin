@@ -12,6 +12,8 @@ class Asset extends Model
         'name', 'type', 'path', 'size', 'size_human', 'extension', 'width', 'height', 'alt',
     ];
 
+    protected static $beforeSaveHook;
+
     protected static $afterSaveHook;
 
     public static $resourceActions = [];
@@ -92,9 +94,13 @@ class Asset extends Model
             $storage->putFileAs($path, $file, $filename);
         }
 
+        // Run before save hook
+        $item = self::beforeSave($item);
+
         // Save to DB
         $asset = self::create($item);
 
+        // Run after save hook
         $asset = self::afterSave($asset);
 
         return response()->json([
@@ -147,9 +153,23 @@ class Asset extends Model
         static::$fieldActions = $actions;
     }
 
+    public static function runBeforeSave($hook)
+    {
+        static::$beforeSaveHook = $hook;
+    }
+
     public static function runAfterSave($hook)
     {
         static::$afterSaveHook = $hook;
+    }
+
+    private static function beforeSave($item)
+    {
+        if ($hook = static::$beforeSaveHook) {
+            $item = $hook::run($item);
+        }
+
+        return $item;
     }
 
     private static function afterSave($asset)
