@@ -52,7 +52,7 @@ const handleDelete = (selected) => {
 			confirmButtonClass: 'el-button--danger'
 		}
 	).then(() => {
-		// router.delete(props.resource.meta.path, {data: { selected }})
+		router.delete(props.resource.meta.path, {data: { selected }})
 	})
 	.catch(() => console.log('cancel'))
 }
