@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.4.2](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.4.1...v0.4.2) (2023-04-11)
+
+### Bug Fixes
+
+* Deleting asset was disabled ([6d6d18](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/6d6d1848266ee5a2fb3fe6eec6921d981c14d178))
+
+
+---
+
 ## [0.4.1](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.4.0...v0.4.1) (2023-04-10)
 
 
