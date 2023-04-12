@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.4.3](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.4.2...v0.4.3) (2023-04-12)
+
+### Bug Fixes
+
+* Deleting assets and refactor delete to api ([d70f55](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/d70f55dcc05ad4a2f4f538559de8f3edf2115dfe))
+
+
+---
+
 ## [0.4.2](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.4.1...v0.4.2) (2023-04-11)
 
 ### Bug Fixes
