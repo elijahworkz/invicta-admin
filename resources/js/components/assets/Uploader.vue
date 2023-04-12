@@ -113,7 +113,7 @@ function upload(file) {
 	let formData = new FormData()
 	formData.append('file', file)
 
-	if (props.folder != '') {
+	if (props.folder && props.folder != '') {
 		formData.append('folder', props.folder)
 	}
 

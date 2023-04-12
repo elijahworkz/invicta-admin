@@ -4,7 +4,8 @@
 			ref="resourceTableRef"
 			:data="data"
 			v-bind="tableProps"
-			:highlight-current-row="singleSelect"
+			highlight-current-row
+			@select="singleSelect"
 			@selection-change="$emit('select', $event)"
 			@current-change="$emit('single-select', $event)"
 			@sort-change="handleSortChange"

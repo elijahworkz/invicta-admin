@@ -148,12 +148,6 @@ const actionCalled = ({action, selected}) => {
 				resourceFormId.value = `${data.handle}.${action.class}`
 				drawer.value = true
 			})
-
-		// if (event.action.type == 'global') {
-		// 	resourceFormId.value = `${props.resource.handle}.${event.action.class}`
-		// 	drawer.value = true
-		// }
-
 	}
 }
 
@@ -202,9 +196,16 @@ const handleDelete = (selected) => {
 			confirmButtonClass: 'el-button--danger'
 		}
 	).then(() => {
-		router.delete(resource.meta.path, {data: { selected }})
+		Invicta.axios.delete(settings.resourceUrl, { data: { selected }})
+			.then(({data}) => {
+				Invicta.message(data.message)
+				resourceIndex.getResource()
+			})
+		// router.delete(resource.meta.path, {data: { selected }})
 	})
-	.catch(() => console.log('cancel'))
+	.catch((error) => {
+		console.log('cancel', error)
+	})
 }
 
 const handleBulkDelete = () => {

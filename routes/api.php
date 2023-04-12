@@ -8,6 +8,7 @@ use Eteacher\InvictaAdmin\Http\Controllers\DeploymentController;
 
 Route::controller(ResourceController::class)->name('resource.')->prefix('resource')->group(function () {
     Route::get('{resource}', 'index')->name('index');
+    Route::delete('{resource}', 'destroy')->name('destroy');
     Route::get('{resource}/create', 'create');
     Route::get('{resource}/filters', 'filters');
     Route::get('{resource}/actions', 'actions');
@@ -22,6 +23,7 @@ Route::controller(ResourceController::class)->name('resource.')->prefix('resourc
 Route::controller(AssetController::class)->name('assets.')->prefix('/assets/')->group(function () {
     Route::get('/', 'index')->name('index');
     Route::post('/', 'store')->name('store');
+    Route::delete('/', 'destroy')->name('destroy');
     Route::get('actions/', 'actions')->name('actions');
     Route::get('actions/blueprint/{item?}', 'actionBlueprint');
     Route::post('actions', 'handleActions')->name('handle-actions');

@@ -54,4 +54,20 @@ class AssetController extends Controller
     {
         return $request->resourceClass()->fieldActions();
     }
+
+    public function destroy(Request $request)
+    {
+        $this->authorize('delete assets');
+
+        Asset::whereIn('id', $request->selected)->delete();
+
+        $name = count($request->selected) > 1 ? 'assets' : 'asset';
+
+        return response()->json([
+            'message' => [
+                'type' => 'success',
+                'title' => 'Selected '.$name.' deleted',
+            ],
+        ]);
+    }
 }

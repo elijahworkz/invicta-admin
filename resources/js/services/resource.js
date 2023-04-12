@@ -207,5 +207,6 @@ const defineResource = (id) => defineStore(`resource-${id}`, () => {
 		setLocale,
 		currentLocale,
 		resourceData,
+		getResource
 	}
 })()

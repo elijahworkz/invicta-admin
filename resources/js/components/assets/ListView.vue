@@ -30,7 +30,7 @@ const props = defineProps({
 	columns: Object,
 })
 
-const emit = defineEmits('select')
+const emit = defineEmits(['select'])
 
 const assetsResource = useResource(props.settings.handle)
 
@@ -38,7 +38,7 @@ const assetsResource = useResource(props.settings.handle)
 const selectedRows = ref([])
 const handleSelect = (selection) => {
 	selectedRows.value = selection.map(row => row.id)
-	emit('select', selection)
+	emit('select', selectedRows.value)
 }
 
 /* Handle Delete Actions */
@@ -52,9 +52,15 @@ const handleDelete = (selected) => {
 			confirmButtonClass: 'el-button--danger'
 		}
 	).then(() => {
-		router.delete(props.resource.meta.path, {data: { selected }})
+		Invicta.axios.delete(props.settings.resourceUrl, { data: { selected }})
+			.then(({data}) => {
+				Invicta.message(data.message)
+				assetsResource.getResource()
+			})
 	})
-	.catch(() => console.log('cancel'))
+	.catch((error) => {
+		console.log('cancel', error)
+	})
 }
 
 const handleBulkDelete = () => {

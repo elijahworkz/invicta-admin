@@ -58,4 +58,20 @@ class ResourceController extends Controller
     {
         return $request->itemUri();
     }
+
+    public function destroy(ResourceRequest $request)
+    {
+        $this->authorize('delete '.$request->handle());
+
+        // ResourceRequest $request
+        $resource = $request->resourceClass();
+        $resource->model()->whereIn('id', request()->selected)->delete();
+
+        return response()->json([
+            'message' => [
+                'type' => 'success',
+                'title' => 'Selected '.$resource->handle().' deleted',
+            ],
+        ]);
+    }
 }

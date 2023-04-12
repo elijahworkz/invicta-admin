@@ -113,20 +113,6 @@ class ResourceController extends Controller
         }
     }
 
-    public function destroy(ResourceRequest $request)
-    {
-        $this->authorize('delete '.$request->handle());
-
-        // ResourceRequest $request
-        $resource = $request->resourceClass();
-        $resource->model()->whereIn('id', request()->selected)->delete();
-
-        return Redirect::back()->with('message', [
-            'type' => 'success',
-            'title' => 'Selected '.$resource->handle().' deleted',
-        ]);
-    }
-
     public function handleRedirectActions(ResourceRequest $request)
     {
         return $request->processAction();

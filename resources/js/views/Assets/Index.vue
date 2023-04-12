@@ -97,7 +97,7 @@ const setLayout = (type) => {
 /* Setup Selection */
 const selectedRows = ref([])
 const handleSelect = (selection) => {
-	selectedRows.value = selection.map(row => row.id)
+	selectedRows.value = selection //.map(row => row.id)
 }
 
 /* Handle Actions */
