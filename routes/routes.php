@@ -25,7 +25,7 @@ Route::middleware(['invicta'])
     });
 
 // API routes
-Route::middleware(['api', 'auth:sanctum'])
+Route::middleware(['api', 'invicta', 'auth:sanctum'])
     ->name('invicta.api.')
     ->prefix(config('invicta.path').'/api')
     ->group(__DIR__.'/api.php');

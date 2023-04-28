@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.4.5](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.4.4...v0.4.5) (2023-04-28)
+
+### Bug Fixes
+
+* Api calls being made through different auth guard ([994dd3](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/994dd3defe0ebc0954f34f0f36fdf79fe116352d))
+
+
+---
+
 ## [0.4.4](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.4.3...v0.4.4) (2023-04-12)
 
 
