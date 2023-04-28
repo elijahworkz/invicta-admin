@@ -6,7 +6,6 @@ use Eteacher\InvictaAdmin\Http\Controllers\Controller;
 use Eteacher\InvictaAdmin\Http\Request\LoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Inertia\Inertia;
 
 class LoginController extends Controller
 {
@@ -17,7 +16,7 @@ class LoginController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Auth/Login', [
+        return view('invicta::auth.login', [
             'actionUrl' => route('invicta.login'),
             'resetUrl' => config('invicta.auth.enable_password_reset') ? route('invicta.password.forgot') : null,
         ]);

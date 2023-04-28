@@ -6,7 +6,6 @@ use Eteacher\InvictaAdmin\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Validation\ValidationException;
-use Inertia\Inertia;
 
 class PasswordResetController extends Controller
 {
@@ -17,7 +16,7 @@ class PasswordResetController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Auth/ForgotPassword', [
+        return view('invicta::auth.forgot-password', [
             'actionUrl' => route('invicta.password.email'),
         ]);
     }

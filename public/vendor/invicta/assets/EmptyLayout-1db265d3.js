@@ -1,1 +1,0 @@
-import{g as t,o as a,c as o,I as s}from"./main-5a84a2d4.js";const n={class:"app-empty"},_={__name:"EmptyLayout",setup(c){return t(()=>document.body.classList.add("app-ready")),(e,p)=>(a(),o("main",n,[s(e.$slots,"default")]))}};export{_};
