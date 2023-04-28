@@ -10,6 +10,8 @@
 
     <link rel="icon" href="{{ config('invicta.favicon') }}" type="image/png" />
 
+    <link rel="stylesheet" href="//unpkg.com/element-plus/dist/index.css" />
+
     <!-- Font -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,400i,500,500i,600,600i,700,700i&display=swap" rel="stylesheet" type="text/css">
 
@@ -39,6 +41,43 @@
             -webkit-animation-iteration-count: infinite;
             opacity: 0.5;
         }
+
+        .app-empty {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: center;
+            flex: 1;
+        }
+        .auth-form {
+            /*margin-top: 100px;*/
+            min-width: 300px;
+        }
+
+        .auth-header {
+             text-align: center;
+             font-size: 32px;
+             line-height: 1.5;
+             margin: 0 auto 20px;
+         }
+
+        .auth-card {
+             margin-bottom: 15px;
+         }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .btn-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        a {
+            color: inherit;
+        }
         @-webkit-keyframes pulsate {
             0% { opacity: 0.5; }
             50% { opacity: 1.0; }
@@ -46,7 +85,7 @@
         }
     </style>
 
-    <main>
+    <main class="app-empty">
         @yield('content')
     </main>
 

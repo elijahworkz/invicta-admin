@@ -5,12 +5,10 @@ namespace Eteacher\InvictaAdmin\Http\Controllers\Auth;
 use Eteacher\InvictaAdmin\Http\Controllers\Controller;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules;
 use Illuminate\Validation\ValidationException;
-use Inertia\Inertia;
 
 class NewPasswordController extends Controller
 {
@@ -21,9 +19,7 @@ class NewPasswordController extends Controller
      */
     public function create(Request $request)
     {
-        return Inertia::render('Auth/ResetPassword', [
-            'email' => $request->email,
-            'token' => $request->route('token'),
+        return view('invicta::auth.reset-password', [
             'actionUrl' => route('invicta.password.update'),
         ]);
     }
@@ -50,7 +46,7 @@ class NewPasswordController extends Controller
             $request->only('email', 'password', 'password_confirmation', 'token'),
             function ($user) use ($request) {
                 $user->forceFill([
-                    'password' => Hash::make($request->password),
+                    'password' => $request->password,
                     'remember_token' => Str::random(60),
                 ])->save();
 
