@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.4.6](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.4.5...v0.4.6) (2023-04-28)
+
+### Bug Fixes
+
+* Port all the ‘auth’ views from vue + inertia to pure laravel + blade ([639dd6](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/639dd66f4999be3887f4dc29125512fbe57f2581))
+
+
+---
+
 ## [0.4.5](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.4.4...v0.4.5) (2023-04-28)
 
 ### Bug Fixes
