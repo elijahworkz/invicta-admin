@@ -39,6 +39,27 @@ class Vite
         HTML);
     }
 
+    public function preloadScripts()
+    {
+        if (is_file(invicta_path('public/hot'))) {
+            $url = rtrim(file_get_contents(invicta_path('public/hot')));
+
+            return new HtmlString(<<<HTML
+                <link rel="modulepreload" href="{$url}/@vite/client">
+                <link rel="modulepreload" href="{$url}/resources/js/main.js">
+            HTML);
+        }
+
+        $manifest = json_decode(file_get_contents(
+            public_path('vendor/invicta/manifest.json')
+        ), true);
+
+        return new HtmlString(<<<HTML
+            <link rel="modulepreload" href="/vendor/invicta/{$manifest['resources/js/main.js']['file']}">
+            <link rel="prefetch" href="/vendor/invicta/{$manifest['resources/js/main.js']['css'][0]}" as="style">
+        HTML);
+    }
+
     public function assets()
     {
         $this->buildTool = config('invicta.assets_build_tool');
