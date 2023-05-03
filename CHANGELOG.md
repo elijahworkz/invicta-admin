@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.4.8](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.4.7...v0.4.8) (2023-05-03)
+
+### Bug Fixes
+
+* Unauthenticated redirected to login in modal ([08e094](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/08e094ab321035ccefa2c4c459bd9c38fcdf31a9))
+
+
+---
+
 ## [0.4.7](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.4.6...v0.4.7) (2023-05-02)
 
 
