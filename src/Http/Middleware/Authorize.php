@@ -11,11 +11,13 @@ class Authorize
     public function handle($request, Closure $next)
     {
         if (! $user = $request->user()) {
-            $route = config('invicta.auth.enable_login_form') ? route('invicta.login') : route('login');
+            $route = config('invicta.auth.enable_login_form') ? 'invicta.login' : 'login';
 
             if ($request->inertia()) {
-                return Inertia::location($route);
+                return Inertia::location(route($route));
             }
+
+            return redirect()->route($route);
             // throw new AuthenticationException('Unauthenticated.', [], $route);
         }
 
