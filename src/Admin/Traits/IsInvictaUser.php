@@ -94,6 +94,16 @@ trait IsInvictaUser
         );
     }
 
+    public static function getBeforeSaveHook()
+    {
+        return static::$beforeSaveHook;
+    }
+
+    public static function getAfterSaveHook()
+    {
+        return static::$afterSaveHook;
+    }
+
     public static function runBeforeSave($hook)
     {
         static::$beforeSaveHook = $hook;

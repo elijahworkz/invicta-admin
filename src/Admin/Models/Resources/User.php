@@ -158,7 +158,7 @@ class User extends Resource
 
     public function beforeSave($item, $action)
     {
-        if ($hook = UserModel::$beforeSaveHook) {
+        if ($hook = UserModel::getBeforeSaveHook()) {
             $item = $hook::run($item, $action);
         }
 
@@ -167,7 +167,7 @@ class User extends Resource
 
     public function afterSave($item, $action)
     {
-        if ($hook = UserModel::$afterSaveHook) {
+        if ($hook = UserModel::getAfterSaveHook()) {
             $hook::run($item, $action);
         }
     }
