@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.4.10](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.4.9...v0.4.10) (2023-05-06)
+
+### Bug Fixes
+
+* Getting protected hooks throws an error in User ([f5c92f](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/f5c92fe4187228c439faf66a181bbc99e1d4cbdf))
+
+
+---
+
 ## [0.4.9](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.4.8...v0.4.9) (2023-05-05)
 
 ### Bug Fixes
