@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite'
+import { defineConfig, splitVendorChunkPlugin } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import laravel from 'laravel-vite-plugin'
 import AutoImport from 'unplugin-auto-import/vite'
@@ -11,6 +11,7 @@ const path = require('path')
 export default defineConfig({
 	server: serverConfig,
 	plugins: [
+		splitVendorChunkPlugin(),
 		laravel({
 			input: ['resources/js/main.js'],
 			buildDirectory: '/vendor/invicta/'
