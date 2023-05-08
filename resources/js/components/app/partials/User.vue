@@ -25,13 +25,16 @@ const userInitials = computed(() => {
 })
 
 const userAvatar = computed(() => {
-	return 'avatar' in user.data 
-		? `url(${user.data.avatar.src})`
-		: 'var(--el-color-primary-dark-2)'
+	let avatar = 'var(--el-color-primary-dark-2)'
+	if ('avatar' in user.data && user.data.avatar) {
+		let src = 'src' in user.data.avatar ? user.data.avatar.src : ''
+		avatar = `url(${user.data.avatar.src})`
+	}
+	return avatar
 })
 
 const textColor = computed(() => {
-	return 'avatar' in user.data
+	return 'avatar' in user.data && user.data.avatar
 		? 'transparent'
 		: '#fff'
 })

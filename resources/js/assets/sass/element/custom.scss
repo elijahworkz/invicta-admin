@@ -72,6 +72,8 @@
 }
 
 .el-dropdown {
+	outline: none;
+	
 	.el-tooltip__trigger {
 		svg {
 			transition: all .2s;

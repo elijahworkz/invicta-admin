@@ -4,7 +4,11 @@
 			<SvgIcon :icon="mdiMenuOpen" />
 		</span>
 		<div class="app-branding">Invicta Admin</div>
+
+
 		<div class="ml-auto flex items-center">
+
+		<SiteLinks class="mr-3" />
 
 			<Notifications />
 

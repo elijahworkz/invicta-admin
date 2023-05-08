@@ -34,7 +34,7 @@ class ResourceTest extends TestCase
             ->actingAs($this->user, config('invicta.auth.guard'))
             ->get(route('invicta.home'))
             ->assertInertia(fn (Assert $page) => $page
-        ->component('Home')
-        ->missing('email'));
+                ->component('Home')
+                ->missing('email'));
     }
 }

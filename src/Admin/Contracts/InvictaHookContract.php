@@ -4,5 +4,5 @@ namespace Eteacher\InvictaAdmin\Admin\Contracts;
 
 interface InvictaHookContract
 {
-    public static function run($item, $action = null);
+    public static function run($item, $resourceHandle = null, $action = null);
 }
