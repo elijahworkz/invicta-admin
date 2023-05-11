@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.4.12](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.4.11...v0.4.12) (2023-05-11)
+
+### Bug Fixes
+
+* Tabindex on auth forms ([29fa2f](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/29fa2fa7c3fac4bbec38a3f818e217120dc5b700))
+
+
+---
+
 ## [0.4.11](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.4.10...v0.4.11) (2023-05-08)
 
 
