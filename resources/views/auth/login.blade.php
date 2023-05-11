@@ -38,11 +38,11 @@
                     <footer class="btn-row">
                         <label class="el-checkbox">
                             <span class="el-checkbox__input">
-                                <input type="checkbox" name="remember_me" aria-hidden="false" value="Remember me">
+                                <input type="checkbox" name="remember_me" aria-hidden="false" value="Remember me" tabindex="2">
                             </span>
                             <span class="el-checkbox__label">Remember me</span>
                         </label>
-                        <button class="el-button el-button--primary" aria-disabled="false" type="submit">
+                        <button class="el-button el-button--primary" aria-disabled="false" type="submit" tabindex="3">
                             <span class="">Log in</span>
                         </button>
                     </footer>

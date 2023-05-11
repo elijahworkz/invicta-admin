@@ -34,7 +34,7 @@
                         </div>
                     </div>
                     <footer class="text-center">
-                        <button class="el-button el-button--primary" aria-disabled="false" type="submit">
+                        <button class="el-button el-button--primary" aria-disabled="false" type="submit" tabindex="1">
                             <span>Submit</span>
                         </button>
                     </footer>

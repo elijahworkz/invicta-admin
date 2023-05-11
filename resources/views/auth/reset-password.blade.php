@@ -39,7 +39,7 @@
                         </div>
                     </div>
                     <div class="el-form-item text-center">
-                        <button class="el-button el-button--primary" aria-disabled="false" type="submit">
+                        <button class="el-button el-button--primary" aria-disabled="false" type="submit" tabindex="3">
                             <span>Reset Password</span>
                         </button>
                     </div>
