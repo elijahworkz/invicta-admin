@@ -20,7 +20,7 @@
                         <label for="email" class="el-form-item__label">Email</label>
                         <div class="el-input">
                             <div class="el-input__wrapper">
-                                <input id="email" class="el-input__inner" type="text" name="email" autocomplete="username" tabindex="0">
+                                <input id="email" class="el-input__inner" type="text" name="email" autocomplete="username">
                                 @if($errors->has('email'))
                                     <div class="el-form-item__error">{{ $errors->first('email') }}</div>
                                 @endif
@@ -31,18 +31,18 @@
                         <label for="password" class="el-form-item__label">Password</label>
                             <div class="el-input">
                                 <div class="el-input__wrapper">
-                                    <input class="el-input__inner" type="password" name="password" autocomplete="current-password" tabindex="1" id="password">
+                                    <input class="el-input__inner" type="password" name="password" autocomplete="current-password" id="password">
                                 </div>
                             </div>
                     </div>
                     <footer class="btn-row">
                         <label class="el-checkbox">
                             <span class="el-checkbox__input">
-                                <input type="checkbox" name="remember_me" aria-hidden="false" value="Remember me" tabindex="2">
+                                <input type="checkbox" name="remember_me" aria-hidden="false" value="Remember me">
                             </span>
                             <span class="el-checkbox__label">Remember me</span>
                         </label>
-                        <button class="el-button el-button--primary" aria-disabled="false" type="submit" tabindex="3">
+                        <button class="el-button el-button--primary" aria-disabled="false" type="submit">
                             <span class="">Log in</span>
                         </button>
                     </footer>

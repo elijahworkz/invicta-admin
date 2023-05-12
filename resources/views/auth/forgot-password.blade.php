@@ -26,7 +26,7 @@
                         <label for="email" class="el-form-item__label">Email Address</label>
                         <div class="el-input">
                             <div class="el-input__wrapper">
-                                <input class="el-input__inner" type="text" name="email" autocomplete="username" tabindex="0" id="email">
+                                <input class="el-input__inner" type="text" name="email" autocomplete="username" id="email">
                                 @if($errors->has('email'))
                                     <div class="el-form-item__error">{{ $errors->first('email') }}</div>
                                 @endif
@@ -34,7 +34,7 @@
                         </div>
                     </div>
                     <footer class="text-center">
-                        <button class="el-button el-button--primary" aria-disabled="false" type="submit" tabindex="1">
+                        <button class="el-button el-button--primary" aria-disabled="false" type="submit">
                             <span>Submit</span>
                         </button>
                     </footer>
