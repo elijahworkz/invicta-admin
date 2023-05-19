@@ -19,6 +19,10 @@ class NavigationItems
 
     public function getResources()
     {
+        if (! $this->resources) {
+            return;
+        }
+
         foreach ($this->resources as $handle => $ids) {
             $this->items[$handle] = DB::table($handle)->select('id', 'uri')->whereIn('id', $ids)->get();
         }
