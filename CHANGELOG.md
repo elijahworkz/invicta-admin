@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.4.14](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.4.13...v0.4.14) (2023-05-19)
+
+### Bug Fixes
+
+* Redirect actions not working properly ([b5abe4](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/b5abe4f8dcd64024967a52593a83a5b2ed78bffe))
+
+
+---
+
 ## [0.4.13](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.4.12...v0.4.13) (2023-05-12)
 
 
