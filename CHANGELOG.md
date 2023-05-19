@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.4.15](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.4.14...v0.4.15) (2023-05-19)
+
+### Bug Fixes
+
+* Navigation breaking when only custom links set ([4cc079](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/4cc079d6ee7062a4ebe25f0a657a6b65a1b3f775))
+
+
+---
+
 ## [0.4.14](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.4.13...v0.4.14) (2023-05-19)
 
 ### Bug Fixes
