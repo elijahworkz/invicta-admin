@@ -22,6 +22,10 @@ trait HasActions
                 if ($action->inline() && $action->authorize($user, $model)) {
                     $action->setItem($model);
 
+                    if ($action->redirect) {
+                        $action->setRedirect($this->handle());
+                    }
+
                     return true;
                 }
 

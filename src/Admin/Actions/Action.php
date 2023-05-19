@@ -145,6 +145,11 @@ class Action implements JsonSerializable
         return $this->modal;
     }
 
+    public function setRedirect($resource)
+    {
+        $this->redirect = route('invicta.resource.handle-redirect-actions', ['resource' => $resource]);
+    }
+
     /**
      * Get redirect attribute for the action.
      *

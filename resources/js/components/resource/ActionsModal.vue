@@ -84,8 +84,8 @@ const processAction = () => {
 		let data = { ...actionData.value, fields: [], validation: [] }
 
 		if (action.value.redirect) {
-			let url = '/admin' + props.actionsUrl + `?class=${actionData.value.class}&selected[]=${actionData.value.selected.join(',')}`
-			window.location = url
+			let url = `${action.value.redirect}?class=${actionData.value.class}&selected[]=${actionData.value.selected.join(',')}`
+			window.open(url, '_blank')
 		} else {
 
 			Invicta.axios.post(props.actionsUrl, data)
