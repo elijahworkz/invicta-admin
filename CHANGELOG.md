@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.4.17](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.4.16...v0.4.17) (2023-06-09)
+
+### Bug Fixes
+
+* Oveflow on form blocking the dropdown ([07f286](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/07f286f63460c93cd196d1075a03294e5fc9c500))
+
+
+---
+
 ## [0.4.16](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.4.15...v0.4.16) (2023-05-24)
 
 
