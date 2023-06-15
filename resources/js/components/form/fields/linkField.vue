@@ -1,8 +1,10 @@
 <template>
-	<FieldBase :form-id="formId" :field-props="props">
+	<FieldBase :form-id="formId" :field-props="props" :key="path">
 		<el-select
 			v-model="fieldValue"
 			filterable
+			clearable
+			allow-create
 			:placeholder="data.props?.placeholder"
 			:disabled="field.disabled">
 				<el-option-group
@@ -28,23 +30,20 @@ const props = defineProps({
 })
 
 const field = useFormField(props)
-const fieldValue = field.value([])
+const fieldValue = field.value()
 const options = ref([])
 
 onMounted(() => {
-	Invicta.axios.get('/api/fields/resource-link/options')
+	let data = {}
+
+	if ('resources' in props.data) {
+		data.params = {
+			resources: props.data.resources
+		}
+	}
+	Invicta.axios.get('/api/fields/resource-link/options', data)
 		.then(({data}) => {
-			data.push({
-				'label': '',
-				'options': [
-					{
-						'label': 'None',
-						'value': ''
-					}
-				]
-			})
 			options.value = data
 		})
 })
-
 </script>

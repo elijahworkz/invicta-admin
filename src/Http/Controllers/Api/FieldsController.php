@@ -37,11 +37,21 @@ class FieldsController extends Controller
     public function linkableResourcesOptions(Request $request)
     {
         $resources = ResourceRegistrar::all();
+        $resourcesToList = $request->has('resources')
+            ? (is_array($request->resources) ? $request->resources : [$request->resources])
+            : null;
 
         $result = [];
 
         foreach ($resources as $resource) {
+            // First we check for all linkable resources - ie those that have AvailableForNavigation Trait
             if (method_exists($resource, 'navTitle')) {
+                $handle = $resource->handle();
+
+                if ($resourcesToList && ! in_array($handle, $resourcesToList)) {
+                    continue;
+                }
+
                 $items = $resource->model()->select('id', $resource->titleField)->get();
 
                 $options = [];
