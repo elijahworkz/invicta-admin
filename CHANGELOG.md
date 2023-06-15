@@ -4,6 +4,19 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.4.18](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.4.17...v0.4.18) (2023-06-15)
+
+### Features
+
+* Link field able to filter resources and add custom option ([2aea33](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/2aea33a542d89123116a7e7a426ada69c0ea37aa))
+
+### Bug Fixes
+
+* Remember me functionality not working ([c9e3e0](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/c9e3e0f5d7ebf6a9da2654d2312d99061bb850c4))
+
+
+---
+
 ## [0.4.17](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.4.16...v0.4.17) (2023-06-09)
 
 ### Bug Fixes
