@@ -81,7 +81,7 @@ const handleEnter = (event) => {
 		line-height: 1;
 		display: inline-flex;
 		align-items: center;
-		background-color: var(--el-color-primary-light-9);
+		background-color: var(--el-color-primary-light-8);
 		border-radius: .25rem;
 		user-select: none;
 		padding: 0.5rem 0.3rem 0.5rem 0.6rem;
