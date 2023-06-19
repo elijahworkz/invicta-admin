@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.4.20](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.4.19...v0.4.20) (2023-06-19)
+
+### Bug Fixes
+
+* Login form remember checkbox has incorrect value ([bee983](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/bee9830daa38672c9ca6aec5ecb45e067de904dd))
+
+
+---
+
 ## [0.4.19](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.4.18...v0.4.19) (2023-06-16)
 
 
