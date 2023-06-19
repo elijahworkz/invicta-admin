@@ -38,7 +38,7 @@
                     <footer class="btn-row">
                         <label class="el-checkbox">
                             <span class="el-checkbox__input">
-                                <input type="checkbox" name="remember" aria-hidden="false" value="Remember me">
+                                <input type="checkbox" name="remember" aria-hidden="false">
                             </span>
                             <span class="el-checkbox__label">Remember me</span>
                         </label>
