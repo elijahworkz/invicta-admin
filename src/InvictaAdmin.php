@@ -14,7 +14,7 @@ class InvictaAdmin
     {
         return [
             'appUrl' => config('app.url'),
-            'appName' => config('app.name'),
+            'appName' => config('invicta.name'),
             'appProductionUrl' => config('app.production_url') ?? config('app.url'),
             'appPath' => config('invicta.path'),
             'impersonateRoute' => route('invicta.impersonate-leave'),

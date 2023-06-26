@@ -3,7 +3,7 @@
 		<span class="sidebar-toggle" title="Minimize sidebar" @click="toggleSidebar">
 			<SvgIcon :icon="mdiMenuOpen" />
 		</span>
-		<div class="app-branding">Invicta Admin</div>
+		<div class="app-branding">{{ appName }}</div>
 
 
 		<div class="ml-auto flex items-center">
@@ -30,6 +30,8 @@
 <script setup>
 import { mdiMenuOpen, mdiLogoutVariant } from '@mdi/js'
 import { MoreFilled } from '@element-plus/icons-vue'
+
+const appName = Invicta.getConfig('appName')
 
 const toggleSidebar = () => {
 	document.body.classList.toggle('sidebar-mini')
