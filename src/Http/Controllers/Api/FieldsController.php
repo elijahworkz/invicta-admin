@@ -64,7 +64,8 @@ class FieldsController extends Controller
                 }
 
                 $result[] = [
-                    'label' => Str::ucfirst($resource->handle()),
+                    'handle' => $handle,
+                    'label' => Str::ucfirst($handle),
                     'options' => $options,
                 ];
             }
