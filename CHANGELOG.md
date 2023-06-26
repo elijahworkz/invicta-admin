@@ -4,6 +4,16 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.4.21](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.4.20...v0.4.21) (2023-06-26)
+
+### Bug Fixes
+
+* Delete assets in Grid view ([820428](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/8204283d041cb17582dc4290e4e52632c433a496))
+* Make admin title dynamic ([f25c4f](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/f25c4fe4b36a71af9785e2d3406155a63c5ee5c0))
+
+
+---
+
 ## [0.4.20](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.4.19...v0.4.20) (2023-06-19)
 
 ### Bug Fixes
