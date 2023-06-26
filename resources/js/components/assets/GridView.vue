@@ -79,9 +79,11 @@ const { isSupported, copy } = useClipboard()
 const permissionRead = usePermission('clipboard-read')
 const permissionWrite = usePermission('clipboard-write')
 
+const assetsResource = useResource(props.settings.handle)
+
 /* Handle Delete Actions */
 const handleDelete = (selected) => {
-console.log('deleting', selected)
+// console.log('deleting', selected)
 	ElMessageBox.confirm(
 		'This action will permanently delete records from database. Are you sure you want to continue?',
 		'Deleting',
@@ -91,7 +93,11 @@ console.log('deleting', selected)
 			confirmButtonClass: 'el-button--danger'
 		}
 	).then(() => {
-		router.delete(props.resource.meta.path, {data: { selected }})
+		Invicta.axios.delete(props.settings.resourceUrl, { data: { selected }})
+			.then(({data}) => {
+				Invicta.message(data.message)
+				assetsResource.getResource()
+			})
 	})
 	.catch((error) => console.log('cancel', error))
 }
