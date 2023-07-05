@@ -108,6 +108,15 @@ class MenuItem
         return $this;
     }
 
+    public function permissions($handle)
+    {
+        Permission::setPermissions($handle);
+
+        $this->can('view '.$handle);
+
+        return $this;
+    }
+
     public static function resource($resourceClass)
     {
         $resource = App::make($resourceClass);

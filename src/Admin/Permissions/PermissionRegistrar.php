@@ -20,7 +20,13 @@ class PermissionRegistrar
     public function resource($resource)
     {
         $handle = $resource->handle();
+        $permissions = $resource->permissions();
 
+        $this->setPermissions($handle, $permissions);
+    }
+
+    public function setPermissions($handle, $permissions = [])
+    {
         if (isset($this->groups[$handle])) {
             return false;
         }
@@ -38,7 +44,7 @@ class PermissionRegistrar
                                         $this->make('create '.$handle)->label('Create '.$label),
                                         $this->make('delete '.$handle)->label('Delete '.$label),
                                     ],
-                                    $resource->permissions()
+                                    $permissions
                                 )
                             ),
                         ]
