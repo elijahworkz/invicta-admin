@@ -17,14 +17,6 @@ class PermissionRegistrar
         return $group;
     }
 
-    public function resource($resource)
-    {
-        $handle = $resource->handle();
-        $permissions = $resource->permissions();
-
-        $this->setPermissions($handle, $permissions);
-    }
-
     public function setPermissions($handle, $permissions = [])
     {
         if (isset($this->groups[$handle])) {

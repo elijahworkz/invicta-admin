@@ -108,9 +108,9 @@ class MenuItem
         return $this;
     }
 
-    public function permissions($handle)
+    public function permissions($handle, $permissions = [])
     {
-        Permission::setPermissions($handle);
+        Permission::setPermissions($handle, $permissions);
 
         $this->can('view '.$handle);
 
@@ -122,15 +122,12 @@ class MenuItem
         $resource = App::make($resourceClass);
         ResourceRegistrar::put($resource->handle(), $resource);
 
-        Permission::resource($resource);
-        $viewResource = 'view '.$resource->handle();
-
         $self = new static($resource->menuTitle());
 
         $self->resource = $resource;
 
         return $self
-            ->can($viewResource)
+            ->permissions($resource->handle(), $resource->permissions())
             ->route($resource->route())
             ->icon($resource->icon());
     }
