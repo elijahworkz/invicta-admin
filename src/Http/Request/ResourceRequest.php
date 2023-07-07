@@ -62,9 +62,9 @@ class ResourceRequest extends InvictaRequest
                 'indexEdit' => $resourceClass->indexEdit,
                 'hasDetail' => method_exists($resourceClass, 'showDetail'),
                 'resourceUrl' => route('invicta.api.resource.index', ['resource' => $handle]),
-                'canCreate' => $resourceClass->canCreate && $user->can('create '.$handle),
-                'canEdit' => $user->can('edit '.$handle),
-                'canDelete' => $user->can('delete '.$handle),
+                'canCreate' => $resourceClass->canCreate && $user->can("create $handle"),
+                'canEdit' => $user->can("edit $handle") || $user->can("edit $handle items"),
+                'canDelete' => $user->can("delete $handle"),
             ],
         ];
     }

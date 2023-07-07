@@ -2,6 +2,7 @@
 
 namespace Eteacher\InvictaAdmin\Admin\Menu;
 
+use Eteacher\InvictaAdmin\Admin\Models\GlobalSetting;
 use Eteacher\InvictaAdmin\Admin\Models\Group;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -73,6 +74,29 @@ class Menu
             ->icon('tools')
             ->children($children)
             ->can('view tools');
+    }
+
+    public function globalSettings($name = 'Site Settings')
+    {
+        $globals = GlobalSetting::select(['id', 'title'])
+            ->whereNot('handle', 'course-reviews')
+            ->get();
+        $items = [];
+
+        foreach ($globals as $globalItem) {
+            $itemPermission = "edit global_settings_item $globalItem->id";
+
+            $route = config('invicta.path').'/resource/global_settings/'.$globalItem->id.'/edit';
+
+            $items[] = MenuItem::make($globalItem->title)->can([$itemPermission, 'edit global_settings'])->route($route);
+        }
+
+        $item = $this->createItem($name)
+            ->icon('settings')
+            ->children($items)
+            ->can('view global_settings');
+
+        return $item;
     }
 
     /**
@@ -214,7 +238,7 @@ class Menu
         return collect($items)
             ->filter(function ($item) {
                 return $item->can()
-                    ? optional(Auth::user())->can($item->can()) === true ? true : null
+                    ? optional(Auth::user())->hasPermission($item->can()) === true ? true : null
                     : true;
             })
             ->values();

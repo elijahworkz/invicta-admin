@@ -3,6 +3,7 @@
 namespace Eteacher\InvictaAdmin\Http\Controllers;
 
 use Eteacher\InvictaAdmin\Http\Request\ResourceRequest;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
@@ -17,7 +18,7 @@ class ResourceController extends Controller
 
     public function reorder(ResourceRequest $request)
     {
-        $this->authorize('edit '.$request->handle());
+        Gate::any(['edit '.$request->handle(), 'edit '.$request->handle().' items']);
 
         return Inertia::render('Resource/Reorder', ['resource' => $request->resourceOrderedList()]);
     }
@@ -38,7 +39,7 @@ class ResourceController extends Controller
 
     public function edit(ResourceRequest $request)
     {
-        $this->authorize('edit '.$request->handle());
+        Gate::any(['edit '.$request->handle(), 'edit '.$request->handle().' items']);
 
         return Inertia::render('Resource/Edit', ['resource' => $request->editItem()]);
     }
@@ -52,7 +53,7 @@ class ResourceController extends Controller
 
     public function update(ResourceRequest $request)
     {
-        $this->authorize('edit '.$request->handle());
+        Gate::any(['edit '.$request->handle(), 'edit '.$request->handle().' items']);
 
         return $this->processItem($request, 'updateItem');
     }

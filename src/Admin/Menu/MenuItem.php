@@ -108,6 +108,12 @@ class MenuItem
         return $this;
     }
 
+    /**
+     * set permission CRUD to the group with current handle
+     *
+     * @param  array  $permissions
+     * @return $this
+     */
     public function permissions($handle, $permissions = [])
     {
         Permission::setPermissions($handle, $permissions);

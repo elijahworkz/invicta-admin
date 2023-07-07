@@ -140,6 +140,5 @@ function upload(file) {
 function reset() {
 	isSaving.value = false
 	isInitial.value = true
-	Invicta.emit('refresh-library', true)
 }
 </script>

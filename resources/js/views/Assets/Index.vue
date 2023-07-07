@@ -154,7 +154,7 @@ const handleEdit = (item) => {
 }
 
 Invicta.on('refresh-resource', () => {
-	router.reload()
+	resourceIndex.getResource()
 })
 
 </script>

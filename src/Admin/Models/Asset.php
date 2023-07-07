@@ -12,6 +12,8 @@ class Asset extends Model
         'name', 'type', 'path', 'size', 'size_human', 'extension', 'width', 'height', 'alt',
     ];
 
+    protected static $isValidHook;
+
     protected static $beforeSaveHook;
 
     protected static $afterSaveHook;
@@ -41,7 +43,7 @@ class Asset extends Model
         // Normalize file names
         $filename = Str::of($filename)->replace(' ', '-');
 
-        if (self::where('path', '=', $path.$filename)->exists()) {
+        if (self::where('path', '=', $path.$filename)->exists() || ! self::isValid($file, $path)) {
             return response()->json(['message' => 'Asset with this name already exists!'], 409);
         }
 
@@ -153,6 +155,11 @@ class Asset extends Model
         static::$fieldActions = $actions;
     }
 
+    public static function runIsValid($hook)
+    {
+        static::$isValidHook = $hook;
+    }
+
     public static function runBeforeSave($hook)
     {
         static::$beforeSaveHook = $hook;
@@ -161,6 +168,20 @@ class Asset extends Model
     public static function runAfterSave($hook)
     {
         static::$afterSaveHook = $hook;
+    }
+
+    private static function isValid($file, $path)
+    {
+        if ($hook = static::$isValidHook) {
+            $item = [
+                'file' => $file,
+                'path' => $path,
+            ];
+
+            return $hook::run($item);
+        }
+
+        return true;
     }
 
     private static function beforeSave($item)

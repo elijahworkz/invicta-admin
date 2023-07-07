@@ -35,7 +35,7 @@ class Permission
     {
         $label = $this->label
             ? $this->label
-            : Str::title($this->ability);
+            : Str::headline($this->ability);
 
         return [
             'permission' => $this->ability,
