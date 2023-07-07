@@ -1,0 +1,1 @@
+import{d as s,i as n,f as e,t as o,u as c,F as r,o as l,r as m}from"./vendor-ffe09772.js";const _={class:"py-6 px-10"},f={__name:"Home",setup(i){const t=Invicta.user.name;return(p,u)=>{const a=m("Head");return l(),s(r,null,[n(a,{title:"Invicta Admin"}),e("div",_,[e("h1",null,"Welcome, "+o(c(t)),1)])],64)}}};export{f as default};

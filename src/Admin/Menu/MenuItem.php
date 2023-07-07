@@ -108,20 +108,32 @@ class MenuItem
         return $this;
     }
 
+    /**
+     * set permission CRUD to the group with current handle
+     *
+     * @param  array  $permissions
+     * @return $this
+     */
+    public function permissions($handle, $permissions = [])
+    {
+        Permission::setPermissions($handle, $permissions);
+
+        $this->can('view '.$handle);
+
+        return $this;
+    }
+
     public static function resource($resourceClass)
     {
         $resource = App::make($resourceClass);
         ResourceRegistrar::put($resource->handle(), $resource);
-
-        Permission::resource($resource);
-        $viewResource = 'view '.$resource->handle();
 
         $self = new static($resource->menuTitle());
 
         $self->resource = $resource;
 
         return $self
-            ->can($viewResource)
+            ->permissions($resource->handle(), $resource->permissions())
             ->route($resource->route())
             ->icon($resource->icon());
     }

@@ -64,13 +64,17 @@ trait IsInvictaUser
     {
         $groupIds = $this->groups()->pluck('id');
 
-        $permissions = Permission::select('ability')->whereIn('group_id', $groupIds)->groupBy('ability');
+        $permissions = Permission::select('ability')->whereIn('group_id', $groupIds)->groupBy('ability')->get();
 
         return $permissions->count() ? $permissions->pluck('ability') : collect([]);
     }
 
     public function hasPermission($permissions)
     {
+        if ($this->isDev()) {
+            return true;
+        }
+
         $groupsPermissions = $this->permissions();
 
         if (! $groupsPermissions->count()) {

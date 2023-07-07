@@ -79,7 +79,7 @@ const { isSupported, copy } = useClipboard()
 const permissionRead = usePermission('clipboard-read')
 const permissionWrite = usePermission('clipboard-write')
 
-const assetsResource = useResource(props.settings.handle)
+const assetsResource = props.settings ? useResource(props.settings.handle) : null
 
 /* Handle Delete Actions */
 const handleDelete = (selected) => {

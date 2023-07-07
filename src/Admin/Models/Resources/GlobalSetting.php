@@ -102,10 +102,23 @@ class GlobalSetting extends Resource
         ];
     }
 
-    public function permissions()
+    public function modifyIndexQuery($query, $user)
     {
-        return [
-            Permission::make('edit blueprint global_settings')->label('Edit blueprint Global settings'),
-        ];
+        //user has global permission then not modify query
+        $permissions = $user->permissions();
+        if ($permissions->contains('edit global_settings')) {
+            return $query;
+        }
+
+        //filter items by global settings exeptions that current user has
+        $permittedIds = $permissions
+            ->filter(fn ($item) => str($item)->startsWith('edit global_settings_item'))
+            ->map(function ($item) {
+                $item = str($item)->replace('edit global_settings_item ', '');
+
+                return $item;
+            })->toArray();
+
+        return $query->whereIn('id', $permittedIds);
     }
 }
