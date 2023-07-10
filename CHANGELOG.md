@@ -4,6 +4,20 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.5.0](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.4.22...v0.5.0) (2023-07-10)
+
+
+---
+
+## [0.4.22](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.4.21...v0.4.22) (2023-07-05)
+
+### Bug Fixes
+
+* Asset index not sortable by created ([b621c6](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/b621c6526ec68d5a5a86baa7007fa471807fe333))
+
+
+---
+
 ## [0.4.21](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.4.20...v0.4.21) (2023-06-26)
 
 ### Bug Fixes

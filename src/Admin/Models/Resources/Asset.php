@@ -35,7 +35,7 @@ class Asset extends Resource
             'dimensions' => $this->width.' x '.$this->height,
             'size' => $this->size_human,
             'type' => $this->type,
-            'created' => $this->created_at->toFormattedDateString(),
+            'created_at' => $this->created_at->toFormattedDateString(),
             'src' => $this->src(),
             'path' => $this->path,
             'img_name' => $this->name,
@@ -63,7 +63,7 @@ class Asset extends Resource
             'size' => Column::make('Size')->sortable(),
             'alt' => Column::make('Alt'),
             'type' => Column::make('Type')->align('center'),
-            'created' => Column::make('Uploaded')->sortable(),
+            'created_at' => Column::make('Uploaded')->sortable(),
         ];
     }
 
