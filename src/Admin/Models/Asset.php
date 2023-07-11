@@ -12,7 +12,7 @@ class Asset extends Model
         'name', 'type', 'path', 'size', 'size_human', 'extension', 'width', 'height', 'alt',
     ];
 
-    protected static $isValidHook;
+    protected static $beforeUploadHook;
 
     protected static $beforeSaveHook;
 
@@ -43,7 +43,7 @@ class Asset extends Model
         // Normalize file names
         $filename = Str::of($filename)->replace(' ', '-');
 
-        if (self::where('path', '=', $path.$filename)->exists() || ! self::isValid($file, $path)) {
+        if (self::where('path', '=', $path.$filename)->exists() || ! self::beforeUpload($file, $path)) {
             return response()->json(['message' => 'Asset with this name already exists!'], 409);
         }
 
@@ -155,9 +155,9 @@ class Asset extends Model
         static::$fieldActions = $actions;
     }
 
-    public static function runIsValid($hook)
+    public static function runBeforeUpload($hook)
     {
-        static::$isValidHook = $hook;
+        static::$beforeUploadHook = $hook;
     }
 
     public static function runBeforeSave($hook)
@@ -170,15 +170,10 @@ class Asset extends Model
         static::$afterSaveHook = $hook;
     }
 
-    private static function isValid($file, $path)
+    private static function beforeUpload($file, $path)
     {
-        if ($hook = static::$isValidHook) {
-            $item = [
-                'file' => $file,
-                'path' => $path,
-            ];
-
-            return $hook::run($item);
+        if ($hook = static::$beforeUploadHook) {
+            return $hook::run(['file' => $file, 'path' => $path]);
         }
 
         return true;
