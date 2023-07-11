@@ -77,7 +77,7 @@ class Menu
             ->can('view tools');
     }
 
-    public function globalSettings($name = 'Site Settings')
+    public function globalSettings($name = 'Site Settings', $icon = 'settings')
     {
         $handle = 'global_settings';
         $items = [];
@@ -94,22 +94,21 @@ class Menu
 
             //add permission for each global settings item
             $globalSettingItems[] = Permission::make($itemPermission)->label('Edit '.$globalItem->title);
-
         }
 
         Permission::group($handle)->label('Global Settings')
             ->permissions([
                 Permission::make("view $handle")->children([
                     Permission::make("create new $handle"),
-                    Permission::make("edit $handle"),
-                    Permission::make("edit $handle items")->label('Edit particular Global Settings')->children($globalSettingItems),
+                    Permission::make("edit $handle")->label('Edit all settings'),
+                    Permission::make("edit $handle items")
+                        ->label('Select settings to edit')->children($globalSettingItems),
                     Permission::make("delete $handle"),
-
                 ]),
             ]);
 
         $item = $this->createItem($name)
-            ->icon('settings')
+            ->icon($icon)
             ->children($items)
             ->can("view $handle");
 
