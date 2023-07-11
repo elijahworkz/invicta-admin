@@ -106,7 +106,7 @@ class GlobalSetting extends Resource
     {
         //user has global permission then not modify query
         $permissions = $user->permissions();
-        if ($permissions->contains('edit global_settings')) {
+        if ($user->isDev() || $permissions->contains('edit global_settings')) {
             return $query;
         }
 
