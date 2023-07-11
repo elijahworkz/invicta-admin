@@ -4,6 +4,16 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.5.1](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.0...v0.5.1) (2023-07-11)
+
+### Bug Fixes
+
+* Global settings built in boot causing error in deployment ([841707](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/84170731d1969a26751812ee1d0826b2e77f5919))
+* Uploading same image check not working after conversion to webp ([64d78e](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/64d78e49ae0081e14709f78c31689d821e75fa61))
+
+
+---
+
 ## [0.5.0](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.4.22...v0.5.0) (2023-07-10)
 
 
