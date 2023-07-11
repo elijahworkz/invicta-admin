@@ -2,8 +2,9 @@
 
 namespace Eteacher\InvictaAdmin\Admin\Menu;
 
-use Eteacher\InvictaAdmin\Admin\Models\GlobalSetting;
+use Eteacher\InvictaAdmin\Admin\Models\GlobalSetting as GlobalSettingModel;
 use Eteacher\InvictaAdmin\Admin\Models\Group;
+use Eteacher\InvictaAdmin\Facades\Permission;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
@@ -78,23 +79,39 @@ class Menu
 
     public function globalSettings($name = 'Site Settings')
     {
-        $globals = GlobalSetting::select(['id', 'title'])
-            ->whereNot('handle', 'course-reviews')
-            ->get();
+        $handle = 'global_settings';
         $items = [];
+        $globalSettingItems = [];
+
+        $globals = GlobalSettingModel::select(['id', 'title'])->get();
 
         foreach ($globals as $globalItem) {
             $itemPermission = "edit global_settings_item $globalItem->id";
 
-            $route = config('invicta.path').'/resource/global_settings/'.$globalItem->id.'/edit';
+            $route = config('invicta.path')."/resource/$handle/$globalItem->id/edit";
 
-            $items[] = MenuItem::make($globalItem->title)->can([$itemPermission, 'edit global_settings'])->route($route);
+            $items[] = MenuItem::make($globalItem->title)->can([$itemPermission, "edit $handle"])->route($route);
+
+            //add permission for each global settings item
+            $globalSettingItems[] = Permission::make($itemPermission)->label('Edit '.$globalItem->title);
+
         }
+
+        Permission::group($handle)->label('Global Settings')
+            ->permissions([
+                Permission::make("view $handle")->children([
+                    Permission::make("create new $handle"),
+                    Permission::make("edit $handle"),
+                    Permission::make("edit $handle items")->label('Edit particular Global Settings')->children($globalSettingItems),
+                    Permission::make("delete $handle"),
+
+                ]),
+            ]);
 
         $item = $this->createItem($name)
             ->icon('settings')
             ->children($items)
-            ->can('view global_settings');
+            ->can("view $handle");
 
         return $item;
     }
