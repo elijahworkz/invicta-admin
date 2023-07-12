@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.5.3](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.2...v0.5.3) (2023-07-12)
+
+### Bug Fixes
+
+* Errors when accessing admin if not enabled ([c46223](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/c46223c435753ff59ace5354e985f5199b9b26a5))
+
+
+---
+
 ## [0.5.2](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.1...v0.5.2) (2023-07-12)
 
 ### Bug Fixes
