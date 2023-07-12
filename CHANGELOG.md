@@ -4,6 +4,16 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.5.2](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.1...v0.5.2) (2023-07-12)
+
+### Bug Fixes
+
+* Locales switcher not reacting to change ([d38062](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/d380624e3738c553d3259a14049a699b8a6f5cfc))
+* Style fixes for repeater field ([03ccf2](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/03ccf290d87200326d6a73e91110f8733ea38ebc))
+
+
+---
+
 ## [0.5.1](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.0...v0.5.1) (2023-07-11)
 
 ### Bug Fixes
