@@ -16,8 +16,8 @@
 								<el-button v-if="!readOnly" text :icon="Delete" @click="removeRow(index)"></el-button>
 							</div>
 						</template>
-						<div class="fieldset py-3" :class="panelClass">
-							<div class="field-row-full text-right">
+						<div class="panel py-3" :class="panelClass">
+							<div class="flex-1 text-right">
 								<el-button type="danger" text size="small" :icon="Close" @click="removeRow(index)">Remove {{ itemName }}</el-button>
 							</div>
 							<slot :item="element" :index="index"></slot>

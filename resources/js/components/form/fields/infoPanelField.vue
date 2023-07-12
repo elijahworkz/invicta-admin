@@ -1,5 +1,5 @@
 <template>
-	<div v-if="data.content != ''" class="info-panel mb-4" v-html="data.content"/>
+	<div v-if="data.content != ''" class="info-panel" v-html="data.content"/>
 </template>
 
 <script setup>
