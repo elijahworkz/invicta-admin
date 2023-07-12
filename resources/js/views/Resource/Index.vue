@@ -7,7 +7,9 @@
 				<FiltersSearch :currentSearch="resource.meta.search" :handle="settings.handle" :filters="resource.meta.filters" />
 			</div>
 			<div class="ml-auto flex items-center">
-				<LocaleSwitch v-if="settings.locales" :locales="settings.locales" @change="resourceIndex.setLocale" />
+				<LocaleSwitch v-if="settings.locales" 
+					:locales="settings.locales"
+					:handle="settings.handle" />
 				<Actions
 					v-if="globalActions.length"
 					:global="true"

@@ -9,7 +9,7 @@
 					v-for="locale in locales" 
 					:key="locale.iso"
 					:command="locale.iso"
-					:disabled="locale.current">
+					:disabled="currentLocale == locale.iso">
 					{{ locale.name }}
 				</el-dropdown-item>
 			</el-dropdown-menu>
@@ -20,12 +20,22 @@
 <script setup>
 import { mdiTranslate } from '@mdi/js'
 
-defineProps({
+const props = defineProps({
+	handle: String,
 	locales: Object
 })
-const emit = defineEmits(['change'])
+
+const { handle, locales } = props
+const currentLocale = ref('en')
+const resourceIndex = useResource(handle)
+
+onMounted(() => {
+	let current = filterFn(locales, l => l.current)[0]
+	currentLocale.value = current.iso
+})
 
 const changeLocale = (locale) => {
-	emit('change', locale)
+	resourceIndex.setLocale(locale)
+	currentLocale.value = locale
 }
 </script>
