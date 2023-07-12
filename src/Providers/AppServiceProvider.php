@@ -37,13 +37,15 @@ class AppServiceProvider extends ServiceProvider
             $this->loadRoutesFrom(__DIR__.'/../../routes/routes.php');
 
             $this->loadViewsFrom(__DIR__.'/../../resources/views', 'invicta');
-
-            $this->registerMiddleware();
-
-            $this->registerBladeDirectives();
-
-            $this->registerMacros();
         }
+
+        $this->loadRoutesFrom(__DIR__.'/../../routes/sitemap.php');
+
+        $this->registerMiddleware();
+
+        $this->registerBladeDirectives();
+
+        $this->registerMacros();
     }
 
     protected function registerMiddleware()
