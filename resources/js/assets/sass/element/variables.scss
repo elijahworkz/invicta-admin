@@ -54,9 +54,9 @@
     (
       'extra-large': 24px,
       'large': 22px,
-      'medium': 16px,
-      'base': 14px,
-      'small': 13px,
+      'medium': 18px,
+      'base': 16px,
+      'small': 14px,
       'extra-small': 12px,
     )
   ),
@@ -96,6 +96,15 @@
   $dialog: (
     (
       'title-font-size': 1rem,
+    )
+  ),
+
+  // Table
+  $table-font-size: (
+    (
+      'large': getCssVar('font-size', 'base'),
+      'default': 16px,
+      'small': 14px,
     )
   ),
 );
