@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.5.4](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.3...v0.5.4) (2023-07-13)
+
+### Features
+
+* Increase font size ([68fc75](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/68fc75e30691d3514e2efa050a30c0510b9e2710))
+
+
+---
+
 ## [0.5.3](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.2...v0.5.3) (2023-07-12)
 
 ### Bug Fixes
