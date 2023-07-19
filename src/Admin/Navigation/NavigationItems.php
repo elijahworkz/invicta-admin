@@ -30,6 +30,14 @@ class NavigationItems
 
     public function url($item)
     {
-        return $this->items[$item['handle']]->firstWhere('id', $item['id'])->uri;
+        $currentItem = $this->currentItem($item);
+
+        return $currentItem ? $currentItem->uri : null;
+    }
+
+    public function currentItem($item)
+    {
+        return $this->items[$item['handle']]->firstWhere('id', $item['id']);
+
     }
 }
