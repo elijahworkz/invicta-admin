@@ -2,6 +2,7 @@
 
 namespace Eteacher\InvictaAdmin\Http\Controllers\Api;
 
+use Eteacher\InvictaAdmin\Events\ResourceDeleted;
 use Eteacher\InvictaAdmin\Http\Controllers\Controller;
 use Eteacher\InvictaAdmin\Http\Request\ResourceRequest;
 
@@ -65,6 +66,9 @@ class ResourceController extends Controller
 
         // ResourceRequest $request
         $resource = $request->resourceClass();
+
+        ResourceDeleted::dispatch($resource->handle(), $resource);
+
         $resource->model()->whereIn('id', request()->selected)->delete();
 
         return response()->json([

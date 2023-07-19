@@ -3,12 +3,66 @@
 namespace Eteacher\InvictaAdmin\Admin\Navigation;
 
 use Eteacher\InvictaAdmin\Admin\Models\Navigation as NavigationModel;
+use Eteacher\InvictaAdmin\Events\NavigationClearing;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
 class Navigation
 {
     public $items;
+
+    public $shouldUpdateMenu;
+
+    public function clearNavigations()
+    {
+
+        $menus = NavigationModel::all();
+
+        $this->items = new NavigationItems;
+
+        foreach ($menus as $menu) {
+            if (! empty($menu->tree)) {
+                $this->collectResources($menu->tree);
+            }
+        }
+
+        $this->items->getResources();
+
+        foreach ($menus as $menu) {
+            $this->shouldUpdateMenu = false;
+            $tree = $menu->tree;
+
+            if (! empty($tree)) {
+                $newTree = $this->filterTree($tree);
+                if ($this->shouldUpdateMenu) {
+                    $menu->tree = $newTree;
+                    $menu->save();
+                }
+            }
+        }
+
+    }
+
+    public function filterTree($tree)
+    {
+        $newTree = collect($tree)->map(
+            function ($branch) {
+                $branch['children'] = empty($branch['children']) ? [] : $this->filterTree($branch['children']);
+
+                if ($branch['handle'] !== 'custom' && ! $this->items->currentItem($branch)) {
+                    $this->shouldUpdateMenu = true;
+
+                    return [];
+                }
+
+                return $branch;
+            }
+        )
+            ->filter()
+            ->toArray();
+
+        return $newTree;
+    }
 
     public function menu($handle)
     {
@@ -36,8 +90,6 @@ class Navigation
         $this->items->getResources();
 
         return $this->buildTree($menu->tree);
-
-        return $this->setCurrent($tree);
     }
 
     protected function collectResources($tree)
@@ -53,8 +105,17 @@ class Navigation
 
     protected function buildTree($branches, $depth = 1)
     {
-        return collect($branches)->map(function ($branch) use ($depth) {
+        $clearMenus = false;
+        $tree = collect($branches)->map(function ($branch) use ($depth, &$clearMenus) {
             $children = empty($branch['children']) ? [] : $this->buildTree($branch['children'], $depth + 1);
+
+            $url = $this->setUrl($branch);
+
+            if (is_null($url) && ! count($children)) {
+                $clearMenus = true;
+
+                return [];
+            }
 
             return [
                 'title' => $branch['label'],
@@ -67,6 +128,13 @@ class Navigation
                 'target' => $this->setTarget($branch),
             ];
         })->filter();
+
+        if ($clearMenus) {
+            NavigationClearing::dispatch();
+        }
+
+        return $tree;
+
     }
 
     protected function setUrl($item)
