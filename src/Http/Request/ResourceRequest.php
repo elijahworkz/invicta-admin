@@ -173,6 +173,10 @@ class ResourceRequest extends InvictaRequest
         $resourceClass = $this->resourceClass();
         $item = $resourceClass->findModel($this->route('item'));
 
+        if (is_null($item)) {
+            return null;
+        }
+
         if (isset($item['uri'])) {
             return $item->uri;
         }

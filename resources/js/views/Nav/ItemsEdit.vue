@@ -1,5 +1,5 @@
 <template>
-	<Head :title="menu.title"/>
+	<Head :title="menuTitle"/>
 	<div class="py-6 px-10">
 		<div class="w-1/2 mx-auto">
 
@@ -8,7 +8,7 @@
 					<Link :href="indexUrl" 
 						class="breadcrumb">
 						<el-icon><ArrowLeft /></el-icon>Navigation</Link>
-					<h1 class="mb-1">{{ menu.title }}</h1>
+					<h1 class="mb-1">{{ menuTitle }}</h1>
 				</div>
 				<div class="nav-actions">
 					
@@ -26,8 +26,12 @@
 						</template>
 					</el-dropdown>
 
-					<el-button type="primary" @click="saveNavigation" :disabled="!dirtyState">Save Changes</el-button>
+					<el-button type="primary" @click="saveNavigation" :disabled="!canSave">Save Changes</el-button>
 				</div>
+			</div>
+
+			<div class="mb-3" v-if="hasErrors">
+				<el-alert title="This navigation has errors! Save disabled." type="error" effect="dark" show-icon :closable="false" />
 			</div>
 
 			<NavTree 
@@ -68,7 +72,8 @@ import { ArrowLeft, ArrowDown } from '@element-plus/icons-vue'
 const props = defineProps({
 	indexUrl: String,
 	actionUrl: String,
-	menu: Object,
+	menuTitle: String,
+	tree: Array,
 	resources: Object
 })
 
@@ -84,8 +89,32 @@ const currentItem = ref(null)
 
 const dirtyState = ref(false)
 
+const hasErrors = computed(() => {
+	return checkTreeForErrors(props.tree)
+})
+
+const canSave = computed(() => {
+	return dirtyState.value && !hasErrors.value
+})
+
+function checkTreeForErrors(branches) {
+	let error = false
+	for (let branch of branches) {
+		if ('error' in branch) {
+			error = true
+			break
+		}
+
+		if (branch.children.length) {
+			error = checkTreeForErrors(branch.children)
+		}
+	}
+
+	return error
+}
+
 /* Build Menu Items */
-const treeItems = ref(props.menu.tree || [])
+const treeItems = ref(props.tree)
 
 const excludeItems = computed(() => {
 	return treeItems.value.reduce((obj, item) => {
@@ -195,7 +224,10 @@ const updateItem = (item) => {
 	drawer.state = false
 	titleField.value = 'label'
 
-	item.type = item.url == '' ? 'Text' : 'Link'
+	if (! item.id) {
+		console.log('check for type', item.url, item.url == '')
+		item.type = item.url == '' ? 'Text' : 'Link'
+	}
 
 	if (formMode.value == 'create') {
 		updateItems([item])
@@ -218,3 +250,9 @@ const saveNavigation = () => {
 	router.post(props.actionUrl, { tree: treeItems.value })
 }
 </script>
+
+<style>
+.el-alert__title {
+	vertical-align: middle;
+}
+</style>

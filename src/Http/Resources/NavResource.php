@@ -12,6 +12,7 @@ class NavResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'handle' => $this->handle,
+            'error' => $this->tree['error'] ?? false,
         ];
     }
 }

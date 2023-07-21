@@ -76,6 +76,8 @@ $action-icon-size: 18px;
 	width: 100%;
 
 	tr {
+		background: var(--el-table-tr-bg-color);
+		
 		&:not(:last-child) {
 			border-bottom: 1px solid var(--el-border-color-lighter);
 		}
@@ -86,6 +88,10 @@ $action-icon-size: 18px;
 
 		> td {
 			padding: 10px;
+		}
+
+		&.warning-row {
+			--el-table-tr-bg-color: var(--el-color-warning-light-9);
 		}
 	}
 

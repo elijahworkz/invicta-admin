@@ -52,10 +52,10 @@
   -------------------------- */
   $font-size: (
     (
-      'extra-large': 24px,
-      'large': 22px,
-      'medium': 18px,
-      'base': 16px,
+      'extra-large': 22px,
+      'large': 20px,
+      'medium': 16px,
+      'base': 15px,
       'small': 14px,
       'extra-small': 12px,
     )
@@ -103,7 +103,7 @@
   $table-font-size: (
     (
       'large': getCssVar('font-size', 'base'),
-      'default': 16px,
+      'default': 15px,
       'small': 14px,
     )
   ),

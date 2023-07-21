@@ -3,66 +3,17 @@
 namespace Eteacher\InvictaAdmin\Admin\Navigation;
 
 use Eteacher\InvictaAdmin\Admin\Models\Navigation as NavigationModel;
-use Eteacher\InvictaAdmin\Events\NavigationClearing;
+use Eteacher\InvictaAdmin\Events\NavigationError;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
 class Navigation
 {
+    public $menu;
+
     public $items;
 
     public $shouldUpdateMenu;
-
-    public function clearNavigations()
-    {
-
-        $menus = NavigationModel::all();
-
-        $this->items = new NavigationItems;
-
-        foreach ($menus as $menu) {
-            if (! empty($menu->tree)) {
-                $this->collectResources($menu->tree);
-            }
-        }
-
-        $this->items->getResources();
-
-        foreach ($menus as $menu) {
-            $this->shouldUpdateMenu = false;
-            $tree = $menu->tree;
-
-            if (! empty($tree)) {
-                $newTree = $this->filterTree($tree);
-                if ($this->shouldUpdateMenu) {
-                    $menu->tree = $newTree;
-                    $menu->save();
-                }
-            }
-        }
-
-    }
-
-    public function filterTree($tree)
-    {
-        $newTree = collect($tree)->map(
-            function ($branch) {
-                $branch['children'] = empty($branch['children']) ? [] : $this->filterTree($branch['children']);
-
-                if ($branch['handle'] !== 'custom' && ! $this->items->currentItem($branch)) {
-                    $this->shouldUpdateMenu = true;
-
-                    return [];
-                }
-
-                return $branch;
-            }
-        )
-            ->filter()
-            ->toArray();
-
-        return $newTree;
-    }
 
     public function menu($handle)
     {
@@ -79,17 +30,19 @@ class Navigation
 
     protected function build($handle)
     {
-        $menu = NavigationModel::where('handle', $handle)->first();
+        $this->menu = NavigationModel::where('handle', $handle)->first();
 
-        if (! $menu) {
+        if (! $this->menu) {
             return [];
         }
 
+        $tree = isset($this->menu->tree['error']) ? $this->menu->tree['branches'] : $this->menu->tree;
+
         $this->items = new NavigationItems;
-        $this->collectResources($menu->tree);
+        $this->collectResources($tree);
         $this->items->getResources();
 
-        return $this->buildTree($menu->tree);
+        return $this->buildTree($tree);
     }
 
     protected function collectResources($tree)
@@ -105,21 +58,21 @@ class Navigation
 
     protected function buildTree($branches, $depth = 1)
     {
-        $clearMenus = false;
-        $tree = collect($branches)->map(function ($branch) use ($depth, &$clearMenus) {
+        $error = false;
+        $tree = collect($branches)->map(function ($branch) use ($depth, &$error) {
             $children = empty($branch['children']) ? [] : $this->buildTree($branch['children'], $depth + 1);
 
             $url = $this->setUrl($branch);
 
-            if (is_null($url) && ! count($children)) {
-                $clearMenus = true;
+            if (is_null($url) && ! isset($branch['error'])) {
+                $error = true;
 
                 return [];
             }
 
             return [
                 'title' => $branch['label'],
-                'url' => $this->setUrl($branch),
+                'url' => $url,
                 'hasChildren' => ! empty($children),
                 'children' => $children,
                 'depth' => $depth,
@@ -129,12 +82,11 @@ class Navigation
             ];
         })->filter();
 
-        if ($clearMenus) {
-            NavigationClearing::dispatch();
+        if ($error) {
+            NavigationError::dispatch($this->menu);
         }
 
         return $tree;
-
     }
 
     protected function setUrl($item)
@@ -172,5 +124,38 @@ class Navigation
 
             return $branch;
         });
+    }
+
+    public function handleNavigationError($menu)
+    {
+        $this->items = new NavigationItems;
+        $this->collectResources($menu->tree);
+
+        $this->items->getResources();
+        $this->shouldUpdateMenu = false;
+
+        if (! empty($menu->tree) && ! isset($menu->tree['error'])) {
+            $tree = $this->checkBranches($menu->tree);
+
+            if ($this->shouldUpdateMenu) {
+                $menu->tree = ['error' => true, 'tree' => $tree];
+                $menu->save();
+            }
+        }
+    }
+
+    private function checkBranches($branches)
+    {
+        return collect($branches)->map(function ($branch) {
+            $branch['children'] = empty($branch['children']) ? [] : $this->checkBranches($branch['children']);
+
+            if ($branch['handle'] !== 'custom' && ! $this->items->currentItem($branch)) {
+                $this->shouldUpdateMenu = true;
+                $branch['error'] = true;
+            }
+
+            return $branch;
+        })
+            ->toArray();
     }
 }

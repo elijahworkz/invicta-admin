@@ -9,10 +9,10 @@
 				<el-button type="primary" v-if="canCreate"><Link :href="createUrl">Create new</Link></el-button>
 			</div>
 		</div>
-		<el-card body-style="padding: 0px" v-if="navs.data.length">
+		<el-card v-if="navs.data.length">
 			<table class="list-table">
 				<tbody>
-					<tr v-for="nav in navs.data">
+					<tr v-for="nav in navs.data" :class="{'warning-row': nav.error}">
 						<td>
 							<Link v-if="canEdit" :href="`${editUrl}/${nav.id}/items`">{{ nav.title }}</Link>
 							<span v-else>{{ nav.title }}</span>

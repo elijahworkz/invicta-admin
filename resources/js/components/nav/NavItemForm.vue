@@ -5,6 +5,11 @@
 
 			<el-button :icon="Close" text circle bg @click="$emit('close')" />
 		</header>
+
+		<div class="mb-2" v-if="error">
+			<el-alert :title="errorMessage" type="error" effect="dark" show-icon :closable="false" />
+		</div>
+
 		<el-form
 			label-position="top"
 			class="invicta-form"
@@ -47,14 +52,20 @@ const props = defineProps({
 const title = computed(() => props.mode == 'create' ? 'Create Item' : 'Edit Item')
 const itemForm = ref(props.itemData)
 const resource = ref(false)
+const error = ref(false)
+const errorMessage = ref('')
 
 onMounted(() => {
 
-	if ('id' in props.itemData && props.itemData.id) {
+	if ('id' in props.itemData) {
 		resource.value = true
 		let itemUrl = `/api/resource/${props.itemData.handle}/${props.itemData.id}/uri`
 		Invicta.axios.get(itemUrl)
 			.then(({data}) => {
+				if (! data) {
+					error.value = true
+					errorMessage.value = `${props.itemData.type} not found`
+				}
 				itemForm.value.url = data
 			})
 	} else {

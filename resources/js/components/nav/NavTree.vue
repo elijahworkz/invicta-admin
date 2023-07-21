@@ -7,10 +7,10 @@
 
 		<template #item="{ element, index }">
 			<li>
-				<div class="item flex items-center justify-start border rounded bg-white mb-1 p-2">
+				<div class="item flex items-center justify-start border rounded bg-white mb-1 p-2" :class="{'error': element.error}">
 					<DragHandle class="mr-2 text-gray-300 hover:text-gray-400" />
 					<el-link :underline="false" @click="handleEdit(element)">{{ element.label }}</el-link>
-					<div class="ml-auto item-type">{{ element.type }}</div>
+					<div class="ml-auto item-type">{{ element.error ? `${element.type} | Error` : element.type }}</div>
 
 					<ActionsDropdown 
 						:actions="childActions" 
@@ -63,6 +63,12 @@ const handleEdit = (event) => {
 ul {
 	> li > ul {
 		margin-left: 25px;
+	}
+
+	.item {
+		&.error {
+			background: var(--el-color-danger-light-9);
+		}
 	}
 
 	.item-type {

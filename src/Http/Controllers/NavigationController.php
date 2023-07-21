@@ -152,10 +152,13 @@ class NavigationController extends Controller
             ];
         });
 
+        $tree = $menu->tree ?? [];
+
         return Inertia::render('Nav/ItemsEdit', [
             'indexUrl' => invicta_route('nav.index'),
             'actionUrl' => invicta_route('nav.updateItems', ['menu' => $menu->id]),
-            'menu' => $menu,
+            'menuTitle' => $menu->title,
+            'tree' => isset($tree['branches']) ? $tree['branches'] : $tree,
             'resources' => $resources,
         ]);
     }
@@ -164,7 +167,7 @@ class NavigationController extends Controller
     {
         $this->authorize('edit navigation');
 
-        $menu->tree = $request->tree;
+        $menu->tree = ['error' => false, 'branches' => $request->tree];
         $menu->save();
 
         NavigationUpdated::dispatch($menu->handle);
