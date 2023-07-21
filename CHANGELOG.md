@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.5.6](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.5...v0.5.6) (2023-07-21)
+
+### Features
+
+* Added displaying navigation errors ([b5a604](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/b5a604c13cab503c6dcdb94ac7cd1463328cc413))
+
+
+---
+
 ## [0.5.5](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.4...v0.5.5) (2023-07-13)
 
 
