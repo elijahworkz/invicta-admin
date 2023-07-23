@@ -3,7 +3,8 @@
 		:list="list"
 		tag="ul"
 		:group="{ name: 'g1'}"
-		item-key="label">
+		item-key="label"
+		@change="$emit('change', true)">
 
 		<template #item="{ element, index }">
 			<li>
@@ -22,7 +23,8 @@
 
 				<NavTree 
 					:list="element.children" 
-					:child-actions="childActions" 
+					:child-actions="childActions"
+					@change="$emit('change', true)"
 					@add-child="handleAction" 
 					@edit-item="handleEdit"
 					@remove-item="$emit('removeItem', true)"/>
@@ -39,7 +41,7 @@ const props = defineProps({
 	childActions: Array
 })
 
-const emit = defineEmits(['addChild', 'editItem', 'removeItem'])
+const emit = defineEmits(['addChild', 'editItem', 'removeItem', 'change'])
 
 /* Menu Items actions */
 const handleAction = (event) => {

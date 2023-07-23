@@ -36,9 +36,10 @@
 
 			<NavTree 
 				:list="treeItems" 
-				:child-actions="childActions" 
+				:child-actions="childActions"
 				@add-child="addChild"
 				@edit-item="editItem"
+				@change="dirtyState = true"
 				@remove-item="dirtyState = true"/>
 
 		</div>
@@ -200,6 +201,10 @@ function selectItems(handle) {
 	titleField.value = props.resources[handle].titleField
 	itemsUrl.value = `/api/resource/${handle}/items`
 	drawer.state = true
+}
+
+function changeList(event) {
+	console.log('something changed', event)
 }
 
 /* Setup Item Form */
