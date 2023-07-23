@@ -4,6 +4,19 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.5.8](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.7...v0.5.8) (2023-07-23)
+
+### Features
+
+* Title clickable for available for navigation resources in edit ([e73110](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/e73110e89ce5b6600c4800117fe0576c1f22ccab))
+
+### Bug Fixes
+
+* Unable to save nav tree changes ([8b10de](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/8b10de66fc958fc11dea66527806c3557fff334b))
+
+
+---
+
 ## [0.5.7](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.6...v0.5.7) (2023-07-21)
 
 
