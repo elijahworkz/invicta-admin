@@ -116,6 +116,12 @@ const handleRowClick = (row, column, event) => {
 	}
 }
 
+// Expose Clear selection to parents
+const clearSelection = () => {
+	resourceTableRef.value.clearSelection()
+}
+defineExpose({clearSelection})
+
 // Repaint table when sidebar is exposed
 const tableKey = ref(0)
 Invicta.on('close-sidebar-submenus', () => {

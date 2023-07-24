@@ -10,6 +10,19 @@ const path = require('path')
 
 export default defineConfig({
 	server: serverConfig,
+	resolve: {
+		alias: {
+			'@': path.resolve(__dirname, './resources/js'),
+			'~/': `${path.resolve(__dirname, 'resources/js')}/`
+		},
+	},
+	css: {
+		preprocessorOptions: {
+			scss: {
+				additionalData: `@use "~/assets/sass/element/custom.scss" as *;`,
+			},
+		}
+	},
 	plugins: [
 		splitVendorChunkPlugin(),
 		laravel({
@@ -37,21 +50,8 @@ export default defineConfig({
 			resolvers: [ElementPlusResolver({
 				importStyle: 'sass'
 			})]
-		}),
+		})
 	],
-	resolve: {
-		alias: {
-			'@': path.resolve(__dirname, './resources/js'),
-			'~/': `${path.resolve(__dirname, 'resources/js')}/`
-		},
-	},
-	css: {
-		preprocessorOptions: {
-			scss: {
-				additionalData: `@use "~/assets/sass/element/custom.scss" as *;`,
-			},
-		}
-	},
 	optimizeDeps: {
 		include: [
 			'vue',

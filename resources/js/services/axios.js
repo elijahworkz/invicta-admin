@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { ElNotification } from 'element-plus/lib'
+import { ElNotification } from 'element-plus'
 
 export function setupAxios(baseURL) {
 

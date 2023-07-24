@@ -24,21 +24,30 @@
 			<div class="flex items-center justify-start p-3">
 				<div class="mr-2">Total: <strong>{{ resourceIndex.total }}</strong></div>
 				<div><FilterBadges :badges="resourceIndex.filterBadges" /></div>
+			</div>
+
+			<div class="bg-slate-100 px-3 py-2 flex items-center justify-between" v-if="selectedRows.length">
+				<div class="flex items-center">
+					<span class="mr-2">{{ selectedText }}</span> 
+					<el-link v-if="! selectedAll" type="primary" :underline="false" @click="selectedAll = true">Select all {{ resourceIndex.total }}</el-link>
+					<el-link :underline="false" type="warning" class="ml-2" @click="deselect">Deselect all</el-link>
+				</div>
 				<div class="ml-auto flex items-center">
 					<Actions
-						v-if="bulkActions.length && selectedRows.length"
+						v-if="bulkActions.length"
 						name="Bulk Actions"
 						:actions="bulkActions"
 						:selected="selectedRows"
 					/>
 					<!-- <Filters :resource-handle="resource.handle" :filters="resource.meta.filters" /> -->
 					<div v-show="settings.canDelete" class="ml-3" title="Delete Selected">
-						<el-button :icon="Delete" @click="handleBulkDelete" :disabled="!selectedRows.length" />
+						<el-button :icon="Delete" @click="handleBulkDelete" />
 					</div>
 				</div>
 			</div>
 
 			<ResourceTable
+				ref="resourceTableRef"
 				:key="settings.slug"
 				:resource-handle="settings.handle"
 				:data="resourceIndex.resourceData"
@@ -93,9 +102,10 @@ import { Delete } from '@element-plus/icons-vue'
 const { title, resource, settings } = usePage().props
 const resourceIndex = useResource(settings.handle)
 
-console.log('I want to see what is inside', resourceIndex)
 resourceIndex.init(settings.resourceUrl, resource)
 resourceIndex.setActiveFilters(resource.meta.filters)
+
+const resourceTableRef = ref()
 
 /* Setup drawer */
 const drawer = ref(false)
@@ -154,9 +164,23 @@ const actionCalled = ({action, selected}) => {
 }
 
 /* Setup Selection */
+const selectedAll = ref(false)
 const selectedRows = ref([])
 const handleSelect = (selection) => {
 	selectedRows.value = selection.map(row => row.id)
+}
+
+const selectedText = computed(() => {
+	let records = selectedAll.value 
+		? resourceIndex.total 
+		: selectedRows.value.length
+	return `${records} records selected`
+})
+
+const deselect = () => {
+	selectedAll.value = false
+	resourceTableRef.value.clearSelection()
+	selectedRows.value = []
 }
 
 // Handle Show (detail view)
@@ -203,7 +227,6 @@ const handleDelete = (selected) => {
 				Invicta.message(data.message)
 				resourceIndex.getResource()
 			})
-		// router.delete(resource.meta.path, {data: { selected }})
 	})
 	.catch((error) => {
 		console.log('cancel', error)
