@@ -58,6 +58,7 @@ const defineResource = (id) => defineStore(`resource-${id}`, () => {
 	})
 
 	Invicta.on('search-change', ({query, handle}) => {
+		console.log('search-change event', query, handle, resourceHandle)
 		if (resourceHandle == handle) {
 			currentPage.value = 1
 			search.value = query
@@ -109,6 +110,14 @@ const defineResource = (id) => defineStore(`resource-${id}`, () => {
 			? btoa(JSON.stringify(activeFilters.value))
 			: null
 	})
+
+	// check if there are already search coming with resource
+	const setSearch = (query = null) => {
+		if (query) {
+			requestFilters.value = true // we need to set api to false to avoid reload on initial page load
+			search.value = query
+		}
+	}
 
 	/* Build and monitor request query */
 	const requestQuery = computed(() => {
@@ -163,7 +172,6 @@ const defineResource = (id) => defineStore(`resource-${id}`, () => {
 
 		// console.log('I should change', requestUrl, requestQuery.value, api.value)
 
-		
 		if (api.value) {
 			query = additionalParams.value
 				? { ...query, ...additionalParams.value }
@@ -191,6 +199,14 @@ const defineResource = (id) => defineStore(`resource-${id}`, () => {
 		}
 		requestFilters.value = false // we always reset requestFilters
 	}
+
+	function selectAll() {
+		let query = pickBy(requestQuery.value)
+
+		query.selectAll = true
+
+		return Invicta.axios.get(requestUrl.value, { params: query })
+	}
 	
 	return {
 		handle: resourceHandle,
@@ -198,6 +214,7 @@ const defineResource = (id) => defineStore(`resource-${id}`, () => {
 		filterBadges,
 		activeFilters,
 		setActiveFilters,
+		setSearch,
 		currentPage,
 		perPage,
 		pageChange,
@@ -207,6 +224,7 @@ const defineResource = (id) => defineStore(`resource-${id}`, () => {
 		setLocale,
 		currentLocale,
 		resourceData,
-		getResource
+		getResource,
+		selectAll
 	}
 })()

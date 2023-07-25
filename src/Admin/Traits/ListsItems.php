@@ -77,6 +77,27 @@ trait ListsItems
         return $result->withQueryString();
     }
 
+    public function selectAll()
+    {
+        $query = $this->model()->query();
+        $table = $this->model()->getTable();
+
+        // localization
+        if ($this->localizible()) {
+            $query = $this->localizeQuery($query);
+        }
+
+        if (request()->has('filters')) {
+            $query = $this->applyFilters($query, request()->get('filters'));
+        }
+
+        if (request()->has('search')) {
+            $query = $this->applySearch($query, request()->get('search'));
+        }
+
+        return $query->select('id')->get()->pluck('id');
+    }
+
     public function modifyIndexQuery($query, $user)
     {
         return $query;
@@ -193,10 +214,12 @@ trait ListsItems
             });
         } else {
             if (! empty($this->search)) {
-                collect($this->search)->filter(function ($column) {
-                    return $column != 'id';
-                })->each(function ($column) use ($query, $search) {
-                    $query->orWhere($column, 'like', '%'.$search.'%');
+                $query->where(function ($query) use ($search) {
+                    collect($this->search)->filter(function ($column) {
+                        return $column != 'id';
+                    })->each(function ($column) use ($query, $search) {
+                        $query->orWhere($column, 'like', '%'.$search.'%');
+                    });
                 });
             }
         }

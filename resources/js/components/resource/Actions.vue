@@ -29,7 +29,7 @@ const props = defineProps({
 	selected: {
 		type: Array,
 		default: []
-	}
+	},
 })
 
 

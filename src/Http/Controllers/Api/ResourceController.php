@@ -10,6 +10,10 @@ class ResourceController extends Controller
 {
     public function index(ResourceRequest $request)
     {
+        if ($request->has('selectAll')) {
+            return $request->selectAllRequest();
+        }
+
         return $request->resourceList(true);
     }
 

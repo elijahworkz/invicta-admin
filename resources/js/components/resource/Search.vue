@@ -3,7 +3,9 @@
 		v-model="search" clearable
 		:placeholder="searchStrings.placeholder"
 		:title="searchStrings.title"
-		:prefix-icon="Search">
+		:prefix-icon="Search"
+		size="large"
+		@clear="search = ''">
 	</el-input>
 </template>
 
@@ -24,10 +26,16 @@ const props = defineProps({
 
 const search = ref(props.currentSearch)
 
+onMounted(() => {
+	if (props.currentSearch) {
+		console.log('we have some initial search', props.currentSearch)
+		// requestFilters.value = JSON.parse(atob(props.filters))
+	}
+})
+
 watch(search, debounce(newSearch => {
 	console.log('debouncing works', newSearch)
 	Invicta.emit('search-change', {query: newSearch, handle: props.handle})
-
 }, 400))
 
 // watch(search, debounce(newSearch => {

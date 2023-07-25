@@ -2,9 +2,12 @@
 	<Head :title="title"/>
 	<div class="py-6 px-10">
 		<div class="flex items-end justify-start mb-4">
-			<div>
+			<div class="flex-auto mr-4">
 				<h1 class="mb-1">{{ title }}</h1>
-				<FiltersSearch :currentSearch="resource.meta.search" :handle="settings.handle" :filters="resource.meta.filters" />
+				<div class="max-w-sm">
+					<Search :currentSearch="resource.meta.search" :handle="settings.handle" />
+				</div>
+				<!-- <FiltersSearch :currentSearch="resource.meta.search" :handle="settings.handle" :filters="resource.meta.filters" /> -->
 			</div>
 			<div class="ml-auto flex items-center">
 				<LocaleSwitch v-if="settings.locales" 
@@ -22,15 +25,24 @@
 		</div>
 		<el-card body-style="padding: 0px;">
 			<div class="flex items-center justify-start p-3">
-				<div class="mr-2">Total: <strong>{{ resourceIndex.total }}</strong></div>
+				<div class="mr-2 leading-none">Total: <strong>{{ resourceIndex.total }}</strong></div>
 				<div><FilterBadges :badges="resourceIndex.filterBadges" /></div>
+
+				<div class="ml-auto leading-none flex items-center">
+					<el-link v-if="canResetFilters" @click="resetFilters" :underline="false" type="danger" class="mr-2">Clear all filters</el-link>
+					<Filters :resource-handle="settings.handle" :filters="resource.meta.filters" />
+				</div>
 			</div>
 
 			<div class="bg-slate-100 px-3 py-2 flex items-center justify-between" v-if="selectedRows.length">
-				<div class="flex items-center">
-					<span class="mr-2">{{ selectedText }}</span> 
-					<el-link v-if="! selectedAll" type="primary" :underline="false" @click="selectedAll = true">Select all {{ resourceIndex.total }}</el-link>
-					<el-link :underline="false" type="warning" class="ml-2" @click="deselect">Deselect all</el-link>
+				<div class="flex items-center leading-none">
+					<span class="mr-2 text-sm">{{ selectedText }}</span> 
+					<el-link v-if="! selectedAll" 
+						type="primary" 
+						:underline="false" 
+						@click="selectAll"
+						class="mr-2">Select all {{ resourceIndex.total }}</el-link>
+					<el-link :underline="false" type="info" @click="deselect">Deselect all</el-link>
 				</div>
 				<div class="ml-auto flex items-center">
 					<Actions
@@ -38,6 +50,7 @@
 						name="Bulk Actions"
 						:actions="bulkActions"
 						:selected="selectedRows"
+						:selected-all="selectedAll"
 					/>
 					<!-- <Filters :resource-handle="resource.handle" :filters="resource.meta.filters" /> -->
 					<div v-show="settings.canDelete" class="ml-3" title="Delete Selected">
@@ -104,6 +117,7 @@ const resourceIndex = useResource(settings.handle)
 
 resourceIndex.init(settings.resourceUrl, resource)
 resourceIndex.setActiveFilters(resource.meta.filters)
+resourceIndex.setSearch(resource.meta.search)
 
 const resourceTableRef = ref()
 
@@ -149,6 +163,7 @@ const actionCalled = ({action, selected}) => {
 		}
 
 		let item = null
+
 		if (selected.length) {
 			apiSubmit.value.selected = selected
 			item = selected[0]
@@ -167,7 +182,14 @@ const actionCalled = ({action, selected}) => {
 const selectedAll = ref(false)
 const selectedRows = ref([])
 const handleSelect = (selection) => {
+	selectedAll.value = false
 	selectedRows.value = selection.map(row => row.id)
+}
+
+const selectAll = async () => {
+	let result = await resourceIndex.selectAll()
+	selectedAll.value = true
+	selectedRows.value = result.data
 }
 
 const selectedText = computed(() => {
@@ -208,7 +230,13 @@ const handleEdit = (item) => {
 				drawer.value = true
 			})
 	}
+}
 
+// Handle filters
+const canResetFilters = computed(() => !isEmpty(resourceIndex.activeFilters))
+
+const resetFilters = () => {
+	Invicta.emit('clear-filters', settings.handle)
 }
 
 /* Handle Delete Actions */
@@ -241,11 +269,11 @@ const handleBulkDelete = () => {
 
 Invicta.on('refresh-resource', () => {
 	console.log('you want to refresh')
-	router.reload()
+	resourceIndex.getResource()
 })
 
 Invicta.on('resource-form-submitted', () => {
 	drawer.value = false
-	router.reload()
+	resourceIndex.getResource()
 })
 </script>

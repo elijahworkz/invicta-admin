@@ -17,9 +17,9 @@
 		<div v-else>Are you sure you want to run this action?</div>
 
 		<template #footer>
-				<el-button @click="open = false">Cancel</el-button>
-				<el-button :type="actionType" @click="processAction">{{actionButtonTitle}}</el-button>
-		</template>		
+			<el-button @click="open = false">Cancel</el-button>
+			<el-button :type="actionType" @click="processAction">{{actionButtonTitle}}</el-button>
+		</template>
 	</el-dialog>
 </template>
 

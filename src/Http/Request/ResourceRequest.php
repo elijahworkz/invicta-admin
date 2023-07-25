@@ -69,6 +69,13 @@ class ResourceRequest extends InvictaRequest
         ];
     }
 
+    public function selectAllRequest()
+    {
+        $resourceClass = $this->resourceClass();
+
+        return $resourceClass->selectAll();
+    }
+
     public function resourceOrderedList()
     {
         $resourceClass = $this->resourceClass();
