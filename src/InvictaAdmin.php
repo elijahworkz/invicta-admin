@@ -15,6 +15,7 @@ class InvictaAdmin
         return [
             'appUrl' => config('app.url'),
             'appName' => config('invicta.name'),
+            'appVersion' => self::version(),
             'appProductionUrl' => config('app.production_url') ?? config('app.url'),
             'appPath' => config('invicta.path'),
             'impersonateRoute' => route('invicta.impersonate-leave'),
@@ -35,6 +36,11 @@ class InvictaAdmin
                 'data' => $user->data ?? [],
             ]
         ) : [];
+    }
+
+    public static function version()
+    {
+        return \Composer\InstalledVersions::getVersion('eteacher/invicta-admin');
     }
 
     /**

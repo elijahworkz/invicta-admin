@@ -4,6 +4,7 @@
 	.nav { 
 		height: 100%;
 		@include reset-list();
+		margin: 0 0 40px;
 
 		.nav-item {
 			cursor: pointer;

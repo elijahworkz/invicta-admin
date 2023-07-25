@@ -16,13 +16,13 @@ export default defineConfig({
 			'~/': `${path.resolve(__dirname, 'resources/js')}/`
 		},
 	},
-	css: {
-		preprocessorOptions: {
-			scss: {
-				additionalData: `@use "~/assets/sass/element/custom.scss" as *;`,
-			},
-		}
-	},
+	// css: {
+	// 	preprocessorOptions: {
+	// 		scss: {
+	// 			additionalData: `@use "~/assets/sass/element/custom.scss" as *;`,
+	// 		},
+	// 	}
+	// },
 	plugins: [
 		splitVendorChunkPlugin(),
 		laravel({
@@ -61,6 +61,6 @@ export default defineConfig({
 		]
 	},
 	rollupOptions: {
-		external: ['vue', 'axios']
+		external: ['vue', 'axios', 'element-plus']
 	}
 })
