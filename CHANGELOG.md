@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.5.10](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.9...v0.5.10) (2023-07-25)
+
+### Features
+
+* Add version title to the header ([983cd0](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/983cd0d6e6e4fceef5cc911033511a0de2db490b))
+
+
+---
+
 ## [0.5.9](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.8...v0.5.9) (2023-07-25)
 
 ### Features
