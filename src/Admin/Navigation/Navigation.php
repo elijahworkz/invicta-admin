@@ -105,7 +105,7 @@ class Navigation
 
     protected function setTarget($item)
     {
-        return (isset($item['external']) && $item['external']) ? '_blank' : '';
+        return (isset($item['external']) && $item['external']) ? '_blank' : '_self';
     }
 
     protected function setCurrent($branches, $child = false)
