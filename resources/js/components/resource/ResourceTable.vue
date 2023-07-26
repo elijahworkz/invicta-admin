@@ -82,6 +82,10 @@ const props = defineProps({
 	noSelect: {
 		type: Boolean,
 		default: false
+	},
+	rememberColumns: {
+		type: Boolean,
+		default: true
 	}
 })
 
@@ -91,7 +95,9 @@ const resourceTableRef = ref()
 const columns = map(props.columns, (item, index) => {
 	return { label: item.label, value: index, checked: item.hidden ? false : true }
 })
-const columnTree = JSON.parse(Invicta.remember(`${props.resourceHandle}-index-columns`)) || columns
+const columnTree = props.rememberColumns
+	? JSON.parse(Invicta.remember(`${props.resourceHandle}-index-columns`)) || columns
+	: columns
 
 const treeModel = ref(columnTree)
 

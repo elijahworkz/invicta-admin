@@ -27,7 +27,8 @@
 			:can-edit="false"
 			:can-delete="false"
 			:has-detail="false"
-			:no-select="true" />
+			:no-select="true"
+			:remember-columns="false" />
 
 		<el-pagination
 			v-if="resource && resource.meta.last_page > 1"
