@@ -16,13 +16,13 @@ export default defineConfig({
 			'~/': `${path.resolve(__dirname, 'resources/js')}/`
 		},
 	},
-	// css: {
-	// 	preprocessorOptions: {
-	// 		scss: {
-	// 			additionalData: `@use "~/assets/sass/element/custom.scss" as *;`,
-	// 		},
-	// 	}
-	// },
+	css: {
+		preprocessorOptions: {
+			scss: {
+				additionalData: `@use "~/assets/sass/element/variables.scss" as *;`,
+			},
+		}
+	},
 	plugins: [
 		splitVendorChunkPlugin(),
 		laravel({
@@ -41,9 +41,9 @@ export default defineConfig({
 				}
 			],
 			dirs: ['resources/js/services/**', 'resources/js/utils'],
-			resolvers: [
-				ElementPlusResolver(),
-			],
+			// resolvers: [
+			// 	ElementPlusResolver(),
+			// ],
 		}),
 		Components({
 			dirs: ['resources/js/components'],
