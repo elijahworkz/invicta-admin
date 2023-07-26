@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.5.11](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.10...v0.5.11) (2023-07-26)
+
+### Bug Fixes
+
+* Style fixes for sidebar menu and form header ([0fad55](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/0fad55c8f8576a23e6b63756afab39f97a717d3e))
+
+
+---
+
 ## [0.5.10](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.9...v0.5.10) (2023-07-25)
 
 ### Features
