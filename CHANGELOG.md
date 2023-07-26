@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.5.13](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.12...v0.5.13) (2023-07-26)
+
+### Bug Fixes
+
+* Custom styles not being applied ([bd3cd9](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/bd3cd9925cf8806084ea392e509fe3e91f10a295))
+
+
+---
+
 ## [0.5.12](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.11...v0.5.12) (2023-07-26)
 
 ### Bug Fixes
