@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.5.12](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.11...v0.5.12) (2023-07-26)
+
+### Bug Fixes
+
+* Remove remember columns from table field - caused conflict when resource and table field have same handle ([2af3bd](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/2af3bd2e5534c228504a771771dff943db623f0f))
+
+
+---
+
 ## [0.5.11](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.10...v0.5.11) (2023-07-26)
 
 ### Bug Fixes
