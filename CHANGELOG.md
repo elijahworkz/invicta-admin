@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.5.15](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.14...v0.5.15) (2023-07-27)
+
+### Bug Fixes
+
+* Add target attribute to linkable form title ([ec2eef](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/ec2eefb5b86cf938d577653f52f65164424824d4))
+
+
+---
+
 ## [0.5.14](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.13...v0.5.14) (2023-07-27)
 
 ### Bug Fixes
