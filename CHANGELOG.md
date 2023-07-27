@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.5.14](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.13...v0.5.14) (2023-07-27)
+
+### Bug Fixes
+
+* Select not fullwidth in filter popover ([7cf9fe](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/7cf9fe972b8bd282f5b938fe0fc111659030b65c))
+
+
+---
+
 ## [0.5.13](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.12...v0.5.13) (2023-07-26)
 
 ### Bug Fixes
