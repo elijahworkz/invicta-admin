@@ -41,9 +41,9 @@ export default defineConfig({
 				}
 			],
 			dirs: ['resources/js/services/**', 'resources/js/utils'],
-			// resolvers: [
-			// 	ElementPlusResolver(),
-			// ],
+			resolvers: [
+				ElementPlusResolver(),
+			],
 		}),
 		Components({
 			dirs: ['resources/js/components'],
