@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.5.16](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.15...v0.5.16) (2023-07-28)
+
+### Bug Fixes
+
+* Missing message component ([c0f626](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/c0f62622b10ba358fdd1c573e4892637963c5268))
+
+
+---
+
 ## [0.5.15](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.14...v0.5.15) (2023-07-27)
 
 ### Bug Fixes
