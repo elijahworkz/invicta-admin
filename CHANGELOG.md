@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.5.19](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.18...v0.5.19) (2023-07-29)
+
+### Bug Fixes
+
+* Inline repeater styling issue ([009ec4](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/009ec44bb976559a7f91edb2a2d2e720937ef44f))
+
+
+---
+
 ## [0.5.18](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.17...v0.5.18) (2023-07-29)
 
 ### Bug Fixes
