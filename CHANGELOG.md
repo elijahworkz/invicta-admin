@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.5.18](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.17...v0.5.18) (2023-07-29)
+
+### Bug Fixes
+
+* Extra padding from inline repeater field ([a6eaf9](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/a6eaf9f6bfdadb1bb96f5979975489184a2a8d40))
+
+
+---
+
 ## [0.5.17](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.16...v0.5.17) (2023-07-29)
 
 ### Bug Fixes
