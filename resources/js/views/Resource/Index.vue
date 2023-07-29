@@ -100,7 +100,7 @@
 					class="mx-auto"
 					:form-id="resourceFormId"
 					:resource="resourceItem"
-					:action-url="actionsUrl"
+					:action-url="indexFormActionUrl"
 					:api="apiSubmit"
 					:post-submit-actions="['close']">
 				</FormBase>
@@ -130,6 +130,7 @@ const apiSubmit = ref(false)
 /* Handle Actions */
 const actions = ref([])
 const actionsUrl = `${settings.resourceUrl}/actions`
+const indexFormActionUrl = ref(actionsUrl)
 
 onMounted(() => {
 	Invicta.on('action-called', actionCalled)
@@ -173,6 +174,7 @@ const actionCalled = ({action, selected}) => {
 			.then(({data}) => {
 				resourceItem.value = data
 				resourceFormId.value = `${data.handle}.${action.class}`
+				indexFormActionUrl.value = actionsUrl
 				drawer.value = true
 			})
 	}
@@ -222,11 +224,13 @@ const handleEdit = (item) => {
 	} else {
 
 		apiSubmit.value = false
+		let itemUrl = `${settings.resourceUrl}/${item}`
 
-		Invicta.axios.get(`${settings.resourceUrl}/${item}`)
+		Invicta.axios.get(itemUrl)
 			.then(({data}) => {
 				resourceFormId.value = `${settings.handle}.${data.item.id}`
 				resourceItem.value = data
+				indexFormActionUrl.value = `${resource.meta.path}/${item}`
 				drawer.value = true
 			})
 	}
