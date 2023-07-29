@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.5.17](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.16...v0.5.17) (2023-07-29)
+
+### Bug Fixes
+
+* Index edit action url not set ([4ceacb](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/4ceacbeeacc64c5301403e0b47588dab6f68931c))
+
+
+---
+
 ## [0.5.16](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.15...v0.5.16) (2023-07-28)
 
 ### Bug Fixes
