@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.5.20](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.19...v0.5.20) (2023-08-01)
+
+### Bug Fixes
+
+* Remove remember prop from resource table ([27fe50](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/27fe50a6269dbaebcd1a255ad19072f61e2489b5))
+
+
+---
+
 ## [0.5.19](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.18...v0.5.19) (2023-07-29)
 
 ### Bug Fixes
