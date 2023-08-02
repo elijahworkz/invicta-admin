@@ -128,17 +128,19 @@ class Navigation
 
     public function handleNavigationError($menu)
     {
-        $this->items = new NavigationItems;
-        $this->collectResources($menu->tree);
-
-        $this->items->getResources();
-        $this->shouldUpdateMenu = false;
-
         if (! empty($menu->tree) && ! isset($menu->tree['error'])) {
-            $tree = $this->checkBranches($menu->tree);
+            $this->items = new NavigationItems;
+            $tree = isset($menu->tree['error']) ? $menu->tree['branches'] : $menu->tree;
+
+            $this->collectResources($tree);
+
+            $this->items->getResources();
+            $this->shouldUpdateMenu = false;
+
+            $tree = $this->checkBranches($tree);
 
             if ($this->shouldUpdateMenu) {
-                $menu->tree = ['error' => true, 'tree' => $tree];
+                $menu->tree = ['error' => true, 'branches' => $tree];
                 $menu->save();
             }
         }
