@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.5.21](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.20...v0.5.21) (2023-08-02)
+
+### Bug Fixes
+
+* Issue with navigation clearing error ([17a3d2](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/17a3d2d86ff63b7a1c3e3d20752a85a398214ef2))
+
+
+---
+
 ## [0.5.20](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.19...v0.5.20) (2023-08-01)
 
 ### Bug Fixes
