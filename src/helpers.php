@@ -40,22 +40,22 @@ if (! function_exists('global_set')) {
     }
 }
 
-if (! function_exists('_asset')) {
-    function _asset($asset)
-    {
-        $path = is_array($asset) ? $asset['path'] : $asset;
+// if (! function_exists('_asset')) {
+//     function _asset($asset)
+//     {
+//         $path = is_array($asset) ? $asset['path'] : $asset;
 
-        if (config('invicta.disk') == 's3') {
-            $domain = config('filesystems.disks.s3.url');
-            $asset = Str::of($path);
+//         if (config('invicta.disk') == 's3') {
+//             $domain = config('filesystems.disks.s3.url');
+//             $asset = Str::of($path);
 
-            if (config('invicta.image_to_webp')) {
-                $asset->finish('.webp');
-            }
+//             if (config('invicta.image_to_webp')) {
+//                 $asset->finish('.webp');
+//             }
 
-            return $asset->start('/')->prepend($domain);
-        }
+//             return $asset->start('/')->prepend($domain);
+//         }
 
-        return asset($path);
-    }
-}
+//         return asset($path);
+//     }
+// }
