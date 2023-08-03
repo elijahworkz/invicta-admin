@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.5.23](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.22...v0.5.23) (2023-08-03)
+
+### Bug Fixes
+
+* Style for info text for fields ([d82b3e](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/d82b3e59bcc10a83a522074dd224e4efdc870efe))
+
+
+---
+
 ## [0.5.22](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.21...v0.5.22) (2023-08-03)
 
 ### Features
