@@ -4,6 +4,24 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.5.24](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.23...v0.5.24) (2023-08-03)
+
+### Features
+
+* Add ability to pass sorting options to related options ([f7af57](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/f7af57a4a36d744fd57d3947b02f7333fea03eeb))
+* Added ability to set custom success message for actions ([84dac5](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/84dac56af562c70e221e6849420f80f8189e764d))
+* Added copy form field for copying to clipboard ([c71496](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/c71496c6e3cad0f16f421b24772a0c8df15c520a))
+* Add groups to users index ([7fd6cf](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/7fd6cf29acbf5ae99321e81a132db58948fff3f9))
+
+### Bug Fixes
+
+* Authentication errors in api requests caused by removal of invicta middleware ([49e59a](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/49e59a127d21e22777ce1ba0d5910360443ae14f))
+* Columns being overwritten by similar handles ([8f17fd](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/8f17fd56cbdfef155c2f0351d1c902b28e26241c))
+* Style for bottom info on form field ([94afb0](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/94afb0270fa97f9e50a976d760a267f8d397d06a))
+
+
+---
+
 ## [0.5.23](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.22...v0.5.23) (2023-08-03)
 
 ### Bug Fixes
