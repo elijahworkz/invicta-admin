@@ -7,7 +7,7 @@
 
 		<slot />
 		<div class="el-form-item__error" v-if="resourceForm.errors[id]">{{ resourceForm.errors[id] }}</div>
-		<span class="info opacity-60 leading-snug" v-if="info && infoPosition == 'bottom'">{{ info }}</span>
+		<span class="info opacity-60 leading-snug mt-2" v-if="info && infoPosition == 'bottom'">{{ info }}</span>
 	</el-form-item>
 </template>
 
