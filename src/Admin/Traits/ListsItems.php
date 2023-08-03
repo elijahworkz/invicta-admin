@@ -159,17 +159,17 @@ trait ListsItems
             }
         }
 
-        // If no paginate then this is probably a request for a simple options list
-        if (! $paginate) {
-            return $query->pluck($title, 'id');
-        }
-
-        $perPage = request()->query('per_page', 10);
         $sortBy = request()->query('sort_by', 'id');
         $sortBy = $sortBy == 'title' ? $title : $sortBy;
         $sortOrder = request()->query('sort_order', 'desc');
-        $exclude = request()->query('exclude', []);
 
+        // If no paginate then this is probably a request for a simple options list
+        if (! $paginate) {
+            return $query->orderBy($sortBy, $sortOrder)->pluck('id', $title);
+        }
+
+        $perPage = request()->query('per_page', 10);
+        $exclude = request()->query('exclude', []);
         $select = ['id', "{$title} as title", 'created_at'];
         $requestSelect = request()->query('select');
 

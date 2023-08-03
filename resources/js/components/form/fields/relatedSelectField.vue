@@ -52,10 +52,7 @@ onMounted(() => {
 		let params = {
 			title: titleField
 		}
-		if (props.data.where) {
-			console.log('is there a where?')
-			params.where = props.data.where
-		}
+		params = prepareParams(params)
 
 		getRelatedOptions(params)
 	}
@@ -63,17 +60,14 @@ onMounted(() => {
 })
 
 async function getRemote(query) {
-	console.log('why are you not running', query)
+	// console.log('why are you not running', query)
 	if (query !== '') {
 		let params = {
 			title: titleField,
 			search: query
 		}
 
-		if (props.data.where) {
-			console.log('getting remote hwerde')
-			params.where = props.data.where
-		}
+		params = prepareParams(params)
 
 		await getRelatedOptions(params, true)
 	} else {
@@ -87,8 +81,7 @@ function getRelatedOptions(params, remote = false) {
 
 	Invicta.axios.get(relatedUrl, { params })
 		.then(({data}) => {
-
-			let remoteOptions = map(data, (label, value) => {
+			let remoteOptions = map(data, (value, label) => {
 				let _value = ('path' in props.data)
 					? Number(value)
 					: { id: Number(value)}
@@ -103,6 +96,23 @@ function getRelatedOptions(params, remote = false) {
 
 			loading.value = false
 		})	
+}
+
+function prepareParams(params) {
+	if (props.data.where) {
+		// console.log('getting remote hwerde')
+		params.where = props.data.where
+	}
+
+	if (props.data.sortBy) {
+		params.sort_by = props.data.sortBy
+	}
+
+	if (props.data.sortOrder) {
+		params.sort_order = props.data.sortOrder
+	}
+
+	return params
 }
 </script>
 
