@@ -4,6 +4,20 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.5.22](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.21...v0.5.22) (2023-08-03)
+
+### Features
+
+* Number form field added ([3b3006](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/3b300654dd3bc359ef1b696562777e630d9015a2))
+
+### Bug Fixes
+
+* Navigation build and error handling not working properly ([1b9226](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/1b92262f217b5b4c16ba7bdd78c95b0306d322e6))
+* Warnings in the logs about base64_encoding ([adbb02](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/adbb02163c1dcfdba297ba06462e205ed03ccc80))
+
+
+---
+
 ## [0.5.21](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.20...v0.5.21) (2023-08-02)
 
 ### Bug Fixes
