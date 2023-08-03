@@ -62,6 +62,13 @@ class AppServiceProvider extends ServiceProvider
         $router->middlewareGroup('invicta.auth', [
             Authorize::class,
         ]);
+
+        $router->middlewareGroup('invicta.api', [
+            'api',
+            'auth:sanctum',
+            SetAuthGuard::class,
+            Impersonate::class
+        ]);
     }
 
     protected function registerDeployDriver()
