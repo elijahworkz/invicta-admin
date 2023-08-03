@@ -2,12 +2,12 @@
 	<el-form-item :class="[...fieldClasses, resourceForm.errors[id] ? 'is-error' : '']">
 		<template #label>
 			<div v-html="field.label()"/>
-			<div class="info info-top opacity-60" v-if="info && infoPosition == 'top'">{{ info }}</div>
+			<div class="info info-top opacity-60 leading-snug" v-if="info && infoPosition == 'top'">{{ info }}</div>
 		</template>
 
 		<slot />
 		<div class="el-form-item__error" v-if="resourceForm.errors[id]">{{ resourceForm.errors[id] }}</div>
-		<span class="info" v-if="info && infoPosition == 'bottom'">{{ info }}</span>
+		<span class="info opacity-60 leading-snug" v-if="info && infoPosition == 'bottom'">{{ info }}</span>
 	</el-form-item>
 </template>
 
