@@ -18,6 +18,8 @@ class User extends Resource
 
     public $titleField = 'name';
 
+    public $indexWith = ['groups:id,title'];
+
     public $editWith = ['groups:id,title'];
 
     public $icon = 'users';
@@ -41,6 +43,7 @@ class User extends Resource
             'dev' => $this->dev,
             'title' => $this->displayUserName($request),
             'email' => $this->email,
+            'groups' => $this->groups()->get()->pluck('title')->map(fn ($title) => "<div class='mb-1'>$title</div>")->join(''),
             'registration' => Carbon::parse($this->created_at)->toFormattedDateString(),
             'last_login' => $last_login
                 ? ($last_login->diffInMonths(Carbon::now()) <= 6 ? $last_login->diffForHumans() : $last_login->toFormattedDateString())
@@ -63,6 +66,7 @@ class User extends Resource
             'email' => Column::make('Email'),
             'registration' => Column::make('Registration Date'),
             'last_login' => Column::make('Last Login'),
+            'groups' => Column::make('Groups')->hidden(),
         ];
     }
 
