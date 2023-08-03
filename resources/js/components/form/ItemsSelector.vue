@@ -30,6 +30,7 @@
 					:resource-handle="currentResource.handle"
 					:data="itemsResource.resourceData"
 					:columns="columns"
+					:columns-select="false"
 					:no-actions="true"
 					:single-select="singleSelect"
 					@select="handleSelect"

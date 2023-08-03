@@ -32,7 +32,7 @@
 				column-key="no-select"
 				fixed="right">
 
-				<template #header >
+				<template #header v-if="columnsSelect">
 					<el-dropdown trigger="click" class="!align-middle">
 						<el-icon class="action-icon"><SetUp /></el-icon>
 					    <template #dropdown>
@@ -82,6 +82,10 @@ const props = defineProps({
 	noSelect: {
 		type: Boolean,
 		default: false
+	},
+	columnsSelect: {
+		type: Boolean,
+		default: true
 	}
 })
 
@@ -91,14 +95,18 @@ const resourceTableRef = ref()
 const columns = map(props.columns, (item, index) => {
 	return { label: item.label, value: index, checked: item.hidden ? false : true }
 })
-const columnTree = JSON.parse(Invicta.remember(`${props.resourceHandle}-index-columns`)) || columns
+const columnTree = props.columnsSelect 
+	? JSON.parse(Invicta.remember(`${props.resourceHandle}-index-columns`)) || columns
+	: columns
 
 const treeModel = ref(columnTree)
 
 const visibleColumns = computed(() => {
 	let visible = checked(treeModel.value)
 
-	Invicta.remember(`${props.resourceHandle}-index-columns`, JSON.stringify(treeModel.value))
+	if (props.columnsSelect) {
+		Invicta.remember(`${props.resourceHandle}-index-columns`, JSON.stringify(treeModel.value))
+	}
 
 	return pickBy(props.columns, (column, index) => visible.includes(index))
 })

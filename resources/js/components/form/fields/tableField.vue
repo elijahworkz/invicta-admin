@@ -24,6 +24,7 @@
 			:data="tableResource.resourceData"
 			:table-props="resource.meta.table"
 			:columns="resource.meta.columns"
+			:columns-select="false"
 			:can-edit="false"
 			:can-delete="false"
 			:has-detail="false"
