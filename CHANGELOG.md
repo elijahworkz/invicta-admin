@@ -4,6 +4,16 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.5.25](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.24...v0.5.25) (2023-08-03)
+
+### Bug Fixes
+
+* Conflict with asset helper function in application ([ee5743](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/ee57434781c7b458ac33280420407a85986cca56))
+* Move asset from helpers to asset model ([ac7447](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/ac744763c874a083e0b81f424aedf66c9dca41ba))
+
+
+---
+
 ## [0.5.24](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.23...v0.5.24) (2023-08-03)
 
 ### Features
