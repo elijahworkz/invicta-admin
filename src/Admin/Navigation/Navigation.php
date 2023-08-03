@@ -15,6 +15,8 @@ class Navigation
 
     public $shouldUpdateMenu;
 
+    protected $navigationError = false;
+
     public function menu($handle)
     {
         if (config('invicta.cache_navigation')) {
@@ -23,6 +25,10 @@ class Navigation
             });
         } else {
             $tree = $this->build($handle);
+        }
+
+        if ($this->navigationError) {
+            NavigationError::dispatch($this->menu);
         }
 
         return $this->setCurrent($tree);
@@ -58,14 +64,13 @@ class Navigation
 
     protected function buildTree($branches, $depth = 1)
     {
-        $error = false;
-        $tree = collect($branches)->map(function ($branch) use ($depth, &$error) {
+        $tree = collect($branches)->map(function ($branch) use ($depth) {
             $children = empty($branch['children']) ? [] : $this->buildTree($branch['children'], $depth + 1);
 
             $url = $this->setUrl($branch);
 
             if (is_null($url) && ! isset($branch['error'])) {
-                $error = true;
+                $this->navigationError = true;
 
                 return [];
             }
@@ -81,10 +86,6 @@ class Navigation
                 'target' => $this->setTarget($branch),
             ];
         })->filter();
-
-        if ($error) {
-            NavigationError::dispatch($this->menu);
-        }
 
         return $tree;
     }
@@ -128,15 +129,16 @@ class Navigation
 
     public function handleNavigationError($menu)
     {
-        if (! empty($menu->tree) && ! isset($menu->tree['error'])) {
-            $this->items = new NavigationItems;
-            $tree = isset($menu->tree['error']) ? $menu->tree['branches'] : $menu->tree;
+        $this->items = new NavigationItems;
+        $tree = isset($menu->tree['error']) ? $menu->tree['branches'] : $menu->tree;
+        $error = $menu->tree['error'] ?: false;
 
-            $this->collectResources($tree);
+        $this->collectResources($tree);
 
-            $this->items->getResources();
-            $this->shouldUpdateMenu = false;
+        $this->items->getResources();
+        $this->shouldUpdateMenu = false;
 
+        if (! $error) {
             $tree = $this->checkBranches($tree);
 
             if ($this->shouldUpdateMenu) {
