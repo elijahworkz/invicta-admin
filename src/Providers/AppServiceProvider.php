@@ -67,7 +67,7 @@ class AppServiceProvider extends ServiceProvider
             'api',
             'auth:sanctum',
             SetAuthGuard::class,
-            Impersonate::class
+            Impersonate::class,
         ]);
     }
 
