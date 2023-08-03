@@ -270,10 +270,7 @@ class ResourceRequest extends InvictaRequest
         if ($action->shouldQueue) {
             ActionJob::dispatch($action, $models, $fields, $user);
 
-            return ['message' => [
-                'type' => 'success',
-                'title' => 'Action was added to the queue',
-            ]];
+            return $action->message();
         }
 
         $response = $action->handle($fields, $models, $user);
@@ -281,10 +278,7 @@ class ResourceRequest extends InvictaRequest
         if (request()->method() == 'GET') {
             return $response;
         } else {
-            return ['message' => [
-                'type' => 'success',
-                'title' => 'Action Run successfully',
-            ]];
+            return $action->message();
         }
     }
 

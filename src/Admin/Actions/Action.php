@@ -191,6 +191,21 @@ class Action implements JsonSerializable
     }
 
     /**
+     * Set action response
+     */
+    public function message()
+    {
+        $title = $this->shouldQueue ? 'Action was added to the queue' : 'Action run successfully';
+
+        return [
+            'message' => [
+                'type' => 'success',
+                'title' => $title,
+            ],
+        ];
+    }
+
+    /**
      * Authorize action for given user and model.
      */
     public function authorize($user, $model)
