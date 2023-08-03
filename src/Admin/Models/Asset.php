@@ -27,7 +27,7 @@ class Asset extends Model
         $disk = config('invicta.disk');
         $prefix = $disk == 'public' ? '/storage/' : '';
 
-        return _asset($prefix.$this->path);
+        return $this->asset($prefix.$this->path);
     }
 
     public static function saveFile($file)
@@ -108,7 +108,7 @@ class Asset extends Model
         return response()->json([
             'asset' => [
                 'id' => $asset->id,
-                'src' => _asset($asset->path),
+                'src' => $this->asset($asset->path),
                 'path' => $asset->path,
                 'alt' => '',
                 'name' => $asset->name,
@@ -143,6 +143,24 @@ class Asset extends Model
         $fullPathArray = [...$pathArray, ...$folderArray];
 
         return Str::of(implode('/', $fullPathArray))->start('/')->finish('/');
+    }
+
+    private function asset($asset)
+    {
+        $path = is_array($asset) ? $asset['path'] : $asset;
+
+        if (config('invicta.disk') == 's3') {
+            $domain = config('filesystems.disks.s3.url');
+            $asset = Str::of($path);
+
+            if (config('invicta.image_to_webp')) {
+                $asset->finish('.webp');
+            }
+
+            return $asset->start('/')->prepend($domain);
+        }
+
+        return asset($path);
     }
 
     public static function resourceActions($actions)
