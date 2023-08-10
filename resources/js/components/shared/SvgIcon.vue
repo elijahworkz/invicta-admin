@@ -1,5 +1,5 @@
 <template>
-	<span v-if="rawSvg" v-html="icon"/>
+	<span v-if="rawSvg" v-html="icon" />
 	<svg v-else
 		viewBox="0 0 24 24"
 		:width="width"

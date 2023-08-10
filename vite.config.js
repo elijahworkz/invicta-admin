@@ -34,7 +34,7 @@ export default defineConfig({
 			imports: [
 				'vue',
 				{
-					'@vueuse/core': ['onClickOutside', 'onKeyStroke', 'useClipboard', 'usePermission']
+					'@vueuse/core': ['onClickOutside', 'onKeyStroke', 'useClipboard', 'usePermission', 'useEventSource']
 				},
 				{
 					'@inertiajs/vue3': ['useForm', 'usePage', 'router']

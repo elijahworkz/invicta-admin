@@ -173,7 +173,7 @@ class Action implements JsonSerializable
     /**
      * Get actionButton attribute for the action.
      *
-     * @return bool
+     * @return bool | string
      */
     protected function actionButton()
     {

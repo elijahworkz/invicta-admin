@@ -212,6 +212,11 @@ return [
             'region' => env('ELB_REGION', 'us-west-2'),
             'version' => env('ELB_VERSION', 'latest'),
         ],
+        'codepipeline' => [
+            'name' => env('CODEPIPELINE_NAME', ''),
+            'region' => env('CODEPIPELINE_REGION', 'us-west-2'),
+            'version' => env('CODEPIPELINE_VERSION', 'latest'),
+        ],
     ],
 
     /* DEVELOPMENT SETTINGS */
