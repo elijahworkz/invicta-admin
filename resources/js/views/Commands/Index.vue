@@ -20,7 +20,9 @@
 					:loading="command.running">{{ command.actionButton }}</el-button>
 			</div>
 			<div class="details mt-2" v-if="command.output">
-				<div class="terminal">{{ command.output }}</div>
+				<div class="terminal">
+					<pre>{{ command.output }}</pre>
+				</div>
 			</div>
 		</el-card>
 	</div>
