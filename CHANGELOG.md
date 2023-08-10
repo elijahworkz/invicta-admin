@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.6.0](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.25...v0.6.0) (2023-08-10)
+
+### Features
+
+* Add ability to register and run console commands from admin ([c9048a](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/c9048af59bbf316341a469107df9261cc3876425))
+
+
+---
+
 ## [0.5.25](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.5.24...v0.5.25) (2023-08-03)
 
 ### Bug Fixes
