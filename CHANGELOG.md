@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.6.2](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.6.1...v0.6.2) (2023-08-10)
+
+### Bug Fixes
+
+* Formatting for console output ([58921b](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/58921b98327b0d50ed84ec1eb32cf72f07b2be5c))
+
+
+---
+
 ## [0.6.1](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.6.0...v0.6.1) (2023-08-10)
 
 
