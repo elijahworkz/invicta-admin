@@ -24,6 +24,11 @@
 					<pre>{{ command.output }}</pre>
 				</div>
 			</div>
+			<div class="details mt-2" v-if="command.error">
+				<div class="terminal error">
+					{{ command.output }}	
+				</div>
+			</div>
 		</el-card>
 	</div>
 </template>
@@ -76,6 +81,11 @@ function runCommand(command) {
 		color: #e6e6e6;
 		border-radius: 6px;
 		padding: 10px;
+
+		&.error {
+			background: var(--el-color-danger);
+			color: #fff;
+		}
 	}
 }
 </style>

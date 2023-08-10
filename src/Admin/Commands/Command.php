@@ -145,18 +145,20 @@ class Command implements JsonSerializable
         $title = $process->failed() ? 'Error '.$process->exitCode() : $this->successMessage();
         $message = $process->failed() ? $process->errorOutput() : null;
 
-        return response()->json([
+        $output = [
             'message' => [
                 'type' => $type,
                 'title' => $title,
                 'message' => $message,
             ],
-            'output' => [
-                'debug' => $process->exitCode(),
-                'output' => $process->output(),
-                'error' => $process->errorOutput(),
-            ],
-        ]);
+            'output' => $process->output(),
+        ];
+
+        if ($process->failed()) {
+            $output['error'] = $process->exitCode().': '.$process->errorOutput();
+        }
+
+        return response()->json($output);
         //     $process = Process::run($this->command, function ($type, $output) {
         //         return $output;
         //     })->throw();
