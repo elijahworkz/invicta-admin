@@ -50,7 +50,7 @@ class {{ class }} extends Resource
      * If you need to customize the output - specify
      * an array of key => values here which will be
      * used in toArray() method in response
-     * 
+     *
      */
     public function indexResource($request)
     {
@@ -59,7 +59,7 @@ class {{ class }} extends Resource
 
     /**
      * List of columns to be displayed in resource table.
-     * Key of each column must be same as column name or 
+     * Key of each column must be same as column name or
      * key in indexResource()
      */
     public function indexColumns()

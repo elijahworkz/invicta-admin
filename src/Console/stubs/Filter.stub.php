@@ -20,7 +20,7 @@ class {{ class }} extends Filter
     /**
      * Set Filter options
      *
-     * @return array 
+     * @return array
      */
     public function options()
     {
