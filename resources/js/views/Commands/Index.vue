@@ -19,16 +19,7 @@
 					@click="startCommand(command)" 
 					:loading="command.running">{{ command.actionButton }}</el-button>
 			</div>
-			<div class="details mt-2" v-if="command.output">
-				<div class="terminal">
-					<pre>{{ command.output }}</pre>
-				</div>
-			</div>
-			<div class="details mt-2" v-if="command.error">
-				<div class="terminal error">
-					{{ command.output }}	
-				</div>
-			</div>
+			<Output v-if="showOutput(command)" :command="command" />
 		</el-card>
 	</div>
 </template>
@@ -65,7 +56,12 @@ function runCommand(command) {
 			Invicta.message(data.message)
 			command.running = false
 			command.output = data.output
+			command.error = data.error
 		})
+}
+
+const showOutput = (command) => {
+	return command.output || command.error
 }
 </script>
 
@@ -75,7 +71,7 @@ function runCommand(command) {
 		width: 24px;
 	}
 }
-.details {
+.output {
 	.terminal {
 		background: #313f46;
 		color: #e6e6e6;

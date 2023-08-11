@@ -128,13 +128,17 @@ class Command implements JsonSerializable
         $output = Artisan::output();
         $error = Str::of($output)->contains('ERROR');
 
-        return response()->json([
+        $message = [
             'message' => [
                 'type' => $error ? 'error' : 'success',
                 'title' => $output,
             ],
-            'output' => $output,
-        ]);
+        ];
+
+        $type = $error ? 'error' : 'output';
+        $message[$type] = $output;
+
+        return response()->json($message);
     }
 
     protected function shell()
