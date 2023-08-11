@@ -279,8 +279,12 @@
 			margin-left: 0.5rem;
 		}
 
-		.el-collapse-item__content {
-			padding-bottom: 0;
+		.el-collapse-item__wrap {
+			overflow: visible;
+
+			.el-collapse-item__content {
+				padding-bottom: 0;
+			}
 		}
 
 		.panel {
