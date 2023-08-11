@@ -56,7 +56,8 @@ const itemName = field.get('itemName', 'row')
 
 function getTitle(item, index) {
 	let titleField = 'titleField' in data ? data.titleField : 'title'
-	return resourceForm.get(`${path}.${index}.${titleField}`, `${titleField} #${index}`)
+	let pathArray = [path, index, titleField]
+	return resourceForm.get(pathArray.join('.'), `${titleField} #${index}`)
 }
 
 const dataPath = (id, index) => `${path}.${index}.${id}`
