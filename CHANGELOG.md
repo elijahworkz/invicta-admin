@@ -4,6 +4,20 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.6.4](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.6.3...v0.6.4) (2023-08-12)
+
+### Features
+
+* Added ability to pass nested title field for repeater ([3c972e](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/3c972e6d0cec6926cd850865f918cf04cf906b35))
+
+### Bug Fixes
+
+* Output style and refactoring for commands ([7c17d8](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/7c17d86c37e20b104d68ff0261286b9760a4c78a))
+* Select overflow issue in repeater field ([1e46be](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/1e46beb412b23cb5f91311344d64a520d3f35e9c))
+
+
+---
+
 ## [0.6.3](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.6.2...v0.6.3) (2023-08-10)
 
 ### Bug Fixes
