@@ -4,6 +4,19 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.6.5](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.6.4...v0.6.5) (2023-08-17)
+
+### Features
+
+* Pass user to commands ([3c7082](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/3c7082675af27b0aab2968505d37e3d1c15c4351))
+
+### Bug Fixes
+
+* Dynamic property warnings and add can deploy check ([4866ec](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/4866ec18865f2a88f813e0b77c7b993c3b06afab))
+
+
+---
+
 ## [0.6.4](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.6.3...v0.6.4) (2023-08-12)
 
 ### Features
