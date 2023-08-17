@@ -10,6 +10,12 @@ use Eteacher\InvictaAdmin\Events\DeploymentFinished;
 
 class CodePipeline implements DeployContract
 {
+    protected $client;
+
+    protected $pipeline;
+
+    protected $canDeploy;
+
     public function __construct()
     {
         $this->pipeline = config('invicta.deployment.codepipeline.name');
@@ -38,15 +44,17 @@ class CodePipeline implements DeployContract
 
     public function start(Deployment $deployment, $version)
     {
-        $result = $this->client->startPipelineExecution([
-            'clientRequestToken' => $version,
-            'name' => $this->pipeline,
-        ]);
+        if ($this->canDeploy) {
+            $result = $this->client->startPipelineExecution([
+                'clientRequestToken' => $version,
+                'name' => $this->pipeline,
+            ]);
 
-        $deployment->status = 'deployed';
-        $deployment->data = $result;
-        $deployment->save();
+            $deployment->status = 'deployed';
+            $deployment->data = $result;
+            $deployment->save();
 
-        DeploymentFinished::dispatch($version);
+            DeploymentFinished::dispatch($version);
+        }
     }
 }
