@@ -92,7 +92,7 @@ class Command implements JsonSerializable
      *
      * @return string
      */
-    public function command()
+    public function command($user)
     {
         return $this->command;
     }
@@ -114,16 +114,16 @@ class Command implements JsonSerializable
             : false;
     }
 
-    public function run()
+    public function run($user)
     {
         $method = $this->type;
 
-        return $this->$method();
+        return $this->$method($user);
     }
 
-    protected function artisan()
+    protected function artisan($user)
     {
-        Artisan::call($this->command());
+        Artisan::call($this->command($user));
 
         $output = Artisan::output();
         $error = Str::of($output)->contains('ERROR');
@@ -141,9 +141,9 @@ class Command implements JsonSerializable
         return response()->json($message);
     }
 
-    protected function shell()
+    protected function shell($user)
     {
-        $process = Process::run($this->command());
+        $process = Process::run($this->command($user));
 
         $type = $process->successful() ? 'success' : 'error';
         $title = $process->failed() ? 'Error '.$process->exitCode() : $this->successMessage();

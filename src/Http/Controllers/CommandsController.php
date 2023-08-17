@@ -21,7 +21,7 @@ class CommandsController extends Controller
     {
         $command = CommandRegistrar::get($handle);
 
-        return $command->run();
+        return $command->run($request->user());
         // $process = Process::run("sh {$script} {$this->version}")->throw();
 
         // $data = [
