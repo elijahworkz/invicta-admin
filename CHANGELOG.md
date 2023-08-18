@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.6.6](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.6.5...v0.6.6) (2023-08-18)
+
+### Features
+
+* Action modal gets fresh copy of blueprint with values ([9d638c](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/9d638cd8bde224c17388c28b91e80a698103b7c3))
+
+
+---
+
 ## [0.6.5](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.6.4...v0.6.5) (2023-08-17)
 
 ### Features
