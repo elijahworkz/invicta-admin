@@ -31,42 +31,53 @@ const props = defineProps({
 const emit = defineEmits(['close'])
 
 const open = ref(false)
-const action = ref({
+const action = reactive({
 	name: 'Action',
+	class: '',
 	blueprint: [],
 	dangerous: false
 })
 
+const counter = ref(0)
+const formId = ref()
 const selected = ref([])
+
 const actionData = computed(() => ({
-	class: action.value.class,
+	class: action.class,
 	selected: selected.value,
 }))
-const api = computed(() => action.value.blueprint?.fields?.length ? actionData.value : false)
+const api = computed(() => action.blueprint?.fields?.length ? actionData.value : false)
+const formKey = computed(() => `${formId.value}.${selected.value.join('')}.${counter.value}`)
+const hasForm = computed(() => ! isEmpty(action.blueprint))
 
-const formKey = computed(() => `${formId.value}.${selected.value.join('')}`)
-
-const hasForm = computed(() => ! isEmpty(action.value.blueprint))
-const formId = ref()
 const actionType = computed(() => {
-	return action.value.dangerous ? 'danger' : 'primary'
+	return action.dangerous ? 'danger' : 'primary'
 })
 
 const actionButtonTitle = computed(() => {
-	return action.value.action_button ?? 'Run Action'
+	return action.action_button ?? 'Run Action'
 })
 
 Invicta.on('show-action-modal', (event) => {
-	action.value = event.action
-	formId.value = `action.${event.action.class}`
+	let item = event.selected[0]
+	action.class = event.action.class
+	action.name = event.action.name
+	action.dangerous = event.action.dangerous
 	selected.value = event.selected || []
-	open.value = true
+	formId.value = `action.${event.action.class}.${item}`
+
+	Invicta.axios.get(`${props.actionsUrl}/blueprint/${item}`, { params: {class: event.action.class}})
+		.then(({data}) => {
+			action.blueprint = data.blueprint
+			open.value = true
+			counter.value++
+		})
 })
 
 Invicta.on('resource-form-submitted', () => open.value = false)
 
 const resource = computed(() => ({
-	blueprint: action.value.blueprint
+	blueprint: action.blueprint
 }))
 
 const processAction = () => {

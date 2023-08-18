@@ -170,7 +170,7 @@ const actionCalled = ({action, selected}) => {
 			item = selected[0]
 		}
 
-		Invicta.axios.get(`${actionsUrl}/blueprint/${item}`, { params: {...action}})
+		Invicta.axios.get(`${actionsUrl}/blueprint/${item}`, { params: {class: action.class}})
 			.then(({data}) => {
 				resourceItem.value = data
 				resourceFormId.value = `${data.handle}.${action.class}`

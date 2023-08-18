@@ -1,8 +1,8 @@
 <template>
 	<FieldBase :form-id="formId" :field-props="props">
-			<el-input v-model="data.content" v-bind="data.props" :disabled="true">
-				<template #append v-if="isSupported && data.content !== ''">
-					<el-button :icon="DocumentCopy" @click="copy(data.content); success()" v-if="! copied" title="Click to copy to clipboard"/>
+			<el-input v-model="value" v-bind="data.props" :disabled="true">
+				<template #append v-if="isSupported && value !== ''">
+					<el-button :icon="DocumentCopy" @click="copy(value); success()" v-if="! copied" title="Click to copy to clipboard"/>
 					<el-button :icon="Check" type="success" v-else @click="copied = false" />
 				</template>
 			</el-input>
@@ -17,6 +17,8 @@ const props = defineProps({
 	data: Object,
 	path: String
 })
+const field = useFormField(props)
+const value = field.value(props.data.content)
 
 const { copy, copied, isSupported } = useClipboard()
 
