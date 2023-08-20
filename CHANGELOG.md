@@ -4,6 +4,20 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.6.8](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.6.7...v0.6.8) (2023-08-20)
+
+### Features
+
+* Add Back button for form ([57aa31](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/57aa3143adf89c9a2d93abb61ac61b5982536b26))
+
+### Bug Fixes
+
+* Redirect actions not working ([4c08f0](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/4c08f0bd4dfa26715c188abe8cf1b12a036b2b62))
+* Tree shaking not working with lodash ([2c227e](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/2c227ec9112bdfb02ddeac072b9480a42e621a18))
+
+
+---
+
 ## [0.6.7](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.6.6...v0.6.7) (2023-08-18)
 
 ### Bug Fixes
