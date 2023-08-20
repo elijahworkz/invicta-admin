@@ -13,7 +13,7 @@ import {
 	isNumber,
 	clone,
 	startCase,
-} from 'lodash'
+} from 'lodash-es'
 
 export {
 	map,

@@ -1,4 +1,6 @@
 import { defineConfig, splitVendorChunkPlugin } from 'vite'
+import { visualizer } from 'rollup-plugin-visualizer'
+import viteCompression from 'vite-plugin-compression'
 import vue from '@vitejs/plugin-vue'
 import laravel from 'laravel-vite-plugin'
 import AutoImport from 'unplugin-auto-import/vite'
@@ -50,7 +52,9 @@ export default defineConfig({
 			resolvers: [ElementPlusResolver({
 				importStyle: 'sass'
 			})]
-		})
+		}),
+		viteCompression(),
+		visualizer()
 	],
 	optimizeDeps: {
 		include: [
