@@ -35,7 +35,8 @@ const action = reactive({
 	name: 'Action',
 	class: '',
 	blueprint: [],
-	dangerous: false
+	dangerous: false,
+	redirect: false
 })
 
 const counter = ref(0)
@@ -63,6 +64,7 @@ Invicta.on('show-action-modal', (event) => {
 	action.class = event.action.class
 	action.name = event.action.name
 	action.dangerous = event.action.dangerous
+	action.redirect = event.action.redirect
 	selected.value = event.selected || []
 	formId.value = `action.${event.action.class}.${item}`
 
@@ -94,8 +96,8 @@ const processAction = () => {
 		// console.log('no form call')
 		let data = { ...actionData.value, fields: [], validation: [] }
 
-		if (action.value.redirect) {
-			let url = `${action.value.redirect}?class=${actionData.value.class}&selected[]=${actionData.value.selected.join(',')}`
+		if (action.redirect) {
+			let url = `${action.redirect}?class=${actionData.value.class}&selected[]=${actionData.value.selected.join(',')}`
 			window.open(url, '_blank')
 		} else {
 
