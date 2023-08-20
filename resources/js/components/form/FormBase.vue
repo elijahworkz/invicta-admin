@@ -5,10 +5,7 @@
 		v-bind="formSettings">
 		<div class="flex items-end justify-between mb-4" v-if="!headless">
 			<div>
-				<Link v-if="breadcrumb"
-					:href="breadcrumb.url" 
-					class="breadcrumb">
-					<el-icon><ArrowLeft /></el-icon> {{ breadcrumb.text }}</Link>
+				<BackLink v-if="breadcrumb" class="breadcrumb" :data="breadcrumb"/>
 				<h1 class="mb-1">
 					<a v-if="resourceForm.meta.itemUrl" class="flex items-center" :href="resourceForm.meta.itemUrl" title="Visit URL" target="_blank">
 						<span class="flex items-center" v-html="resourceForm.title"></span>

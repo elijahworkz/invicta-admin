@@ -4,10 +4,7 @@
 
 		<div class="flex items-end justify-between mb-4">
 			<div>
-				<Link
-					:href="resource.meta.indexUrl" 
-					class="breadcrumb">
-					<el-icon><ArrowLeft /></el-icon> {{ resource.meta.indexTitle  }}</Link>
+				<BackLink class="breadcrumb" :text="resource.meta.indexTitle"/>
 				<div v-html="resource.header.title"></div>
 			</div>
 			<div class="header-details text-right" v-if="resource.header.info" v-html="resource.header.info"></div>
