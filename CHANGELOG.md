@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.6.9](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.6.8...v0.6.9) (2023-08-25)
+
+### Features
+
+* Add webhooks routes and codepipeline webhook processor ([c178d7](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/c178d71ba1b35e74b6a92cd8c0ea4cb6481e4e74))
+
+
+---
+
 ## [0.6.8](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.6.7...v0.6.8) (2023-08-20)
 
 ### Features
