@@ -17,7 +17,6 @@ class CorePermissions
                     Permission::make('delete navigation'),
                 ]),
                 Permission::make('view tools')->children([
-                    Permission::make('deploy site'),
                     Permission::make('run commands'),
                 ]),
             ]);

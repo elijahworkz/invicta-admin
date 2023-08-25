@@ -4,7 +4,6 @@ use Eteacher\InvictaAdmin\Http\Controllers\Api\AssetController;
 use Eteacher\InvictaAdmin\Http\Controllers\Api\FieldsController;
 use Eteacher\InvictaAdmin\Http\Controllers\Api\ResourceController;
 use Eteacher\InvictaAdmin\Http\Controllers\CommandsController;
-use Eteacher\InvictaAdmin\Http\Controllers\DeploymentController;
 
 Route::controller(ResourceController::class)->name('resource.')->prefix('resource')->group(function () {
     Route::get('{resource}', 'index')->name('index');
@@ -39,11 +38,6 @@ Route::controller(FieldsController::class)->name('fields.')->prefix('/fields/')-
 });
 
 /* Admin tools */
-Route::controller(DeploymentController::class)->prefix('deploy')->group(function () {
-    Route::get('lastDeployment', 'lastDeployment');
-    Route::get('{deployment}', 'details');
-});
-
 Route::controller(CommandsController::class)->prefix('commands')->name('commands.')->group(function () {
     Route::get('run/{handle}', 'run')->name('run');
 });

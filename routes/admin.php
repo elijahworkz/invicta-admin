@@ -3,7 +3,6 @@
 use Eteacher\InvictaAdmin\Http\Controllers\AdminController;
 use Eteacher\InvictaAdmin\Http\Controllers\AssetController;
 use Eteacher\InvictaAdmin\Http\Controllers\CommandsController;
-use Eteacher\InvictaAdmin\Http\Controllers\DeploymentController;
 use Eteacher\InvictaAdmin\Http\Controllers\NavigationController;
 use Eteacher\InvictaAdmin\Http\Controllers\PermissionController;
 use Eteacher\InvictaAdmin\Http\Controllers\ResourceController;
@@ -48,12 +47,6 @@ Route::controller(PermissionController::class)->name('permission.')->prefix('/gr
 
 /* Admin tools */
 Route::prefix('tools/')->group(function () {
-
-    Route::controller(DeploymentController::class)->name('deploy.')->group(function () {
-        Route::get('deploy', 'index')->name('index');
-        Route::post('deploy', 'deploy')->name('start');
-        Route::delete('deploy', 'destroy')->name('destroy');
-    });
 
     Route::controller(CommandsController::class)->name('commands.')->group(function () {
         Route::get('commands', 'index')->name('index');

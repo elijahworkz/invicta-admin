@@ -3,8 +3,6 @@
 namespace Eteacher\InvictaAdmin\Providers;
 
 use Eteacher\InvictaAdmin\Admin\Commands\CommandRegistrar;
-use Eteacher\InvictaAdmin\Admin\Deploy\Drivers\CodePipeline;
-use Eteacher\InvictaAdmin\Admin\Deploy\Drivers\ElasticBeanstalk;
 use Eteacher\InvictaAdmin\Foundation\Vite;
 use Eteacher\InvictaAdmin\Http\Middleware\Authorize;
 use Eteacher\InvictaAdmin\Http\Middleware\HandleInertiaRequests;
@@ -29,8 +27,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(CommandRegistrar::class, function ($app) {
             return new CommandRegistrar;
         });
-
-        $this->registerDeployDriver();
     }
 
     public function boot()
@@ -75,18 +71,6 @@ class AppServiceProvider extends ServiceProvider
             SetAuthGuard::class,
             Impersonate::class,
         ]);
-    }
-
-    protected function registerDeployDriver()
-    {
-        $drivers = [
-            'elb' => ElasticBeanstalk::class,
-            'codepipeline' => CodePipeline::class,
-        ];
-
-        $this->app->bind('deploy', function ($app) use ($drivers) {
-            return $app->make($drivers[config('invicta.deployment.driver')]);
-        });
     }
 
     protected function registerBladeDirectives()

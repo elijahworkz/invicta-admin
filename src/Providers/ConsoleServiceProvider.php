@@ -68,12 +68,6 @@ class ConsoleServiceProvider extends ServiceProvider
             ], 'invicta-global-seo');
         }
 
-        if (! class_exists('CreateInvictaDeploymentsTable')) {
-            $this->publishes([
-                __DIR__.'/../../database/migrations/invicta_deployments_table.php.stub' => database_path('migrations/'.date('Y_m_d_His', time()).'_create_invicta_deployments_table.php'),
-            ], 'invicta-deploy');
-        }
-
         $this->publishes([
             __DIR__.'/../../resources/views/sitemap' => public_path('vendor/invicta/views/sitemap'),
         ], 'invicta-sitemap');
@@ -97,7 +91,6 @@ class ConsoleServiceProvider extends ServiceProvider
             \Eteacher\InvictaAdmin\Console\ActionCommand::class,
             \Eteacher\InvictaAdmin\Console\FilterCommand::class,
             \Eteacher\InvictaAdmin\Console\GlobalSettingPublishCommand::class,
-            \Eteacher\InvictaAdmin\Console\DeploymentPublishCommand::class,
         ]);
     }
 }
