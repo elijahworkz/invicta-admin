@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.6.10](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.6.9...v0.6.10) (2023-08-25)
+
+### Bug Fixes
+
+* Add missing use ([924f17](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/924f175b88d03c9ab7c6cc97fdad65b8e79c878c))
+
+
+---
+
 ## [0.6.9](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.6.8...v0.6.9) (2023-08-25)
 
 ### Features
