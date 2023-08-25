@@ -29,5 +29,5 @@ Route::middleware(['invicta.api'])
 // Webhook routes
 Route::middleware(['web', 'throttle'])
     ->name('invicta.webhooks.')
-    ->prefix('webhooks')
+    ->prefix(config('invicta.path').'/webhooks')
     ->group(__DIR__.'/webhooks.php');
