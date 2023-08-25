@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.6.12](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.6.11...v0.6.12) (2023-08-25)
+
+### Bug Fixes
+
+* Change webhooks prefix to stay in admin ([c24eb0](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/c24eb001bbfe8e4f11c9d10dc2e1c0a29abac4f4))
+
+
+---
+
 ## [0.6.11](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.6.10...v0.6.11) (2023-08-25)
 
 ### Bug Fixes
