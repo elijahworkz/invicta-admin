@@ -2,7 +2,7 @@
 
 use Eteacher\InvictaAdmin\Http\Controllers\Auth\LoginController;
 
-Route::middleware(['invicta'])
+Route::middleware(['invicta', 'throttle'])
     ->name('invicta.')
     ->prefix(config('invicta.path'))
     ->group(function () {
@@ -18,6 +18,12 @@ Route::middleware(['invicta'])
         // Application routes
         Route::middleware(['invicta.auth', 'can:access invicta']) //,
             ->group(__DIR__.'/admin.php');
+
+        // Webhook routes
+        Route::middleware(['guest'])
+            ->name('webhooks.')
+            ->prefix('webhooks')
+            ->group(__DIR__.'/webhooks.php');
     });
 
 // API routes

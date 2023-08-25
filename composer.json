@@ -27,7 +27,8 @@
         "laravel/pint": "^1.5",
         "aws/aws-sdk-php": "^3.259",
         "marcocesarato/php-conventional-changelog": "^1.16",
-        "hammerstone/sidecar": "^0.4.0"
+        "hammerstone/sidecar": "^0.4.0",
+        "aws/aws-php-sns-message-validator": "^1.8"
     },
     "extra": {
         "laravel": {

@@ -67,6 +67,11 @@ class DeploymentController extends Controller
         return Deploy::lastDeployment();
     }
 
+    public function processWebhook(Request $request)
+    {
+        return Deploy::processWebhook($request);
+    }
+
     public function destroy(Request $request)
     {
         $this->authorize('deploy site');
