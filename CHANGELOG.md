@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.6.13](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.6.12...v0.6.13) (2023-08-25)
+
+### Bug Fixes
+
+* Remove deployment from package ([63bc86](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/63bc8606ffa97bd645593abc41d1c27f34f9e07f))
+
+
+---
+
 ## [0.6.12](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.6.11...v0.6.12) (2023-08-25)
 
 ### Bug Fixes
