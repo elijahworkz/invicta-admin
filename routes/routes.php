@@ -18,12 +18,6 @@ Route::middleware(['invicta', 'throttle'])
         // Application routes
         Route::middleware(['invicta.auth', 'can:access invicta']) //,
             ->group(__DIR__.'/admin.php');
-
-        // Webhook routes
-        Route::middleware(['guest'])
-            ->name('webhooks.')
-            ->prefix('webhooks')
-            ->group(__DIR__.'/webhooks.php');
     });
 
 // API routes
@@ -31,3 +25,9 @@ Route::middleware(['invicta.api'])
     ->name('invicta.api.')
     ->prefix(config('invicta.path').'/api')
     ->group(__DIR__.'/api.php');
+
+// Webhook routes
+Route::middleware(['web', 'throttle'])
+    ->name('invicta.webhooks.')
+    ->prefix('webhooks')
+    ->group(__DIR__.'/webhooks.php');
