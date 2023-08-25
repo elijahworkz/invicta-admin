@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.6.11](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.6.10...v0.6.11) (2023-08-25)
+
+### Bug Fixes
+
+* Move webhooks routes out of invicta middleware ([5a54c5](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/5a54c556af039585c4910a31d78528ed9826fc4e))
+
+
+---
+
 ## [0.6.10](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.6.9...v0.6.10) (2023-08-25)
 
 ### Bug Fixes
