@@ -16,9 +16,8 @@ class Filter implements JsonSerializable
     /**
      * Apply filter to the query.
      *
-     * @param  Illuminate\Database\Eloquent\Builder  $query
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @param  mixed  $value Filter value
-     * @return mixed
      */
     public function apply($query, $value)
     {

@@ -22,12 +22,11 @@ class ImportSettings extends Action
     /**
      * Handle action given fields, models to operate on and user
      *
-     * @param  Illuminate\Support\Fluent  $fields
-     * @param  Collection  $models
-     * @param  App\Models\User  $user
+     * @param  \Illuminate\Support\Fluent  $fields
+     * @param  \App\Models\User  $user
      * @return void
      */
-    public function handle($fields, $models, $user)
+    public function handle($fields, Collection $models, $user)
     {
         return GlobalSetting::create($fields->global);
     }
