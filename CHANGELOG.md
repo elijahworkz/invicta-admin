@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.6.16](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.6.15...v0.6.16) (2023-08-26)
+
+### Bug Fixes
+
+* Wrong docblocks for actions and filters ([cfdb59](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/cfdb59ab146ccb9fc1b9f65d2c283b9df7a95f23))
+
+
+---
+
 ## [0.6.15](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.6.14...v0.6.15) (2023-08-26)
 
 ### Bug Fixes
