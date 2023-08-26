@@ -48,13 +48,13 @@ class {{ class }} extends Action
      */
     public $actionButton =  'Run Action';
 
-
     /**
-     * Perform the action on the given models.
-     * @param  Fluent     $fields available fields
-     * @param  Collection $models modelds to perform action on
-     * @param  User       $user authenticated user
-     * @return mixed
+     * Handle action given fields, models to operate on and user
+     *
+     * @param Illuminate\Support\Fluent $fields
+     * @param Collection $models
+     * @param App\Models\User $user
+     * @return void
      */
     public function handle($fields, Collection $models, $user)
     {

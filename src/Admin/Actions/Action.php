@@ -62,12 +62,11 @@ class Action implements JsonSerializable
     protected $item;
 
     /**
-     * Perform the action on the given models.
+     * Handle action given fields, models to operate on and user
      *
-     * @param  Fluent  $fields available fields
-     * @param  Collection  $models modelds to perform action on
-     * @param  User  $user authenticated user
-     * @return mixed
+     * @param  Illuminate\Support\Fluent  $fields
+     * @param  App\Models\User  $user
+     * @return void
      */
     public function handle($fields, Collection $models, $user)
     {

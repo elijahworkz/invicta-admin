@@ -20,12 +20,12 @@ class ImportSettings extends Action
     public $actionButton = 'Import';
 
     /**
-     * Perform the action on the given models.
+     * Handle action given fields, models to operate on and user
      *
-     * @param  Fluent  $fields available fields
-     * @param    $models modelds to perform action on
-     * @param  User  $user authenticated user
-     * @return mixed
+     * @param  Illuminate\Support\Fluent  $fields
+     * @param  Collection  $models
+     * @param  App\Models\User  $user
+     * @return void
      */
     public function handle($fields, $models, $user)
     {

@@ -8,6 +8,14 @@ class ImpersonateUser extends Action
 {
     public $redirect = true;
 
+    /**
+     * Handle action given fields, models to operate on and user
+     *
+     * @param  Illuminate\Support\Fluent  $fields
+     * @param  Collection  $models
+     * @param  App\Models\User  $user
+     * @return void
+     */
     public function handle($fields, $models, $user)
     {
         $impersonated = $models->first();

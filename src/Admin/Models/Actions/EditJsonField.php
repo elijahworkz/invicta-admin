@@ -15,6 +15,13 @@ class EditJsonField extends Action
 
     protected $jsonField = 'data';
 
+    /**
+     * Handle action given fields, models to operate on and user
+     *
+     * @param  Illuminate\Support\Fluent  $fields
+     * @param  App\Models\User  $user
+     * @return void
+     */
     public function handle($fields, Collection $models, $user)
     {
         $field = $this->jsonField == 'data' ? '_data' : $this->jsonField;
