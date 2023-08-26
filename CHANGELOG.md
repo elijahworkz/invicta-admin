@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.6.15](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.6.14...v0.6.15) (2023-08-26)
+
+### Bug Fixes
+
+* Docblocks for actions ([58ff5a](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/58ff5a7d029bff95c2ee13736e799dab20bdbaac))
+
+
+---
+
 ## [0.6.14](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.6.13...v0.6.14) (2023-08-26)
 
 ### Bug Fixes
