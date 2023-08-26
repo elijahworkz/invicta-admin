@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.6.14](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.6.13...v0.6.14) (2023-08-26)
+
+### Bug Fixes
+
+* Refactor and cleanup for enlightn ([8ac4fe](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/8ac4fed23783a463832a7471bdee6c97964254d6))
+
+
+---
+
 ## [0.6.13](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.6.12...v0.6.13) (2023-08-25)
 
 ### Bug Fixes
