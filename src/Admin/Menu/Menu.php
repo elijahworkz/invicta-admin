@@ -47,9 +47,9 @@ class Menu
      * Creates Tools Menu Item
      *
      *
-     * @return instance of MenuItem::class
+     * @return Eteacher\InvictaAdmin\Admin\Menu\MenuItem
      */
-    public function tools($items = [])
+    public function tools($items = []): MenuItem
     {
         // items is an array of handles.
         // If need to change title of one of children item need to put array where `key` is handle and `value` is title.
@@ -77,6 +77,11 @@ class Menu
             ->can('view tools');
     }
 
+    /**
+     * Creates Global setting menu item
+     *
+     * @return Eteacher\InvictaAdmin\Admin\Menu\MenuItem
+     */
     public function globalSettings($name = 'Site Settings', $icon = 'settings')
     {
         $handle = 'global_settings';
@@ -118,7 +123,7 @@ class Menu
     /**
      * Creates Permission Menu Item with group links as children items.
      *
-     * @return instance of MenuItem::class
+     * @return Eteacher\InvictaAdmin\Admin\Menu\MenuItem
      */
     public function permissions($name = 'Permissions')
     {
@@ -137,7 +142,7 @@ class Menu
     /**
      * Get Permission children Menu Items.
      *
-     * @return array where items instance of MenuItem::class
+     * @return array Eteacher\InvictaAdmin\Admin\Menu\MenuItem
      */
     protected function permissionItems()
     {
@@ -160,8 +165,10 @@ class Menu
 
     /**
      * Creates an Inertia Link from Resource class.
+     *
+     * @return Eteacher\InvictaAdmin\Admin\Menu\MenuItem
      */
-    public function resource($resourceClass)
+    public function resource($resourceClass): MenuItem
     {
         $item = MenuItem::resource($resourceClass);
 
@@ -170,7 +177,12 @@ class Menu
         return $item;
     }
 
-    public function navigation($name = 'Navigation')
+    /**
+     * Shortcut to create navigation menu item.
+     *
+     * @return Eteacher\InvictaAdmin\Admin\Menu\MenuItem
+     */
+    public function navigation($name = 'Navigation'): MenuItem
     {
         return $this->createItem($name)
             ->icon('routes')
@@ -178,7 +190,12 @@ class Menu
             ->route(config('invicta.path').'/navigation');
     }
 
-    public function assets($name = 'Assets')
+    /**
+     * Shortcut to create assets menu item.
+     *
+     * @return Eteacher\InvictaAdmin\Admin\Menu\MenuItem
+     */
+    public function assets($name = 'Assets'): MenuItem
     {
         return $this->createItem($name)
             ->icon('images')
@@ -188,8 +205,10 @@ class Menu
 
     /**
      * Shortcut to create a regural internal link.
+     *
+     * @return Eteacher\InvictaAdmin\Admin\Menu\MenuItem
      */
-    public function link($name, $path)
+    public function link($name, $path): MenuItem
     {
         $item = $this->createItem($name);
         $item->route($path)->link();
@@ -197,7 +216,12 @@ class Menu
         return $item;
     }
 
-    public function externalLink($name, $url)
+    /**
+     * Shortcut to create an external link.
+     *
+     * @return Eteacher\InvictaAdmin\Admin\Menu\MenuItem
+     */
+    public function externalLink($name, $url): MenuItem
     {
         $item = $this->createItem($name);
         $item->route($url)->link(true);
@@ -205,7 +229,12 @@ class Menu
         return $item;
     }
 
-    protected function createItem($name)
+    /**
+     * Create a menu item.
+     *
+     * @return Eteacher\InvictaAdmin\Admin\Menu\MenuItem
+     */
+    protected function createItem($name): MenuItem
     {
         $item = MenuItem::make($name);
 
