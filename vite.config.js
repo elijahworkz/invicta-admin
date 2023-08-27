@@ -54,6 +54,9 @@ export default defineConfig({
 			})]
 		}),
 		viteCompression(),
+		viteCompression({
+			algorithm: 'brotliCompress',
+		}),
 		visualizer()
 	],
 	optimizeDeps: {
