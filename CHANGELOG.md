@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.6.17](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.6.16...v0.6.17) (2023-08-27)
+
+### Features
+
+* Add brotli compression to the build ([fc4e4e](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/fc4e4e48176c480661a00a8c46e65dc38d284194))
+
+
+---
+
 ## [0.6.16](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.6.15...v0.6.16) (2023-08-26)
 
 ### Bug Fixes
