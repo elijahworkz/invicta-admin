@@ -4,6 +4,7 @@ namespace Eteacher\InvictaAdmin\Admin\Models\Actions;
 
 use Eteacher\InvictaAdmin\Admin\Actions\Action;
 use Eteacher\InvictaAdmin\Admin\Models\GlobalSetting;
+use Illuminate\Database\Eloquent\Collection;
 
 class ImportSettings extends Action
 {

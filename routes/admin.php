@@ -47,7 +47,6 @@ Route::controller(PermissionController::class)->name('permission.')->prefix('/gr
 
 /* Admin tools */
 Route::prefix('tools/')->group(function () {
-
     Route::controller(CommandsController::class)->name('commands.')->group(function () {
         Route::get('commands', 'index')->name('index');
     });
