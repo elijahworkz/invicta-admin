@@ -123,7 +123,7 @@ class Asset extends Model
         ]);
     }
 
-    private static function formatBytes($size, $level = 0, $precision = 2, $base = 1024)
+    public static function formatBytes($size, $level = 0, $precision = 2, $base = 1024)
     {
         $unit = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
         $times = floor(log($size, $base));
