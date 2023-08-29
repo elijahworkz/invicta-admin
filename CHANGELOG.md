@@ -4,6 +4,16 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.6.18](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.6.17...v0.6.18) (2023-08-29)
+
+### Bug Fixes
+
+* Missing use in import settings action ([83dc53](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/83dc53ea0d7283ac616f0c31dfdb48d1eccdf584))
+* Private method in assets model\ ([f257a0](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/f257a02977fc00612fdfbb08bab096f8f83921d1))
+
+
+---
+
 ## [0.6.17](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.6.16...v0.6.17) (2023-08-27)
 
 ### Features
