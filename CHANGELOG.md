@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.6.19](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.6.18...v0.6.19) (2023-08-31)
+
+### Bug Fixes
+
+* Using $this in static method in assets model ([58abff](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/58abffdb81437128ff141c42baca243f18284f23))
+
+
+---
+
 ## [0.6.18](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.6.17...v0.6.18) (2023-08-29)
 
 ### Bug Fixes
