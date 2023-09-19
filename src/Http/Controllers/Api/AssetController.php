@@ -45,6 +45,11 @@ class AssetController extends Controller
         })->values();
     }
 
+    public function actionBlueprint(AssetRequest $request)
+    {
+        return $request->actionBlueprint();
+    }
+
     public function handleActions(AssetRequest $request)
     {
         return response()->json($request->processAction());
