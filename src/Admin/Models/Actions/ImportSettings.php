@@ -27,7 +27,7 @@ class ImportSettings extends Action
      * @param  \App\Models\User  $user
      * @return void
      */
-    public function handle($fields, Collection $models, $user)
+    public function handle($fields, Collection $models = null, $user)
     {
         return GlobalSetting::create($fields->global);
     }
