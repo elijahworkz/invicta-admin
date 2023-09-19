@@ -96,7 +96,7 @@ class AppServiceProvider extends ServiceProvider
          * Macro for Str::initials
          */
         Stringable::macro('initials', function () {
-            $words = explode(' ', $this);
+            $words = explode(' ', trim($this));
             $initials = '';
 
             if (count($words) > 1) {
