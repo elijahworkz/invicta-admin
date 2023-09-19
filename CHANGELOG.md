@@ -4,6 +4,17 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.6.20](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.6.19...v0.6.20) (2023-09-19)
+
+### Bug Fixes
+
+* Error when running import settings action ([c42795](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/c42795f4e99e7927bb94c499c659adc74aeb0fad))
+* Error when running inline action for assets ([6077be](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/6077beb7691990794017608b400bdf94ff9ce82a))
+* Initials macro error with untrimmed string ([29c4f9](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/29c4f9df213086e3f3bc2e630bb375b873301757))
+
+
+---
+
 ## [0.6.19](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.6.18...v0.6.19) (2023-08-31)
 
 ### Bug Fixes
