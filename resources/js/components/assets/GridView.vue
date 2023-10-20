@@ -29,7 +29,7 @@
 							<span
 								v-if="item.type == 'image' && settings.canEdit" 
 								class="preview-item" 
-								@click="$emit('edit', item)" 
+								@click="$emit('edit', item.id)" 
 								title="Click to preview image">
 								<Edit/>
 							</span>
@@ -39,7 +39,7 @@
 							<span 
 								v-if="settings.canDelete"
 								class="delete-item" 
-								@click="handleDelete([item.id])" 
+								@click="$emit('delete', [item.id])"
 								title="Click to delete image">
 								<Delete/>
 							</span>
@@ -78,29 +78,6 @@ const resourceList = computed(function () {
 const { isSupported, copy } = useClipboard()
 const permissionRead = usePermission('clipboard-read')
 const permissionWrite = usePermission('clipboard-write')
-
-const assetsResource = props.settings ? useResource(props.settings.handle) : null
-
-/* Handle Delete Actions */
-const handleDelete = (selected) => {
-// console.log('deleting', selected)
-	ElMessageBox.confirm(
-		'This action will permanently delete records from database. Are you sure you want to continue?',
-		'Deleting',
-		{
-			confirmButtonText: 'Delete',
-			cancelButtonText: 'Cancel',
-			confirmButtonClass: 'el-button--danger'
-		}
-	).then(() => {
-		Invicta.axios.delete(props.settings.resourceUrl, { data: { selected }})
-			.then(({data}) => {
-				Invicta.message(data.message)
-				assetsResource.getResource()
-			})
-	})
-	.catch((error) => console.log('cancel', error))
-}
 
 /* Handle Preview Image */
 const handleOpenMedia = (path) => window.open(path, '_blank')

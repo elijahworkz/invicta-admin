@@ -81,8 +81,8 @@ const makePrimary = (id) => {
 	})
 
 	let data = {
-		resource: resourceForm.meta.handle,
-		resource_id: resourceForm.meta.id,
+		resource: resourceForm.settings.handle,
+		resource_id: resourceForm.settings.id,
 		related: props.data.id,
 		term_id: id,
 		sync: [...fieldValues.value]
@@ -92,13 +92,25 @@ const makePrimary = (id) => {
 }
 
 /* Build list of options */
-const options = ref([])
+const options = ref()
+// const options = computed(() => {
+
+// 	let allOptions = resourceForm.remoteData.get('terms')
+
+// 	// if ('resources' in props.data) {
+// 	// 	console.log('want to filter', props.data.resources, allOptions)
+// 	// 	return allOptions.filter(option => props.data.resources.includes(option.handle))
+// 	// }
+
+// 	return allOptions
+// })
 onMounted(() => {
 
-	let resource = resourceForm.meta.handle
+	let resource = resourceForm.settings.handle
 
-	Invicta.axios.get(props.data.options, {params: {resource}})
+	Invicta.axios.get(props.data.options, {params: {resource, locale: resourceForm.settings.currentLocale}})
 		.then(({data}) => {
+			console.log('I got this for categories', data)
 			options.value = data
 		})
 })

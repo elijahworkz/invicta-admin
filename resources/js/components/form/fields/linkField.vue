@@ -28,22 +28,17 @@ const props = defineProps({
 	data: Object,
 	path: String
 })
-
+const resourceForm = useResourceForm(props.formId)
 const field = useFormField(props)
 const fieldValue = field.value()
-const options = ref([])
 
-onMounted(() => {
-	let data = {}
+const options = computed(() => {
+	let allOptions = resourceForm.remoteData.get('linkField')
 
 	if ('resources' in props.data) {
-		data.params = {
-			resources: props.data.resources
-		}
+		return allOptions.filter(option => props.data.resources.includes(option.handle))
 	}
-	Invicta.axios.get('/api/fields/resource-link/options', data)
-		.then(({data}) => {
-			options.value = data
-		})
+
+	return allOptions
 })
 </script>

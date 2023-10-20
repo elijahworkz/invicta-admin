@@ -31,6 +31,8 @@ const props = defineProps({
 	data: Object,
 	path: String
 })
+
+const resourceForm = useResourceForm(props.formId)
 const field = useFormField(props)
 const fieldValue = field.value('')
 
@@ -45,13 +47,7 @@ const onUpdated = (value) => {
 }
 
 /* Get Resources for Links */
-const resourcesForLinks = ref([])
-onMounted(() => {
-	Invicta.axios.get('/api/fields/texteditor/resources')
-		.then(({data}) => {
-			resourcesForLinks.value = data
-		})
-})
+const resourcesForLinks = resourceForm.remoteData.get('textEditor')
 
 const drawer = reactive({
 	state: false,

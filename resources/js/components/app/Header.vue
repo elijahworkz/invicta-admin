@@ -12,14 +12,15 @@
 
 			<Notifications />
 
-			<Impersonator v-if="$page.props.impersonator" />
+			<!-- <Impersonator v-if="$page.props.impersonator" /> -->
 			
 			<el-dropdown>
 				<User />
 				<!-- <el-button :icon="MoreFilled" size="small" text></el-button> -->
 				<template #dropdown>
 					<el-dropdown-item>
-						<Link href="/admin/logout" method="post" as="button" class="text-gray-400">Logout</Link>
+						<a href="/admin/logut" class="text-gray-400">Logout</a>
+						<!-- <Link href="/admin/logout" method="post" as="button" class="text-gray-400">Logout</Link> -->
 					</el-dropdown-item>
 				</template>
 			</el-dropdown>

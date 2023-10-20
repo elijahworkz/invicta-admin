@@ -2,6 +2,7 @@
 
 namespace Eteacher\InvictaAdmin\Http\Controllers\Api;
 
+use Eteacher\InvictaAdmin\Admin\Models\Asset;
 use Eteacher\InvictaAdmin\Admin\Resources\ResourceRegistrar;
 use Eteacher\InvictaAdmin\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -72,5 +73,10 @@ class FieldsController extends Controller
         }
 
         return $result;
+    }
+
+    public function assetFieldActions()
+    {
+        return Asset::$fieldActions;
     }
 }

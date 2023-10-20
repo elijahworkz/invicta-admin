@@ -123,11 +123,7 @@ trait ListsItems
 
     public function relatedQuery($relationship)
     {
-        if ($item = request()->query('item', false)) {
-            $related = $this->findModel($item)->$relationship();
-        } else {
-            $related = $this->model()->$relationship()->getRelated();
-        }
+        $related = $this->model()->$relationship()->getRelated();
 
         return $this->itemsQuery($related);
     }

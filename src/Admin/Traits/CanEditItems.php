@@ -8,7 +8,12 @@ use Illuminate\Support\Str;
 
 trait CanEditItems
 {
-    public $indexEdit = false;
+    /**
+     * Enables edit links to open in index view instead of separate page.
+     *
+     * @var bool
+     */
+    public $indexEdit = true;
 
     public $canChangeBlueprints = false;
 

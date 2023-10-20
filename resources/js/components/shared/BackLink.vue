@@ -1,7 +1,7 @@
 <template>
-	<Link :href="data.url" class="breadcrumb">
+	<router-link :to="data" class="breadcrumb">
 		<el-icon><ArrowLeft /></el-icon> {{ data.text }}
-	</link>
+	</router-link>
 </template>
 
 <script setup>

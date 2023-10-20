@@ -1,22 +1,22 @@
-import { createApp, h, ref } from 'vue'
-import { Head, Link, createInertiaApp } from '@inertiajs/vue3'
-import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers'
-import { createPinia } from 'pinia'
+import { createApp, ref } from 'vue'
+// import { createPinia } from 'pinia'
 import { setupAxios } from './services/axios'
+import { createRouterInstance } from './services/router'
 import mitt from 'mitt'
 import isNil from 'lodash/isNil'
 
 // components
-import { ElNotification } from 'element-plus'
+import App from '@/App.vue'
+import { ElNotification, ElLoading } from 'element-plus'
 import 'element-plus/es/components/message-box/style/index'
 import 'element-plus/es/components/notification/style/index'
 import 'element-plus/es/components/button-group/style/index'
 
 // Layouts
-import MainLayout from '@/layouts/MainLayout.vue'
+// import MainLayout from '@/layouts/MainLayout.vue'
 
 // Setup Pinia
-const pinia = createPinia()
+// const pinia = createPinia()
 
 class Invicta
 {
@@ -47,38 +47,18 @@ class Invicta
 		this.bootingCallbacks.forEach(callback => callback(this.app))
 	}
 
-	setup({ el, App, props, plugin }) {
-		this.mountElement = el
-		this.app = createApp({ render: () => h(App, props) })
-
-		this.app.use(plugin)
-		this.app.use(pinia)
-		this.app.component('Head', Head)
-		this.app.component('Link', Link)
-		this.event('InvictaReady')
-	}
-
-	initInertia(config) {
-
+	init(config) {
 		this.config = config
 		this.axios = setupAxios(`${this.getConfig('appUrl')}${this.getConfig('appPath')}`)
 		this.user = JSON.parse(atob(this.getConfig('user')))
 		delete(this.config.user)
 
-		createInertiaApp({
-			title: (title) => `${title} - ${this.getConfig('appName')}`,
-			resolve: (name) => {
-				console.log('checking', name)
-				const page = resolvePageComponent(`./views/${name}.vue`, import.meta.glob('./views/**/*.vue'))
+		this.app = createApp(App)
+		this.setupRouter()
 
-				page.then((module) => {
-		            module.default.layout = module.default.layout || MainLayout
-		        });
-
-		        return page
-			},
-			setup: this.setup.bind(this)
-		})
+		// this.app.use(pinia)
+		this.app.use(this.router)
+		this.start()
 	}
 
 
@@ -105,7 +85,11 @@ class Invicta
 
 		this.app.mount(this.mountElement)
 
-		console.log('started Invicta', this.pages)
+		console.log('started Invicta')
+	}
+
+	setupRouter() {
+		this.router = createRouterInstance(this.getConfig('appPath'))
 	}
 
 	componentExists(name) {
@@ -140,6 +124,11 @@ class Invicta
 	// Emits mitt events
 	emit(name, data = {}) {
 		this.eventBus.emit(name, data)
+	}
+
+	pageTitle(title) {
+		console.log('please Update the title', title)
+		useTitle(title, { titleTemplate: '%s - Ibc Admin' })
 	}
 
 	setErrors(errors) {

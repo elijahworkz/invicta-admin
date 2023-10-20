@@ -30,9 +30,9 @@ const changeBlueprint = (value) => {
 		: true
 
 	if (redirect) {
-		const { pageUrl } = usePage().props
+		// const { pageUrl } = usePage().props
 		
-		router.get(pageUrl, { blueprint: value })
+		// router.get(pageUrl, { blueprint: value })
 	}
 }
 </script>

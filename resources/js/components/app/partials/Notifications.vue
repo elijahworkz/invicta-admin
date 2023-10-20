@@ -28,7 +28,7 @@
 <script setup>
 import { Close } from '@element-plus/icons-vue'
 
-const notifications = usePage().props.notifications
+const notifications = [] //usePage().props.notifications
 const drawer = ref(false)
 
 </script>

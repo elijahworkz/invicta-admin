@@ -9,8 +9,8 @@
 				{{ fieldValue.width }}x{{ fieldValue.height }} | {{ fieldValue.size ? formatBytes(fieldValue.size) : 'n/a' }} {{ fieldValue.alt ? fieldValue.alt : 'No Alt!' }}
 			</div>
 			<ActionsDropdown
-				v-if="resourceForm.assetActions.length"
-				:actions="resourceForm.assetActions" 
+				v-if="assetActions.length"
+				:actions="assetActions" 
 				:item="fieldValue" 
 				@selected="handleFieldAction" 
 				class="mr-3" />
@@ -55,6 +55,7 @@ const field = useFormField(props)
 const fieldValue = field.value()
 
 const resourceForm = useResourceForm(props.formId)
+const assetActions = resourceForm.remoteData.get('assetActions')
 
 const drawer = reactive({
 	state: false,

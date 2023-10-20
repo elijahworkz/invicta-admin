@@ -7,31 +7,33 @@
 			<div>
 				<BackLink v-if="breadcrumb" class="breadcrumb" :data="breadcrumb"/>
 				<h1 class="mb-1">
-					<a v-if="resourceForm.meta.itemUrl" class="flex items-center" :href="resourceForm.meta.itemUrl" title="Visit URL" target="_blank">
-						<span class="flex items-center" v-html="resourceForm.title"></span>
+					<a v-if="resource.meta.itemUrl" class="flex items-center" :href="resource.meta.itemUrl" title="Visit URL" target="_blank">
+						<span class="flex items-center" v-html="title"></span>
 						<svg class="ml-2" viewBox="0 0 24 24" width="22"><path fill="currentColor" d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z"></path></svg>
 					</a>
-					<span v-else class="flex items-center" v-html="resourceForm.title"></span>
+					<span v-else class="flex items-center" v-html="title"></span>
 				</h1>
 			</div>
 			<div class="resource-actions flex items-center ml-auto">
 				<Localizations 
-					v-if="resourceForm.localizations"
-					:localizations="resourceForm.localizations"
+					v-if="resource.localizations"
+					:localizations="resource.localizations"
 					:form-id="formId"
 					:resource-url="resource.meta.indexUrl"/>
+
 				<slot name="form-actions"/>
+
 				<el-button-group class="relative">
 					<el-button 
 						type="primary" 
 						@click="submit"
-						:disabled="resourceForm.form.processing || !resourceForm.form.isDirty">
+						:disabled="submitDisabled">
 							{{ postSubmitData[postSubmitAction].button }}
 					</el-button>
 					<el-popover title="After Saving" :teleported="false">
 						<template #reference>
 							<el-button 
-								:disabled="resourceForm.form.processing || !resourceForm.form.isDirty"
+								:disabled="submitDisabled"
 								type="primary" 
 								:icon="postSubmitData[postSubmitAction].icon"></el-button>
 						</template>
@@ -40,14 +42,14 @@
 								:label="action">{{ postSubmitData[action].option}}</el-radio>
 						</el-radio-group>
 					</el-popover>
-					<sup class="unsaved-indicator" v-show="resourceForm.form.isDirty"></sup>
+					<sup class="unsaved-indicator" v-show="resourceForm.isDirty.value"></sup>
 				</el-button-group>
 			</div>
 		</div>
 
+	<Suspense>
 		<div class="form-wrapper" :class="{'card': tabsType == 'card'}">
 			<div class="main-panel" :class="{'el-card is-always-shadow': !hasSections && !headless, 'has-sidebar': hasSidebar}">
-				<!-- <el-card> -->
 					<el-tabs
 						v-if="hasSections"
 						v-model="activeTab"
@@ -75,7 +77,6 @@
 								:data-path="field.id"/>
 						</div>
 					</div>
-				<!-- </el-card> -->
 			</div>
 			<div v-if="hasSidebar" class="sidebar">
 				<el-card>
@@ -89,10 +90,16 @@
 				</el-card>
 			</div>
 		</div>
+
+		<template #fallback>
+			Loading...
+		</template>
+	</Suspense>
 	</el-form>
 </template>
 
 <script setup>
+import { onBeforeRouteLeave } from 'vue-router'
 import { ArrowLeft, Close, Plus, ArrowDown } from '@element-plus/icons-vue'
 
 const props = defineProps({
@@ -108,7 +115,7 @@ const props = defineProps({
 		type: Array,
 		default: ['back', 'edit', 'create']
 	},
-	api: Boolean | Object,
+	params: Object,
 	readOnly: {
 		type: Boolean,
 		default: false
@@ -119,27 +126,37 @@ const emit = defineEmits(['submit', 'form-ready'])
 
 const resourceForm = useResourceForm(props.formId)
 resourceForm.readOnly = props.readOnly
-// const { resource } = props
-// console.log('this is formbase resource', resource, toRaw(resource), toRaw(props.resource))
-resourceForm.init(toRaw(props.resource), props.actionUrl, props.api)
+
+const { resource, actionUrl, params } = props
+resourceForm.init(resource, actionUrl, params)
 
 emit('form-ready')
+
+onBeforeRouteLeave((to, from) => {
+	if (resourceForm.isDirty.value) {
+		const answer = window.confirm(
+		'Do you really want to leave? you have unsaved changes!'
+		)
+		// cancel the navigation and stay on the same page
+		if (!answer) return false
+	}
+})
 
 Invicta.on('lock-form', (formId) => {
 	console.log('I hear a call to lock form', formId, props.formId)
 	if (formId == props.formId) {
-		resourceForm.readOnly = true
+		resourceForm.data.readOnly = true
 	}
 })
 
 Invicta.on('unlock-form', (formId) => {
 	if (formId == props.formId) {
-		resourceForm.readOnly = false
+		resourceForm.data.readOnly = false
 	}
 })
 
 /* Layout setup */
-const blueprint = resourceForm.blueprint
+const blueprint = resourceForm.settings.blueprint
 const formSettings = get(blueprint.settings, 'form', {'label-position': 'top'})
 
 // Setup sections and active tab
@@ -162,24 +179,33 @@ if (hasSections && blueprint.sections.length) {
 }
 const hasSidebar = has(blueprint, 'sidebar');
 
-// Set active tab from hash
-onMounted(() => {
-	if (window.location.hash.length > 0) {
-		let hash = window.location.hash.substr(1) || '';
-		activeTab.value = hash;
-	}
-})
-
-watch(activeTab, (newTab) => {
-	window.location.hash = newTab
-})
-
 // Set form class
 const formClass = computed(() => {
 	let width = props.headless
 		? 'w-full'
 		: (hasSidebar ? 'w-sidebar' : 'w-compact')
 	return formSettings.class || width
+})
+
+const title = computed(() => {
+	let meta = props.resource.meta
+	let item = props.resource.item ?? null
+	let title = meta.pageTitle
+
+	if (item && meta.titleField !== 'id' && meta.titleField in item  ) {
+		title = get(item, meta.titleField)
+	}
+
+	if (item && 'published' in item) {
+		let status = get(item, 'published') ? 'success' : ''
+		title = `<i class="icon-status ${status} mr-2"></i> ${title}`
+	}
+
+	return title
+})
+
+const submitDisabled = computed(() => {
+	return resourceForm.processing.value || !resourceForm.isDirty.value
 })
 
 /* Post Submit options setup */
@@ -190,26 +216,40 @@ const postSubmitData = {
 	edit: { icon: ArrowDown, button: 'Save & Stay', option: 'Continue Editing'},
 	create: { icon: Plus, button: 'Save & New', option: 'Add New Item'},
 }
+
 onMounted(() => {
+	if (window.location.hash.length > 0) {
+		let hash = window.location.hash.substr(1) || '';
+		activeTab.value = hash;
+	}
+
+	console.log('formBase is mounted')
 	postSubmitAction.value = props.postSubmitActions.length > 1
 		? Invicta.remember('post-submit-action') || props.postSubmitActions[0]
 		: props.postSubmitActions[0]
 })
+
+watch(activeTab, (newTab) => {
+	// we'll update hash for tabs only for single view 
+	if (props.breadcrumb) {
+		window.location.hash = newTab
+	}
+})
 watch(postSubmitAction, (value) => Invicta.remember('post-submit-action', value))
 
+// Submit Form
 const submit = () => {
 	resourceForm.submit(postSubmitAction.value)
 }
 
 onKeyStroke('Enter', (e) => {
-
 	if (props.headless) {
 		e.preventDefault()
 		submit()
 	}
 })
 
-document.addEventListener('inertia:before', resourceForm.confirmUnsavedChanges)
+// document.addEventListener('inertia:before', resourceForm.confirmUnsavedChanges)
 </script>
 
 <style lang="scss">

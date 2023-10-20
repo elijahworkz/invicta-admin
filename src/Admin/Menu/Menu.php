@@ -4,6 +4,7 @@ namespace Eteacher\InvictaAdmin\Admin\Menu;
 
 use Eteacher\InvictaAdmin\Admin\Models\GlobalSetting as GlobalSettingModel;
 use Eteacher\InvictaAdmin\Admin\Models\Group;
+use Eteacher\InvictaAdmin\Admin\Models\Resources\Asset;
 use Eteacher\InvictaAdmin\Facades\Permission;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -67,7 +68,7 @@ class Menu
                 $itemTitle = Str::ucfirst($item);
             }
 
-            $route = config('invicta.path').'/tools/'.$itemHandle;
+            $route = '/tools/'.$itemHandle;
             $children[] = MenuItem::make($itemTitle)->route($route)->can('edit '.$itemHandle);
         }
 
@@ -93,7 +94,7 @@ class Menu
         foreach ($globals as $globalItem) {
             $itemPermission = "edit global_settings_item $globalItem->id";
 
-            $route = config('invicta.path')."/resource/$handle/$globalItem->id/edit";
+            $route = "/resource/$handle/$globalItem->id/edit";
 
             $items[] = MenuItem::make($globalItem->title)->can([$itemPermission, "edit $handle"])->route($route);
 
@@ -155,7 +156,7 @@ class Menu
         $groups = Group::orderBy('id', 'desc')->get();
 
         foreach ($groups as $group) {
-            $route = config('invicta.path').'/group/'.$group->id.'/permission';
+            $route = '/group/'.$group->id.'/permission';
 
             $groupMenuItems[] = MenuItem::make($group->title)->route($route)->can('edit permissions');
         }
@@ -187,7 +188,7 @@ class Menu
         return $this->createItem($name)
             ->icon('routes')
             ->can('view navigation')
-            ->route(config('invicta.path').'/navigation');
+            ->route('/resource/navigation');
     }
 
     /**
@@ -197,10 +198,12 @@ class Menu
      */
     public function assets($name = 'Assets'): MenuItem
     {
-        return $this->createItem($name)
-            ->icon('images')
-            ->can('view assets')
-            ->route(config('invicta.path').'/assets');
+        $item = MenuItem::resource(Asset::class);
+        $item->label($name);
+
+        $this->items[] = $item;
+
+        return $item;
     }
 
     /**

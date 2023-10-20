@@ -1,11 +1,11 @@
 <template>
-	<FieldRow v-if="showField" :field-data="fieldData">
-		<component 
+	<div v-if="showField" :class="fieldClass()">
+		<component
 			:is="fieldComponent" 
 			:form-id="formId"
 			:data="fieldData" 
-			:path="path"/>
-	</FieldRow>
+			:path="dataPath"/>
+	</div>
 </template>
 
 <script setup>
@@ -17,7 +17,7 @@ const props = defineProps({
 
 let fieldComponent = shallowRef('textField')
 let id = props.dataPath && props.dataPath.includes('.') ? split(props.dataPath, '.')[0] : props.dataPath
-let path = id == 'data' ? `_${props.dataPath}` : props.dataPath
+// let path = id == 'data' ? `_${props.dataPath}` : props.dataPath
 
 const showField = useFieldCondition(props.fieldData, props.formId)
 if (showField) {
@@ -34,5 +34,23 @@ if (showField) {
 			.catch(err => console.log(err))
 	}
 
+}
+
+const { type } = props.fieldData
+
+const fieldClass = () => {
+	if (type == 'divider' && props.fieldData.section) {
+		return 'section'
+	} 
+
+	if (type == 'row') {
+		return ['field-row-full', 'inline-fields']
+	}
+	
+	if (type == 'hidden') {
+		return 'hidden'
+	}
+
+	return [`field-row-${get(props.fieldData, 'width', 'full')}`, get(props.fieldData, 'customClass', '')]
 }
 </script>

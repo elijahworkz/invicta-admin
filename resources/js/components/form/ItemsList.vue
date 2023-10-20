@@ -141,7 +141,7 @@ const handleEditItem = (item) => {
 	drawer.context = 'form'
 	drawer.state = true
 
-	formUrl.value = `${baseRequestUrl}/${item}`
+	formUrl.value = `${baseRequestUrl}/${item}/edit`
 }
 
 const handleAddItem = () => {

@@ -1,5 +1,5 @@
 <template>
-	<label class="el-form-item__label" v-if="!seamless">{{ label() }}</label>
+	<span class="el-form-item__label" v-if="!seamless">{{ label() }}</span>
 	<span class="info info-top" v-if="!seamless && info">{{ info }}</span>
 	<div :class="{'seamless': seamless}" class="group fieldset">
 		<FormField 

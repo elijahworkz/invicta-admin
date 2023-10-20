@@ -1,5 +1,5 @@
 <template>
-	<el-input type="hidden" v-model="value" />
+	<input type="hidden" v-model="value" />
 </template>
 
 <script setup>

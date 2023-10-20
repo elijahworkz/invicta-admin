@@ -24,6 +24,7 @@ const props = defineProps({
 	path: String
 })
 
+const resourceForm = useResourceForm(props.formId)
 const field = useFormField(props)
 const fieldValue = field.value()
 const options = ref([])
@@ -32,11 +33,10 @@ const valueField = props.data.valueField || 'value'
 const labelField = props.data.labelField || 'label' 
 
 onMounted(() => {
-
 	if (Array.isArray(props.data.options)) {
 		options.value = props.data.options
 	} else if (!props.data.props?.remote) {
-		getOptions()
+		options.value = resourceForm.remoteData.get(props.data.options)
 	}
 })
 

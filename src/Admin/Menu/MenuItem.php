@@ -3,6 +3,7 @@
 namespace Eteacher\InvictaAdmin\Admin\Menu;
 
 use BadMethodCallException;
+use Eteacher\InvictaAdmin\Admin\Models\Resources\Asset;
 use Eteacher\InvictaAdmin\Admin\Resources\ResourceRegistrar;
 use Eteacher\InvictaAdmin\Admin\Traits\Makeable;
 use Eteacher\InvictaAdmin\Facades\Permission;
@@ -15,7 +16,7 @@ class MenuItem
 
     public $url = '/';
 
-    public $inertia = true;
+    public $external = false;
 
     public $icon = null;
 
@@ -102,7 +103,6 @@ class MenuItem
 
     public function link($external = false)
     {
-        $this->inertia = false;
         $this->external = $external;
 
         return $this;
@@ -138,6 +138,7 @@ class MenuItem
             ->icon($resource->icon());
     }
 
+
     public function children(array $items)
     {
         if ($this->resource) {
@@ -156,7 +157,7 @@ class MenuItem
             'url' => $this->url,
             'icon' => $this->icon,
             'badge' => $this->getBadge(),
-            'inertia' => $this->inertia,
+            'external' => $this->external,
             'group' => $this->group,
             'divider' => $this->hasDivider,
             'children' => $this->children

@@ -1,27 +1,64 @@
 <template>
-	<Head :title="resource.meta.pageTitle"/>
-	<div class="py-6 px-10">
+	<!-- <Head :title="resource.meta.pageTitle"/> -->
+	<div class="py-6 px-10" >
 		<FormBase
-			:key="resource.meta?.id || 'new'"
+			v-if="resourceItem"
 			:form-id="formId"
-			:resource="resource"
-			:action-url="resource.meta.actionUrl"
-			:breadcrumb="{ url: resource.meta.indexUrl, text: resource.meta.indexTitle }"
-			:read-only="readOnly">
+			:resource="resourceItem"
+			:action-url="resourceItem.meta.actionUrl"
+			:breadcrumb="{name: 'resourceIndex', params: { handle: route.params.handle }, text: resourceItem.meta.indexTitle}"
+			:read-only="readOnly"
+			v-loading="loading">
 		</FormBase>
 	</div>
 </template>
 
 <script setup>
-const props = defineProps({
-	resource: Object
+defineOptions({
+	beforeRouteEnter: async function (to) {
+		let {data} = await Invicta.axios.get(`api${to.path}`)
+		to.meta.data = data
+	}
 })
+
+const props = defineProps({
+	data: null | Object
+})
+
+import { useRoute, onBeforeRouteUpdate } from 'vue-router'
+const route = useRoute()
+const loading = ref(false)
+const resourceItem = ref(props.data)
 
 const user = Invicta.user
 const activeUsers = ref([])
-const channel = computed(() => {
-	return `resource.${props.resource.meta.handle}.${props.resource.meta.id}`
+const formId = computed(() => {
+	return `resource/${route.params.handle}/${route.params.id || 'create'}`
 })
+// const formId = `${handle}.${route.params.id || 'new'}`
+// 
+watch(() => route.params.handle + route.params.id, () => {
+	console.log('I see params change')
+	// resourceItem.value = route.meta.data
+	loading.value = true
+	resourceItem.value = null
+	Invicta.axios.get(`api${route.path}`)
+		.then(({data}) => {	
+			resourceItem.value = data
+			loading.value = false
+		})
+})
+
+
+onBeforeRouteUpdate(async (to, from) => {
+	console.log('we are updating the router here')
+	if (to.params.id !== from.params.id) {
+		console.log('route is different')
+	}
+})
+// watchEffect(() => {
+// 	getResourceItem(`api/resource/${route.params.handle}/${route.params.id}/edit`)
+// })
 
 onMounted(() => {
 	// window.Echo.join(channel.value)
@@ -33,9 +70,8 @@ onMounted(() => {
 	// 	.error(error => console.log('there was an error', error))
 })
 
-const resource = toRaw(props.resource)
+// const resource = toRaw(props.resource)
 
-const formId = `${resource.meta.handle}.${resource.meta?.id || 'new'}`
 // const formKey = computed(() => {
 // 	let key = resource.meta?.id || 'new'
 // 	return `${key}-${activeUsers.value.length}`
@@ -45,6 +81,18 @@ const readOnly = false
 // 	return false //activeUsers.value.length > 1 && activeUsers.value[0].id !== user.id
 // })
 
+function getResourceItem(url) {
+	loading.value = true
 
+		Invicta.axios.get(url)
+		.then(({data}) => {
+			console.log('we have some info here', data)
+			loading.value = false
+			// resourceFormId.value = `${settings.handle}.${data.item.id}`
+			resourceItem.value = data
+			// indexFormActionUrl.value = `${resource.meta.path}/${item}`
+			// drawer.value = true
+		})
+}
 
 </script>

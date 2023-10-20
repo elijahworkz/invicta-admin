@@ -20,6 +20,8 @@
 
 <script setup>
 import { mdiTranslate } from '@mdi/js'
+import { useRouter } from 'vue-router'
+const router = useRouter()
 
 const props = defineProps({
 	localizations: Object,
@@ -35,6 +37,9 @@ const origin = computed(() => {
 		return l.origin !== null
 	})[0].origin
 })
+
+const currentLocale = Object.values(props.localizations).filter((l) => l.current)[0].iso
+resourceForm.setLocale(currentLocale)
 
 const localeTitle = (locale) => {
 
@@ -52,12 +57,18 @@ const handleCommand = (locale) => {
 	let id = locale.translation
 		? locale.translation
 		: (locale.origin ? locale.origin : null)
-	let url = id ? `${id}/edit` : `${origin.value}/localize`
+
+	let handle = resourceForm.settings.handle
 
 	if (id) {
-		router.get(`${props.resourceUrl}/${url}`)
+		router.push({ name: 'resourceEdit', params: { id, handle }})
 	} else {
-		router.get(`${props.resourceUrl}/${url}/${locale.iso}`)
+
+		Invicta.axios.post(`/api/resource/${handle}/${origin.value}/localize/${locale.iso}`)
+			.then(({data}) => {
+				console.log('I have created localized version of this page', data)
+				router.push({ name: 'resourceEdit', params: { id: data, handle}})
+			})
 	}
 }
 </script>

@@ -21,7 +21,7 @@
 			<ResourceTable
 				v-if="!loading && layout == 'list'"
 				resource-handle="assets"
-				:data="itemsResource.resourceData"
+				:data="itemsResource.data.resourceData"
 				:columns="itemsResource.columns"
 				:no-actions="true"
 				:single-select="true"
@@ -43,10 +43,10 @@
 					background 
 					small 
 					layout="prev, pager, next, jumper"
-					:current-page="itemsResource.currentPage"
-					:page-size="itemsResource.perPage"
+					:current-page="itemsResource.data.currentPage"
+					:page-size="itemsResource.data.perPage"
 					:pager-count="5"
-					:total="itemsResource.total"
+					:total="itemsResource.data.total"
 					@update:page-size="itemsResource.pageSizeChange"
 					@update:current-page="itemsResource.pageChange"
 				/>
@@ -72,7 +72,10 @@ const loading = ref(false)
 const layout = ref()
 
 onMounted(() => {
-	itemsResource.pageChange(1)
+
+	if (itemsResource.data.currentPage > 1) {
+		itemsResource.pageChange(1)
+	}
 
 	loading.value = true
 	layout.value = Invicta.remember('media-layout') || 'grid'
@@ -80,7 +83,8 @@ onMounted(() => {
 	Invicta.axios.get('api/assets')
 		.then(({data}) => {
 			loading.value = false
-			itemsResource.init('api/assets', data, true)
+			console.log('I got this data', data)
+			itemsResource.initForm('api/assets', data)
 		})
 })
 

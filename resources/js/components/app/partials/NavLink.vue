@@ -1,13 +1,13 @@
 <template>
-    <Link
-    	v-if="item.inertia"
-        :class="[{'active': $page.url === item.url}, 'nav-link']"
-        :href="`${item.url}`">
-        	<slot/>
-    </Link>
-    <a v-else :href="item.url" class="nav-link" target="_blank">
+    <a v-if="item.external" :href="item.url" class="nav-link" target="_blank">
     	<slot/>
     </a>
+    <router-link
+        v-else	
+        class="nav-link"
+        :to="item.url">
+        	<slot/>
+    </router-link>
 </template>
 
 <script setup>

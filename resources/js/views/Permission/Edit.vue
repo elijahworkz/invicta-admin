@@ -26,7 +26,7 @@
 </template>
 
 <script setup>
-import { useForm } from '@inertiajs/vue3'
+// import { useForm } from '@inertiajs/vue3'
 
 const props = defineProps({
 	tree: Object,
@@ -34,9 +34,9 @@ const props = defineProps({
 	actionUrl: String
 })
 
-const form = useForm({
-	permissions: []
-})
+// const form = useForm({
+// 	permissions: []
+// })
 
 const trees = ref([])
 

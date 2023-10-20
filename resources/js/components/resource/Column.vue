@@ -18,12 +18,11 @@
 				class="edit-link"
 				v-html="scope.row[id]">
 			</div>
-			<div
+			<router-link
 				v-else-if="props.detailLink && hasDetail"
-				@click.prevent="$emit('show', scope.row.id)"
-				class="edit-link"
-				v-html="scope.row[id]">
-			</div>
+				:to="{ name: 'resourceDetail', params: {id: scope.row.id}}">
+				<span class="edit-link" v-html="scope.row[id]"></span>
+			</router-link>
 			<div v-else v-html="scope.row[id]"/>
 		</template>
 

@@ -13,7 +13,6 @@
 import { Search } from '@element-plus/icons-vue'
 
 const props = defineProps({
-	handle: String,
 	currentSearch: {
 		type: String,
 		default: '',
@@ -23,6 +22,8 @@ const props = defineProps({
 		default: () => ({ placeholder: 'Search', title: 'Type to search' })
 	},
 })
+
+const emit = defineEmits(['update'])
 
 const search = ref(props.currentSearch)
 
@@ -35,7 +36,8 @@ onMounted(() => {
 
 watch(search, debounce(newSearch => {
 	console.log('debouncing works', newSearch)
-	Invicta.emit('search-change', {query: newSearch, handle: props.handle})
+	emit('update', newSearch)
+	// Invicta.emit('search-change', {query: newSearch, handle: props.handle})
 }, 400))
 
 // watch(search, debounce(newSearch => {

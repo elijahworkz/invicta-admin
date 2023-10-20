@@ -7,9 +7,9 @@
 			@selected="handleAction" 
 			class="ml-3" />
 
-		<span v-show="hasDetail" class="action-icon" @click="$emit('show', id)" title="Show Item"><View /></span>
-		<span v-show="canEdit" class="action-icon" @click="$emit('edit', id)" title="Edit Item"><Edit /></span>
-		<span v-show="canDelete" class="action-icon" @click="$emit('delete', [id])" title="Delete Item"><Delete /></span>
+		<router-link v-if="hasDetail" :to="{name: 'resourceDetail', params: { id, handle: resourceHandle }}" class="action-icon"><View /></router-link>
+		<router-link v-if="canEdit" :to="{name: 'resourceEdit', params: { id, handle: resourceHandle }}" class="action-icon"><Edit /></router-link>
+		<span v-if="canDelete" class="action-icon" @click="$emit('delete', [id])" title="Delete Item"><Delete /></span>
 
 	</div>
 </template>
@@ -20,6 +20,7 @@ import { Delete, Edit, View } from '@element-plus/icons-vue'
 
 const props = defineProps({
 	id: Number,
+	resourceHandle: String,
 	actions: Array,
 	hasDetail: Boolean,
 	canEdit: Boolean,

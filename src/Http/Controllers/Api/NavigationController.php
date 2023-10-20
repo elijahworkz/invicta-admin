@@ -1,14 +1,14 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Http\Controllers;
+namespace Eteacher\InvictaAdmin\Http\Controllers\Api;
 
 use Eteacher\InvictaAdmin\Admin\Models\Navigation;
 use Eteacher\InvictaAdmin\Admin\Resources\ResourceRegistrar;
 use Eteacher\InvictaAdmin\Events\NavigationUpdated;
 use Eteacher\InvictaAdmin\Http\Resources\NavResource;
+use Eteacher\InvictaAdmin\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
-use Inertia\Inertia;
 
 class NavigationController extends Controller
 {

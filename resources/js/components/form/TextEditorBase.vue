@@ -4,49 +4,34 @@
 	</div>
 </template>
 
-<script>
+<script setup>
 import CkeditorVue from '@ckeditor/ckeditor5-vue'
 import ClassicEditor from 'ckeditor5-build-invicta'
 
-export default {
-	name: 'TextEditorBase',
+const props = defineProps({
+	initialValue: String,
+	disabled: Boolean
+})
 
-	props: {
-		initialValue: String,
-		disabled: Boolean
-	},
+const emit = defineEmits(['updated'])
 
-	components: {
-		ckeditor: CkeditorVue.component
-	},
+const Ckeditor = CkeditorVue.component
+const editor  = ClassicEditor
+const editorValue = ref(props.initialValue)
+const editorInstance = ref(null)
 
-	data() {
-		return {
-			editor: ClassicEditor,
-			editorValue: '',
-			editorInstance: null
-		}
-	},
+Invicta.on('ckeditor-execute-command', (command) => {
+	editorInstance.execute(command.name, command.data)
+})
 
-	created() {
-		Invicta.on('ckeditor-execute-command', (command) => {
-			this.editorInstance.execute(command.name, command.data)
-		})
-	},
-
-	watch: {
-		editorValue(newValue) {
-			this.$emit('updated', newValue)
-		} 
-	},
-
-	methods: {
-		onReady(editor) {
-			this.editorInstance = editor
-			this.editorValue = this.initialValue
-		}
-	}
+const onReady = (editor) => {
+	editorInstance.value = editor
 }
+
+watch(editorValue, debounce(newValue => {
+	emit('updated', newValue)
+}, 1000))
+
 </script>
 
 <style lang="scss">

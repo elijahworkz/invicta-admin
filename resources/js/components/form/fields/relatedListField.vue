@@ -6,7 +6,7 @@
 			:items-url="relatedUrl"
 			:field-data="data"
 			:resource="relationship"
-			:item-id="resourceForm.id"
+			:item-id="resourceForm.settings.id"
 			:options="data.options"
 			@updated="updateRelated"
 		/>
@@ -23,7 +23,7 @@ const props = defineProps({
 
 const resourceForm = useResourceForm(props.formId)
 
-const relatedUrl = `/api/resource/${resourceForm.meta.handle}/relationship/${props.data.id}`
+const relatedUrl = `/api/resource/${resourceForm.settings.handle}/relationship/${props.data.id}`
 const relationship = props.path.split('.').pop() // determine relationship from the path
 const sortable = props.path !== relationship // if path and relationsip don't match - probably needs sorting
 

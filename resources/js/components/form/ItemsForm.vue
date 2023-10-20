@@ -31,19 +31,12 @@ onMounted(() => {
 			formId.value = data.meta.id
 				? `${data.meta.handle}.${data.meta.id}`
 				: `${data.meta.handle}.new`
-
-
 		})
 })
 
 const prepopulateFields = () => {
 	if (createWith) {
 		const resourceForm = useResourceForm(formId.value)
-
-		console.log('I see createWith', createWith, createWith.field, createWith.value, resourceForm.form)
-
-		// resource.value.blueprint.fields[3]['readOnly'] = true
-
 		resourceForm.set(createWith.field, createWith.value)
 		resourceForm.setReadOnly(createWith.field)
 	}

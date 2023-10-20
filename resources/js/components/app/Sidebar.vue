@@ -18,7 +18,3 @@ const menuItems = Invicta.getConfig('menu')
 
 Invicta.log('Menu', menuItems)
 </script>
-
-<style lang="scss">
-
-</style>

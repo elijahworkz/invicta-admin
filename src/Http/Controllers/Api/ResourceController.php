@@ -14,7 +14,7 @@ class ResourceController extends Controller
             return $request->selectAllRequest();
         }
 
-        return $request->resourceList(true);
+        return $request->resourceList($request->has('settings'));
     }
 
     public function create(ResourceRequest $request)
@@ -62,6 +62,11 @@ class ResourceController extends Controller
     public function uri(ResourceRequest $request)
     {
         return $request->itemUri();
+    }
+
+    public function localize(ResourceRequest $request)
+    {
+        return $request->localizeItem();
     }
 
     public function destroy(ResourceRequest $request)

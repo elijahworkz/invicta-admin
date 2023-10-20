@@ -5,13 +5,10 @@
 			:data="data"
 			v-bind="tableProps"
 			highlight-current-row
-			@select="singleSelect"
 			@selection-change="$emit('select', $event)"
 			@current-change="$emit('single-select', $event)"
 			@sort-change="handleSortChange"
-			@row-click="handleRowClick"
-			:key="tableKey"
-			v-loading="loading">
+			@row-click="handleRowClick">
 
 			<el-table-column v-if="!singleSelect && !noSelect" type="selection" fixed />
 
@@ -21,7 +18,6 @@
 					:props="column"
 					:can-edit="canEdit"
 					:has-detail="hasDetail"
-					@show="$emit('show', $event)"
 					@edit="$emit('edit', $event)"/>
 			</template>
 
@@ -46,12 +42,11 @@
 				<template #default="scope">
 					<RowActions 
 						:id="scope.row.id"
+						:resource-handle="resourceHandle"
 						:actions="scope.row.actions || []" 
 						:can-edit="canEdit" 
 						:can-delete="canDelete"
 						:has-detail="hasDetail"
-						@show="$emit('show', $event)"
-						@edit="$emit('edit', $event)" 
 						@delete="$emit('delete', $event)" />
 				</template>
 
@@ -68,9 +63,18 @@ const props = defineProps({
 	data: Array,
 	tableProps: Object,
 	columns: Object,
-	canEdit: Boolean,
-	canDelete: Boolean,
-	hasDetail: Boolean,
+	canEdit: {
+		type: Boolean,
+		default: false,
+	},
+	canDelete: {
+		type: Boolean,
+		default: false,
+	},
+	hasDetail: {
+		type: Boolean,
+		default: false,
+	},
 	noActions: {
 		type: Boolean,
 		default: false,
@@ -90,16 +94,15 @@ const props = defineProps({
 })
 
 const resourceTableRef = ref()
+const treeModel = ref([])
 
-// Handle column setup and visibility
-const columns = map(props.columns, (item, index) => {
+let columns = map(props.columns, (item, index) => {
 	return { label: item.label, value: index, checked: item.hidden ? false : true }
 })
-const columnTree = props.columnsSelect 
+
+treeModel.value = props.columnsSelect 
 	? JSON.parse(Invicta.remember(`${props.resourceHandle}-index-columns`)) || columns
 	: columns
-
-const treeModel = ref(columnTree)
 
 const visibleColumns = computed(() => {
 	let visible = checked(treeModel.value)
@@ -114,7 +117,7 @@ const visibleColumns = computed(() => {
 // Handle sorting
 const handleSortChange = ({ prop, order }) => {
 	console.log('before sort event', prop, order)
-	Invicta.emit('sort-change', { prop, order, handle: props.resourceHandle })
+	Invicta.emit('sort-change', { prop, order })
 }
 
 // Handle Row click
@@ -129,23 +132,4 @@ const clearSelection = () => {
 	resourceTableRef.value.clearSelection()
 }
 defineExpose({clearSelection})
-
-// Repaint table when sidebar is exposed
-const tableKey = ref(0)
-Invicta.on('close-sidebar-submenus', () => {
-	if (!document.querySelector('body').classList.contains('sidebar-mini')) {
-		tableKey.value = Date.now()
-	}
-})
-
-// Set loading state
-const loading = ref(false)
-router.on('start', () => {
-	loading.value = true
-})
-
-router.on('finish', () => {
-	loading.value = false
-	// loading.close()
-})
 </script>

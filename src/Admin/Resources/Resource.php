@@ -29,8 +29,6 @@ class Resource extends JsonResource
      */
     public $indexWith;
 
-    public $canCreate = true;
-
     /**
      * List of relationships that should be eager loaded on edit.
      *
@@ -52,8 +50,25 @@ class Resource extends JsonResource
      */
     public $titleField = 'id';
 
+    /**
+     * Determines if new resource items can be created. Shows or hides a 'Create' button.
+     *
+     * @var bool
+     */
+    public $canCreate = true;
+
+    /**
+     * Svg icon name that will be used in menu for the resource.
+     *
+     * @var string
+     */
     public $icon = 'resource';
 
+    /**
+     * Array of column names that will searched against.
+     *
+     * @var array
+     */
     public $search = [];
 
     protected $routePrefix = '/resource/';
@@ -69,7 +84,7 @@ class Resource extends JsonResource
 
     public function route()
     {
-        return Str::start($this->routePrefix.$this->handle(), config('invicta.path'));
+        return $this->routePrefix.$this->handle();
     }
 
     public function icon()

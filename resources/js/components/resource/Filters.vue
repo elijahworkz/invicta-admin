@@ -1,5 +1,5 @@
 <template>
-	<popover v-if="resourceFilters.length">
+	<popover>
 		<template #trigger>
 			<el-button class="filter-state">
 				<el-icon><Filter /></el-icon><el-icon class="el-icon--right"><arrow-down /></el-icon>
@@ -7,7 +7,7 @@
 		</template>
 		<template #default="scope">
 			<div class="p-3">
-				<template v-for="filter in resourceFilters">
+				<template v-for="filter in filters">
 					<h4 class="mb-1" :class="activeFilter(filter.class)">{{ filter.name }}</h4>
 					<SelectFilter
 						v-if="filter.type == 'select'"
@@ -32,7 +32,6 @@
 			</div>
 		</template>
 	</popover>
-	<!-- <el-icon v-else class="cursor-not-allowed"><Filter/></el-icon> -->
 </template>
 
 <script setup>
@@ -40,49 +39,12 @@ import { Filter, ArrowDown, Minus } from '@element-plus/icons-vue'
 
 const props = defineProps({
 	resourceHandle: String,
-	filters: String
+	filters: Array,
+	activeFilters: Object,
 })
 
-const resourceIndex = useResource(props.resourceHandle)
-
-const requestFilters = ref(null)
-const resourceFilters = ref([])
-
-const filterState = computed(() => props.filters ? 'var(--el-color-primary)' : 'initial')
-const activeFilter = (name) => name in resourceIndex.activeFilters ? 'active-filter' : ''
-
-onMounted(() => {
-	if (props.filters) {
-		requestFilters.value = JSON.parse(atob(props.filters))
-	}
-})
-
-watchEffect(() => {
-	getFilters()
-})
-
-function getFilters() {
-	Invicta.axios.get(`/api/resource/${props.resourceHandle}/filters`)
-		.then(({data}) => {
-
-			if (data.length) {
-				resourceFilters.value = data.map(filter => {
-					let initialValue = ''
-
-					if (requestFilters.value) {
-						initialValue = filterFn(requestFilters.value, (item, key) => {
-							console.log(filter.class, key, item)
-							return filter.class == key
-						})[0]
-						console.log(initialValue)
-					}
-					filter.initialValue = initialValue
-					return filter
-				})
-			}
-			resourceFilters.value = data
-		})
-}
+const filterState = computed(() => Object.keys(props.activeFilters).length ? 'var(--el-color-primary)' : 'initial')
+const activeFilter = (name) => name in props.activeFilters ? 'active-filter' : ''
 </script>
 
 <style>
@@ -90,7 +52,6 @@ function getFilters() {
 	color: v-bind(filterState) !important;
 }
 .active-filter {
-	/* color:  var(--el-color-primary); */
 	font-weight: 600;
 }
 </style>

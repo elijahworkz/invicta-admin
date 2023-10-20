@@ -12,6 +12,13 @@
 </template>
 
 <script setup>
+defineOptions({
+	beforeRouteEnter: async function (to) {
+		let {data} = await Invicta.axios.get(`api${to.path}`)
+		to.meta.data = data
+	}
+})
+
 defineProps({
 	title: String,
 	resource: Object,

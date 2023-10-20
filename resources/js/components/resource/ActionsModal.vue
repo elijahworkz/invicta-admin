@@ -10,7 +10,7 @@
 			:form-id="formId"
 			:resource="resource"
 			:action-url="actionsUrl"
-			:api="api"
+			:params="actionData"
 			:key="formKey"
 		/>
 
@@ -47,9 +47,9 @@ const actionData = computed(() => ({
 	class: action.class,
 	selected: selected.value,
 }))
-const api = computed(() => action.blueprint?.fields?.length ? actionData.value : false)
-const formKey = computed(() => `${formId.value}.${selected.value.join('')}.${counter.value}`)
+// const formParams = computed(() => action.blueprint?.fields?.length ? actionData.value : {})
 const hasForm = computed(() => ! isEmpty(action.blueprint))
+const formKey = computed(() => `${formId.value}.${selected.value.join('')}.${counter.value}`)
 
 const actionType = computed(() => {
 	return action.dangerous ? 'danger' : 'primary'
@@ -85,11 +85,11 @@ const resource = computed(() => ({
 const processAction = () => {
 
 	// Check if action has fields
-	if (api.value) {
+	if (hasForm) {
 
 		// console.log('we have form - form will submit')
 		const resourceForm = useResourceForm(formId.value)
-		resourceForm.apiSubmit()
+		resourceForm.submit()
 
 	} else {
 

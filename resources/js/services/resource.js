@@ -1,84 +1,99 @@
-import { defineStore } from 'pinia'
-// import { router } from '@inertiajs/vue3'
+// import { defineStore } from 'pinia'
+import { useRouter, useRoute } from 'vue-router'
+import { createSharedComposable } from '@vueuse/core'
 
 const Invicta = window.Invicta
 
 const definedResources = new Map()
 
-export const useResource = (id = 'store') => {
-	let resourceId = `resource-${id}`
-	if (!definedResources.has(resourceId)) {
-		definedResources.set(
-			resourceId,
-			defineResource(id)
-		)
+// export const useResource = (id = 'store') => {
+// 	let resourceId = `resource-${id}`
+// 	if (!definedResources.has(resourceId)) {
+// 		definedResources.set(
+// 			resourceId,
+// 			createSharedComposable(defineResource(id))
+// 		)
+// 	}
+
+// 	return definedResources.get(resourceId)
+// }
+
+
+
+const defineResource = (handle) => {
+
+	if (! definedResources.has(handle)) {
+		definedResources.set(handle, { settings: null, filters: null, actions: null})
 	}
+	const definedResource = reactive(definedResources.get(handle))
+	// const definedResource = reactive({ settings: null, filters: null, actions: null})
 
-	return definedResources.get(resourceId)
-}
-
-const defineResource = (id) => defineStore(`resource-${id}`, () => {
-	const resourceHandle = id
+	const resourceHandle = handle
+	const requestUrl = ref('')
 	const resourceData = ref([])
-	const search = ref('')
+	const resourceSettings = ref(null)
+	const resourceFilters = ref([])
+	const resourceActions = ref([])
+
+	const currentLocale = ref('')
 	const currentPage = ref(1)
 	const perPage = ref()
 	const sortOrder = ref()
 	const sortBy = ref()
-	const activeFilters = ref([])
-	const filterBadges = ref([])
-	const requestUrl = ref('')
-	const api = ref(null)
-	const additionalParams = ref(null)
 	const total = ref(0)
+
+	const search = ref('')
+	const activeFilters = ref({})
+	const filterBadges = ref([])
+
+	const tableSettings = ref({})
 	const columns = ref({})
-	const currentLocale = ref('')
+
+	// is resource used for a form field (i.e. no need to update route)
+	const formResource = ref(false)
+	const additionalParams = ref(null)
+
+	const loading = ref(false)
 
 	const setLocale = (locale) => {
-		console.log('see you change locale', locale)
+		console.log('see you change locale', locale, requestUrl, resourceHandle)
 		currentLocale.value = locale
 		currentPage.value = 1
 	}
 
-	const pageChange = (page) => {
-		console.log('see that you want to change page', resourceHandle, page, currentPage.value)
+	const setPage = (page) => {
 		currentPage.value = page//page == 1 ? null : page
+		console.log('see that you want to change page', page, currentPage.value, requestUrl)
 	}
 
-	const pageSizeChange = (size) => {
+	const setPageSize = (size) => {
 		perPage.value = size
 	}
 
-	Invicta.on('sort-change', ({ prop, order, handle }) => {
-		console.log('hear sort', prop, order, handle)
-		if (resourceHandle == handle) {
-			sortOrder.value = order == 'ascending' ? 'asc' : 'desc'
-			sortBy.value = prop
-		}
+	Invicta.on('sort-change', ({ prop, order }) => {
+		sortOrder.value = order == 'ascending' ? 'asc' : 'desc'
+		sortBy.value = prop
 	})
 
-	Invicta.on('search-change', ({query, handle}) => {
-		console.log('search-change event', query, handle, resourceHandle)
-		if (resourceHandle == handle) {
-			currentPage.value = 1
-			search.value = query
-		}
-	})
+	// Invicta.on('search-change', ({query, handle}) => {
+	// 	console.log('search-change event', query, handle, resourceHandle)
+	// 	if (resourceHandle == handle) {
+	// 		currentPage.value = 1
+	// 		search.value = query
+	// 	}
+	// })
 
-	Invicta.on('clear-filters', (handle) => {
-		console.log('clearing filter for', handle)
-		if (resourceHandle == handle) {
-			currentPage.value = 1
-			activeFilters.value = []
-		}
-	})
+	// check if there are already search coming with resource
+	const setSearch = (query = null) => {
+		currentPage.value = 1
+		search.value = query
+		console.log('I get some searching', query, requestQuery)
+	}
 
 	/* Filters */
-	const requestFilters = ref(false)
 	const updateFilters = ({filter, handle}) => {
 		// should check for resource id here?
 		if (resourceHandle == handle) {		
-			currentPage.value = null
 
 			for (const [key, item] of Object.entries(filter)) {
 
@@ -89,21 +104,10 @@ const defineResource = (id) => defineStore(`resource-${id}`, () => {
 					activeFilters.value = {...activeFilters.value, ...filter}
 				}
 			}
-			requestFilters.value = false
+			currentPage.value = 1
 		}
 	}
 	Invicta.on('update-filters', updateFilters)
-
-	// check if there are already active filters coming with resource
-	// this can happen on a page reload with filters in url - in this case
-	// we need to set activeFilters manually from what came with resource
-	// but prevent the getResource function from loading it again
-	const setActiveFilters = (filters = null) => {
-		if (filters) {
-			activeFilters.value = JSON.parse(atob(filters))
-			requestFilters.value = true
-		}
-	}
 
 	const encodedFilters = computed(() => {
 		return Object.keys(activeFilters.value).length
@@ -111,12 +115,9 @@ const defineResource = (id) => defineStore(`resource-${id}`, () => {
 			: null
 	})
 
-	// check if there are already search coming with resource
-	const setSearch = (query = null) => {
-		if (query) {
-			requestFilters.value = true // we need to set api to false to avoid reload on initial page load
-			search.value = query
-		}
+	const clearFilters = () => {
+		currentPage.value = 1
+		activeFilters.value = {}
 	}
 
 	/* Build and monitor request query */
@@ -133,71 +134,157 @@ const defineResource = (id) => defineStore(`resource-${id}`, () => {
 	})
 
 	watch(
+		requestQuery,
 		() => {
-			return (
-				currentPage.value +
-				search.value +
-				encodedFilters.value +
-				perPage.value +
-				sortOrder.value +
-				sortBy.value +
-				currentLocale.value
-			)
-		},
-		() => {
+			console.log('Something changed in requestQuery', requestQuery)
 			getResource()
 		})
 
-	// watch(activeFilters, (newState) => {
-	// 	console.log('we have some changes here', newState)
-	// })
+	function initIndex(route) {
+		let makeRequest = true
 
-	function init(resourceUrl, resource, useApi = false) {
-		console.log('got some data', resource)
+		// 	let resourceId = `resource-${id}`
+		if (definedResource.settings) {
+			// makeRequest = false
+			console.log('Ive been here already')
+			Invicta.pageTitle(definedResource.settings.title)
+		}
+
+		// we need to make an initial request to get the data
+		// but only if this is not a first page load with some query params already
+		// present - in that case - the request will be made automatically
+
+		console.log('1. init Index', route.path)
+		requestUrl.value = `api${route.path}`
+		
+		if (route.query.search) {
+			search.value = route.query.search
+			makeRequest = false
+		}
+
+		if (route.query.page) {
+			currentPage.value = Number(route.query.page)
+			makeRequest = false
+		}
+
+		if (route.query.filters) {
+			activeFilters.value = JSON.parse(atob(route.query.filters))
+			makeRequest = false
+		}
+
+		if (makeRequest) {		
+			getResource()
+		}
+
+		getResourceFilters()
+		getResourceActions()
+	}
+
+	function initForm(resourceUrl, resource) {
+		formResource.value = true
 		requestUrl.value = resourceUrl
 		currentPage.value = resource.meta.current_page
 		resourceData.value = resource.data
 		total.value = resource.meta.total
 		filterBadges.value = resource.meta.filterBadges
+		additionalParams.value = resource.params
 
-		if (useApi) {
-			api.value = true
-			additionalParams.value = resource.params
-			columns.value = resource.meta.columns
+		definedResource.settings = {
+			...resource.meta.settings,
+			tableSettings: resource.meta.table,
+			columns: resource.meta.columns
 		}
 	}
 
 	function getResource() {
-		let query = pickBy(requestQuery.value)
+		loading.value = true
 
-		// console.log('I should change', requestUrl, requestQuery.value, api.value)
+		let query = pickBy(requestQuery.value, (value, key) => {
+			if (value) {
+				if (key == 'page') {
+					return value > 1
+				}
+				return true
+			}
+		})
 
-		if (api.value) {
+		console.log('2. I should change', requestUrl.value, requestQuery.value)
+
+		if (formResource.value) {
 			query = additionalParams.value
 				? { ...query, ...additionalParams.value }
 				: query
 			console.log(' I should ask api', query)
+		} else {
+			let queryString = Object.keys(query).map(key => key + '=' + query[key]).join('&')
+			// window.history.replaceState(null, null, `?${queryString}`)
+			
+			console.log('3. I have this query', query)
+			Invicta.router.replace({ query })
 		}
 
-		// we send request only if it's api or if requestFilters is false
-		if (api.value || !requestFilters.value) {
+		if (! definedResource.settings) {
+			query.settings = true
+		}
 
-			if (! api.value) {
-				let queryString = Object.keys(query).map(key => key + '=' + query[key]).join('&')
-				window.history.replaceState(null, null, `?${queryString}`)
-			}
 
-			Invicta.axios.get(requestUrl.value, { params: query })
-				.then(({data}) => {
-					console.log('got some new data', data)
-					resourceData.value = data.data
+		Invicta.axios.get(requestUrl.value, { params: query })
+			.then(({data}) => {
+				console.log('4. got some new data', data)
+				resourceData.value = data.data
+				total.value = data.meta.total
+				filterBadges.value = data.meta.filterBadges
+
+				if (data.meta.current_page !== currentPage.value) {
 					currentPage.value = data.meta.current_page
-					total.value = data.meta.total
-					filterBadges.value = data.meta.filterBadges
-				})
+				}
 
+				if (data.meta.settings) {
+					definedResource.settings = data.meta.settings
+					Invicta.pageTitle(data.meta.settings.title)
+				}
+
+				loading.value = false
+			})
+	}
+
+	function getResourceFilters() {
+		if (! definedResource.filters) {
+			Invicta.axios.get(`${requestUrl.value}/filters`)
+				.then(({data}) => {
+
+					if (data.length) {
+						definedResource.filters = data.map(filter => {
+							let initialValue = ''
+
+							if (Object.keys(activeFilters.value).length) {
+								initialValue = filterFn(activeFilters.value, (item, key) => {
+									// console.log(filter.class, key, item)
+									return filter.class == key
+								})[0]
+							}
+							filter.initialValue = initialValue
+							return filter
+						})
+					}
+				})
 		}
-		requestFilters.value = false // we always reset requestFilters
+	}
+
+	function getResourceActions() {
+		if (! definedResource.actions) {
+			Invicta.axios.get(`${requestUrl.value}/actions`)
+				.then(({data}) => {
+					if (data.length) {
+
+						resourceActions.value = data.reduce((obj, item) => {
+							obj[item.type] = obj[item.type] || []
+							obj[item.type].push(item)
+							return obj
+						},{})
+					}
+				})
+		}
 	}
 
 	function selectAll() {
@@ -207,24 +294,31 @@ const defineResource = (id) => defineStore(`resource-${id}`, () => {
 
 		return Invicta.axios.get(requestUrl.value, { params: query })
 	}
-	
+
 	return {
-		handle: resourceHandle,
-		init,
-		filterBadges,
-		activeFilters,
-		setActiveFilters,
-		setSearch,
-		currentPage,
-		perPage,
-		pageChange,
-		pageSizeChange,
-		total,
-		columns,
-		setLocale,
-		currentLocale,
-		resourceData,
+		initIndex,
+		initForm,
 		getResource,
-		selectAll
+		setSearch,
+		setLocale,
+		setPage,
+		setPageSize,
+		selectAll,
+		clearFilters,
+		static: definedResource,
+		requestUrl,
+		currentLocale,
+		data: reactive({
+			resourceData,
+			filterBadges,
+			activeFilters,
+			currentPage,
+			perPage,
+			total,
+			currentLocale,
+			loading,
+		})
 	}
-})()
+}
+
+export const useResource = createSharedComposable(defineResource)

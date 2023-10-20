@@ -10,10 +10,10 @@
 			<tbody>
 				<tr v-for="(item, index) in editableValue">
 					<td class="w-1/4">
-						<input v-model="item.key">
+						<input :name="`${data.id}-key-${index}`" v-model="item.key">
 					</td>
 					<td>
-						<input v-model="item.value">
+						<input :name="`${data.id}-value-${index}`" v-model="item.value">
 					</td>
 					<td class="action">
 						<el-button text @click="removeRow(index)" :icon="Delete" />

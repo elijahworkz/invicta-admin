@@ -13,12 +13,11 @@
     <!-- Font -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,400i,500,500i,600,600i,700,700i&display=swap" rel="stylesheet" type="text/css">
 
-    @inertiaHead
-
+    {{-- @vite(['resources/js/main.js']) --}}
     @invictaScripts
 
 </head>
-<body>
+<body class="invicta">
     <noscript>
       <strong>We're sorry but this page doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
@@ -58,14 +57,13 @@
         Loading Admin...
     </div>
 
-    <div id="app" class="app" data-page="{{ json_encode($page) }}"></div>
+    <div id="app" class="app"></div>
 
     <div id="drawer"></div>
 
     <div id="poppers"></div>
 
     <script type="module">
-        Invicta.initInertia(@json(InvictaAdmin::appVariables()))
     </script>
 
     @auth
@@ -73,6 +71,7 @@
     @endauth
 
     <script type="module">
+        Invicta.init(@json(InvictaAdmin::appVariables()))
         document.addEventListener('InvictaReady', () => {
             console.log('I see assets loaded event')
             Invicta.start()

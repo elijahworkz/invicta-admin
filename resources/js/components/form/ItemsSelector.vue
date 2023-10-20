@@ -156,7 +156,7 @@ function requestResourceItems() {
 
 	Invicta.axios.get(requestUrl, { params })
 		.then(({data}) => {
-			itemsResource.init(requestUrl, data, true)
+			itemsResource.initForm(requestUrl, data)
 			loading.value = false
 		})	
 }

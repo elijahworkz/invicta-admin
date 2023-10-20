@@ -20,26 +20,42 @@ export default defineConfig({
 	},
 	css: {
 		preprocessorOptions: {
-			scss: {
-				additionalData: `@use "~/assets/sass/element/variables.scss" as *;`,
-			},
+			// scss: {
+			// 	additionalData: `@use "~/assets/sass/element/variables.scss" as *;`,
+			// },
 		}
 	},
 	plugins: [
 		splitVendorChunkPlugin(),
 		laravel({
+			// hotFile: 'public/vendor/invicta/hot',
 			input: ['resources/js/main.js'],
-			buildDirectory: '/vendor/invicta/'
+			buildDirectory: '/vendor/invicta/',
+			refresh: true,
 		}),
-		vue(),
+		vue({
+			template: {
+                transformAssetUrls: {
+                    // The Vue plugin will re-write asset URLs, when referenced
+                    // in Single File Components, to point to the Laravel web
+                    // server. Setting this to `null` allows the Laravel plugin
+                    // to instead re-write asset URLs to point to the Vite
+                    // server instead.
+                    base: null,
+ 
+                    // The Vue plugin will parse absolute URLs and treat them
+                    // as absolute paths to files on disk. Setting this to
+                    // `false` will leave absolute URLs un-touched so they can
+                    // reference assets in the public directory as expected.
+                    includeAbsolute: false,
+                },
+            },
+		}),
 		AutoImport({
 			imports: [
 				'vue',
 				{
-					'@vueuse/core': ['onClickOutside', 'onKeyStroke', 'useClipboard', 'usePermission', 'useEventSource']
-				},
-				{
-					'@inertiajs/vue3': ['useForm', 'usePage', 'router']
+					'@vueuse/core': ['onClickOutside', 'onKeyStroke', 'useTitle', 'useClipboard', 'usePermission', 'useEventSource']
 				}
 			],
 			dirs: ['resources/js/services/**', 'resources/js/utils'],
@@ -62,7 +78,6 @@ export default defineConfig({
 	optimizeDeps: {
 		include: [
 			'vue',
-			'@inertiajs/vue3',
 			'axios',
 			'lodash-es'
 		]

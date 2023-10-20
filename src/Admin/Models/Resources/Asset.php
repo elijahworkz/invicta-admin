@@ -26,12 +26,10 @@ class Asset extends Resource
 
     public $search = ['name', 'path'];
 
-    protected $routePrefix = '/';
-
     public function indexResource($request)
     {
         return [
-            'name' => $this->inlineAsset()->toHtml(),
+            'name' => $this->inlineAsset($this)->toHtml(),
             'dimensions' => $this->width.' x '.$this->height,
             'size' => $this->size_human,
             'type' => $this->type,
@@ -46,13 +44,24 @@ class Asset extends Resource
         ];
     }
 
-    public function inlineAsset()
+    public function inlineAsset($item)
     {
         return new HtmlString(<<<HTML
-                    <div class="asset-inline">
-                        <img class="thumbnail" src="{$this->src()}"/> {$this->name}
-                    </div>
-                HTML);
+            <div class="asset-inline">
+                <img class="thumbnail" src="{$item->src()}"/> {$item->name}
+            </div>
+        HTML);
+    }
+
+    private function assetPreview($item)
+    {
+        return new HtmlString(<<<HTML
+            <div class="text-center">
+                <div class="image-transparent-back">
+                    <img src="{$item->src()}" :alt="{$item->alt}" />
+                </div>
+            </div>
+        HTML);
     }
 
     public function indexColumns()
@@ -67,13 +76,27 @@ class Asset extends Resource
         ];
     }
 
+    public function blueprint($item = null)
+    {
+        return [
+            'fields' => [
+                [
+                    'id' => 'alt',
+                    'type' => 'text',
+                    'props' => [
+                        'placeholder' => 'Specify Alt attribute for the image'
+                    ]
+                ],
+                [
+                    'type' => 'infoPanel',
+                    'content' => $this->assetPreview($item)->toHtml()
+                ],
+            ],
+        ];
+    }
+
     public function actions()
     {
         return AssetModel::$resourceActions;
-    }
-
-    public function fieldActions()
-    {
-        return AssetModel::$fieldActions;
     }
 }

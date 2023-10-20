@@ -30,43 +30,37 @@ class ResourceRequest extends InvictaRequest
         return $this->resourceClass()->canCreate;
     }
 
-    public function resourceList($dataOnly = false)
+    public function resourceList($settings = false)
     {
         $resourceClass = $this->resourceClass();
         $resource = $resourceClass->resource();
-
-        $collection = $resourceClass::collection($resource)
-            ->additional([
-                'meta' => [
-                    ...request()->only('search', 'filters'),
-                    'filterBadges' => $resourceClass->filterBadges(),
-                    'table' => $resourceClass->indexTableSettings(),
-                    'columns' => $resourceClass->indexColumns(),
-                ],
-            ]);
-
-        if ($dataOnly) {
-            return $collection;
-        }
-
         $handle = $resourceClass->handle();
-        $user = request()->user();
 
-        return [
-            'title' => $resourceClass->menuTitle(),
-            'resource' => $collection,
-            'settings' => [
-                'handle' => $handle,
+        $meta = [
+            ...request()->only('search', 'filters'),
+            'filterBadges' => $resourceClass->filterBadges(),
+        ];
+
+        if ($settings) {
+            $user = request()->user();
+            $meta['settings'] = [
+                'title' => $resourceClass->menuTitle(),
+                'table' => $resourceClass->indexTableSettings(),
+                'columns' => $resourceClass->indexColumns(),
                 'sortable' => $resourceClass->sortable(),
                 'locales' => $resourceClass->localizible() ? $resourceClass->locales() : null,
                 'indexEdit' => $resourceClass->indexEdit,
                 'hasDetail' => method_exists($resourceClass, 'showDetail'),
-                'resourceUrl' => route('invicta.api.resource.index', ['resource' => $handle]),
                 'canCreate' => $resourceClass->canCreate && $user->can("create $handle"),
                 'canEdit' => $user->can("edit $handle") || $user->can("edit $handle items"),
                 'canDelete' => $user->can("delete $handle"),
-            ],
-        ];
+            ];
+        }
+
+        return $resourceClass::collection($resource)
+            ->additional([
+                'meta' => $meta,
+            ]);
     }
 
     public function selectAllRequest()
@@ -96,6 +90,7 @@ class ResourceRequest extends InvictaRequest
         ];
     }
 
+    // Return data for create view
     public function createItem()
     {
         $resourceClass = $this->resourceClass();
@@ -104,7 +99,7 @@ class ResourceRequest extends InvictaRequest
         $response = [
             'meta' => [
                 'handle' => $handle,
-                'actionUrl' => route('invicta.resource.store', ['resource' => $handle]),
+                'actionUrl' => route('invicta.api.resource.store', ['resource' => $handle]),
                 'indexUrl' => $resourceClass->route(),
                 'indexTitle' => $resourceClass->menuTitle(),
                 'titleField' => $resourceClass->titleField,
@@ -122,6 +117,7 @@ class ResourceRequest extends InvictaRequest
         return $response;
     }
 
+    // Returns data for detail view
     public function viewItem()
     {
         $resourceClass = $this->resourceClass();
@@ -146,6 +142,7 @@ class ResourceRequest extends InvictaRequest
         ];
     }
 
+    // returns data for edit view
     public function editItem()
     {
         $resourceClass = $this->resourceClass();
@@ -161,7 +158,7 @@ class ResourceRequest extends InvictaRequest
             'meta' => [
                 'id' => $item->id,
                 'handle' => $handle,
-                'actionUrl' => route('invicta.resource.update', ['resource' => $handle, 'item' => $item->id]),
+                'actionUrl' => route('invicta.api.resource.update', ['resource' => $handle, 'item' => $item->id]),
                 'indexUrl' => $resourceClass->route(),
                 'indexTitle' => $resourceClass->menuTitle(),
                 'titleField' => $resourceClass->titleField,
@@ -318,7 +315,7 @@ class ResourceRequest extends InvictaRequest
         ]);
         $copy->save();
 
-        return [$copy->id, $resourceClass->handle()];
+        return $copy->id;
     }
 
     protected function processItem($resourceClass, $item, $action)

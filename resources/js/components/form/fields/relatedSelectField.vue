@@ -32,11 +32,12 @@ const fieldValue = field.value()
 
 const resourceForm = useResourceForm(props.formId)
 
+console.log('I have resource form', resourceForm)
 const titleField = get(props.data, 'titleField', 'title')
 const remote = 'props' in props.data
 	? get(props.data.props, 'remote', false)
 	: false
-const relatedUrl = `/api/resource/${resourceForm.meta.handle}/relationship/${props.data.id}`
+const relatedUrl = `/api/resource/${resourceForm.settings.handle}/relationship/${props.data.id}`
 
 const relatedOptions = ref([])
 const relatedFromValue = ref([])
