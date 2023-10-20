@@ -15,7 +15,7 @@ use Illuminate\Support\Str;
 
 class Resource extends JsonResource
 {
-    use ListsItems, HasFilters, HasActions, CanEditItems, UpdatesRelationships;
+    use CanEditItems, HasActions, HasFilters, ListsItems, UpdatesRelationships;
 
     /**
      * The underlying resource model.

@@ -3,7 +3,6 @@
 namespace Eteacher\InvictaAdmin\Admin\Menu;
 
 use BadMethodCallException;
-use Eteacher\InvictaAdmin\Admin\Models\Resources\Asset;
 use Eteacher\InvictaAdmin\Admin\Resources\ResourceRegistrar;
 use Eteacher\InvictaAdmin\Admin\Traits\Makeable;
 use Eteacher\InvictaAdmin\Facades\Permission;
@@ -137,7 +136,6 @@ class MenuItem
             ->route($resource->route())
             ->icon($resource->icon());
     }
-
 
     public function children(array $items)
     {

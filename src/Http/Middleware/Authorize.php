@@ -4,7 +4,6 @@ namespace Eteacher\InvictaAdmin\Http\Middleware;
 
 use Closure;
 use Illuminate\Auth\AuthenticationException;
-use Inertia\Inertia;
 
 class Authorize
 {

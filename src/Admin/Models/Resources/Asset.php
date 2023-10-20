@@ -84,12 +84,12 @@ class Asset extends Resource
                     'id' => 'alt',
                     'type' => 'text',
                     'props' => [
-                        'placeholder' => 'Specify Alt attribute for the image'
-                    ]
+                        'placeholder' => 'Specify Alt attribute for the image',
+                    ],
                 ],
                 [
                     'type' => 'infoPanel',
-                    'content' => $this->assetPreview($item)->toHtml()
+                    'content' => $this->assetPreview($item)->toHtml(),
                 ],
             ],
         ];

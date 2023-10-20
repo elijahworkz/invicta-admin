@@ -18,6 +18,7 @@ Route::controller(ResourceController::class)->name('resource.')->prefix('/resour
 
 Route::get('{path?}', function ($path = null) {
     Log::info('I am here', [$path]);
+
     return view('invicta::app');
 })->where('path', '^((?!api).)*$')->name('home');
 
