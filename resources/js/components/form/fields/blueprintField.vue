@@ -15,12 +15,15 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router'
+
 const props = defineProps({
 	formId: String,
 	data: Object,
 	path: String
 })
 
+const router = useRouter()
 const field = useFormField(props)
 const value = field.value()
 
@@ -30,9 +33,10 @@ const changeBlueprint = (value) => {
 		: true
 
 	if (redirect) {
-		// const { pageUrl } = usePage().props
-		
-		// router.get(pageUrl, { blueprint: value })
+		const url = new URL(location.href);
+		url.searchParams.set('blueprint', value);
+
+		location.assign(url.search);
 	}
 }
 </script>
