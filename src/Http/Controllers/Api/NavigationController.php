@@ -14,29 +14,23 @@ class NavigationController extends Controller
 {
     public function index(Request $request)
     {
-        $this->authorize('view navigation');
-
-        return Inertia::render('Nav/Index', [
+        return [
             'title' => 'Navigation',
             'navs' => NavResource::collection(Navigation::all()),
-            'createUrl' => invicta_route('nav.create'),
-            'editUrl' => invicta_route('nav.index'),
+            'editUrl' => route('invicta.api.nav.index'),
             'can-create' => $request->user()->can('create new navigation'),
             'can-edit' => $request->user()->can('edit navigation'),
             'can-delete' => $request->user()->can('delete navigation'),
-        ]);
+        ];
     }
 
     public function create()
     {
-        $this->authorize('create new navigation');
-
-        return Inertia::render('Nav/Edit', [
-            'indexUrl' => invicta_route('nav.index'),
-            'actionUrl' => invicta_route('nav.index'),
+        return [
             'resource' => [
                 'meta' => [
-                    'createTitle' => 'Create New Navigation',
+                    'title' => 'Create New Navigation',
+                    'actionUrl' => route('invicta.api.nav.index'),
                 ],
                 'blueprint' => [
                     'fields' => [
@@ -54,7 +48,7 @@ class NavigationController extends Controller
                     ],
                 ],
             ],
-        ]);
+        ];
     }
 
     public function store(Request $request)
@@ -78,11 +72,7 @@ class NavigationController extends Controller
 
     public function edit(Request $request, Navigation $menu)
     {
-        $this->authorize('create new navigation');
-
-        return Inertia::render('Nav/Edit', [
-            'actionUrl' => invicta_route('nav.update', ['menu' => $menu->id]),
-            'indexUrl' => invicta_route('nav.index'),
+        return [
             'resource' => [
                 'item' => $menu,
                 'meta' => [
@@ -105,7 +95,7 @@ class NavigationController extends Controller
                     ],
                 ],
             ],
-        ]);
+        ];
     }
 
     public function update(Request $request, Navigation $menu)
@@ -131,17 +121,10 @@ class NavigationController extends Controller
     {
         $this->authorize('delete navigation');
         $menu->delete();
-
-        return Redirect::back()->with('message', [
-            'type' => 'success',
-            'title' => 'Navigation deleted',
-        ]);
     }
 
     public function editItems(Navigation $menu)
     {
-        $this->authorize('edit navigation');
-
         // get all Resources that can be used in navigation
         $resources = collect(ResourceRegistrar::all())->filter(function ($resource) {
             return property_exists($resource, 'availableForNavigation');
@@ -154,19 +137,16 @@ class NavigationController extends Controller
 
         $tree = $menu->tree ?? [];
 
-        return Inertia::render('Nav/ItemsEdit', [
-            'indexUrl' => invicta_route('nav.index'),
-            'actionUrl' => invicta_route('nav.updateItems', ['menu' => $menu->id]),
+        return [
+            'actionUrl' => route('invicta.api.nav.updateItems', ['menu' => $menu->id]),
             'menuTitle' => $menu->title,
             'tree' => isset($tree['branches']) ? $tree['branches'] : $tree,
             'resources' => $resources,
-        ]);
+        ];
     }
 
     public function updateItems(Request $request, Navigation $menu)
     {
-        $this->authorize('edit navigation');
-
         $menu->tree = ['error' => false, 'branches' => $request->tree];
         $menu->save();
 

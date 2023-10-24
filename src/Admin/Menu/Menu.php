@@ -188,7 +188,7 @@ class Menu
         return $this->createItem($name)
             ->icon('routes')
             ->can('view navigation')
-            ->route('/resource/navigation');
+            ->route('/navigation');
     }
 
     /**

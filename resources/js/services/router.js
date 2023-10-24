@@ -31,31 +31,42 @@ export const createRouterInstance = (base = null) => {
             {
                 path: '/resource/:handle/:id',
                 component: () => import('@/views/Resource/Detail.vue'),
-                name: 'resourceDetail'
+                name: 'resourceDetail',
+                props: to => ({...to.meta.data})
             },
             {
-                path: '/resource/navigation',
-                component: () => import('@/views/Nav/Index.vue')
+                path: '/navigation',
+                component: () => import('@/views/Nav/Index.vue'),
+                name: 'navIndex',
+                props: to => ({...to.meta.data})
             },
             {
                 path: '/navigation/create',
-                component: () => import('@/views/Nav/Edit.vue')
+                component: () => import('@/views/Nav/Edit.vue'),
+                name: 'navCreate',
+                props: to => ({...to.meta.data})
             },
             {
                 path: '/navigation/:id',
-                component: () => import('@/views/Nav/Edit.vue')
+                component: () => import('@/views/Nav/Edit.vue'),
+                name: 'navEdit',
+                props: to => ({...to.meta.data}),
             },
             {
                 path: '/navigation/:id/items',
-                component: () => import('@/views/Nav/ItemsEdit.vue')
+                component: () => import('@/views/Nav/ItemsEdit.vue'),
+                name: 'navEditItems',
+                props: to => ({...to.meta.data}),
             },
             {
                 path: '/group/:id/permission', 
-                component: () => import('@/views/Permission/Edit.vue')
+                component: () => import('@/views/Permission/Edit.vue'),
+                props: to => ({...to.meta.data}),
             },
             {
                 path: '/tools/commands',
                 component: () => import('@/views/Commands/Index.vue'),
+                props: to => ({...to.meta.data}),
             }
         ]
     })
