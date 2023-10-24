@@ -18,7 +18,7 @@
 					name="Resource Actions"
 				/>
 				<slot name="actions">
-					<el-button v-show="resourceIndex.static.settings.canCreate" type="primary" size="large"><router-link :to="`${route.path}/create`">Create new</router-link></el-button>
+					<el-button v-show="resourceIndex.static.settings.canCreate" type="primary" size="large"><router-link :to="{name: 'resourceCreate'}">Create new</router-link></el-button>
 				</slot>
 			</div>
 		</div>

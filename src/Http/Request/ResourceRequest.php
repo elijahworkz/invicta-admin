@@ -70,26 +70,6 @@ class ResourceRequest extends InvictaRequest
         return $resourceClass->selectAll();
     }
 
-    public function resourceOrderedList()
-    {
-        $resourceClass = $this->resourceClass();
-        $resource = $resourceClass->resourceOrdered();
-
-        $columns = collect($resourceClass->indexColumns())
-            ->filter(function ($item) {
-                return ! $item->hidden;
-            })
-            ->all();
-
-        return [
-            'data' => $resource,
-            'title' => $resourceClass->menuTitle(),
-            'columns' => $columns,
-            'indexUrl' => $resourceClass->route(),
-            'handle' => $resourceClass->handle(),
-        ];
-    }
-
     // Return data for create view
     public function createItem()
     {

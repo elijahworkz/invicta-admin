@@ -1,3 +1,0 @@
-<template>
-	<IndexBase/>
-</template>

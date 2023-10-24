@@ -1,6 +1,5 @@
 <?php
 
-use Eteacher\InvictaAdmin\Http\Controllers\Api\AssetController;
 use Eteacher\InvictaAdmin\Http\Controllers\Api\FieldsController;
 use Eteacher\InvictaAdmin\Http\Controllers\Api\NavigationController;
 use Eteacher\InvictaAdmin\Http\Controllers\Api\ResourceController;
@@ -25,35 +24,12 @@ Route::controller(ResourceController::class)
             Route::post('{resource}/{item}', 'update')->name('update');
             Route::post('{resource}/{item}/localize/{locale}', 'localize')->name('localize');
         });
-
-        // Route::name('assets.')->prefix('assets')->group(function () {
-        //     Route::get('/', 'index')->name('index');
-        //     Route::post('/', 'store')->name('store');
-        //     Route::delete('/', 'destroy')->name('destroy');
-        //     Route::get('actions', 'actions')->name('actions');
-        //     Route::get('actions/blueprint/{item?}', 'actionBlueprint');
-        //     Route::post('actions', 'handleActions')->name('handle-actions');
-        //     Route::get('{item}', 'edit')->name('edit');
-        //     Route::post('{item}', 'update')->name('update');
-        // });
     });
-
-// Route::controller(AssetController::class)->name('assets.')->prefix('/assets/')->group(function () {
-//     Route::get('/', 'index')->name('index');
-//     Route::post('/', 'store')->name('store');
-//     Route::delete('/', 'destroy')->name('destroy');
-//     Route::get('actions/', 'actions')->name('actions');
-//     Route::get('actions/blueprint/{item?}', 'actionBlueprint');
-//     Route::post('actions', 'handleActions')->name('handle-actions');
-//     Route::get('field-actions', 'fieldActions')->name('field-actions');
-//     Route::get('{asset}', 'edit')->name('edit');
-//     Route::post('{asset}', 'update')->name('update');
-// });
 
 Route::controller(NavigationController::class)->name('nav.')->prefix('/navigation/')->group(function () {
     Route::get('/', 'index')->name('index');
-    Route::get('create', 'create')->name('create');
     Route::post('/', 'store');
+    Route::get('create', 'create')->name('create');
     Route::get('{menu}', 'edit')->name('edit');
     Route::post('{menu}', 'update')->name('update');
     Route::delete('{menu}', 'destroy')->name('destroy');
