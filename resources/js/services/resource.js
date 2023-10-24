@@ -276,8 +276,7 @@ const defineResource = (handle) => {
 			Invicta.axios.get(`${requestUrl.value}/actions`)
 				.then(({data}) => {
 					if (data.length) {
-
-						resourceActions.value = data.reduce((obj, item) => {
+						definedResource.actions = data.reduce((obj, item) => {
 							obj[item.type] = obj[item.type] || []
 							obj[item.type].push(item)
 							return obj
