@@ -1,5 +1,4 @@
 <template>
-	<!-- <Head :title="resource.meta.pageTitle"/> -->
 	<div class="py-6 px-10" >
 		<FormBase
 			v-if="resourceItem"
@@ -16,7 +15,7 @@
 <script setup>
 defineOptions({
 	beforeRouteEnter: async function (to) {
-		let {data} = await Invicta.axios.get(`api${to.path}`)
+		let {data} = await Invicta.axios.get(`api${to.path}`, {params: to.query})
 		to.meta.data = data
 	}
 })
