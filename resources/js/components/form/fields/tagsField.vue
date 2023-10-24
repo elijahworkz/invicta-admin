@@ -4,8 +4,8 @@
 			<div class="flex items-center mb-3">
 				<el-input v-model="newTag" placeholder="Add Tag..." class="mr-2" @keydown="handleEnter" />
 			</div>
-			<div class="tags-list">		
-				<span class="tag" v-for="(tag, index) in tags" :key="index">
+			<div class="tags-list" v-if="fieldValue.length">		
+				<span class="tag" v-for="(tag, index) in fieldValue" :key="index">
 					<span>{{ tag }}</span>
 					<el-icon class="remove-tag" @click="removeTag(tag)" title="Remove Tag"><Close/></el-icon>
 				</span>
@@ -23,25 +23,21 @@ const props = defineProps({
 	path: String
 })
 const field = useFormField(props)
-const fieldValue = field.value()
+const fieldValue = field.value([])
 
 const newTag = ref('')
 
-const tags = computed(() => {
-	return fieldValue.value === null ? [] : fieldValue.value
-})
-
 const addTag = () => {
 	let tag = newTag.value.trim()
-	if (tag.length === 0 || tags.value.includes(tag)) {
+	if (tag.length === 0 || fieldValue.value.includes(tag)) {
 		return
 	}
-	fieldValue.value = [...tags.value, tag]
+	fieldValue.value = [...fieldValue.value, tag]
 	newTag.value = ''
 }
 
 const removeTag = (tag) => {
-	fieldValue.value = tags.value.filter(t => t !== tag)
+	fieldValue.value = fieldValue.value.filter(t => t !== tag)
 }
 
 const handleEnter = (event) => {
