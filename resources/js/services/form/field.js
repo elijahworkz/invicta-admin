@@ -69,7 +69,7 @@ export const useFormField = (props) => {
 
         value,
 
-        disabled: isReadOnly.value
+        disabled: isReadOnly.value,
     }
 }
 

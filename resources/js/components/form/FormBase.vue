@@ -47,7 +47,6 @@
 			</div>
 		</div>
 
-	<Suspense>
 		<div class="form-wrapper" :class="{'card': tabsType == 'card'}">
 			<div class="main-panel" :class="{'el-card is-always-shadow': !hasSections && !headless, 'has-sidebar': hasSidebar}">
 					<el-tabs
@@ -90,11 +89,6 @@
 				</el-card>
 			</div>
 		</div>
-
-		<template #fallback>
-			Loading...
-		</template>
-	</Suspense>
 	</el-form>
 </template>
 
@@ -119,6 +113,10 @@ const props = defineProps({
 	readOnly: {
 		type: Boolean,
 		default: false
+	},
+	saveTabs: {
+		type: Boolean,
+		default: true
 	}
 })
 
@@ -188,6 +186,10 @@ const formClass = computed(() => {
 })
 
 const title = computed(() => {
+
+	if (props.headless)
+		return ''
+
 	let meta = props.resource.meta
 	let item = props.resource.item ?? null
 	let title = meta.pageTitle
@@ -223,16 +225,15 @@ onMounted(() => {
 		activeTab.value = hash;
 	}
 
-	console.log('formBase is mounted')
 	postSubmitAction.value = props.postSubmitActions.length > 1
 		? Invicta.remember('post-submit-action') || props.postSubmitActions[0]
 		: props.postSubmitActions[0]
 })
 
 watch(activeTab, (newTab) => {
-	// we'll update hash for tabs only for single view 
-	if (props.breadcrumb) {
-		window.location.hash = newTab
+	// we'll update hash for tabs only for page view 
+	if (props.saveTabs) {
+		window.history.pushState(window.history.state, null, `#${newTab}`)
 	}
 })
 watch(postSubmitAction, (value) => Invicta.remember('post-submit-action', value))
@@ -248,8 +249,6 @@ onKeyStroke('Enter', (e) => {
 		submit()
 	}
 })
-
-// document.addEventListener('inertia:before', resourceForm.confirmUnsavedChanges)
 </script>
 
 <style lang="scss">

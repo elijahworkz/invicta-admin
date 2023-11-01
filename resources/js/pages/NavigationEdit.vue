@@ -1,13 +1,12 @@
 <template>
-	<Head :title="menuTitle"/>
 	<div class="py-6 px-10">
 		<div class="w-1/2 mx-auto">
 
 			<div class="flex items-end justify-between mb-4">
 				<div>
-					<Link :href="indexUrl" 
+					<router-link :to="{name: 'resourceIndex', params: { handle: 'navigation' }}" 
 						class="breadcrumb">
-						<el-icon><ArrowLeft /></el-icon>Navigation</Link>
+						<el-icon><ArrowLeft /></el-icon>Navigation</router-link>
 					<h1 class="mb-1">{{ menuTitle }}</h1>
 				</div>
 				<div class="nav-actions">
@@ -69,6 +68,12 @@
 
 <script setup>
 import { ArrowLeft, ArrowDown } from '@element-plus/icons-vue'
+defineOptions({
+	beforeRouteEnter: async function (to) {
+		let {data} = await Invicta.axios.get(`api${to.path}`, {params: to.query})
+		to.meta.data = data
+	}
+})
 
 const props = defineProps({
 	indexUrl: String,
@@ -252,7 +257,12 @@ const editItem = (item) => {
 /* Save Navigation */
 
 const saveNavigation = () => {
-	router.post(props.actionUrl, { tree: treeItems.value })
+	Invicta.axios.post(props.actionUrl, { tree: treeItems.value })
+		.then(({data}) => {
+			Invicta.message(data.message)
+		})
+
+	// router.post(props.actionUrl, { tree: treeItems.value })
 }
 </script>
 

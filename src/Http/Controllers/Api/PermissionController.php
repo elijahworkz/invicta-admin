@@ -1,29 +1,30 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Http\Controllers;
+namespace Eteacher\InvictaAdmin\Http\Controllers\Api;
 
 use Eteacher\InvictaAdmin\Admin\Models\Group;
 use Eteacher\InvictaAdmin\Facades\Permission;
+use Eteacher\InvictaAdmin\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Redirect;
-use Inertia\Inertia;
 
 class PermissionController extends Controller
 {
-    public function edit(Group $group)
+    public function edit(Request $request, Group $group)
     {
         $this->authorize('edit permissions');
 
-        $permissionTree = Permission::tree();
-
         $groupPermission = $group->permissions()->pluck('ability');
-
-        return Inertia::render('Permission/Edit', [
-            'tree' => $permissionTree,
+        $response = [
             'permissions' => $groupPermission,
-            'actionUrl' => route('invicta.permission.update', ['group' => $group->id]),
-        ]);
+            'title' => $group->title,
+        ];
+
+        if ($request->tree) {
+            $response['tree'] = Permission::tree();
+        }
+
+        return $response;
     }
 
     public function update(Request $request, Group $group)
@@ -41,9 +42,9 @@ class PermissionController extends Controller
         $group->permissions()->delete();
         $group->permissions()->createMany($permisssions);
 
-        return Redirect::back()->with('message', [
+        return response()->json(['message' => [
             'type' => 'success',
             'title' => 'Updated',
-        ]);
+        ]]);
     }
 }

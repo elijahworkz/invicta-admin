@@ -6,6 +6,7 @@
 			:resource="resource"
 			:action-url="resource.meta.actionUrl"
 			:post-submit-actions="['close', 'edit', 'create']"
+			:save-tabs="false"
 			@form-ready="prepopulateFields">
 			<template #form-actions>
 				<el-button class="ml-auto mr-2" text @click="$emit('cancel')">Cancel</el-button>

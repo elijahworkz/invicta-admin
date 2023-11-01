@@ -1,12 +1,12 @@
 <template>
-	<el-form-item :class="[...fieldClasses, resourceForm.errors[id] ? 'is-error' : '']">
+	<el-form-item :class="[...fieldClasses, error ? 'is-error' : '']">
 		<template #label>
 			<div v-html="field.label()"/>
 			<div class="info info-top opacity-60 leading-snug" v-if="info && infoPosition == 'top'">{{ info }}</div>
 		</template>
 
 		<slot />
-		<div class="el-form-item__error" v-if="resourceForm.errors[id]">{{ resourceForm.errors[id] }}</div>
+		<div class="el-form-item__error" v-if="error">{{ error }}</div>
 		<span class="info opacity-60 leading-snug mt-2" v-if="info && infoPosition == 'bottom'">{{ info }}</span>
 	</el-form-item>
 </template>
@@ -23,6 +23,7 @@ const resourceForm = useResourceForm(props.formId)
 const { id } = props.fieldProps.data
 const field = useFormField(props.fieldProps, props.formId)
 
+
 const required = field.get('validation', '').includes('required')
 const fieldClasses = [
 	required ? 'is-required' : '',
@@ -32,4 +33,5 @@ const fieldClasses = [
 const info = field.get('info', false)
 const infoPosition = field.get('info_position', 'top')
 
+const error = computed(() => resourceForm.errors.value[id] ?? false)
 </script>

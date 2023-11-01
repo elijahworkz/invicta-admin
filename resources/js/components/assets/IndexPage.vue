@@ -1,7 +1,7 @@
 <template>
 	<div class="asset-library">
 		<IndexBase>
-			<template #actions>
+			<template #actions="{ settings }">
 				<el-button-group class="mr-2" >
 					<el-button @click="setLayout('list')" title="List view" :active="layout == 'list'">
 						<SvgIcon :icon="mdiFormatListText" :width="16" />
@@ -11,7 +11,7 @@
 					</el-button>
 				</el-button-group>
 
-				<Uploader v-show="resourceIndex.data.settings?.canCreate" :multiple="resourceIndex.data.settings?.multiUpload" />
+				<Uploader v-show="settings.canCreate" :multiple="settings.multiUpload" />
 			</template>
 
 			<template #default="{ resource, settings, handleEdit, handleSelect, handleDelete }">
@@ -25,9 +25,6 @@
 					@select="handleSelect"
 					@edit="handleEdit"
 					@delete="handleDelete" />
-	<!-- 			<ListView v-if="layout == 'list'"
-					@select="handleSelect"
-					@edit="handleEdit" /> -->
 
 				<GridView v-if="layout == 'grid'" 
 					:resource="resource"

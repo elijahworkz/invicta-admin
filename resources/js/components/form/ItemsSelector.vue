@@ -13,12 +13,18 @@
 						:label="resource.label"
 						:value="resource"/>
 				</el-select>
-				<Search v-if="currentResource.handle" :handle="currentResource.handle" />
-				<Filters v-if="currentResource.handle" :resource-handle="currentResource.handle" />
+				<Search v-if="currentResource.handle"
+					size="default"
+					:handle="currentResource.handle" 
+					@update="itemsResource.setSearch" />
+				<Filters v-if="currentResource.handle" 
+					:resource-handle="currentResource.handle" 
+					:filters="itemsResource.static.filters" 
+					:active-filters="itemsResource.data.activeFilters" />
 			</div>
 		</header>
 
-		<div class="bg-white px-2 pt-2"><FilterBadges :badges="itemsResource.filterBadges" /></div>
+		<div class="bg-white px-2 pt-2"><FilterBadges :badges="itemsResource.data.filterBadges" /></div>
 		
 		<main>
 			<div class="flex items-center justify-center h-full" v-if="loading">
@@ -28,7 +34,7 @@
 			<el-scrollbar v-else>
 				<ResourceTable
 					:resource-handle="currentResource.handle"
-					:data="itemsResource.resourceData"
+					:data="itemsResource.data.resourceData"
 					:columns="columns"
 					:columns-select="false"
 					:no-actions="true"
@@ -44,12 +50,12 @@
 					background 
 					small 
 					layout="prev, pager, next, jumper"
-					:current-page="itemsResource.currentPage"
-					:page-size="itemsResource.perPage"
+					:current-page="itemsResource.data.currentPage"
+					:page-size="itemsResource.data.perPage"
 					:pager-count="5"
-					:total="itemsResource.total"
-					@update:page-size="itemsResource.pageSizeChange"
-					@update:current-page="itemsResource.pageChange"
+					:total="itemsResource.data.total"
+					@update:page-size="itemsResource.setPageSize"
+					@update:current-page="itemsResource.setPage"
 				/>
 			</div>
 			<div class="button-row">
@@ -112,7 +118,7 @@ onMounted(() => {
 	if (props.resources.length) {
 		currentResource.value = props.resources[0]
 	}
-	itemsResource.pageChange(1)
+	itemsResource.setPage(1)
 	requestResourceItems()
 })
 
@@ -157,6 +163,7 @@ function requestResourceItems() {
 	Invicta.axios.get(requestUrl, { params })
 		.then(({data}) => {
 			itemsResource.initForm(requestUrl, data)
+			itemsResource.getResourceFilters(currentResource.value.handle)
 			loading.value = false
 		})	
 }

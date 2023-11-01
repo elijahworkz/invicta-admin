@@ -17,8 +17,10 @@
 					:actions="resourceIndex.static.actions.global"
 					name="Resource Actions"
 				/>
-				<slot name="actions">
-					<el-button v-show="resourceIndex.static.settings.canCreate" type="primary" size="large"><router-link :to="{name: 'resourceCreate'}">Create new</router-link></el-button>
+				<slot name="actions" :settings="resourceIndex.static.settings">
+					<router-link :to="{name: 'resourceCreate'}" v-show="resourceIndex.static.settings.canCreate" >
+						<el-button type="primary" size="large">Create new</el-button>
+					</router-link>
 				</slot>
 			</div>
 		</div>
@@ -70,7 +72,7 @@
 					:key="handle"
 					:resource-handle="handle"
 					:data="resourceIndex.data.resourceData"
-					:table-props="resourceIndex.static.settings.tableSettings"
+					:table-props="resourceIndex.static.settings.table"
 					:columns="resourceIndex.static.settings.columns"
 					:can-edit="resourceIndex.static.settings.canEdit"
 					:can-delete="resourceIndex.static.settings.canDelete"
@@ -111,6 +113,7 @@
 					:resource="drawerItem"
 					:action-url="drawerFormActionUrl"
 					:params="drawerFormParams"
+					:save-tabs="false"
 					:post-submit-actions="['close']">
 				</FormBase>
 			</div>
@@ -120,7 +123,8 @@
 
 <script setup>
 import { Delete } from '@element-plus/icons-vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
+const router = useRouter()
 const route = useRoute()
 
 const props = defineProps({
@@ -140,7 +144,6 @@ const drawerFormActionUrl = ref('')
 const drawerFormParams = ref({})
 
 /* Handle Actions */
-const actions = resourceIndex.data.actions
 const actionsUrl = `api${route.path}/actions`
 
 onMounted(() => {
@@ -183,17 +186,20 @@ const handleActions = ({action, selected}) => {
 
 // Handle Edit
 const handleEdit = (item) => {
+	if (resourceIndex.static.settings.indexEdit) {	
+		let itemUrl = `api${route.path}/${item}/edit`
+		drawerFormParams.value = {}
 
-	let itemUrl = `api${route.path}/${item}/edit`
-	drawerFormParams.value = {}
-
-	Invicta.axios.get(itemUrl)
-		.then(({data}) => {
-			drawerFormId.value = `${props.handle}.${data.item.id}`
-			drawerItem.value = data
-			drawerFormActionUrl.value = itemUrl
-			drawer.value = true
-		})
+		Invicta.axios.get(itemUrl)
+			.then(({data}) => {
+				drawerFormId.value = `${props.handle}.${data.item.id}`
+				drawerItem.value = data
+				drawerFormActionUrl.value = itemUrl
+				drawer.value = true
+			})
+	} else {
+		router.push({name: 'resourceEdit', params: { handle: props.handle, id: item}})
+	}
 }
 
 /* Setup Selection */

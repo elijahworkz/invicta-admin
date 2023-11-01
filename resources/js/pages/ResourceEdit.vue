@@ -48,17 +48,6 @@ watch(() => route.params.handle + route.params.id, () => {
 		})
 })
 
-
-onBeforeRouteUpdate(async (to, from) => {
-	console.log('we are updating the router here')
-	if (to.params.id !== from.params.id) {
-		console.log('route is different')
-	}
-})
-// watchEffect(() => {
-// 	getResourceItem(`api/resource/${route.params.handle}/${route.params.id}/edit`)
-// })
-
 onMounted(() => {
 	// window.Echo.join(channel.value)
 	// 	.here(users => {

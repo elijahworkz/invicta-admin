@@ -86,7 +86,7 @@ class BlueprintFactory
             ? Str::of($cacheHandle)->finish('-')->append($this->item->blueprint)
             : Str::of($cacheHandle)->finish('-')->append($handle);
 
-        if (config('invicta.cache_blueprints')) {
+        if (config('invicta.cache_blueprints') && $this->resource->cacheBlueprint) {
             return Cache::rememberForever('blueprint-'.$cacheHandle, function () use ($handle) {
                 return $this->findBlueprint($handle);
             });

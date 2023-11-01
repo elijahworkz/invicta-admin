@@ -15,6 +15,18 @@ trait CanEditItems
      */
     public $indexEdit = true;
 
+    /**
+     * Enable/Disable blueprint caching on individual resource.
+     *
+     * @var bool
+     */
+    public $cacheBlueprint = true;
+
+    /**
+     * Resource can have multiple blueprints for different models
+     *
+     * @var bool
+     */
     public $canChangeBlueprints = false;
 
     /**
@@ -27,16 +39,6 @@ trait CanEditItems
     {
         //
     }
-
-    // public function getBlueprint($item = null)
-    // {
-    //     return $this->postProcessBlueprint(Blueprint::findForResource($this, $item));
-    // }
-
-    // public function findBlueprint($handle)
-    // {
-    //     return $this->postProcessBlueprint(Blueprint::findByHandle($this, $handle));
-    // }
 
     public function availableBlueprints()
     {

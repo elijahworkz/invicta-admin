@@ -1,12 +1,17 @@
 <template>
 	<el-input
+		:key="handle" 
 		v-model="search"
 		:placeholder="searchStrings.placeholder"
 		:title="searchStrings.title"
 		:prefix-icon="Search"
 		:input-style="{ width: '250px' }">
 		<template #prepend>
-			<Filters :resource-handle="handle" :filters="filters" />
+			<Filters 
+				v-if="resourceIndex.static.filters" 
+				:resource-handle="handle" 
+				:filters="resourceIndex.static.filters"
+				:active-filters="resourceIndex.data.activeFilters" />
 		</template>
 		<template #append v-if="canReset">
 			<el-button :icon="RefreshLeft" @click="reset" title="Clear all filters"></el-button>
@@ -35,12 +40,19 @@ const search = ref(props.currentSearch)
 const canReset = computed(() => !isEmpty(resourceIndex.activeFilters) || search.value !== '')
 
 watch(search, debounce(newSearch => {
-	Invicta.emit('search-change', {query: newSearch, handle: props.handle})
-
+	resourceIndex.setSearch(newSearch)
 }, 400))
 
 const reset = () => {
 	search.value = ''
-	Invicta.emit('clear-filters', props.handle)
 }
+
+onMounted(() => {
+	Invicta.axios.get(`api/resource/${props.handle}/filters`)
+		.then(({data}) => {
+			if (data.length) {
+				resourceIndex.static.filters = data
+			}
+		})
+})
 </script>

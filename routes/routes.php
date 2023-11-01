@@ -22,10 +22,6 @@ Route::middleware(['invicta', 'throttle'])
 
         Route::post('logout', [LoginController::class, 'destroy'])->name('logout');
 
-        // Route::get('{path?}', function () {
-        //     return view('invicta::app');
-        // })->where('path', '[\/\w\.-]*')->middleware(['invicta.auth', 'can:access invicta']);
-
         // Application routes
         Route::middleware(['invicta.auth', 'can:access invicta']) //,
             ->group(__DIR__.'/admin.php');

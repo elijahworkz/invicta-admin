@@ -2,7 +2,7 @@
 	<div class="w-full flex flex-col asset-library">
 		<header class="p-3">
 			<div class="flex items-center justify-between">
-				<Search class="flex-1" handle="assets" />
+				<Search class="flex-1" handle="assets" @update="itemsResource.setSearch" />
 				<div class="ml-2">
 					<el-button-group>
 						<el-button @click="setLayout('list')" title="List view" :active="layout == 'list'">
@@ -22,14 +22,14 @@
 				v-if="!loading && layout == 'list'"
 				resource-handle="assets"
 				:data="itemsResource.data.resourceData"
-				:columns="itemsResource.columns"
+				:columns="itemsResource.static.settings.columns"
 				:no-actions="true"
 				:single-select="true"
 				@single-select="handleSelect"
 			/>
 
 			<GridView v-if="!loading && layout == 'grid'" 
-				:resource="itemsResource.resourceData"
+				:resource="itemsResource.data.resourceData"
 				:selector="true"
 				@asset-selected="gridSelect"/>
 
@@ -47,8 +47,8 @@
 					:page-size="itemsResource.data.perPage"
 					:pager-count="5"
 					:total="itemsResource.data.total"
-					@update:page-size="itemsResource.pageSizeChange"
-					@update:current-page="itemsResource.pageChange"
+					@update:page-size="itemsResource.setPageSize"
+					@update:current-page="itemsResource.setPage"
 				/>
 			</div>
 			<div class="button-row" v-if="layout == 'list'">
@@ -74,17 +74,17 @@ const layout = ref()
 onMounted(() => {
 
 	if (itemsResource.data.currentPage > 1) {
-		itemsResource.pageChange(1)
+		itemsResource.setPage(1)
 	}
 
 	loading.value = true
 	layout.value = Invicta.remember('media-layout') || 'grid'
 
-	Invicta.axios.get('api/assets')
+	Invicta.axios.get('api/resource/assets', {params: {settings: true}})
 		.then(({data}) => {
 			loading.value = false
 			console.log('I got this data', data)
-			itemsResource.initForm('api/assets', data)
+			itemsResource.initForm('api/resource/assets', data)
 		})
 })
 

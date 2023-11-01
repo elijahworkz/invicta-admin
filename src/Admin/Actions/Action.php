@@ -181,7 +181,9 @@ class Action implements JsonSerializable
 
     protected function getBlueprint()
     {
-        return $this->modal() ? $this->blueprint($this->item) : [];
+        $blueprint = $this->blueprint($this->item);
+
+        return ! empty($blueprint) ? $blueprint : null;
     }
 
     public function setItem($item)

@@ -6,12 +6,13 @@
 
 		<FormBase
 			v-if="hasForm"
+			:key="formId"
 			:headless="true"
 			:form-id="formId"
-			:resource="resource"
+			:resource="action"
 			:action-url="actionsUrl"
 			:params="actionData"
-			:key="formKey"
+			:save-tabs="false"
 		/>
 
 		<div v-else>Are you sure you want to run this action?</div>
@@ -31,10 +32,10 @@ const props = defineProps({
 const emit = defineEmits(['close'])
 
 const open = ref(false)
-const action = reactive({
+let action = reactive({
 	name: 'Action',
 	class: '',
-	blueprint: [],
+	blueprint: null,
 	dangerous: false,
 	redirect: false
 })
@@ -42,14 +43,12 @@ const action = reactive({
 const counter = ref(0)
 const formId = ref()
 const selected = ref([])
+const hasForm = ref(false)
 
 const actionData = computed(() => ({
 	class: action.class,
 	selected: selected.value,
 }))
-// const formParams = computed(() => action.blueprint?.fields?.length ? actionData.value : {})
-const hasForm = computed(() => ! isEmpty(action.blueprint))
-const formKey = computed(() => `${formId.value}.${selected.value.join('')}.${counter.value}`)
 
 const actionType = computed(() => {
 	return action.dangerous ? 'danger' : 'primary'
@@ -60,20 +59,13 @@ const actionButtonTitle = computed(() => {
 })
 
 Invicta.on('show-action-modal', (event) => {
+	console.log('opening the action modal', event)
 	let item = event.selected[0]
-	action.class = event.action.class
-	action.name = event.action.name
-	action.dangerous = event.action.dangerous
-	action.redirect = event.action.redirect
 	selected.value = event.selected || []
-	formId.value = `action.${event.action.class}.${item}`
-
-	Invicta.axios.get(`${props.actionsUrl}/blueprint/${item}`, { params: {class: event.action.class}})
-		.then(({data}) => {
-			action.blueprint = data.blueprint
-			open.value = true
-			counter.value++
-		})
+	action = event.action
+	hasForm.value = event.action.blueprint !== null
+	formId.value = `action.${action.class}.${item ?? action.type}`
+	open.value = true
 })
 
 Invicta.on('resource-form-submitted', () => open.value = false)
@@ -83,9 +75,8 @@ const resource = computed(() => ({
 }))
 
 const processAction = () => {
-
 	// Check if action has fields
-	if (hasForm) {
+	if (hasForm.value) {
 
 		// console.log('we have form - form will submit')
 		const resourceForm = useResourceForm(formId.value)
@@ -98,16 +89,16 @@ const processAction = () => {
 
 		if (action.redirect) {
 			let url = `${action.redirect}?class=${actionData.value.class}&selected[]=${actionData.value.selected.join(',')}`
+			// console.log('trying to redirect', url)
 			window.open(url, '_blank')
 		} else {
-
+			// console.log('processing action', props.actionsUrl)
 			Invicta.axios.post(props.actionsUrl, data)
 				.then(({data}) => {
 					Invicta.message(data.message)
 					Invicta.emit('refresh-resource')
 				})
 		}
-
 		open.value = false
 	}
 

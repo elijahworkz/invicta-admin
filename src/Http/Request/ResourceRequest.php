@@ -6,12 +6,12 @@ use Eteacher\InvictaAdmin\Admin\Actions\ActionJob;
 use Eteacher\InvictaAdmin\Admin\Resources\ResourceRegistrar;
 use Eteacher\InvictaAdmin\Events\ResourceUpdated;
 use Eteacher\InvictaAdmin\Facades\Blueprint;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Fluent;
 
-class ResourceRequest extends InvictaRequest
+class ResourceRequest extends FormRequest
 {
     public function resourceClass()
     {
@@ -44,6 +44,7 @@ class ResourceRequest extends InvictaRequest
         if ($settings) {
             $user = request()->user();
             $meta['settings'] = [
+                'handle' => $handle, // we need this sometimes for form requests i.e. tableField
                 'title' => $resourceClass->menuTitle(),
                 'table' => $resourceClass->indexTableSettings(),
                 'columns' => $resourceClass->indexColumns(),
@@ -104,7 +105,7 @@ class ResourceRequest extends InvictaRequest
         $item = $resourceClass->findModel($this->route('item'));
         $handle = $resourceClass->handle();
 
-        return [
+        return ['resourceItem' => [
             'item' => $item,
             'meta' => [
                 'id' => $item->id,
@@ -119,7 +120,7 @@ class ResourceRequest extends InvictaRequest
                 'title' => $resourceClass->detailTitle($item),
                 'info' => $resourceClass->detailInfo($item),
             ],
-        ];
+        ]];
     }
 
     // returns data for edit view
@@ -180,30 +181,6 @@ class ResourceRequest extends InvictaRequest
     public function resourceItems()
     {
         return $this->resourceClass()->itemsQuery();
-    }
-
-    public function updateResourceOrder()
-    {
-        $resourceClass = $this->resourceClass();
-        $model = $resourceClass->model();
-        $orderColumn = $model::orderColumnName();
-        $handle = $resourceClass->handle();
-
-        $ids = $cases = [];
-
-        foreach (request()->order as $item) {
-            $ids[] = $item['id'];
-            $cases[] = "WHEN {$item['id']} THEN {$item['order']}";
-        }
-
-        $cases = implode(' ', $cases);
-        $ids = implode(',', $ids);
-
-        $sql = "UPDATE {$handle} SET `{$orderColumn}` = CASE `id` {$cases} END WHERE `id` in ({$ids})";
-
-        DB::update($sql);
-
-        return $handle;
     }
 
     public function actionBlueprint()
@@ -300,7 +277,7 @@ class ResourceRequest extends InvictaRequest
 
     protected function processItem($resourceClass, $item, $action)
     {
-        $validated = request()->validate(request()->validation);
+        $validated = Validator::make(request()->fields, request()->validation)->validate();
 
         $actionMethod = "{$action}Item";
         if ($resourceClass->$actionMethod($validated, $item)) {
@@ -308,12 +285,6 @@ class ResourceRequest extends InvictaRequest
         }
 
         $relatedFields = [];
-
-        // Fix for 'data' column issue
-        if (array_key_exists('_data', $validated)) {
-            $validated['data'] = $validated['_data'];
-            unset($validated['_data']);
-        }
 
         foreach ($validated as $field => $value) {
             // first we check if it's a mutator

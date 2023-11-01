@@ -5,6 +5,7 @@ namespace Eteacher\InvictaAdmin\Admin\Menu;
 use Eteacher\InvictaAdmin\Admin\Models\GlobalSetting as GlobalSettingModel;
 use Eteacher\InvictaAdmin\Admin\Models\Group;
 use Eteacher\InvictaAdmin\Admin\Models\Resources\Asset;
+use Eteacher\InvictaAdmin\Admin\Models\Resources\Navigation;
 use Eteacher\InvictaAdmin\Facades\Permission;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -185,10 +186,16 @@ class Menu
      */
     public function navigation($name = 'Navigation'): MenuItem
     {
-        return $this->createItem($name)
-            ->icon('routes')
-            ->can('view navigation')
-            ->route('/navigation');
+        $item = MenuItem::resource(Navigation::class);
+        $item->label($name);
+
+        $this->items[] = $item;
+
+        return $item;
+        // return $this->createItem($name)
+        //     ->icon('routes')
+        //     ->can('view navigation')
+        //     ->route('/resource/navigation');
     }
 
     /**

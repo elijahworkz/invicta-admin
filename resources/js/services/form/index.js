@@ -1,26 +1,22 @@
-// import { defineStore } from 'pinia'
+import { useRouter } from 'vue-router'
 
-import { createSharedComposable } from '@vueuse/core'
+const remoteData = new Map()
+const definedForms = new Map()
 const Invicta = window.Invicta
 
-const definedForms = new Map()
-
 export const useResourceForm = (id) => {
-	// let formId = `resourceForm-${id}`
 	if (!definedForms.has(id)) {
 		definedForms.set(
 			id,
 			defineResourceForm(id)
 		)
 	}
-
 	return definedForms.get(id)
 }
 
-const remoteData = new Map()
-
 const defineResourceForm = (id) => {
 	
+	const router = useRouter()
 	const formData = ref(null)
 	const settings = {
 		id: null,
@@ -42,7 +38,7 @@ const defineResourceForm = (id) => {
 	async function init(resource, url, params = {}) {
 
 		if (formData.value) {
-			console.log('we already have this form init', settings)
+			// console.log('we already have this form init', settings)
 			Invicta.emit('resource-form-ready')
 			return
 		}
@@ -55,25 +51,18 @@ const defineResourceForm = (id) => {
 		settings.mode = resource.item ? 'edit' : 'create'
 		settings.blueprint = resource.blueprint
 
-		// blueprint.value = resource.blueprint
-
 		let itemData = resource.item ?? null
 		formData.value = prepareFields(resource.blueprint, itemData)
 
 		await getRemoteData()
 
 		Invicta.emit('resource-form-ready')
-		// getAssetActions()
 
-		console.log('form init is complete', settings)
+		// console.log('form init is complete', settings)
 	}
 
 	function setLocale(locale) {
 		settings.currentLocale = locale
-	}
-
-	function setRelated(id) {
-		// formData.value[id] = this.data[id]
 	}
 
 	function prepareFields(blueprint, itemData = null) {
@@ -128,10 +117,11 @@ const defineResourceForm = (id) => {
 			}	
 		}
 
-		const parseNestedFields = (fields) => {
+		const parseNestedFields = (fields, id) => {
 			return fields.reduce((obj, item) => {
 				if (item.fields) {
-					let nested = parseNestedFields(item.fields)
+					let ruleId = item.id ? `${id}.${item.id}` : id
+					let nested = parseNestedFields(item.fields, ruleId)
 					return {...obj, ...nested}
 				} else {
 					// here we get to the root of the field
@@ -144,6 +134,10 @@ const defineResourceForm = (id) => {
 							return obj
 						} else {
 							// what do we do for others?
+							if (item.validation) {
+								rules[`${id}.${item.id}`] = item.validation
+							}
+
 							setRemoteData(item)				
 						}
 					}
@@ -154,12 +148,12 @@ const defineResourceForm = (id) => {
 		const getFields = (fields) => {
 			return fields.reduce((obj, item) => {
 				if (item.id) {
-					let _id = 'path' in item ? item.path : item.id
+					let id = 'path' in item ? item.path : item.id
 
-					let dotPath = _id.includes('.') ? split(_id, '.') : false
+					let dotPath = id.includes('.') ? split(id, '.') : false
 
 					// Enable passing json fields without json wrapper
-					_id = dotPath ? dotPath[0] : _id
+					let _id = dotPath ? dotPath[0] : id
 					// Fix for conflict whith 'data' key
 					// _id = _id == 'data' ? '_data' : _id
 					
@@ -171,13 +165,14 @@ const defineResourceForm = (id) => {
 
 					obj[_id] = value
 
-					rules[_id] = item.validation
-						? item.validation
-						: 'nullable'
-
 					if (item.fields) {
-						let nested = parseNestedFields(item.fields)
+
+						let nested = parseNestedFields(item.fields, item.id)
 						obj = {...obj, ...nested}
+					} else {
+						rules[id] = item.validation
+							? item.validation
+							: 'nullable'
 					}
 
 					// Deep relationship check
@@ -221,7 +216,6 @@ const defineResourceForm = (id) => {
 	}
 
 	function setReadOnly(field) {
-
 
 		function readOnly(fields) {
 			fields.map(item => {
@@ -273,51 +267,43 @@ const defineResourceForm = (id) => {
 	function submit(postSubmitAction) {
 
 		let data = {
-			fields: pickBy(formData.value),
+			fields: formData.value, //pickBy(formData.value),
 			validation: rules,
 			...additionalParams,
 		}
 
 		console.log('we have form submit', data)
 
-		// Invicta.axios.post(this.actionUrl, data)
-		// 	.then(({data}) => {
-		// 		// console.log('ajax post submit', data)
-		// 		Invicta.message(data.message)
-		// 		Invicta.emit('resource-form-submitted')
-		// 	})
-		// 	.catch(({response}) => {
-		// 		// console.log('api submit errors', response.status, response)
-		// 		// Check if error is from validation
-		// 		if (response.status == 422) {
+		Invicta.axios.post(settings.actionUrl, data)
+			.then(({data}) => {
+				console.log('post submit result', data)
+				Invicta.message(data.message)
+				Invicta.emit('resource-form-submitted')
 
-		// 			// we need to unpack errors as they come as arrays
-		// 			let errors = {}
-		// 			for (const [key, value] of Object.entries(response.data.errors)) {
-		// 				errors[key] = Array.isArray(value) ? value[0] : value
-		// 			}
+				isDirty.value = false
 
-		// 			Invicta.setErrors(errors)
-		// 		}
-		// 	})
-		// 	
-		// document.removeEventListener('inertia:before', this.confirmUnsavedChanges)
-		// let rules = this.rules
-		// this.form
-		// 	.transform((data) => ({
-		// 		...data,
-		// 		postSubmitAction,
-		// 		validation: rules
-		// 	}))
-		// 	.post(this.actionUrl, {
-		// 		onSuccess: () => {
-		// 			if (postSubmitAction == 'create') {
-		// 				this.form.reset()
-		// 			}
-		// 			this.dirty = false
-		// 			Invicta.emit('resource-form-submitted')
-		// 		}
-		// 	})
+				// we need to deal with navigation post submit here
+				if (postSubmitAction == 'create') {
+					router.push({ name: 'resourceCreate' })
+				}
+
+				if (postSubmitAction == 'back') {
+					router.go(-1)
+				}
+			})
+			.catch(({response}) => {
+				console.log('api submit errors', response)
+				// Check if error is from validation
+				if (response.status && response.status == 422) {
+					// we need to unpack errors as they come as arrays
+					let errors = {}
+					for (const [key, value] of Object.entries(response.data.errors)) {
+						errors[key] = Array.isArray(value) ? value[0] : value
+					}
+
+					Invicta.setErrors(errors)
+				}
+			})
 	}
 
 	return {
@@ -353,11 +339,9 @@ const defineResourceForm = (id) => {
 
 		submit,
 
-		rules
+		// rules
 	}
 }
-
-// export const useResourceForm = createSharedComposable(defineResourceForm)
 
 export function getFields(fields) {
 

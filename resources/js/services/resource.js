@@ -1,39 +1,30 @@
-// import { defineStore } from 'pinia'
 import { useRouter, useRoute } from 'vue-router'
-import { createSharedComposable } from '@vueuse/core'
 
 const Invicta = window.Invicta
 
 const definedResources = new Map()
 
-// export const useResource = (id = 'store') => {
-// 	let resourceId = `resource-${id}`
-// 	if (!definedResources.has(resourceId)) {
-// 		definedResources.set(
-// 			resourceId,
-// 			createSharedComposable(defineResource(id))
-// 		)
-// 	}
+export const useResource = (id = 'store') => {
+	let resourceId = `resource-${id}`
+	if (!definedResources.has(resourceId)) {
+		definedResources.set(
+			resourceId,
+			defineResource(id)
+		)
+	}
 
-// 	return definedResources.get(resourceId)
-// }
-
+	return definedResources.get(resourceId)
+}
 
 
 const defineResource = (handle) => {
 
-	if (! definedResources.has(handle)) {
-		definedResources.set(handle, { settings: null, filters: null, actions: null})
-	}
-	const definedResource = reactive(definedResources.get(handle))
-	// const definedResource = reactive({ settings: null, filters: null, actions: null})
+	// console.log(definedResources, handle)
 
 	const resourceHandle = handle
 	const requestUrl = ref('')
 	const resourceData = ref([])
-	const resourceSettings = ref(null)
-	const resourceFilters = ref([])
-	const resourceActions = ref([])
+	const resourceStaticData = reactive({ settings: null, filters: null, actions: null})
 
 	const currentLocale = ref('')
 	const currentPage = ref(1)
@@ -143,18 +134,16 @@ const defineResource = (handle) => {
 	function initIndex(route) {
 		let makeRequest = true
 
-		// 	let resourceId = `resource-${id}`
-		if (definedResource.settings) {
-			// makeRequest = false
-			console.log('Ive been here already')
-			Invicta.pageTitle(definedResource.settings.title)
+		if (resourceStaticData.settings) {
+			// console.log('Ive been here already')
+			Invicta.pageTitle(resourceStaticData.settings.title)
 		}
 
 		// we need to make an initial request to get the data
 		// but only if this is not a first page load with some query params already
 		// present - in that case - the request will be made automatically
 
-		console.log('1. init Index', route.path)
+		// console.log('1. init Index', route.path)
 		requestUrl.value = `api${route.path}`
 		
 		if (route.query.search) {
@@ -189,10 +178,8 @@ const defineResource = (handle) => {
 		filterBadges.value = resource.meta.filterBadges
 		additionalParams.value = resource.params
 
-		definedResource.settings = {
-			...resource.meta.settings,
-			tableSettings: resource.meta.table,
-			columns: resource.meta.columns
+		resourceStaticData.settings = {
+			...resource.meta.settings
 		}
 	}
 
@@ -208,29 +195,29 @@ const defineResource = (handle) => {
 			}
 		})
 
-		console.log('2. I should change', requestUrl.value, requestQuery.value)
+		// console.log('2. I should change', requestUrl.value, requestQuery.value)
 
 		if (formResource.value) {
 			query = additionalParams.value
 				? { ...query, ...additionalParams.value }
 				: query
-			console.log(' I should ask api', query)
+			// console.log('3. this if form with possible params', query)
 		} else {
 			let queryString = Object.keys(query).map(key => key + '=' + query[key]).join('&')
 			// window.history.replaceState(null, null, `?${queryString}`)
 			
-			console.log('3. I have this query', query)
+			// console.log('3. I have this query', query)
 			Invicta.router.replace({ query })
 		}
 
-		if (! definedResource.settings) {
+		if (! resourceStaticData.settings) {
 			query.settings = true
 		}
 
 
 		Invicta.axios.get(requestUrl.value, { params: query })
 			.then(({data}) => {
-				console.log('4. got some new data', data)
+				// console.log('4. got some new data', data)
 				resourceData.value = data.data
 				total.value = data.meta.total
 				filterBadges.value = data.meta.filterBadges
@@ -240,7 +227,7 @@ const defineResource = (handle) => {
 				}
 
 				if (data.meta.settings) {
-					definedResource.settings = data.meta.settings
+					resourceStaticData.settings = data.meta.settings
 					Invicta.pageTitle(data.meta.settings.title)
 				}
 
@@ -248,13 +235,15 @@ const defineResource = (handle) => {
 			})
 	}
 
-	function getResourceFilters() {
-		if (! definedResource.filters) {
-			Invicta.axios.get(`${requestUrl.value}/filters`)
+	function getResourceFilters(handle = null) {
+		if (resourceStaticData.filters === null) {
+			let url = handle
+				? `api/resource/${handle}/filters`
+				: `${requestUrl.value}/filters`
+			Invicta.axios.get(url)
 				.then(({data}) => {
-
 					if (data.length) {
-						definedResource.filters = data.map(filter => {
+						resourceStaticData.filters = data.map(filter => {
 							let initialValue = ''
 
 							if (Object.keys(activeFilters.value).length) {
@@ -266,21 +255,25 @@ const defineResource = (handle) => {
 							filter.initialValue = initialValue
 							return filter
 						})
+					} else {
+						resourceStaticData.filters = false
 					}
 				})
 		}
 	}
 
 	function getResourceActions() {
-		if (! definedResource.actions) {
+		if (resourceStaticData.actions === null) {
 			Invicta.axios.get(`${requestUrl.value}/actions`)
 				.then(({data}) => {
 					if (data.length) {
-						definedResource.actions = data.reduce((obj, item) => {
+						resourceStaticData.actions = data.reduce((obj, item) => {
 							obj[item.type] = obj[item.type] || []
 							obj[item.type].push(item)
 							return obj
 						},{})
+					} else {
+						resourceStaticData.actions = false
 					}
 				})
 		}
@@ -303,10 +296,10 @@ const defineResource = (handle) => {
 		setPage,
 		setPageSize,
 		selectAll,
+		getResourceFilters,
 		clearFilters,
-		static: definedResource,
+		static: resourceStaticData,
 		requestUrl,
-		currentLocale,
 		data: reactive({
 			resourceData,
 			filterBadges,
@@ -314,10 +307,9 @@ const defineResource = (handle) => {
 			currentPage,
 			perPage,
 			total,
-			currentLocale,
 			loading,
 		})
 	}
 }
 
-export const useResource = createSharedComposable(defineResource)
+// export const useResource = createSharedComposable(defineResource)

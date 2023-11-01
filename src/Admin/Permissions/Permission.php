@@ -31,7 +31,7 @@ class Permission
         return $this;
     }
 
-    public function build($child = false)
+    public function build()
     {
         $label = $this->label
             ? $this->label
@@ -42,7 +42,7 @@ class Permission
             'label' => $label,
             'children' => $this->children
                 ? collect($this->children)->map(function ($item) {
-                    return $item->build(true);
+                    return $item->build();
                 })
                 : null,
         ];

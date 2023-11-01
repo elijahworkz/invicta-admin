@@ -4,19 +4,18 @@
 			v-if="actions.length"
 			:actions="actions" 
 			:item="id" 
-			@selected="handleAction" 
-			class="ml-3" />
+			@selected="handleAction"
+			class="mr-2" />
 
-		<router-link v-if="hasDetail" :to="{name: 'resourceDetail', params: { id, handle: resourceHandle }}" class="action-icon"><View /></router-link>
-		<router-link v-if="canEdit" :to="{name: 'resourceEdit', params: { id, handle: resourceHandle }}" class="action-icon"><Edit /></router-link>
-		<span v-if="canDelete" class="action-icon" @click="$emit('delete', [id])" title="Delete Item"><Delete /></span>
+		<router-link v-if="hasDetail" :to="{name: 'resourceDetail', params: { id, handle: resourceHandle }}" class="action-icon"><SvgIcon :icon="mdiEyeOutline"/></router-link>
+		<router-link v-if="canEdit" :to="{name: 'resourceEdit', params: { id, handle: resourceHandle }}" class="action-icon"><SvgIcon :icon="mdiSquareEditOutline"/></router-link>
+		<span v-if="canDelete" class="action-icon" @click="$emit('delete', [id])" title="Delete Item"><SvgIcon :icon="mdiTrashCanOutline"/></span>
 
 	</div>
 </template>
 
 <script setup>
-import { mdiDotsHorizontal } from '@mdi/js'
-import { Delete, Edit, View } from '@element-plus/icons-vue'
+import { mdiTrashCanOutline, mdiEyeOutline, mdiSquareEditOutline } from '@mdi/js'
 
 const props = defineProps({
 	id: Number,

@@ -18,6 +18,11 @@
 				class="edit-link"
 				v-html="scope.row[id]">
 			</div>
+			<router-link 
+				v-else-if="props.customLink && canEdit"
+				:to="customLink(props.customLink, scope.row)">
+				<span class="edit-link" v-html="scope.row[id]"></span>
+			</router-link>
 			<router-link
 				v-else-if="props.detailLink && hasDetail"
 				:to="{ name: 'resourceDetail', params: {id: scope.row.id}}">
@@ -45,5 +50,24 @@ function buildList(item, titleField) {
 	}
 
 	return (typeof item === 'object') ? item[titleField] : item
+}
+
+function customLink(link, item) {
+	let linkParts = link.split('/')
+
+	if (linkParts.length) {
+		linkParts.forEach((part, index) => {
+			if (part.includes(':')) {
+				let param = part.substring(1) // we try to get param name
+				let value = item[param] ?? null
+
+				if (value) {
+					linkParts[index] = value
+				}
+			}
+		})
+		linkParts = linkParts.join('/')
+	}
+	return linkParts
 }
 </script>

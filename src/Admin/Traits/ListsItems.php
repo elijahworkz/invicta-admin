@@ -7,6 +7,8 @@ use Illuminate\Support\Str;
 
 trait ListsItems
 {
+    public $defaultSortOrder = 'desc';
+
     /**
      * Overwrite these settings to customize index table
      * https://element-plus.org/en-US/component/table.html#table-attributes.
@@ -45,7 +47,7 @@ trait ListsItems
         $query = $this->model()->query();
         $perPage = request()->query('per_page', 10);
         $sortBy = request()->query('sort_by', 'id');
-        $sortOrder = request()->query('sort_order', 'desc');
+        $sortOrder = request()->query('sort_order', $this->defaultSortOrder);
 
         $table = $this->model()->getTable();
 

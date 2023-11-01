@@ -12,9 +12,9 @@
 				v-if="assetActions.length"
 				:actions="assetActions" 
 				:item="fieldValue" 
-				@selected="handleFieldAction" 
+				@selected="handleFieldAction"
 				class="mr-3" />
-			<el-icon class="mr-3 action-icon" @click="fieldValue = null" v-if="!field.disabled"><Delete/></el-icon>
+			<span class="mr-3 action-icon" @click="fieldValue = null" v-if="!field.disabled"><SvgIcon :icon="mdiTrashCanOutline" :width="18" /></span>
 		</div>
 		<Uploader 
 			v-else-if="!field.disabled" 
@@ -43,8 +43,8 @@
 
 <script setup>
 import { formatBytes } from '@/utils/functions'
-import { Delete, Picture } from '@element-plus/icons-vue'
-import { mdiLightningBoltCircle } from '@mdi/js'
+import { Picture } from '@element-plus/icons-vue'
+import { mdiTrashCanOutline } from '@mdi/js'
 
 const props = defineProps({
 	formId: String,

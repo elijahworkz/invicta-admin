@@ -2,7 +2,7 @@
 	<popover>
 		<template #trigger>
 			<el-button class="filter-state">
-				<el-icon><Filter /></el-icon><el-icon class="el-icon--right"><arrow-down /></el-icon>
+				<SvgIcon :icon="mdiFilterOutline" :width="18" :height="18" />
 			</el-button>
 		</template>
 		<template #default="scope">
@@ -35,7 +35,7 @@
 </template>
 
 <script setup>
-import { Filter, ArrowDown, Minus } from '@element-plus/icons-vue'
+import { mdiFilterOutline } from '@mdi/js'
 
 const props = defineProps({
 	resourceHandle: String,
@@ -43,7 +43,7 @@ const props = defineProps({
 	activeFilters: Object,
 })
 
-const filterState = computed(() => Object.keys(props.activeFilters).length ? 'var(--el-color-primary)' : 'initial')
+const filterState = computed(() => Object.keys(props.activeFilters).length ? 'var(--el-color-primary)' : 'var(--el-text-color-regular)')
 const activeFilter = (name) => name in props.activeFilters ? 'active-filter' : ''
 </script>
 

@@ -8,6 +8,7 @@ use Eteacher\InvictaAdmin\Http\Request\ResourceRequest;
 
 class ResourceController extends Controller
 {
+    // Index Page
     public function index(ResourceRequest $request)
     {
         if ($request->has('selectAll')) {
@@ -17,26 +18,71 @@ class ResourceController extends Controller
         return $request->resourceList($request->has('settings'));
     }
 
+    // Create Page
     public function create(ResourceRequest $request)
     {
         return $request->createItem();
     }
 
+    // Edit Page
     public function edit(ResourceRequest $request)
     {
         return $request->editItem();
     }
 
+    // Detail Page
+    public function show(ResourceRequest $request)
+    {
+
+        return $request->viewItem();
+    }
+
+    public function store(ResourceRequest $request)
+    {
+        // $this->authorize('create '.$request->handle());
+        return $this->processItem($request, 'storeItem');
+    }
+
+    public function update(ResourceRequest $request)
+    {
+        // Gate::any(['edit '.$request->handle(), 'edit '.$request->handle().' items']);
+
+        return $this->processItem($request, 'updateItem');
+    }
+
+    protected function processItem($request, $action)
+    {
+        [$itemId, $handle] = $request->$action();
+
+        return response()->json(['message' => [
+            'type' => 'success',
+            'title' => $action == 'storeItem' ? 'Saved' : 'Updated',
+        ]]);
+    }
+
+    // Available filters for resource
     public function filters(ResourceRequest $request)
     {
         return $request->resourceClass()->filters();
     }
 
+    // Available actions for resource
     public function actions(ResourceRequest $request)
     {
-        return collect($request->resourceClass()->allActions())->filter(function ($action) {
-            return ! $action->inline();
-        })->values();
+        $handle = $request->handle();
+
+        return collect($request->resourceClass()->allActions())
+            ->filter(function ($action) use ($handle) {
+                if (! $action->inline()) {
+                    if ($action->redirect) {
+                        $action->setRedirect($handle);
+                    }
+
+                    return true;
+                }
+
+                return false;
+            })->values();
     }
 
     public function actionBlueprint(ResourceRequest $request)

@@ -10,7 +10,7 @@
 				<div class="field-row flex items-center">
 					<DragHandle v-if="!disableDraggable && !readOnly" class="handle cursor-grab opacity-50" />
 					<slot :item="element" :index="index"></slot>
-					<el-button v-if="!readOnly" text :icon="Delete" @click="removeRow(index)"></el-button>
+					<el-button v-if="!readOnly" text @click="removeRow(index)"><SvgIcon :icon="mdiTrashCanOutline" :width="18" /></el-button>
 				</div>
 			</template>
 		</draggable>
@@ -22,7 +22,7 @@
 
 <script setup>
 import draggable from 'vuedraggable'
-import { Delete } from '@element-plus/icons-vue'
+import { mdiTrashCanOutline } from '@mdi/js'
 
 const props = defineProps({
 	list: {
