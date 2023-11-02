@@ -1,30 +1,27 @@
 import { useRouter, useRoute } from 'vue-router'
+import { createSharedComposable } from '@vueuse/core'
 
 const Invicta = window.Invicta
 
 const definedResources = new Map()
 
-export const useResource = (id = 'store') => {
+const definedResource = (id, data) => {
 	let resourceId = `resource-${id}`
 	if (!definedResources.has(resourceId)) {
 		definedResources.set(
 			resourceId,
-			defineResource(id)
+			data
 		)
 	}
-
 	return definedResources.get(resourceId)
 }
 
-
 const defineResource = (handle) => {
-
-	// console.log(definedResources, handle)
-
 	const resourceHandle = handle
 	const requestUrl = ref('')
 	const resourceData = ref([])
-	const resourceStaticData = reactive({ settings: null, filters: null, actions: null})
+	const resourceStaticData = definedResource(handle, reactive({settings: null, filters: null, actions: null}))
+	// const resourceStaticData = reactive({ settings: null, filters: null, actions: null})
 
 	const currentLocale = ref('')
 	const currentPage = ref(1)
@@ -66,16 +63,8 @@ const defineResource = (handle) => {
 		sortBy.value = prop
 	})
 
-	// Invicta.on('search-change', ({query, handle}) => {
-	// 	console.log('search-change event', query, handle, resourceHandle)
-	// 	if (resourceHandle == handle) {
-	// 		currentPage.value = 1
-	// 		search.value = query
-	// 	}
-	// })
-
 	// check if there are already search coming with resource
-	const setSearch = (query = null) => {
+	const setSearch = (query) => {
 		currentPage.value = 1
 		search.value = query
 		console.log('I get some searching', query, requestQuery)
@@ -135,7 +124,7 @@ const defineResource = (handle) => {
 		let makeRequest = true
 
 		if (resourceStaticData.settings) {
-			// console.log('Ive been here already')
+			console.log('Ive been here already')
 			Invicta.pageTitle(resourceStaticData.settings.title)
 		}
 
@@ -143,7 +132,7 @@ const defineResource = (handle) => {
 		// but only if this is not a first page load with some query params already
 		// present - in that case - the request will be made automatically
 
-		// console.log('1. init Index', route.path)
+		console.log('1. init Index', route.path)
 		requestUrl.value = `api${route.path}`
 		
 		if (route.query.search) {
@@ -163,6 +152,8 @@ const defineResource = (handle) => {
 
 		if (makeRequest) {		
 			getResource()
+		} else {
+			console.log('in InitIndex - not making request for some reason')
 		}
 
 		getResourceFilters()
@@ -178,8 +169,10 @@ const defineResource = (handle) => {
 		filterBadges.value = resource.meta.filterBadges
 		additionalParams.value = resource.params
 
-		resourceStaticData.settings = {
-			...resource.meta.settings
+		if (resource.meta.settings) {		
+			resourceStaticData.settings = {
+				...resource.meta.settings
+			}
 		}
 	}
 
@@ -195,18 +188,17 @@ const defineResource = (handle) => {
 			}
 		})
 
-		// console.log('2. I should change', requestUrl.value, requestQuery.value)
+		console.log('2. I should change', requestUrl.value, requestQuery.value)
 
 		if (formResource.value) {
 			query = additionalParams.value
 				? { ...query, ...additionalParams.value }
 				: query
-			// console.log('3. this if form with possible params', query)
+			console.log('3. this if form with possible params', query)
 		} else {
 			let queryString = Object.keys(query).map(key => key + '=' + query[key]).join('&')
-			// window.history.replaceState(null, null, `?${queryString}`)
 			
-			// console.log('3. I have this query', query)
+			console.log('3. I have this query', query)
 			Invicta.router.replace({ query })
 		}
 
@@ -217,7 +209,7 @@ const defineResource = (handle) => {
 
 		Invicta.axios.get(requestUrl.value, { params: query })
 			.then(({data}) => {
-				// console.log('4. got some new data', data)
+				console.log('4. got some new data', data)
 				resourceData.value = data.data
 				total.value = data.meta.total
 				filterBadges.value = data.meta.filterBadges
@@ -299,7 +291,8 @@ const defineResource = (handle) => {
 		getResourceFilters,
 		clearFilters,
 		static: resourceStaticData,
-		requestUrl,
+		// requestUrl,
+		// testResource,
 		data: reactive({
 			resourceData,
 			filterBadges,
@@ -312,4 +305,4 @@ const defineResource = (handle) => {
 	}
 }
 
-// export const useResource = createSharedComposable(defineResource)
+export const useResource = createSharedComposable(defineResource)
