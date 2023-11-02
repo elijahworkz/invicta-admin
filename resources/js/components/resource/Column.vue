@@ -5,7 +5,7 @@
 		:align="align(props)"
 		:header-align="align(props, true)"
 		:sortable="props.sortable ? 'custom' : false"
-		:column-key="props.editLink ? 'no-select' : null">
+		:column-key="props.editLink || props.customLink ? 'no-select' : null">
 
 		<template #default="scope">
 			<i v-if="props.boolean" class="icon-status" :class="{ 'success' : scope.row[id] }"></i>
