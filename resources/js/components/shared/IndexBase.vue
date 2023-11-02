@@ -246,7 +246,7 @@ const handleDelete = (selected) => {
 		Invicta.axios.delete(`api${route.path}`, { data: { selected }})
 			.then(({data}) => {
 				Invicta.message(data.message)
-				// resourceIndex.getResource()
+				resourceIndex.getResource()
 			})
 	})
 	.catch((error) => {
