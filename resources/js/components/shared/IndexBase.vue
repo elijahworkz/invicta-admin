@@ -187,10 +187,10 @@ const handleActions = ({action, selected}) => {
 // Handle Edit
 const handleEdit = (item) => {
 	if (resourceIndex.static.settings.indexEdit) {	
-		let itemUrl = `api${route.path}/${item}/edit`
+		let itemUrl = `api${route.path}/${item}`
 		drawerFormParams.value = {}
 
-		Invicta.axios.get(itemUrl)
+		Invicta.axios.get(`${itemUrl}/edit`)
 			.then(({data}) => {
 				drawerFormId.value = `${props.handle}.${data.item.id}`
 				drawerItem.value = data
