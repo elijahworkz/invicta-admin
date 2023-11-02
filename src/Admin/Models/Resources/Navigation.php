@@ -38,15 +38,6 @@ class Navigation extends Resource
         ];
     }
 
-    public function displayTitle()
-    {
-        $prefix = config('invicta.path');
-
-        return <<<HTML
-            <a href="{$prefix}/navigation/{$this->id}/items" class="edit-link">{$this->title}</a>
-        HTML;
-    }
-
     public function indexColumns()
     {
         return [

@@ -152,8 +152,6 @@ const defineResource = (handle) => {
 
 		if (makeRequest) {		
 			getResource()
-		} else {
-			console.log('in InitIndex - not making request for some reason')
 		}
 
 		getResourceFilters()

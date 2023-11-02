@@ -24,10 +24,9 @@ class EditJsonField extends Action
      */
     public function handle($fields, Collection $models, $user)
     {
-        $field = $this->jsonField == 'data' ? '_data' : $this->jsonField;
         $model = $models->first();
 
-        $model->data = $fields[$field];
+        $model->data = $fields[$this->jsonField];
 
         $model->save();
     }

@@ -29,7 +29,8 @@
 				<GridView v-if="layout == 'grid'" 
 					:resource="resource"
 					:settings="settings"
-					@edit="handleEdit" />
+					@edit="handleEdit"
+					@delete="handleDelete" />
 			</template>
 		</IndexBase>
 	</div>

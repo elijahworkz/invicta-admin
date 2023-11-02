@@ -101,6 +101,5 @@ const processAction = () => {
 		}
 		open.value = false
 	}
-
 }
 </script>
