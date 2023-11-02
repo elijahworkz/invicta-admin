@@ -17,7 +17,7 @@
 					size="default"
 					:handle="currentResource.handle" 
 					@update="itemsResource.setSearch" />
-				<Filters v-if="currentResource.handle" 
+				<Filters v-if="currentResource.handle && itemsResource.static.filters" 
 					:resource-handle="currentResource.handle" 
 					:filters="itemsResource.static.filters" 
 					:active-filters="itemsResource.data.activeFilters" />
