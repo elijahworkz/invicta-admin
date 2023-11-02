@@ -12,7 +12,7 @@
 
 			<Notifications />
 
-			<!-- <Impersonator v-if="$page.props.impersonator" /> -->
+			<Impersonator v-if="impersonator" />
 			
 			<el-dropdown>
 				<User />
@@ -33,6 +33,7 @@ import { MoreFilled } from '@element-plus/icons-vue'
 
 const appName = Invicta.getConfig('appName')
 const appVersion = Invicta.getConfig('appVersion')
+const impersonator = Invicta.getConfig('impersonator')
 
 const toggleSidebar = () => {
 	document.body.classList.toggle('sidebar-mini')

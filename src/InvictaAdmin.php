@@ -18,7 +18,8 @@ class InvictaAdmin
             'appVersion' => self::version(),
             'appProductionUrl' => config('app.production_url') ?? config('app.url'),
             'appPath' => config('invicta.path'),
-            'impersonateRoute' => '', //route('invicta.impersonate-leave'),
+            'impersonator' => session('impersonator_id'),
+            'impersonateRoute' => route('invicta.impersonate-leave'),
             'menu' => self::menu(),
             'user' => base64_encode(json_encode(self::user())),
         ];
