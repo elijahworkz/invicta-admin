@@ -19,8 +19,7 @@
 				<!-- <el-button :icon="MoreFilled" size="small" text></el-button> -->
 				<template #dropdown>
 					<el-dropdown-item>
-						<a href="/admin/logut" class="text-gray-400">Logout</a>
-						<!-- <Link href="/admin/logout" method="post" as="button" class="text-gray-400">Logout</Link> -->
+						<span class="text-gray-400" @click="logout">Logout</span>
 					</el-dropdown-item>
 				</template>
 			</el-dropdown>
@@ -38,5 +37,10 @@ const appVersion = Invicta.getConfig('appVersion')
 const toggleSidebar = () => {
 	document.body.classList.toggle('sidebar-mini')
 	Invicta.emit('close-sidebar-submenus')
+}
+
+const logout = () => {
+	Invicta.axios.post('/logout')
+		.then(() => window.location.reload())
 }
 </script>
