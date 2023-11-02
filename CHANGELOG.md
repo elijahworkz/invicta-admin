@@ -4,6 +4,21 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.0.1](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.0.0...v1.0.1) (2023-11-02)
+
+### Bug Fixes
+
+* Impersonator functionality ([190273](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/19027333a14516748dc1ca975695f163e261a87b))
+* Logout - resolves #28 ([304076](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/30407670eb5da0e62a1c4cff8a2817fd4f574d47))
+* Resource not updating after delete; fixes #26 ([a532d6](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/a532d61bef73f1ccf9d517c8c4fd6cc038c42aec))
+* Resource not working after navigation or loading similar resource [#23](https://bitbucket.org/eteachergrouprd/invicta-admin/issues/23), [#25](https://bitbucket.org/eteachergrouprd/invicta-admin/issues/25) ([61d424](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/61d42448262576f638a850f17aa94ed15489c9e1))
+* Row selection when click on custom link; fixes #24 ([b818aa](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/b818aa4effd60ec75759f22685a4ed0b3a8b4e78))
+* Update not working when editing in index; fixes #21 ([049ea0](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/049ea0396d4070a32852501237deeff6fa688b94))
+* Wrong prop type message ([2ad46e](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/2ad46e30e0a4b063c0160bfcd1e74f9f10d5b5f6))
+
+
+---
+
 ## [1.0.0](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v0.6.20...v1.0.0) (2023-11-01)
 
 ### Bug Fixes
