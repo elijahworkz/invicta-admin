@@ -65,7 +65,7 @@ import { mdiViewGridOutline, mdiFormatListText } from '@mdi/js';
 
 const emit = defineEmits(['selected'])
 
-const itemsResource = useResource('assets')
+const itemsResource = useFormResource('assets')
 const loading = ref(false)
 
 /* Layout Setup */

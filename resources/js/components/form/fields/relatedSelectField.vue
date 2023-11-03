@@ -57,7 +57,6 @@ onMounted(() => {
 
 		getRelatedOptions(params)
 	}
-
 })
 
 async function getRemote(query) {

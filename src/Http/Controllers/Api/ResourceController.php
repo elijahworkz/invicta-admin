@@ -95,14 +95,19 @@ class ResourceController extends Controller
         return response()->json($request->processAction());
     }
 
-    public function related(ResourceRequest $request)
+    public function relatedResource(ResourceRequest $request)
     {
-        return $request->resourceRelated();
+        return $request->relatedResource();
     }
 
     public function items(ResourceRequest $request)
     {
         return $request->resourceItems();
+    }
+
+    public function related(ResourceRequest $request)
+    {
+        return $request->relatedItems();
     }
 
     public function uri(ResourceRequest $request)

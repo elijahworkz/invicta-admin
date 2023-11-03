@@ -60,7 +60,8 @@
 			v-if="drawer.context == 'form'"
 			:request-url="formUrl"
 			:create-with="populateWith"
-			@cancel="drawer.state = false" />
+			@cancel="drawer.state = false"
+			@submit="drawer.state = false" />
 	</Drawer>
 </template>
 
@@ -80,6 +81,10 @@ const props = defineProps({
 	resource: String,
 	itemId: Number,
 	sortable: Boolean,
+	editable: {
+		type: Boolean,
+		default: false,
+	},
 	options: {
 		type: Object,
 		default: () => {
@@ -92,7 +97,7 @@ const props = defineProps({
 	},
 	where: String
 })
-const emit = defineEmits(['updated'])
+const emit = defineEmits(['updated', 'form-submitted'])
 
 const baseRequestUrl = `api/resource/${props.resource}`
 const drawer = reactive({
@@ -101,7 +106,7 @@ const drawer = reactive({
 })
 
 const canCreateItem = computed(() => props.options.createItems && Invicta.can(`create ${props.resource}`))
-const canEditItem = Invicta.can(`edit ${props.resource}`)
+const canEditItem = props.editable && Invicta.can(`edit ${props.resource}`)
 
 const titleField = 'titleField' in props.fieldData ? props.fieldData.titleField : 'title'
 

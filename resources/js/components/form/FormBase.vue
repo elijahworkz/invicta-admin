@@ -114,13 +114,13 @@ const props = defineProps({
 		type: Boolean,
 		default: false
 	},
-	saveTabs: {
+	pageForm: {
 		type: Boolean,
-		default: true
+		default: false,
 	}
 })
 
-const emit = defineEmits(['submit', 'form-ready'])
+const emit = defineEmits(['submitted', 'form-ready'])
 
 const resourceForm = useResourceForm(props.formId)
 resourceForm.readOnly = props.readOnly
@@ -232,7 +232,7 @@ onMounted(() => {
 
 watch(activeTab, (newTab) => {
 	// we'll update hash for tabs only for page view 
-	if (props.saveTabs) {
+	if (props.pageForm) {
 		window.history.pushState(window.history.state, null, `#${newTab}`)
 	}
 })
@@ -240,7 +240,8 @@ watch(postSubmitAction, (value) => Invicta.remember('post-submit-action', value)
 
 // Submit Form
 const submit = () => {
-	resourceForm.submit(postSubmitAction.value)
+	resourceForm.submit(postSubmitAction.value, props.pageForm)
+	emit('submitted', { action: postSubmitAction.value })
 }
 
 onKeyStroke('Enter', (e) => {

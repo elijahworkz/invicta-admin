@@ -101,7 +101,7 @@ const props = defineProps({
 const emit = defineEmits(['selected'])
 
 const loading = ref(false)
-const itemsResource = useResource(props.resourceHandle)
+const itemsResource = useFormResource(`items-${props.resourceHandle}`)
 
 /* Setup multiple resources selection */
 const currentResource = ref({

@@ -7,6 +7,7 @@
 			:action-url="resourceItem.meta.actionUrl"
 			:breadcrumb="{name: 'resourceIndex', params: { handle: route.params.handle }, text: resourceItem.meta.indexTitle}"
 			:read-only="readOnly"
+			:page-form="true"
 			v-loading="loading">
 		</FormBase>
 	</div>

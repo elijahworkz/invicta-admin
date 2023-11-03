@@ -13,6 +13,7 @@
 			:action-url="actionsUrl"
 			:params="actionData"
 			:save-tabs="false"
+			@submitted="open = false"
 		/>
 
 		<div v-else>Are you sure you want to run this action?</div>
@@ -67,8 +68,6 @@ Invicta.on('show-action-modal', (event) => {
 	formId.value = `action.${action.class}.${item ?? action.type}`
 	open.value = true
 })
-
-Invicta.on('resource-form-submitted', () => open.value = false)
 
 const resource = computed(() => ({
 	blueprint: action.blueprint

@@ -134,9 +134,9 @@ const defineResourceForm = (id) => {
 							return obj
 						} else {
 							// what do we do for others?
-							if (item.validation) {
-								rules[`${id}.${item.id}`] = item.validation
-							}
+							rules[`${id}.${item.id}`] = item.validation
+								? item.validation
+								: 'nullable'
 
 							setRemoteData(item)				
 						}
@@ -264,7 +264,7 @@ const defineResourceForm = (id) => {
 		}
 	}
 
-	function submit(postSubmitAction) {
+	function submit(postSubmitAction, page = false) {
 
 		let data = {
 			fields: formData.value, //pickBy(formData.value),
@@ -282,13 +282,21 @@ const defineResourceForm = (id) => {
 
 				isDirty.value = false
 
+				if (postSubmitAction !== 'edit') {
+					formData.value = null
+				}
+
 				// we need to deal with navigation post submit here
 				if (postSubmitAction == 'create') {
-					router.push({ name: 'resourceCreate' })
+					if (page) {
+						router.push({ name: 'resourceCreate' })
+					}
 				}
 
 				if (postSubmitAction == 'back') {
-					router.go(-1)
+					if (page) {
+						router.go(-1)
+					}
 				}
 			})
 			.catch(({response}) => {

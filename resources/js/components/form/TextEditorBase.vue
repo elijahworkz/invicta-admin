@@ -21,7 +21,7 @@ const editorValue = ref(props.initialValue)
 const editorInstance = ref(null)
 
 Invicta.on('ckeditor-execute-command', (command) => {
-	editorInstance.execute(command.name, command.data)
+	editorInstance.value.execute(command.name, command.data)
 })
 
 const onReady = (editor) => {

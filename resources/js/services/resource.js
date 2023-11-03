@@ -159,6 +159,7 @@ const defineResource = (handle) => {
 	}
 
 	function initForm(resourceUrl, resource) {
+		console.log('we are startin a form', handle, resourceStaticData)
 		formResource.value = true
 		requestUrl.value = resourceUrl
 		currentPage.value = resource.meta.current_page
@@ -304,3 +305,5 @@ const defineResource = (handle) => {
 }
 
 export const useResource = createSharedComposable(defineResource)
+
+export const useFormResource = defineResource

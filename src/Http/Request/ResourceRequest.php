@@ -173,9 +173,18 @@ class ResourceRequest extends FormRequest
         return '';
     }
 
-    public function resourceRelated()
+    public function relatedResource()
     {
         return $this->resourceClass()->relatedQuery($this->route('related'));
+    }
+
+    public function relatedItems()
+    {
+        $resourceClass = $this->resourceClass();
+        $item = $resourceClass->findModel($this->route('item'));
+        $related = $this->route('related');
+
+        return $item->$related()->get();
     }
 
     public function resourceItems()
