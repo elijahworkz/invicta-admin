@@ -12,6 +12,7 @@
 			:form-id="`${resourceItem.meta.handle}.${resourceItem.meta.id}.detail`"
 			:resource="resourceItem"
 			:headless="true"
+			:page-form="true"
 			action-url="">
 		</FormBase>
 	</div>

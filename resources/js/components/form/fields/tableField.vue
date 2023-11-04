@@ -66,7 +66,7 @@ const props = defineProps({
 
 const loading = ref(false)
 const resource = ref()
-const tableResource = useResource(props.data.id)
+const tableResource = useFormResource(props.data.id)
 
 onMounted(() => {
 	loading.value = true

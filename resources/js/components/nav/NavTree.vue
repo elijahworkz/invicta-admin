@@ -3,6 +3,7 @@
 		:list="list"
 		tag="ul"
 		:group="{ name: 'g1'}"
+		:animation="150"
 		item-key="label"
 		@change="$emit('change', true)">
 

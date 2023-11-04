@@ -2,6 +2,7 @@
 	<draggable
 		:list="list"
 		:disabled="!sortable"
+		:animation="150"
 		handle=".drag-handle"
 		item-key="index"
 		class="items-stack w-full"
