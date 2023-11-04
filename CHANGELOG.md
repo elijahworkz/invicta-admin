@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.0.7](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.0.6...v1.0.7) (2023-11-04)
+
+### Bug Fixes
+
+* Broken tableField; resolves #31 ([0ec487](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/0ec487db5046f86e0143ff1a5f69ef0098079dc6))
+
+
+---
+
 ## [1.0.6](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.0.5...v1.0.6) (2023-11-03)
 
 
