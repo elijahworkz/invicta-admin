@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.0.9](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.0.8...v1.0.9) (2023-11-06)
+
+### Bug Fixes
+
+* Repeater field validation and post submit redirect; fixes #32 and #33 ([eed751](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/eed7518e9a8506480190f2140555bbb13b685605))
+
+
+---
+
 ## [1.0.8](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.0.7...v1.0.8) (2023-11-06)
 
 ### Bug Fixes
