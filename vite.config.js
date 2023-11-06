@@ -20,9 +20,9 @@ export default defineConfig({
 	},
 	css: {
 		preprocessorOptions: {
-			// scss: {
-			// 	additionalData: `@use "~/assets/sass/element/variables.scss" as *;`,
-			// },
+			scss: {
+				additionalData: `@use "~/assets/sass/element/variables.scss" as *;`,
+			},
 		}
 	},
 	plugins: [
@@ -59,15 +59,14 @@ export default defineConfig({
 				}
 			],
 			dirs: ['resources/js/services/**', 'resources/js/utils'],
-			resolvers: [
-				ElementPlusResolver(),
-			],
 		}),
 		Components({
+			resolvers: [
+				ElementPlusResolver({
+					importStyle: "sass"
+				})
+			],
 			dirs: ['resources/js/components'],
-			resolvers: [ElementPlusResolver({
-				importStyle: 'sass'
-			})]
 		}),
 		viteCompression(),
 		viteCompression({
