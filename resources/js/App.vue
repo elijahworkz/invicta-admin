@@ -23,10 +23,10 @@ watch(Invicta.errors, (_errors) => {
 				type: 'error',
 				title: 'Error',
 				message: _errors[_error],
-				duration: 0,
+				duration: 5000,
 				offset
 			})
-			offset += 70
+			offset += 80
 		}
 	}
 })

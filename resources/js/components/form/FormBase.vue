@@ -3,6 +3,7 @@
 		class="invicta-form"
 		:class="formClass"
 		v-bind="formSettings">
+		<!-- <pre>{{ resourceForm.rules }}</pre> -->
 		<div class="flex items-end justify-between mb-4" v-if="!headless">
 			<div>
 				<BackLink v-if="breadcrumb" class="breadcrumb" :data="breadcrumb"/>
@@ -131,6 +132,7 @@ resourceForm.init(resource, actionUrl, params)
 emit('form-ready')
 
 onBeforeRouteLeave((to, from) => {
+	console.log('trying to leave', resourceForm.isDirty)
 	if (resourceForm.isDirty.value) {
 		const answer = window.confirm(
 		'Do you really want to leave? you have unsaved changes!'

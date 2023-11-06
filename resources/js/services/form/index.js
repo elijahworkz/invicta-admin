@@ -75,21 +75,6 @@ const defineResourceForm = (id) => {
 				: defaultValue
 		}
 
-		const getRelatedField = (fields) => {
-			return fields.reduce((obj, item) => {
-				if (item.fields) {
-					let nested = getRelatedField(item.fields)
-					return {...obj, ...nested}
-				} else if (item.id && item.type.includes('related')) {
-					let value = getFieldData(item)
-
-					obj[item.id] = value
-					return obj
-				}
-				return obj
-			},{})
-		}
-
 		const setRemoteData = (field) => {
 			// Check for remote options fields
 			if (field.type == 'link') {
@@ -120,7 +105,9 @@ const defineResourceForm = (id) => {
 		const parseNestedFields = (fields, id) => {
 			return fields.reduce((obj, item) => {
 				if (item.fields) {
-					let ruleId = item.id ? `${id}.${item.id}` : id
+					let ruleId = item.id 
+						? item.type == 'repeater' ? `${id}.${item.id}.*` : `${id}.${item.id}` 
+						: id
 					let nested = parseNestedFields(item.fields, ruleId)
 					return {...obj, ...nested}
 				} else {
@@ -154,8 +141,6 @@ const defineResourceForm = (id) => {
 
 					// Enable passing json fields without json wrapper
 					let _id = dotPath ? dotPath[0] : id
-					// Fix for conflict whith 'data' key
-					// _id = _id == 'data' ? '_data' : _id
 					
 					let value = getFieldData(item)
 
@@ -166,8 +151,8 @@ const defineResourceForm = (id) => {
 					obj[_id] = value
 
 					if (item.fields) {
-
-						let nested = parseNestedFields(item.fields, item.id)
+						let ruleId = item.type == 'repeater' ? `${item.id}.*` : item.id
+						let nested = parseNestedFields(item.fields, ruleId)
 						obj = {...obj, ...nested}
 					} else {
 						rules[id] = item.validation
@@ -282,12 +267,10 @@ const defineResourceForm = (id) => {
 
 				isDirty.value = false
 
-				if (postSubmitAction !== 'edit') {
-					formData.value = null
-				}
-
 				// we need to deal with navigation post submit here
 				if (postSubmitAction == 'create') {
+					formData.value = null
+
 					if (page) {
 						router.push({ name: 'resourceCreate' })
 					}
@@ -295,7 +278,7 @@ const defineResourceForm = (id) => {
 
 				if (postSubmitAction == 'back') {
 					if (page) {
-						router.go(-1)
+						router.push({ name: 'resourceIndex' })
 					}
 				}
 			})
@@ -347,7 +330,7 @@ const defineResourceForm = (id) => {
 
 		submit,
 
-		// rules
+		rules
 	}
 }
 

@@ -62,5 +62,6 @@ function addRow() {
 
 function removeRow(index) {
 	props.list.splice(index, 1)
+	emit('updated', [...props.list])
 }
 </script>
