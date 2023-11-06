@@ -22,7 +22,7 @@ Route::controller(ResourceController::class)
         Route::get('{resource}/actions/blueprint/{item?}', 'actionBlueprint');
         Route::post('{resource}/actions', 'handleActions')->name('handle-actions');
         Route::get('{resource}/items', 'items');
-        Route::get('{resource}/relationship/{related}', 'relatedResource');
+        Route::get('{resource}/relationship/{related}', 'relationship');
         Route::get('{resource}/{item}/edit', 'edit');
         Route::get('{resource}/{item}/uri', 'uri');
         Route::get('{resource}/{item}/relationship/{related}', 'related');
