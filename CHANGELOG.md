@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.0.8](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.0.7...v1.0.8) (2023-11-06)
+
+### Bug Fixes
+
+* Custom element overwrites not working ([7bb77a](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/7bb77a42b1a3ebdb71a0c51498067d9ed1857280))
+
+
+---
+
 ## [1.0.7](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.0.6...v1.0.7) (2023-11-04)
 
 ### Bug Fixes
