@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.0.11](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.0.10...v1.0.11) (2023-11-06)
+
+### Bug Fixes
+
+* Resource controller method not found ([0830a9](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/0830a9c2c070c4cb92a25fd34fb7e43ce8591259))
+
+
+---
+
 ## [1.0.10](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.0.9...v1.0.10) (2023-11-06)
 
 
