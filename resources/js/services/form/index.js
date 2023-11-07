@@ -330,7 +330,7 @@ const defineResourceForm = (id) => {
 
 		submit,
 
-		rules
+		// rules
 	}
 }
 
