@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.0.14](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.0.13...v1.0.14) (2023-11-07)
+
+### Bug Fixes
+
+* Delete resource, save related fields, resource refresh ([13a666](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/13a6669637ebf0aa8a8c3faa96edf170d221bef2))
+
+
+---
+
 ## [1.0.13](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.0.12...v1.0.13) (2023-11-07)
 
 ### Bug Fixes
