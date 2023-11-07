@@ -263,14 +263,15 @@ const defineResourceForm = (id) => {
 			.then(({data}) => {
 				console.log('post submit result', data)
 				Invicta.message(data.message)
-				Invicta.emit('resource-form-submitted')
+				errors.value = {}
 
+				Invicta.emit('resource-form-submitted', { action: postSubmitAction })
 				isDirty.value = false
 
 				// we need to deal with navigation post submit here
 				if (postSubmitAction == 'create') {
 					formData.value = null
-
+					
 					if (page) {
 						router.push({ name: 'resourceCreate' })
 					}
@@ -282,8 +283,9 @@ const defineResourceForm = (id) => {
 					}
 				}
 			})
-			.catch(({response}) => {
-				console.log('api submit errors', response)
+			.catch(({ response }) => {
+				// const { response } = error
+				// console.log('api submit errors', response, error)
 				// Check if error is from validation
 				if (response.status && response.status == 422) {
 					// we need to unpack errors as they come as arrays

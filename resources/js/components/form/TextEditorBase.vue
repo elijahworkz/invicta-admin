@@ -24,6 +24,12 @@ Invicta.on('ckeditor-execute-command', (command) => {
 	editorInstance.value.execute(command.name, command.data)
 })
 
+Invicta.on('resource-form-submitted', (event) => {
+	if (event.action && event.action == 'create') {
+		editorValue.value = ''
+	}
+})
+
 const onReady = (editor) => {
 	editorInstance.value = editor
 }

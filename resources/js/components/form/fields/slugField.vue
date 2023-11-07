@@ -19,5 +19,10 @@ const resourceForm = useResourceForm(props.formId)
 
 const slugified = computed(() => slugify(resourceForm.get(props.data.source)))
 
-watch(slugified, (value) => fieldValue.value = value)
+watch(slugified, (value) => {
+
+	if (resourceForm.isDirty.value) {
+		fieldValue.value = value
+	}
+})
 </script>

@@ -187,7 +187,6 @@ const formClass = computed(() => {
 })
 
 const title = computed(() => {
-
 	if (props.headless)
 		return ''
 
@@ -242,8 +241,11 @@ watch(postSubmitAction, (value) => Invicta.remember('post-submit-action', value)
 // Submit Form
 const submit = () => {
 	resourceForm.submit(postSubmitAction.value, props.pageForm)
-	emit('submitted', { action: postSubmitAction.value })
+	// emit('submitted', { action: postSubmitAction.value })
 }
+const fireSubmittedEvent = () => emit('submitted', { action: postSubmitAction.value })
+
+Invicta.on('resource-form-submitted', fireSubmittedEvent)
 
 onKeyStroke('Enter', (e) => {
 	if (props.headless) {
