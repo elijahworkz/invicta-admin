@@ -114,7 +114,7 @@
 					:action-url="drawerFormActionUrl"
 					:params="drawerFormParams"
 					:post-submit-actions="['close']"
-					@submitted="drawer = false">
+					@submitted="handleSubmit">
 				</FormBase>
 			</div>
 		</el-scrollbar>
@@ -258,6 +258,11 @@ const handleBulkDelete = () => {
 	if (selectedRows.value.length) {
 		handleDelete(selectedRows.value)
 	}
+}
+
+const handleSubmit = () => {
+	drawer.value = false
+	resourceIndex.getResource()
 }
 
 Invicta.on('refresh-resource', () => {

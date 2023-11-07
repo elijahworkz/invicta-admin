@@ -113,6 +113,9 @@ const defineResourceForm = (id) => {
 				} else {
 					// here we get to the root of the field
 					if (item.id) {
+						rules[`${id}.${item.id}`] = item.validation
+							? item.validation
+							: 'nullable'
 						// treat related?
 						if (item.type.includes('related')) {
 							let value = getFieldData(item)
@@ -121,10 +124,6 @@ const defineResourceForm = (id) => {
 							return obj
 						} else {
 							// what do we do for others?
-							rules[`${id}.${item.id}`] = item.validation
-								? item.validation
-								: 'nullable'
-
 							setRemoteData(item)				
 						}
 					}
@@ -271,7 +270,7 @@ const defineResourceForm = (id) => {
 				// we need to deal with navigation post submit here
 				if (postSubmitAction == 'create') {
 					formData.value = null
-					
+
 					if (page) {
 						router.push({ name: 'resourceCreate' })
 					}

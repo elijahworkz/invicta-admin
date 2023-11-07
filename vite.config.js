@@ -59,6 +59,11 @@ export default defineConfig({
 				}
 			],
 			dirs: ['resources/js/services/**', 'resources/js/utils'],
+			resolvers: [
+				ElementPlusResolver({
+					importStyle: "sass"
+				})
+				]
 		}),
 		Components({
 			resolvers: [

@@ -1,5 +1,4 @@
 import { createApp, ref } from 'vue'
-// import { createPinia } from 'pinia'
 import { setupAxios } from './services/axios'
 import { createRouterInstance } from './services/router'
 import mitt from 'mitt'
@@ -7,16 +6,11 @@ import isNil from 'lodash/isNil'
 
 // components
 import App from '@/App.vue'
-import { ElNotification, ElLoading } from 'element-plus'
+import { ElNotification } from 'element-plus'
 import 'element-plus/es/components/message-box/style/index'
 import 'element-plus/es/components/notification/style/index'
 import 'element-plus/es/components/button-group/style/index'
 
-// Layouts
-// import MainLayout from '@/layouts/MainLayout.vue'
-
-// Setup Pinia
-// const pinia = createPinia()
 
 class Invicta
 {
@@ -56,7 +50,6 @@ class Invicta
 		this.app = createApp(App)
 		this.setupRouter()
 
-		// this.app.use(pinia)
 		this.app.use(this.router)
 		this.start()
 	}
