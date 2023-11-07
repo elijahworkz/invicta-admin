@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.0.13](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.0.12...v1.0.13) (2023-11-07)
+
+### Bug Fixes
+
+* Form closing with validation errors ([3a88b3](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/3a88b32e7d5d5013944378d297956f8a62125fd8))
+
+
+---
+
 ## [1.0.12](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.0.11...v1.0.12) (2023-11-07)
 
 ### Bug Fixes
