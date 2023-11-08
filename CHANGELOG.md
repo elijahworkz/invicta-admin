@@ -4,6 +4,17 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.0.15](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.0.14...v1.0.15) (2023-11-08)
+
+### Bug Fixes
+
+* Circular page reload on pagination change; fixes #35 ([f69d47](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/f69d47ade3a91f17f7d63795aef8fffeb3358739))
+* Filter not working in ItemsSelector; fixes #38 ([58d7e5](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/58d7e580d09a78f299f9631b84d411e887db9330))
+* Resource not refreshed after form actions; fixes #36 ([4af198](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/4af198f24cae3bd4d94ef4f1fda36f87673dfe3f))
+
+
+---
+
 ## [1.0.14](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.0.13...v1.0.14) (2023-11-07)
 
 ### Bug Fixes
