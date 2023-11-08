@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.0.18](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.0.17...v1.0.18) (2023-11-08)
+
+### Bug Fixes
+
+* Empty select when options are from remote; fixes #37 ([36952b](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/36952b21d41c9284e4e25c4fa973a8048468f7ce))
+
+
+---
+
 ## [1.0.17](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.0.16...v1.0.17) (2023-11-08)
 
 
