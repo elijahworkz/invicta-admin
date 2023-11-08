@@ -243,6 +243,7 @@ const defineResourceForm = (id) => {
 				Invicta.axios.get(endpoint)
 					.then(({data}) => {
 						remoteData.set(key, data)
+						Invicta.emit(endpoint, true)
 					})
 			}
 		}

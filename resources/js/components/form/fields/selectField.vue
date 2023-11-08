@@ -8,6 +8,7 @@
 			:remote-method="getOptions"
 			:disabled="field.disabled">
 				<el-option
+					v-if="optionsReady"
 					v-for="(item, index) in options"
 					:key="index"
 					:value="item[valueField]"
@@ -23,6 +24,7 @@ const props = defineProps({
 	data: Object,
 	path: String
 })
+const optionsReady = ref(false)
 
 const resourceForm = useResourceForm(props.formId)
 const field = useFormField(props)
@@ -32,18 +34,29 @@ const options = ref([])
 const valueField = props.data.valueField || 'value'
 const labelField = props.data.labelField || 'label'
 
-
 if (Array.isArray(props.data.options)) {
 	options.value = props.data.options
+	optionsReady.value = true
 } else if (!props.data.props?.remote) {
+	
 	options.value = resourceForm.remoteData.get(props.data.options)
-	console.log('getting options from remote Data', resourceForm.remoteData, resourceForm.remoteData.get(props.data.options), options.value)
+
+	if (Array.isArray(options.value)) {
+		optionsReady.value = true
+	} else {	
+		Invicta.on(props.data.options, () => {
+			options.value = resourceForm.remoteData.get(props.data.options)
+			optionsReady.value = true
+		})
+	}
 }
+
 
 function getOptions() {
 	Invicta.axios.get(props.data.options)
 	.then(({data}) => {
 		options.value = data
+		optionsReady.value = true
 	})
 }
 </script>
