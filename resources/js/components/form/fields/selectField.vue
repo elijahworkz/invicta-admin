@@ -37,6 +37,7 @@ if (Array.isArray(props.data.options)) {
 	options.value = props.data.options
 } else if (!props.data.props?.remote) {
 	options.value = resourceForm.remoteData.get(props.data.options)
+	console.log('getting options from remote Data', resourceForm.remoteData, resourceForm.remoteData.get(props.data.options), options.value)
 }
 
 function getOptions() {
