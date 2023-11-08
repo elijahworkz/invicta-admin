@@ -73,20 +73,16 @@ const defineResource = (handle) => {
 
 	/* Filters */
 	const updateFilters = ({filter, handle}) => {
-		// should check for resource id here?
-		if (resourceHandle == handle) {		
+		for (const [key, item] of Object.entries(filter)) {
 
-			for (const [key, item] of Object.entries(filter)) {
-
-				if (typeof item === 'string' && item === '') {
-					// @ts-ignore
-					delete activeFilters.value[key]
-				} else {
-					activeFilters.value = {...activeFilters.value, ...filter}
-				}
+			if (typeof item === 'string' && item === '') {
+				// @ts-ignore
+				delete activeFilters.value[key]
+			} else {
+				activeFilters.value = {...activeFilters.value, ...filter}
 			}
-			currentPage.value = 1
 		}
+		currentPage.value = 1
 	}
 	Invicta.on('update-filters', updateFilters)
 

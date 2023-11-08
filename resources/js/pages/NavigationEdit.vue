@@ -1,6 +1,6 @@
 <template>
 	<div class="py-6 px-10">
-		<div class="w-1/2 mx-auto">
+		<div class="w-2/3 mx-auto">
 
 			<div class="flex items-end justify-between mb-4">
 				<div>
@@ -12,7 +12,7 @@
 				<div class="nav-actions">
 					
 					<el-dropdown @command="handleCommand" class="mr-2">
-						<el-button>
+						<el-button size="large">
 						New Item<el-icon class="el-icon--right"><arrow-down /></el-icon>
 						</el-button>
 						<template #dropdown>
@@ -25,7 +25,7 @@
 						</template>
 					</el-dropdown>
 
-					<el-button type="primary" @click="saveNavigation" :disabled="!canSave">Save Changes</el-button>
+					<el-button size="large" type="primary" @click="saveNavigation" :disabled="!canSave">Save Changes</el-button>
 				</div>
 			</div>
 
