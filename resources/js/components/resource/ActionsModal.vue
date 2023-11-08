@@ -13,7 +13,7 @@
 			:action-url="actionsUrl"
 			:params="actionData"
 			:save-tabs="false"
-			@submitted="open = false"
+			@submitted="afterSubmit"
 		/>
 
 		<div v-else>Are you sure you want to run this action?</div>
@@ -76,11 +76,9 @@ const resource = computed(() => ({
 const processAction = () => {
 	// Check if action has fields
 	if (hasForm.value) {
-
 		// console.log('we have form - form will submit')
 		const resourceForm = useResourceForm(formId.value)
 		resourceForm.submit()
-
 	} else {
 
 		// console.log('no form call')
@@ -100,5 +98,10 @@ const processAction = () => {
 		}
 		open.value = false
 	}
+}
+
+const afterSubmit = () => {
+	Invicta.emit('refresh-resource')
+	open.value = false
 }
 </script>

@@ -114,7 +114,7 @@
 					:action-url="drawerFormActionUrl"
 					:params="drawerFormParams"
 					:post-submit-actions="['close']"
-					@submitted="handleSubmit">
+					@submitted="afterSubmit">
 				</FormBase>
 			</div>
 		</el-scrollbar>
@@ -260,7 +260,7 @@ const handleBulkDelete = () => {
 	}
 }
 
-const handleSubmit = () => {
+const afterSubmit = () => {
 	drawer.value = false
 	resourceIndex.getResource()
 }
