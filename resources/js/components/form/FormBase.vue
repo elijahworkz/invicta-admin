@@ -25,7 +25,8 @@
 
 				<el-button-group class="relative">
 					<el-button 
-						type="primary" 
+						type="primary"
+						:size="pageForm ? 'large' : 'default'" 
 						@click="submit"
 						:disabled="submitDisabled">
 							{{ postSubmitData[postSubmitAction].button }}
@@ -35,6 +36,7 @@
 							<el-button 
 								:disabled="submitDisabled"
 								type="primary" 
+								:size="pageForm ? 'large' : 'default'"
 								:icon="postSubmitData[postSubmitAction].icon"></el-button>
 						</template>
 						<el-radio-group v-model="postSubmitAction">
