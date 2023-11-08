@@ -50,11 +50,12 @@ const defineResource = (handle) => {
 	}
 
 	const setPage = (page) => {
-		currentPage.value = page//page == 1 ? null : page
-		console.log('see that you want to change page', page, currentPage.value, requestUrl)
+		console.log('see that you want to change page', currentPage.value, page)
+		currentPage.value = page
 	}
 
 	const setPageSize = (size) => {
+		console.log('changing page size', perPage.value, size)
 		perPage.value = size
 	}
 
@@ -205,7 +206,6 @@ const defineResource = (handle) => {
 			query.settings = true
 		}
 
-
 		Invicta.axios.get(requestUrl.value, { params: query })
 			.then(({data}) => {
 				console.log('4. got some new data', data)
@@ -213,9 +213,9 @@ const defineResource = (handle) => {
 				total.value = data.meta.total
 				filterBadges.value = data.meta.filterBadges
 
-				if (data.meta.current_page !== currentPage.value) {
-					currentPage.value = data.meta.current_page
-				}
+				// if (data.meta.current_page !== currentPage.value) {
+				// 	currentPage.value = data.meta.current_page
+				// }
 
 				if (data.meta.settings) {
 					resourceStaticData.settings = data.meta.settings
