@@ -30,15 +30,14 @@ const fieldValue = field.value()
 const options = ref([])
 
 const valueField = props.data.valueField || 'value'
-const labelField = props.data.labelField || 'label' 
+const labelField = props.data.labelField || 'label'
 
-onMounted(() => {
-	if (Array.isArray(props.data.options)) {
-		options.value = props.data.options
-	} else if (!props.data.props?.remote) {
-		options.value = resourceForm.remoteData.get(props.data.options)
-	}
-})
+
+if (Array.isArray(props.data.options)) {
+	options.value = props.data.options
+} else if (!props.data.props?.remote) {
+	options.value = resourceForm.remoteData.get(props.data.options)
+}
 
 function getOptions() {
 	Invicta.axios.get(props.data.options)

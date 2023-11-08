@@ -247,6 +247,7 @@ const submit = () => {
 }
 const fireSubmittedEvent = () => emit('submitted', { action: postSubmitAction.value })
 
+Invicta.on('resource-form-ready', () => console.log('form base form ready event'))
 Invicta.on('resource-form-submitted', fireSubmittedEvent)
 
 onKeyStroke('Enter', (e) => {
