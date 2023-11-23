@@ -21,7 +21,6 @@ const defineResource = (handle) => {
 	const requestUrl = ref('')
 	const resourceData = ref([])
 	const resourceStaticData = definedResource(handle, reactive({settings: null, filters: null, actions: null}))
-	// const resourceStaticData = reactive({ settings: null, filters: null, actions: null})
 
 	const currentLocale = ref('')
 	const currentPage = ref(1)
@@ -59,9 +58,19 @@ const defineResource = (handle) => {
 		perPage.value = size
 	}
 
+	const setSort = (by, order) => {
+		if (order) {			
+			sortOrder.value = order == 'ascending' ? 'asc' : 'desc'
+			sortBy.value = by
+		} else {
+			sortBy.value = null
+			sortOrder.value = null
+		}
+	}
+
 	Invicta.on('sort-change', ({ prop, order }) => {
-		sortOrder.value = order == 'ascending' ? 'asc' : 'desc'
-		sortBy.value = prop
+		console.log('we have sort event', prop, order)
+		setSort(prop, order)
 	})
 
 	// check if there are already search coming with resource
@@ -144,6 +153,11 @@ const defineResource = (handle) => {
 
 		if (route.query.filters) {
 			activeFilters.value = JSON.parse(atob(route.query.filters))
+			makeRequest = false
+		}
+
+		if (route.query.sort_by && route.query.sort_order) {
+			setSort(route.query.sort_by, route.query.sort_order)
 			makeRequest = false
 		}
 
