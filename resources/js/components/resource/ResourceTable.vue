@@ -3,7 +3,7 @@
 		<el-table
 			ref="resourceTableRef"
 			:data="data"
-			v-bind="tableProps"
+			v-bind="tableSettings"
 			highlight-current-row
 			@selection-change="$emit('select', $event)"
 			@current-change="$emit('single-select', $event)"
@@ -29,14 +29,7 @@
 				fixed="right">
 
 				<template #header v-if="columnsSelect">
-					<el-dropdown trigger="click" class="!align-middle">
-						<el-icon class="action-icon"><SetUp /></el-icon>
-					    <template #dropdown>
-					    	<div class="p-2">
-						    	<CheckTree :initial-items="treeModel" :disabled="false" :depth="1" />
-						    </div>
-					    </template>
-					</el-dropdown>
+					<TableSettings :tree-model="treeModel" :table-props="tableSettings"/>
 				</template>
 
 				<template #default="scope">
@@ -56,8 +49,6 @@
 </template>
 
 <script setup>
-import { SetUp, MoreFilled } from '@element-plus/icons-vue'
-
 const props = defineProps({
 	resourceHandle: String,
 	data: Array,
@@ -95,6 +86,11 @@ const props = defineProps({
 
 const resourceTableRef = ref()
 const treeModel = ref([])
+const tableSettings = reactive(JSON.parse(Invicta.remember(`table-settings`)) ?? props.tableProps)
+
+watch(tableSettings, (settings) => {
+	Invicta.remember('table-settings', JSON.stringify(settings))
+})
 
 let columns = map(props.columns, (item, index) => {
 	return { label: item.label, value: index, checked: item.hidden ? false : true }
@@ -114,6 +110,8 @@ const visibleColumns = computed(() => {
 	return pickBy(props.columns, (column, index) => visible.includes(index))
 })
 
+tableSettings.value = JSON.parse(Invicta.remember(`${props.tableProps}`))
+
 // Handle sorting
 const handleSortChange = ({ prop, order }) => {
 	console.log('before sort event', prop, order)
@@ -125,6 +123,12 @@ const handleRowClick = (row, column, event) => {
 	if (!column.columnKey && column.columnKey != 'no-select') {
 		resourceTableRef.value.toggleRowSelection(row, undefined)
 	}
+}
+
+// Handle Table settings update
+const updateTableSettings = (event) => {
+	console.log('I hear table settings update event', event)
+	tableSettings.value = event
 }
 
 // Expose Clear selection to parents

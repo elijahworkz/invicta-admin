@@ -100,11 +100,20 @@
   ),
 
   // Table
+  $table-padding: (
+    // (
+      'large': 10px 0,
+      'default': 8px 0,
+      'small': 6px 0,
+    // ),
+  ),
+
   $table-font-size: (
     (
-      'large': getCssVar('font-size', 'base'),
+      'large': 16px,
       'default': 15px,
       'small': 14px,
     )
   ),
+
 );

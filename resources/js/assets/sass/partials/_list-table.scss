@@ -14,14 +14,19 @@
 
 $action-icon-size: 18px;
 .resource-table {
+	padding: 0 10px;
+
 	.el-table {
 
 		thead {
 			color: var(--el-text-color-regular);
 		}
 		
-		.el-table__cell {
-			padding: 10px 0;
+		.table-settings {
+			.settings {
+				width: 200px;
+				border-right: 1px solid var(--el-border-color);
+			}
 		}
 
 		.cell {
