@@ -4,6 +4,19 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.1.0](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.0.18...v1.1.0) (2023-11-24)
+
+### Features
+
+* Dynamic table settings ([e0307f](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/e0307f9690ff16947c4a0372ea2cceb22e5d42ad))
+
+### Bug Fixes
+
+* Sort not persistent on page reload; resolves #39 ([2dc296](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/2dc2964d09e3f4140893da0394bf2b5b076f9215))
+
+
+---
+
 ## [1.0.18](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.0.17...v1.0.18) (2023-11-08)
 
 ### Bug Fixes
