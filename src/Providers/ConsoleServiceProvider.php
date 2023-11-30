@@ -71,6 +71,10 @@ class ConsoleServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../../resources/views/sitemap' => public_path('vendor/invicta/views/sitemap'),
         ], 'invicta-sitemap');
+
+        $this->publishes([
+            __DIR__.'/../../database/migrations/invicta_update_users_with_2fa.php.stub' => database_path('migrations/'.date('Y_m_d_His', time()).'_update_users_with_2fa.php'),
+        ], 'invicta-2fa');
     }
 
     /**

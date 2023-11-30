@@ -64,6 +64,7 @@ return [
         'guard' => env('INVICTA_GUARD', 'web'),
         'enable_login_form' => true,
         'enable_password_reset' => true,
+        'enable_two_factor' => true,
     ],
 
     /*
