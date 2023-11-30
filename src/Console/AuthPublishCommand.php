@@ -4,21 +4,21 @@ namespace Eteacher\InvictaAdmin\Console;
 
 use Illuminate\Console\Command;
 
-class TwoFactorAuthenticationCommand extends Command
+class AuthPublishCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'invicta:2fa';
+    protected $signature = 'invicta:auth';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Enable Two-factor authentication for Invicta Admin';
+    protected $description = 'Publish Invicta Admin authorization tables';
 
     /**
      * Execute the console command.
@@ -27,14 +27,22 @@ class TwoFactorAuthenticationCommand extends Command
      */
     public function handle()
     {
-        $this->comment('Publishing Invicta 2FA Migration...');
+        $this->comment('Publishing Invicta Auth Migrations...');
 
-        $this->callSilent('vendor:publish', ['--tag' => 'invicta-2fa']);
+        $this->callSilent('vendor:publish', ['--tag' => 'invicta-auth']);
 
-        $this->info('Invicta successfully published migration.');
+        $this->info('Invicta successfully published migrations.');
 
         $this->newLine(1);
 
-        $this->info('Review published migration file and run `php artisan migrate` to update users table.');
+        $this->info('Review published migration file and run `php artisan migrate`.');
+
+        $this->newLine(1);
+
+        $this->info('Please add `IsInvictaUser` trait to your User model.');
+
+        $this->newLine(1);
+
+        $this->info('Add `last_login` and `dev` fields to fillable array in User model.');
     }
 }
