@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.1.1](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.1.0...v1.1.1) (2023-12-04)
+
+### Bug Fixes
+
+* Action form in drawer not refreshing ([dd1b92](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/dd1b92fc9391bba3779a1ed253fd3c7bce22b6bf))
+
+
+---
+
 ## [1.1.0](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.0.18...v1.1.0) (2023-11-24)
 
 ### Features
