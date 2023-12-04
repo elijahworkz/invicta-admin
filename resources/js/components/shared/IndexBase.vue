@@ -109,6 +109,7 @@
 			<div class="px-8 pb-4 pt-12 w-full">
 				<FormBase
 					class="mx-auto"
+					:key="drawerFormId"
 					:form-id="drawerFormId"
 					:resource="drawerItem"
 					:action-url="drawerFormActionUrl"
@@ -176,7 +177,7 @@ const handleActions = ({action, selected}) => {
 
 		Invicta.axios.get(`${actionsUrl}/blueprint/${item}`, { params: {class: action.class}})
 			.then(({data}) => {
-				drawerFormId.value = `${data.handle}.${action.class}`
+				drawerFormId.value = `${props.handle}.${item}.${action.class}`
 				drawerItem.value = data
 				drawerFormActionUrl.value = actionsUrl
 				drawer.value = true
