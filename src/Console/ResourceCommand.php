@@ -52,16 +52,18 @@ class ResourceCommand extends GeneratorCommand
 
         $this->resourceName = $this->getNameInput();
 
-        if ($this->confirm('Add model?', false)) {
-            $this->model = true;
-        }
+        if ($this->resourceName !== 'User') {
+            if ($this->confirm('Add model?', false)) {
+                $this->model = true;
+            }
 
-        if ($this->confirm('Add seo?', false)) {
-            $this->seo = true;
-        }
+            if ($this->confirm('Add seo?', false)) {
+                $this->seo = true;
+            }
 
-        if ($this->model) {
-            $this->call('make:model', ['name' => $this->resourceName]);
+            if ($this->model) {
+                $this->call('make:model', ['name' => $this->resourceName]);
+            }
         }
 
         $this->createBlueprint();
