@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.1.3](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.1.2...v1.1.3) (2023-12-07)
+
+### Bug Fixes
+
+* Install admin hangs on create User resource ([82e565](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/82e565c027d5b389e18faecb63e7370e932864a1))
+
+
+---
+
 ## [1.1.2](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.1.1...v1.1.2) (2023-12-04)
 
 
