@@ -177,10 +177,12 @@ class ResourceCommand extends GeneratorCommand
 
         $this->files->put($path, $stub);
 
-        $this->info('Migration created successfully');
+        $this->info('Migration for '.$namePlural.' created successfully');
 
         $this->newLine(1);
 
-        $this->info('Please add `AvailableForNavigation` trait to the current resource.');
+        if ($this->seo) {
+            $this->info('Please add `AvailableForNavigation` trait to the current resource.');
+        }
     }
 }
