@@ -16,7 +16,8 @@
 				v-else-if="props.editLink && canEdit"
 				@click.prevent="$emit('edit', scope.row.id)"
 				class="edit-link"
-				v-html="scope.row[id]">
+				>
+        <CopiedText :text="scope.row[id]" :can-copy="props.editLink"/>
 			</div>
 			<router-link 
 				v-else-if="props.customLink && canEdit"
@@ -35,6 +36,8 @@
 </template>
 
 <script setup>
+import CopiedText from "@/components/shared/CopiedText.vue";
+
 defineProps({
 	id: String,
 	props: Object,
