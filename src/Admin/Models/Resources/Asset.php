@@ -102,4 +102,9 @@ class Asset extends Resource
     {
         return AssetModel::$resourceActions;
     }
+
+    public function filters()
+    {
+        return AssetModel::$resourceFilters;
+    }
 }

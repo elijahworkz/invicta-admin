@@ -20,6 +20,8 @@ class Asset extends Model
 
     public static $resourceActions = [];
 
+    public static $resourceFilters = [];
+
     public static $fieldActions = [];
 
     public function src()
@@ -166,6 +168,11 @@ class Asset extends Model
     public static function resourceActions($actions)
     {
         static::$resourceActions = $actions;
+    }
+
+    public static function resourceFilters($filters)
+    {
+        static::$resourceFilters = $filters;
     }
 
     public static function fieldActions($actions)
