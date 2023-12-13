@@ -4,7 +4,7 @@
       class="box-item"
       effect="dark"
       content="Right Top prompts info"
-      placement="left-start"
+      placement="left"
   >
     <template #content>
       <el-button :icon="DocumentCopy" @click="copy(innerText()); success()" v-if="! copied" title="Click to copy to clipboard"/>
