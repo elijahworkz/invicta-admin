@@ -1,9 +1,7 @@
 <template>
   <el-tooltip
       v-if="canCopy && isSupported"
-      class="box-item"
-      effect="dark"
-      content="Right Top prompts info"
+      effect="light"
       placement="left"
   >
     <template #content>
