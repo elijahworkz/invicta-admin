@@ -10,7 +10,7 @@
 				<div class="wrap">
 					<div class="image-wrap">
 						<div class="image-transparent-back">
-							<img :src="item.src" />
+							<img v-if="item.type == 'image'" :src="item.src" />
 						</div>
 						<div class="actions-layer" v-if="selector">
 							<el-button
@@ -22,8 +22,8 @@
 							<span
 								v-if="isSupported"
 								class="copy-item"
-								@click="copy(item.img_name)"
-								:title="`Copy filename to clipboard: ${item.img_name}`">
+								@click="copy(item.src)"
+								title="Copy file path to clipboard">
 								<DocumentCopy/>
 							</span>
 							<span

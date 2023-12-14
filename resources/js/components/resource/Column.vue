@@ -16,25 +16,33 @@
 				v-else-if="props.editLink && canEdit"
 				@click.prevent="$emit('edit', scope.row.id)"
 				class="edit-link"
-				v-html="scope.row[id]">
+				>
+        <CopyText :text="scope.row[id]" :can-copy="props.canCopy"/>
 			</div>
 			<router-link 
 				v-else-if="props.customLink && canEdit"
 				:to="customLink(props.customLink, scope.row)">
-				<span class="edit-link" v-html="scope.row[id]"></span>
+				<span class="edit-link">
+          <CopyText :text="scope.row[id]" :can-copy="props.canCopy"/>
+        </span>
 			</router-link>
 			<router-link
 				v-else-if="props.detailLink && hasDetail"
 				:to="{ name: 'resourceDetail', params: {id: scope.row.id}}">
-				<span class="edit-link" v-html="scope.row[id]"></span>
+				<span class="edit-link">
+          <CopyText :text="scope.row[id]" :can-copy="props.canCopy"/>
+        </span>
 			</router-link>
-			<div v-else v-html="scope.row[id]"/>
+      <div v-else>
+        <CopyText :text="scope.row[id]" :can-copy="props.canCopy"/>
+      </div>
 		</template>
 
 	</el-table-column>
 </template>
 
 <script setup>
+
 defineProps({
 	id: String,
 	props: Object,

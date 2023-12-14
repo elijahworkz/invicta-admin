@@ -46,9 +46,12 @@ class Asset extends Resource
 
     public function inlineAsset($item)
     {
+        $content = $item->type == 'image' ? "<img class='thumbnail' src='{$item->src()}'/> {$item->name}" : $item->name;
+
         return new HtmlString(<<<HTML
             <div class="asset-inline">
-                <img class="thumbnail" src="{$item->src()}"/> {$item->name}
+                {$content}
+                <div class="copy hidden">{$item->src()}</div>
             </div>
         HTML);
     }
@@ -67,7 +70,7 @@ class Asset extends Resource
     public function indexColumns()
     {
         return [
-            'name' => Column::make('Asset')->sortable()->editLink(),
+            'name' => Column::make('Asset')->sortable()->editLink()->canCopy(),
             'dimensions' => Column::make('Dimensions'),
             'size' => Column::make('Size')->sortable(),
             'alt' => Column::make('Alt'),
@@ -98,5 +101,10 @@ class Asset extends Resource
     public function actions()
     {
         return AssetModel::$resourceActions;
+    }
+
+    public function filters()
+    {
+        return AssetModel::$resourceFilters;
     }
 }
