@@ -77,7 +77,7 @@ const editAsset = () => {
 }
 
 const handleFieldAction = ({action, item}) => {
-	console.log('action call', event)
+	console.log('action call', action, item)
 
 	ElMessageBox.confirm(
 		'Are you sure you want to run this action?',
@@ -91,11 +91,12 @@ const handleFieldAction = ({action, item}) => {
 
 		let data = {
 			class: action.class,
-			asset: item, 
+			selected: [item.id],
 		}
 
-		Invicta.axios.post('api/assets/actions', data)
+		Invicta.axios.post('api/resource/assets/actions', data)
 			.then(({data}) => {
+				// console.log('response from action', data)
 				Invicta.message(data.message)
 				fieldValue.value = data.asset
 			})
