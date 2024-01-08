@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.1.7](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.1.6...v1.1.7) (2024-01-08)
+
+### Bug Fixes
+
+* Asset field actions not working ([b71949](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/b719492f2b7e2a3a7f0a737443b6df829c01c4d3))
+
+
+---
+
 ## [1.1.6](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.1.5...v1.1.6) (2024-01-07)
 
 
