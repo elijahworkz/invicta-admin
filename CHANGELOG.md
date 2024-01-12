@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.1.9](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.1.8...v1.1.9) (2024-01-12)
+
+### Bug Fixes
+
+* Missing blueprint attribute error ([777af9](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/777af9283b3a728b5fb25c7420717b74b9b75aa8))
+
+
+---
+
 ## [1.1.8](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.1.7...v1.1.8) (2024-01-12)
 
 ### Bug Fixes
