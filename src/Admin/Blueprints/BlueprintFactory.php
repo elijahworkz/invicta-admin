@@ -45,14 +45,13 @@ class BlueprintFactory
         }
 
         if (isset($blueprint['sidebar'])) {
-            $sidebar = $blueprint['sidebar'];
             $fields = [...$fields, ...$this->filterFields($blueprint['sidebar']['fields'], $fieldType)];
         }
 
         if (isset($blueprint['sections'])) {
             $sections = $blueprint['sections'];
 
-            foreach ($sections as $key => $section) {
+            foreach ($sections as $section) {
                 if (isset($section['fields'])) {
                     $fields = [...$fields, ...$this->filterFields($section['fields'], $fieldType)];
                 }
@@ -82,7 +81,7 @@ class BlueprintFactory
     private function maybeGetCachedBlueprint($handle = 'default')
     {
         $cacheHandle = $this->resource->handle();
-        $cacheHandle = $this->item && $this->item->blueprint
+        $cacheHandle = $this->item && ! is_null($this->item->blueprint)
             ? Str::of($cacheHandle)->finish('-')->append($this->item->blueprint)
             : Str::of($cacheHandle)->finish('-')->append($handle);
 
