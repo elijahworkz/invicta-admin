@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.1.8](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.1.7...v1.1.8) (2024-01-12)
+
+### Bug Fixes
+
+* Blueprint attribute failing in strict mode ([4f4498](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/4f4498cdd54d1f7821e04757afbdb4a01bd82453))
+
+
+---
+
 ## [1.1.7](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.1.6...v1.1.7) (2024-01-08)
 
 ### Bug Fixes
