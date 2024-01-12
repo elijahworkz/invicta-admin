@@ -81,7 +81,7 @@ class BlueprintFactory
     private function maybeGetCachedBlueprint($handle = 'default')
     {
         $cacheHandle = $this->resource->handle();
-        $cacheHandle = $this->item && ! is_null($this->item->blueprint)
+        $cacheHandle = $this->item && isset($this->item->blueprint)
             ? Str::of($cacheHandle)->finish('-')->append($this->item->blueprint)
             : Str::of($cacheHandle)->finish('-')->append($handle);
 
