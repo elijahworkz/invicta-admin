@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Group extends Model
 {
+
+    public $fillable = [
+        'handle',
+        'title',
+    ];
+
     /**
      * Get the table associated with the model.
      *
