@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.1.11](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.1.10...v1.1.11) (2024-02-01)
+
+### Bug Fixes
+
+* Error when uploading non image assets ([7b7c8c](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/7b7c8cfe527a105a517400d6f468bacec2df3d85))
+
+
+---
+
 ## [1.1.10](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.1.9...v1.1.10) (2024-01-19)
 
 
