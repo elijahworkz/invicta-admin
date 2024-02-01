@@ -20,7 +20,7 @@
 import {Check, DocumentCopy} from '@element-plus/icons-vue'
 
 const props = defineProps({
-	text: String,
+	text: String | Number,
 	canCopy: Boolean
 })
 

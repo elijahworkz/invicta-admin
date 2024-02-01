@@ -8,9 +8,11 @@ export const useFormField = (props) => {
 
         const { path } = 'path' in props.data ? props.data : props
 
+        const useDefault = 'defaultValue' in props.data ? props.data.defaultValue : defaultValue
+
         return computed({
             get() {
-                return resourceForm.get(path) || defaultValue
+                return resourceForm.get(path, useDefault)// || useDefault
             },
             set(value) {
                 console.log('setting field', path, value)
