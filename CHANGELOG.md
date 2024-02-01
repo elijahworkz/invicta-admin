@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.1.13](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.1.12...v1.1.13) (2024-02-01)
+
+### Bug Fixes
+
+* Default value not set for data fields ([0540b8](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/0540b8858e9183abae88d28220f2504b136ca325))
+
+
+---
+
 ## [1.1.12](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.1.11...v1.1.12) (2024-02-01)
 
 
