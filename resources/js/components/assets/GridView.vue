@@ -1,6 +1,6 @@
 <template>
 	<div class="p-4">
-		<Uploader v-if="!selector" type="drag" :multiple="settings.multiUpload" />
+		<Uploader v-if="!selector" type="drag" />
 		<div class="assets-grid">
 			<div class="asset-card"
 				v-for="(item, index) in resourceList"
@@ -9,8 +9,11 @@
 
 				<div class="wrap">
 					<div class="image-wrap">
-						<div class="image-transparent-back">
-							<img v-if="item.type == 'image'" :src="item.src" />
+						<div class="image-transparent-back" v-if="item.type == 'image'">
+							<img :src="item.src" />
+						</div>
+						<div class="p-6" v-else>
+							<el-skeleton :rows="5" />
 						</div>
 						<div class="actions-layer" v-if="selector">
 							<el-button
@@ -86,7 +89,7 @@ const handleOpenMedia = (path) => window.open(path, '_blank')
 
 <style lang="scss">
 .assets-grid {
-	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 	display: grid;
 	grid-gap: 1em;
 

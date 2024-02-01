@@ -21,7 +21,7 @@
 			type="browse" 
 			@upload-complete="updateAsset" 
 			@open-library="openLibrary" 
-			:multiple="false"
+			:single="true"
 			:folder="data.props?.folder || null" />
 		<div class="asset-wrap" v-else-if="field.disabled">No image</div>
 	</FieldBase>

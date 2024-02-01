@@ -52,7 +52,7 @@ class Asset extends Model
         $mime = $file->getMimeType();
 
         $image = Str::of($mime)->contains('image');
-        $document = Str::of($mime)->contains(['pdf', 'text']);
+        $document = Str::of($mime)->contains(config('invicta.assets_documents'));
         $audio = Str::of($mime)->contains('audio');
 
         // Double check for svgs

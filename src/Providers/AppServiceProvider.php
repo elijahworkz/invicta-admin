@@ -3,6 +3,7 @@
 namespace Eteacher\InvictaAdmin\Providers;
 
 use Eteacher\InvictaAdmin\Admin\Commands\CommandRegistrar;
+use Eteacher\InvictaAdmin\Admin\Resources\ResourceRegistrar;
 use Eteacher\InvictaAdmin\Foundation\Vite;
 use Eteacher\InvictaAdmin\Http\Middleware\Authorize;
 use Eteacher\InvictaAdmin\Http\Middleware\Impersonate;

@@ -36,7 +36,7 @@
 						type="file"
 						ref="uploadInput"
 						:multiple="multiple"
-						:accept="accept"
+						:accept="settings.accept"
 						class="input-file"
 						:disabled="isSaving"
 						@change="initUpload">
@@ -60,18 +60,22 @@ const props = defineProps({
 		type: String,
 		default: 'button' // possible values are 'drag', 'button', 'browse'
 	},
-	accept: {
-		type: String,
-		default: 'image/*,audio/*,.pdf'
-	},
-	multiple: {
+	single: {
 		type: Boolean,
-		default: true
+		default: false
 	},
 	folder: String
 })
 
 const emit = defineEmits(['upload-complete', 'open-library'])
+const settings = Invicta.getConfig('assetsSettings')
+
+const multiple = computed(() => {
+	if (props.single) {
+		return false
+	}
+	return settings.multiupload
+})
 
 /* Set statuses */
 const isInitial = ref(true)

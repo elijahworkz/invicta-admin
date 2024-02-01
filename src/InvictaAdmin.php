@@ -22,6 +22,7 @@ class InvictaAdmin
             'impersonateRoute' => route('invicta.impersonate-leave'),
             'menu' => self::menu(),
             'user' => base64_encode(json_encode(self::user())),
+            'assetsSettings' => self::assetsSettings(),
         ];
     }
 
@@ -66,6 +67,19 @@ class InvictaAdmin
     public static function registeredAssets()
     {
         return static::$assets;
+    }
+
+    public static function assetsSettings()
+    {
+        $accept = 'image/*,audio/*';
+        if (is_array(config('invicta.assets_documents'))) {
+            $accept .= implode(',', config('invicta.assets_documents'));
+        }
+
+        return [
+            'multiupload' => config('invicta.assets_multi_upload'),
+            'accept' => $accept,
+        ];
     }
 
     public static function svg($name, $attrs = null)

@@ -142,6 +142,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | List of allowed document extentions
+    |--------------------------------------------------------------------------
+    |
+    | What type of documents should be allowed to be uploaded besides images
+    | and audio files
+    |
+    */
+
+    'assets_documents' => ['.pdf', '.txt'],
+
+    /*
+    |--------------------------------------------------------------------------
     | Enable conversion to webp for image assets
     |--------------------------------------------------------------------------
     |

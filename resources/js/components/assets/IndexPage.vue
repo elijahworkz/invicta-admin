@@ -11,7 +11,7 @@
 					</el-button>
 				</el-button-group>
 
-				<Uploader v-show="settings.canCreate" :multiple="settings.multiUpload" />
+				<Uploader v-show="settings.canCreate" />
 			</template>
 
 			<template #default="{ resource, settings, handleEdit, handleSelect, handleDelete }">
