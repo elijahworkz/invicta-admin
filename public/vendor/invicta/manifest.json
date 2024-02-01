@@ -8,11 +8,11 @@
     "src": "Filters.css"
   },
   "FormBase.css": {
-    "file": "assets/FormBase-f9752b17.css",
+    "file": "assets/FormBase-cdd5dd59.css",
     "src": "FormBase.css"
   },
   "GridView.css": {
-    "file": "assets/GridView-fc47c4d7.css",
+    "file": "assets/GridView-e132fc34.css",
     "src": "GridView.css"
   },
   "IndexBase.css": {
@@ -27,48 +27,48 @@
     "file": "assets/Loading-f263c3e6.css",
     "src": "Loading.css"
   },
-  "_AssetSelector-c5551a3a.js": {
+  "_AssetSelector-8db96230.js": {
     "css": [
       "assets/AssetSelector-bb222d60.css",
-      "assets/select-a1923e4d.css"
+      "assets/select-cb02b5ae.css"
     ],
-    "file": "assets/AssetSelector-c5551a3a.js",
+    "file": "assets/AssetSelector-8db96230.js",
     "imports": [
-      "_vendor-5e530cb8.js",
-      "_resource-b2a07459.js",
-      "_Loading-c269d48e.js",
-      "_GridView-863dea83.js",
+      "_vendor-1b195301.js",
+      "_resource-08c4e646.js",
+      "_Loading-1615c9fb.js",
+      "_GridView-b295ac46.js",
       "resources/js/main.js"
     ]
   },
-  "_FieldBase-5ec7caaf.js": {
+  "_FieldBase-a069267d.js": {
     "css": [
       "assets/form-item-e3b0c442.css"
     ],
-    "file": "assets/FieldBase-5ec7caaf.js",
+    "file": "assets/FieldBase-a069267d.js",
     "imports": [
-      "_vendor-5e530cb8.js",
-      "_FormBase-53b4ffe3.js",
-      "_field-8500df69.js"
+      "_vendor-1b195301.js",
+      "_FormBase-077e2b37.js",
+      "_field-5ebf7363.js"
     ]
   },
-  "_Filters-fdb72a7b.js": {
+  "_Filters-adef0032.js": {
     "css": [
       "assets/Filters-03608747.css",
-      "assets/select-a1923e4d.css",
-      "assets/date-picker-318d2cbf.css"
+      "assets/select-cb02b5ae.css",
+      "assets/date-picker-94a274f4.css"
     ],
-    "file": "assets/Filters-fdb72a7b.js",
+    "file": "assets/Filters-adef0032.js",
     "imports": [
-      "_vendor-5e530cb8.js",
-      "_resource-b2a07459.js",
+      "_vendor-1b195301.js",
+      "_resource-08c4e646.js",
       "resources/js/main.js"
     ]
   },
-  "_FormBase-53b4ffe3.js": {
+  "_FormBase-077e2b37.js": {
     "css": [
-      "assets/FormBase-f9752b17.css",
-      "assets/dropdown-menu-a7df4ea9.css",
+      "assets/FormBase-cdd5dd59.css",
+      "assets/dropdown-menu-b393c25c.css",
       "assets/card-598b26ed.css",
       "assets/icon-c883f2bf.css"
     ],
@@ -105,129 +105,129 @@
       "resources/js/components/form/fields/toggleField.vue",
       "resources/js/components/form/fields/videoField.vue"
     ],
-    "file": "assets/FormBase-53b4ffe3.js",
+    "file": "assets/FormBase-077e2b37.js",
     "imports": [
-      "_vendor-5e530cb8.js",
+      "_vendor-1b195301.js",
       "resources/js/main.js",
       "_dynamic-import-helper-be004503.js"
     ]
   },
-  "_GridView-863dea83.js": {
+  "_GridView-b295ac46.js": {
     "css": [
-      "assets/GridView-fc47c4d7.css",
+      "assets/GridView-e132fc34.css",
       "assets/progress-72ebe088.css"
     ],
-    "file": "assets/GridView-863dea83.js",
+    "file": "assets/GridView-b295ac46.js",
     "imports": [
       "resources/js/main.js",
-      "_vendor-5e530cb8.js"
+      "_vendor-1b195301.js"
     ]
   },
-  "_IndexBase-2d5f3a0c.js": {
+  "_IndexBase-94280355.js": {
     "css": [
       "assets/IndexBase-01746da5.css",
       "assets/loading-4b56e1a7.css",
-      "assets/select-a1923e4d.css",
+      "assets/select-cb02b5ae.css",
       "assets/link-790eddeb.css",
       "assets/icon-c883f2bf.css",
-      "assets/dropdown-menu-a7df4ea9.css"
+      "assets/dropdown-menu-b393c25c.css"
     ],
-    "file": "assets/IndexBase-2d5f3a0c.js",
+    "file": "assets/IndexBase-94280355.js",
     "imports": [
-      "_vendor-5e530cb8.js",
+      "_vendor-1b195301.js",
       "resources/js/main.js",
-      "_FormBase-53b4ffe3.js",
-      "_Loading-c269d48e.js",
-      "_resource-b2a07459.js",
-      "_Filters-fdb72a7b.js"
+      "_FormBase-077e2b37.js",
+      "_Loading-1615c9fb.js",
+      "_resource-08c4e646.js",
+      "_Filters-adef0032.js"
     ]
   },
-  "_ItemsList-570d5b75.js": {
+  "_ItemsList-5526278f.js": {
     "css": [
       "assets/ItemsList-f63bf8fa.css",
       "assets/link-790eddeb.css"
     ],
-    "file": "assets/ItemsList-570d5b75.js",
+    "file": "assets/ItemsList-5526278f.js",
     "imports": [
       "resources/js/main.js",
-      "_FormBase-53b4ffe3.js",
-      "_vendor-5e530cb8.js",
-      "_ItemsSelector-67ad3f5a.js",
-      "_vuedraggable.umd-b7cfba09.js"
+      "_FormBase-077e2b37.js",
+      "_vendor-1b195301.js",
+      "_ItemsSelector-b7f463e6.js",
+      "_vuedraggable.umd-b2f660ef.js"
     ]
   },
-  "_ItemsSelector-67ad3f5a.js": {
+  "_ItemsSelector-b7f463e6.js": {
     "css": [
-      "assets/select-a1923e4d.css"
+      "assets/select-cb02b5ae.css"
     ],
-    "file": "assets/ItemsSelector-67ad3f5a.js",
+    "file": "assets/ItemsSelector-b7f463e6.js",
     "imports": [
-      "_vendor-5e530cb8.js",
-      "_resource-b2a07459.js",
-      "_Loading-c269d48e.js",
-      "_Filters-fdb72a7b.js"
+      "_vendor-1b195301.js",
+      "_resource-08c4e646.js",
+      "_Loading-1615c9fb.js",
+      "_Filters-adef0032.js"
     ]
   },
-  "_Loading-c269d48e.js": {
+  "_Loading-1615c9fb.js": {
     "css": [
       "assets/Loading-f263c3e6.css",
       "assets/checkbox-8e4b7931.css"
     ],
-    "file": "assets/Loading-c269d48e.js",
+    "file": "assets/Loading-1615c9fb.js",
     "imports": [
-      "_vendor-5e530cb8.js"
+      "_vendor-1b195301.js"
     ]
   },
   "_dynamic-import-helper-be004503.js": {
     "file": "assets/dynamic-import-helper-be004503.js"
   },
-  "_field-8500df69.js": {
-    "file": "assets/field-8500df69.js",
+  "_field-5ebf7363.js": {
+    "file": "assets/field-5ebf7363.js",
     "imports": [
-      "_FormBase-53b4ffe3.js",
-      "_vendor-5e530cb8.js"
+      "_FormBase-077e2b37.js",
+      "_vendor-1b195301.js"
     ]
   },
-  "_functions-2177e1b9.js": {
-    "file": "assets/functions-2177e1b9.js",
+  "_functions-28a6d119.js": {
+    "file": "assets/functions-28a6d119.js",
     "imports": [
-      "_vendor-5e530cb8.js"
+      "_vendor-1b195301.js"
     ]
   },
-  "_resource-b2a07459.js": {
+  "_resource-08c4e646.js": {
     "css": [
-      "assets/resource-4a173ff5.css",
+      "assets/resource-aa9cb50c.css",
       "assets/checkbox-8e4b7931.css",
-      "assets/select-a1923e4d.css",
+      "assets/select-cb02b5ae.css",
       "assets/form-item-e3b0c442.css",
       "assets/icon-c883f2bf.css"
     ],
-    "file": "assets/resource-b2a07459.js",
+    "file": "assets/resource-08c4e646.js",
     "imports": [
-      "_vendor-5e530cb8.js",
+      "_vendor-1b195301.js",
       "resources/js/main.js",
-      "_Loading-c269d48e.js",
-      "_functions-2177e1b9.js"
+      "_Loading-1615c9fb.js",
+      "_functions-28a6d119.js"
     ]
   },
-  "_vendor-5e530cb8.js": {
+  "_vendor-1b195301.js": {
     "css": [
-      "assets/vendor-dd464266.css"
+      "assets/vendor-31978f37.css"
     ],
-    "file": "assets/vendor-5e530cb8.js"
+    "file": "assets/vendor-1b195301.js"
   },
-  "_vue.runtime.esm-bundler-99f04be4.js": {
-    "file": "assets/vue.runtime.esm-bundler-99f04be4.js",
+  "_vue.runtime.esm-bundler-0dc421ac.js": {
+    "file": "assets/vue.runtime.esm-bundler-0dc421ac.js",
     "imports": [
-      "_vendor-5e530cb8.js"
+      "_vendor-1b195301.js"
     ]
   },
-  "_vuedraggable.umd-b7cfba09.js": {
-    "file": "assets/vuedraggable.umd-b7cfba09.js",
+  "_vuedraggable.umd-b2f660ef.js": {
+    "file": "assets/vuedraggable.umd-b2f660ef.js",
     "imports": [
       "resources/js/main.js",
-      "_vendor-5e530cb8.js",
-      "_vue.runtime.esm-bundler-99f04be4.js"
+      "_vendor-1b195301.js",
+      "_vue.runtime.esm-bundler-0dc421ac.js"
     ]
   },
   "card.css": {
@@ -239,11 +239,11 @@
     "src": "checkbox.css"
   },
   "date-picker.css": {
-    "file": "assets/date-picker-318d2cbf.css",
+    "file": "assets/date-picker-94a274f4.css",
     "src": "date-picker.css"
   },
   "dropdown-menu.css": {
-    "file": "assets/dropdown-menu-a7df4ea9.css",
+    "file": "assets/dropdown-menu-b393c25c.css",
     "src": "dropdown-menu.css"
   },
   "form-item.css": {
@@ -267,34 +267,34 @@
     "src": "progress.css"
   },
   "resource.css": {
-    "file": "assets/resource-4a173ff5.css",
+    "file": "assets/resource-aa9cb50c.css",
     "src": "resource.css"
   },
   "resources/js/components/assets/IndexPage.vue": {
     "css": [
       "assets/loading-4b56e1a7.css",
-      "assets/dropdown-menu-a7df4ea9.css",
+      "assets/dropdown-menu-b393c25c.css",
       "assets/card-598b26ed.css",
       "assets/icon-c883f2bf.css",
       "assets/checkbox-8e4b7931.css",
-      "assets/select-a1923e4d.css",
-      "assets/date-picker-318d2cbf.css",
+      "assets/select-cb02b5ae.css",
+      "assets/date-picker-94a274f4.css",
       "assets/link-790eddeb.css",
       "assets/progress-72ebe088.css",
       "assets/form-item-e3b0c442.css"
     ],
-    "file": "assets/IndexPage-110bbe90.js",
+    "file": "assets/IndexPage-00aa2d7e.js",
     "imports": [
-      "_IndexBase-2d5f3a0c.js",
-      "_GridView-863dea83.js",
-      "_resource-b2a07459.js",
-      "_vendor-5e530cb8.js",
+      "_IndexBase-94280355.js",
+      "_GridView-b295ac46.js",
+      "_resource-08c4e646.js",
+      "_vendor-1b195301.js",
       "resources/js/main.js",
-      "_FormBase-53b4ffe3.js",
+      "_FormBase-077e2b37.js",
       "_dynamic-import-helper-be004503.js",
-      "_Loading-c269d48e.js",
-      "_Filters-fdb72a7b.js",
-      "_functions-2177e1b9.js"
+      "_Loading-1615c9fb.js",
+      "_Filters-adef0032.js",
+      "_functions-28a6d119.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/components/assets/IndexPage.vue"
@@ -306,26 +306,26 @@
   "resources/js/components/form/fields/assetField.vue": {
     "css": [
       "assets/assetField-1fefe6fa.css",
-      "assets/select-a1923e4d.css",
+      "assets/select-cb02b5ae.css",
       "assets/checkbox-8e4b7931.css",
       "assets/form-item-e3b0c442.css",
       "assets/progress-72ebe088.css",
       "assets/icon-c883f2bf.css",
-      "assets/dropdown-menu-a7df4ea9.css",
+      "assets/dropdown-menu-b393c25c.css",
       "assets/card-598b26ed.css"
     ],
-    "file": "assets/assetField-0f516857.js",
+    "file": "assets/assetField-60094c58.js",
     "imports": [
       "resources/js/main.js",
-      "_vendor-5e530cb8.js",
-      "_AssetSelector-c5551a3a.js",
-      "_FieldBase-5ec7caaf.js",
-      "_GridView-863dea83.js",
-      "_resource-b2a07459.js",
-      "_field-8500df69.js",
-      "_FormBase-53b4ffe3.js",
-      "_functions-2177e1b9.js",
-      "_Loading-c269d48e.js",
+      "_vendor-1b195301.js",
+      "_AssetSelector-8db96230.js",
+      "_FieldBase-a069267d.js",
+      "_GridView-b295ac46.js",
+      "_resource-08c4e646.js",
+      "_field-5ebf7363.js",
+      "_FormBase-077e2b37.js",
+      "_functions-28a6d119.js",
+      "_Loading-1615c9fb.js",
       "_dynamic-import-helper-be004503.js"
     ],
     "isDynamicEntry": true,
@@ -333,18 +333,18 @@
   },
   "resources/js/components/form/fields/blueprintField.vue": {
     "css": [
-      "assets/select-a1923e4d.css",
+      "assets/select-cb02b5ae.css",
       "assets/form-item-e3b0c442.css",
-      "assets/dropdown-menu-a7df4ea9.css",
+      "assets/dropdown-menu-b393c25c.css",
       "assets/card-598b26ed.css",
       "assets/icon-c883f2bf.css"
     ],
-    "file": "assets/blueprintField-a1b1b565.js",
+    "file": "assets/blueprintField-59c02167.js",
     "imports": [
-      "_FieldBase-5ec7caaf.js",
-      "_vendor-5e530cb8.js",
-      "_field-8500df69.js",
-      "_FormBase-53b4ffe3.js",
+      "_FieldBase-a069267d.js",
+      "_vendor-1b195301.js",
+      "_field-5ebf7363.js",
+      "_FormBase-077e2b37.js",
       "resources/js/main.js",
       "_dynamic-import-helper-be004503.js"
     ],
@@ -360,16 +360,16 @@
       "assets/checkboxGroupField-64672769.css",
       "assets/checkbox-8e4b7931.css",
       "assets/form-item-e3b0c442.css",
-      "assets/dropdown-menu-a7df4ea9.css",
+      "assets/dropdown-menu-b393c25c.css",
       "assets/card-598b26ed.css",
       "assets/icon-c883f2bf.css"
     ],
-    "file": "assets/checkboxGroupField-8073c907.js",
+    "file": "assets/checkboxGroupField-b6fd95ca.js",
     "imports": [
-      "_FieldBase-5ec7caaf.js",
-      "_vendor-5e530cb8.js",
-      "_field-8500df69.js",
-      "_FormBase-53b4ffe3.js",
+      "_FieldBase-a069267d.js",
+      "_vendor-1b195301.js",
+      "_field-5ebf7363.js",
+      "_FormBase-077e2b37.js",
       "resources/js/main.js",
       "_dynamic-import-helper-be004503.js"
     ],
@@ -377,24 +377,24 @@
     "src": "resources/js/components/form/fields/checkboxGroupField.vue"
   },
   "resources/js/components/form/fields/codeField.css": {
-    "file": "assets/codeField-e2b82f7d.css",
+    "file": "assets/codeField-bd64ba82.css",
     "src": "resources/js/components/form/fields/codeField.css"
   },
   "resources/js/components/form/fields/codeField.vue": {
     "css": [
-      "assets/codeField-e2b82f7d.css",
+      "assets/codeField-bd64ba82.css",
       "assets/form-item-e3b0c442.css",
-      "assets/dropdown-menu-a7df4ea9.css",
+      "assets/dropdown-menu-b393c25c.css",
       "assets/card-598b26ed.css",
       "assets/icon-c883f2bf.css"
     ],
-    "file": "assets/codeField-85fc0f53.js",
+    "file": "assets/codeField-5fcf33b5.js",
     "imports": [
-      "_FieldBase-5ec7caaf.js",
-      "_field-8500df69.js",
-      "_functions-2177e1b9.js",
-      "_vendor-5e530cb8.js",
-      "_FormBase-53b4ffe3.js",
+      "_FieldBase-a069267d.js",
+      "_field-5ebf7363.js",
+      "_functions-28a6d119.js",
+      "_vendor-1b195301.js",
+      "_FormBase-077e2b37.js",
       "resources/js/main.js",
       "_dynamic-import-helper-be004503.js"
     ],
@@ -404,16 +404,16 @@
   "resources/js/components/form/fields/copyField.vue": {
     "css": [
       "assets/form-item-e3b0c442.css",
-      "assets/dropdown-menu-a7df4ea9.css",
+      "assets/dropdown-menu-b393c25c.css",
       "assets/card-598b26ed.css",
       "assets/icon-c883f2bf.css"
     ],
-    "file": "assets/copyField-c876ed4d.js",
+    "file": "assets/copyField-fbba3f47.js",
     "imports": [
-      "_FieldBase-5ec7caaf.js",
-      "_vendor-5e530cb8.js",
-      "_field-8500df69.js",
-      "_FormBase-53b4ffe3.js",
+      "_FieldBase-a069267d.js",
+      "_vendor-1b195301.js",
+      "_field-5ebf7363.js",
+      "_FormBase-077e2b37.js",
       "resources/js/main.js",
       "_dynamic-import-helper-be004503.js"
     ],
@@ -427,18 +427,18 @@
   "resources/js/components/form/fields/dateField.vue": {
     "css": [
       "assets/dateField-effb14de.css",
-      "assets/date-picker-318d2cbf.css",
+      "assets/date-picker-94a274f4.css",
       "assets/form-item-e3b0c442.css",
-      "assets/dropdown-menu-a7df4ea9.css",
+      "assets/dropdown-menu-b393c25c.css",
       "assets/card-598b26ed.css",
       "assets/icon-c883f2bf.css"
     ],
-    "file": "assets/dateField-b95064e7.js",
+    "file": "assets/dateField-7b747342.js",
     "imports": [
-      "_FieldBase-5ec7caaf.js",
-      "_vendor-5e530cb8.js",
-      "_field-8500df69.js",
-      "_FormBase-53b4ffe3.js",
+      "_FieldBase-a069267d.js",
+      "_vendor-1b195301.js",
+      "_field-5ebf7363.js",
+      "_FormBase-077e2b37.js",
       "resources/js/main.js",
       "_dynamic-import-helper-be004503.js"
     ],
@@ -453,9 +453,9 @@
     "css": [
       "assets/dividerField-f4d3946e.css"
     ],
-    "file": "assets/dividerField-3786528a.js",
+    "file": "assets/dividerField-24a66553.js",
     "imports": [
-      "_vendor-5e530cb8.js"
+      "_vendor-1b195301.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/components/form/fields/dividerField.vue"
@@ -467,14 +467,14 @@
   "resources/js/components/form/fields/googlePreviewField.vue": {
     "css": [
       "assets/googlePreviewField-dfed5c47.css",
-      "assets/dropdown-menu-a7df4ea9.css",
+      "assets/dropdown-menu-b393c25c.css",
       "assets/card-598b26ed.css",
       "assets/icon-c883f2bf.css"
     ],
-    "file": "assets/googlePreviewField-3e9a1dee.js",
+    "file": "assets/googlePreviewField-422d1c28.js",
     "imports": [
-      "_FormBase-53b4ffe3.js",
-      "_vendor-5e530cb8.js",
+      "_FormBase-077e2b37.js",
+      "_vendor-1b195301.js",
       "resources/js/main.js",
       "_dynamic-import-helper-be004503.js"
     ],
@@ -483,15 +483,15 @@
   },
   "resources/js/components/form/fields/hiddenField.vue": {
     "css": [
-      "assets/dropdown-menu-a7df4ea9.css",
+      "assets/dropdown-menu-b393c25c.css",
       "assets/card-598b26ed.css",
       "assets/icon-c883f2bf.css"
     ],
-    "file": "assets/hiddenField-87afad0f.js",
+    "file": "assets/hiddenField-d564941e.js",
     "imports": [
-      "_field-8500df69.js",
-      "_vendor-5e530cb8.js",
-      "_FormBase-53b4ffe3.js",
+      "_field-5ebf7363.js",
+      "_vendor-1b195301.js",
+      "_FormBase-077e2b37.js",
       "resources/js/main.js",
       "_dynamic-import-helper-be004503.js"
     ],
@@ -499,9 +499,9 @@
     "src": "resources/js/components/form/fields/hiddenField.vue"
   },
   "resources/js/components/form/fields/infoPanelField.vue": {
-    "file": "assets/infoPanelField-26fa18bf.js",
+    "file": "assets/infoPanelField-98f36767.js",
     "imports": [
-      "_vendor-5e530cb8.js"
+      "_vendor-1b195301.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/components/form/fields/infoPanelField.vue"
@@ -510,28 +510,28 @@
     "css": [
       "assets/form-item-e3b0c442.css",
       "assets/checkbox-8e4b7931.css",
-      "assets/select-a1923e4d.css",
+      "assets/select-cb02b5ae.css",
       "assets/icon-c883f2bf.css",
-      "assets/date-picker-318d2cbf.css",
+      "assets/date-picker-94a274f4.css",
       "assets/link-790eddeb.css",
-      "assets/dropdown-menu-a7df4ea9.css",
+      "assets/dropdown-menu-b393c25c.css",
       "assets/card-598b26ed.css"
     ],
-    "file": "assets/itemsListField-be14284f.js",
+    "file": "assets/itemsListField-f3951e73.js",
     "imports": [
-      "_FieldBase-5ec7caaf.js",
-      "_ItemsList-570d5b75.js",
-      "_FormBase-53b4ffe3.js",
-      "_vendor-5e530cb8.js",
-      "_field-8500df69.js",
+      "_FieldBase-a069267d.js",
+      "_ItemsList-5526278f.js",
+      "_FormBase-077e2b37.js",
+      "_vendor-1b195301.js",
+      "_field-5ebf7363.js",
       "resources/js/main.js",
-      "_ItemsSelector-67ad3f5a.js",
-      "_resource-b2a07459.js",
-      "_Loading-c269d48e.js",
-      "_functions-2177e1b9.js",
-      "_Filters-fdb72a7b.js",
-      "_vuedraggable.umd-b7cfba09.js",
-      "_vue.runtime.esm-bundler-99f04be4.js",
+      "_ItemsSelector-b7f463e6.js",
+      "_resource-08c4e646.js",
+      "_Loading-1615c9fb.js",
+      "_functions-28a6d119.js",
+      "_Filters-adef0032.js",
+      "_vuedraggable.umd-b2f660ef.js",
+      "_vue.runtime.esm-bundler-0dc421ac.js",
       "_dynamic-import-helper-be004503.js"
     ],
     "isDynamicEntry": true,
@@ -539,15 +539,15 @@
   },
   "resources/js/components/form/fields/jsonField.vue": {
     "css": [
-      "assets/dropdown-menu-a7df4ea9.css",
+      "assets/dropdown-menu-b393c25c.css",
       "assets/card-598b26ed.css",
       "assets/icon-c883f2bf.css"
     ],
-    "file": "assets/jsonField-415a4b27.js",
+    "file": "assets/jsonField-16ac2e85.js",
     "imports": [
-      "_FormBase-53b4ffe3.js",
-      "_field-8500df69.js",
-      "_vendor-5e530cb8.js",
+      "_FormBase-077e2b37.js",
+      "_field-5ebf7363.js",
+      "_vendor-1b195301.js",
       "resources/js/main.js",
       "_dynamic-import-helper-be004503.js"
     ],
@@ -562,16 +562,16 @@
     "css": [
       "assets/keyValueField-ec387ca6.css",
       "assets/form-item-e3b0c442.css",
-      "assets/dropdown-menu-a7df4ea9.css",
+      "assets/dropdown-menu-b393c25c.css",
       "assets/card-598b26ed.css",
       "assets/icon-c883f2bf.css"
     ],
-    "file": "assets/keyValueField-35a350ee.js",
+    "file": "assets/keyValueField-133c9fd2.js",
     "imports": [
-      "_FieldBase-5ec7caaf.js",
-      "_vendor-5e530cb8.js",
-      "_field-8500df69.js",
-      "_FormBase-53b4ffe3.js",
+      "_FieldBase-a069267d.js",
+      "_vendor-1b195301.js",
+      "_field-5ebf7363.js",
+      "_FormBase-077e2b37.js",
       "resources/js/main.js",
       "_dynamic-import-helper-be004503.js"
     ],
@@ -580,18 +580,18 @@
   },
   "resources/js/components/form/fields/linkField.vue": {
     "css": [
-      "assets/select-a1923e4d.css",
+      "assets/select-cb02b5ae.css",
       "assets/form-item-e3b0c442.css",
-      "assets/dropdown-menu-a7df4ea9.css",
+      "assets/dropdown-menu-b393c25c.css",
       "assets/card-598b26ed.css",
       "assets/icon-c883f2bf.css"
     ],
-    "file": "assets/linkField-f5cb63aa.js",
+    "file": "assets/linkField-c5d1579a.js",
     "imports": [
-      "_FieldBase-5ec7caaf.js",
-      "_vendor-5e530cb8.js",
-      "_FormBase-53b4ffe3.js",
-      "_field-8500df69.js",
+      "_FieldBase-a069267d.js",
+      "_vendor-1b195301.js",
+      "_FormBase-077e2b37.js",
+      "_field-5ebf7363.js",
       "resources/js/main.js",
       "_dynamic-import-helper-be004503.js"
     ],
@@ -607,16 +607,16 @@
       "assets/metaField-5e4d3e63.css",
       "assets/progress-72ebe088.css",
       "assets/form-item-e3b0c442.css",
-      "assets/dropdown-menu-a7df4ea9.css",
+      "assets/dropdown-menu-b393c25c.css",
       "assets/card-598b26ed.css",
       "assets/icon-c883f2bf.css"
     ],
-    "file": "assets/metaField-c80c6303.js",
+    "file": "assets/metaField-47f7ccae.js",
     "imports": [
-      "_FieldBase-5ec7caaf.js",
-      "_vendor-5e530cb8.js",
-      "_field-8500df69.js",
-      "_FormBase-53b4ffe3.js",
+      "_FieldBase-a069267d.js",
+      "_vendor-1b195301.js",
+      "_field-5ebf7363.js",
+      "_FormBase-077e2b37.js",
       "resources/js/main.js",
       "_dynamic-import-helper-be004503.js"
     ],
@@ -631,16 +631,16 @@
     "css": [
       "assets/numberField-1c2c372a.css",
       "assets/form-item-e3b0c442.css",
-      "assets/dropdown-menu-a7df4ea9.css",
+      "assets/dropdown-menu-b393c25c.css",
       "assets/card-598b26ed.css",
       "assets/icon-c883f2bf.css"
     ],
-    "file": "assets/numberField-07e39e6d.js",
+    "file": "assets/numberField-dc5730da.js",
     "imports": [
-      "_FieldBase-5ec7caaf.js",
-      "_vendor-5e530cb8.js",
-      "_field-8500df69.js",
-      "_FormBase-53b4ffe3.js",
+      "_FieldBase-a069267d.js",
+      "_vendor-1b195301.js",
+      "_field-5ebf7363.js",
+      "_FormBase-077e2b37.js",
       "resources/js/main.js",
       "_dynamic-import-helper-be004503.js"
     ],
@@ -655,16 +655,16 @@
     "css": [
       "assets/rateField-6fc1d7ab.css",
       "assets/form-item-e3b0c442.css",
-      "assets/dropdown-menu-a7df4ea9.css",
+      "assets/dropdown-menu-b393c25c.css",
       "assets/card-598b26ed.css",
       "assets/icon-c883f2bf.css"
     ],
-    "file": "assets/rateField-bb231ff1.js",
+    "file": "assets/rateField-a5af8ffd.js",
     "imports": [
-      "_FieldBase-5ec7caaf.js",
-      "_vendor-5e530cb8.js",
-      "_field-8500df69.js",
-      "_FormBase-53b4ffe3.js",
+      "_FieldBase-a069267d.js",
+      "_vendor-1b195301.js",
+      "_field-5ebf7363.js",
+      "_FormBase-077e2b37.js",
       "resources/js/main.js",
       "_dynamic-import-helper-be004503.js"
     ],
@@ -675,28 +675,28 @@
     "css": [
       "assets/form-item-e3b0c442.css",
       "assets/checkbox-8e4b7931.css",
-      "assets/select-a1923e4d.css",
+      "assets/select-cb02b5ae.css",
       "assets/icon-c883f2bf.css",
-      "assets/date-picker-318d2cbf.css",
+      "assets/date-picker-94a274f4.css",
       "assets/link-790eddeb.css",
-      "assets/dropdown-menu-a7df4ea9.css",
+      "assets/dropdown-menu-b393c25c.css",
       "assets/card-598b26ed.css"
     ],
-    "file": "assets/relatedListField-9e26bed0.js",
+    "file": "assets/relatedListField-aab84b3f.js",
     "imports": [
-      "_FieldBase-5ec7caaf.js",
-      "_ItemsList-570d5b75.js",
-      "_FormBase-53b4ffe3.js",
-      "_vendor-5e530cb8.js",
-      "_field-8500df69.js",
+      "_FieldBase-a069267d.js",
+      "_ItemsList-5526278f.js",
+      "_FormBase-077e2b37.js",
+      "_vendor-1b195301.js",
+      "_field-5ebf7363.js",
       "resources/js/main.js",
-      "_ItemsSelector-67ad3f5a.js",
-      "_resource-b2a07459.js",
-      "_Loading-c269d48e.js",
-      "_functions-2177e1b9.js",
-      "_Filters-fdb72a7b.js",
-      "_vuedraggable.umd-b7cfba09.js",
-      "_vue.runtime.esm-bundler-99f04be4.js",
+      "_ItemsSelector-b7f463e6.js",
+      "_resource-08c4e646.js",
+      "_Loading-1615c9fb.js",
+      "_functions-28a6d119.js",
+      "_Filters-adef0032.js",
+      "_vuedraggable.umd-b2f660ef.js",
+      "_vue.runtime.esm-bundler-0dc421ac.js",
       "_dynamic-import-helper-be004503.js"
     ],
     "isDynamicEntry": true,
@@ -709,18 +709,18 @@
   "resources/js/components/form/fields/relatedSelectField.vue": {
     "css": [
       "assets/relatedSelectField-f4b990d3.css",
-      "assets/select-a1923e4d.css",
+      "assets/select-cb02b5ae.css",
       "assets/form-item-e3b0c442.css",
-      "assets/dropdown-menu-a7df4ea9.css",
+      "assets/dropdown-menu-b393c25c.css",
       "assets/card-598b26ed.css",
       "assets/icon-c883f2bf.css"
     ],
-    "file": "assets/relatedSelectField-3f3f5851.js",
+    "file": "assets/relatedSelectField-71259aad.js",
     "imports": [
-      "_FieldBase-5ec7caaf.js",
-      "_vendor-5e530cb8.js",
-      "_field-8500df69.js",
-      "_FormBase-53b4ffe3.js",
+      "_FieldBase-a069267d.js",
+      "_vendor-1b195301.js",
+      "_field-5ebf7363.js",
+      "_FormBase-077e2b37.js",
       "resources/js/main.js",
       "_dynamic-import-helper-be004503.js"
     ],
@@ -735,34 +735,34 @@
     "css": [
       "assets/repeaterField-72fbdec8.css",
       "assets/form-item-e3b0c442.css",
-      "assets/dropdown-menu-a7df4ea9.css",
+      "assets/dropdown-menu-b393c25c.css",
       "assets/card-598b26ed.css",
       "assets/icon-c883f2bf.css"
     ],
-    "file": "assets/repeaterField-74d09502.js",
+    "file": "assets/repeaterField-12e8e1b5.js",
     "imports": [
-      "_FieldBase-5ec7caaf.js",
-      "_FormBase-53b4ffe3.js",
-      "_field-8500df69.js",
-      "_vendor-5e530cb8.js",
+      "_FieldBase-a069267d.js",
+      "_FormBase-077e2b37.js",
+      "_field-5ebf7363.js",
+      "_vendor-1b195301.js",
       "resources/js/main.js",
-      "_vuedraggable.umd-b7cfba09.js",
+      "_vuedraggable.umd-b2f660ef.js",
       "_dynamic-import-helper-be004503.js",
-      "_vue.runtime.esm-bundler-99f04be4.js"
+      "_vue.runtime.esm-bundler-0dc421ac.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/components/form/fields/repeaterField.vue"
   },
   "resources/js/components/form/fields/rowField.vue": {
     "css": [
-      "assets/dropdown-menu-a7df4ea9.css",
+      "assets/dropdown-menu-b393c25c.css",
       "assets/card-598b26ed.css",
       "assets/icon-c883f2bf.css"
     ],
-    "file": "assets/rowField-1f0d0549.js",
+    "file": "assets/rowField-bd1c9271.js",
     "imports": [
-      "_FormBase-53b4ffe3.js",
-      "_vendor-5e530cb8.js",
+      "_FormBase-077e2b37.js",
+      "_vendor-1b195301.js",
       "resources/js/main.js",
       "_dynamic-import-helper-be004503.js"
     ],
@@ -771,18 +771,18 @@
   },
   "resources/js/components/form/fields/selectField.vue": {
     "css": [
-      "assets/select-a1923e4d.css",
+      "assets/select-cb02b5ae.css",
       "assets/form-item-e3b0c442.css",
-      "assets/dropdown-menu-a7df4ea9.css",
+      "assets/dropdown-menu-b393c25c.css",
       "assets/card-598b26ed.css",
       "assets/icon-c883f2bf.css"
     ],
-    "file": "assets/selectField-b09de518.js",
+    "file": "assets/selectField-ad847488.js",
     "imports": [
-      "_FieldBase-5ec7caaf.js",
-      "_vendor-5e530cb8.js",
-      "_FormBase-53b4ffe3.js",
-      "_field-8500df69.js",
+      "_FieldBase-a069267d.js",
+      "_vendor-1b195301.js",
+      "_FormBase-077e2b37.js",
+      "_field-5ebf7363.js",
       "resources/js/main.js",
       "_dynamic-import-helper-be004503.js"
     ],
@@ -792,16 +792,16 @@
   "resources/js/components/form/fields/slugField.vue": {
     "css": [
       "assets/form-item-e3b0c442.css",
-      "assets/dropdown-menu-a7df4ea9.css",
+      "assets/dropdown-menu-b393c25c.css",
       "assets/card-598b26ed.css",
       "assets/icon-c883f2bf.css"
     ],
-    "file": "assets/slugField-2abfe729.js",
+    "file": "assets/slugField-7d1f3fac.js",
     "imports": [
-      "_FieldBase-5ec7caaf.js",
-      "_vendor-5e530cb8.js",
-      "_field-8500df69.js",
-      "_FormBase-53b4ffe3.js",
+      "_FieldBase-a069267d.js",
+      "_vendor-1b195301.js",
+      "_field-5ebf7363.js",
+      "_FormBase-077e2b37.js",
       "resources/js/main.js",
       "_dynamic-import-helper-be004503.js"
     ],
@@ -811,20 +811,20 @@
   "resources/js/components/form/fields/tableField.vue": {
     "css": [
       "assets/loading-4b56e1a7.css",
-      "assets/select-a1923e4d.css",
+      "assets/select-cb02b5ae.css",
       "assets/checkbox-8e4b7931.css",
       "assets/form-item-e3b0c442.css",
       "assets/icon-c883f2bf.css",
-      "assets/date-picker-318d2cbf.css"
+      "assets/date-picker-94a274f4.css"
     ],
-    "file": "assets/tableField-69548bec.js",
+    "file": "assets/tableField-63d1450d.js",
     "imports": [
-      "_vendor-5e530cb8.js",
-      "_resource-b2a07459.js",
-      "_Loading-c269d48e.js",
-      "_Filters-fdb72a7b.js",
+      "_vendor-1b195301.js",
+      "_resource-08c4e646.js",
+      "_Loading-1615c9fb.js",
+      "_Filters-adef0032.js",
       "resources/js/main.js",
-      "_functions-2177e1b9.js"
+      "_functions-28a6d119.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/components/form/fields/tableField.vue"
@@ -838,15 +838,15 @@
       "assets/tagsField-5bdf7faf.css",
       "assets/icon-c883f2bf.css",
       "assets/form-item-e3b0c442.css",
-      "assets/dropdown-menu-a7df4ea9.css",
+      "assets/dropdown-menu-b393c25c.css",
       "assets/card-598b26ed.css"
     ],
-    "file": "assets/tagsField-85eae087.js",
+    "file": "assets/tagsField-de69e260.js",
     "imports": [
-      "_FieldBase-5ec7caaf.js",
-      "_vendor-5e530cb8.js",
-      "_field-8500df69.js",
-      "_FormBase-53b4ffe3.js",
+      "_FieldBase-a069267d.js",
+      "_vendor-1b195301.js",
+      "_field-5ebf7363.js",
+      "_FormBase-077e2b37.js",
       "resources/js/main.js",
       "_dynamic-import-helper-be004503.js"
     ],
@@ -861,17 +861,17 @@
     "css": [
       "assets/termsField-02d6246d.css",
       "assets/form-item-e3b0c442.css",
-      "assets/dropdown-menu-a7df4ea9.css",
+      "assets/dropdown-menu-b393c25c.css",
       "assets/card-598b26ed.css",
       "assets/icon-c883f2bf.css"
     ],
-    "file": "assets/termsField-7a29b6ef.js",
+    "file": "assets/termsField-ce2ab3a1.js",
     "imports": [
-      "_FieldBase-5ec7caaf.js",
-      "_vendor-5e530cb8.js",
+      "_FieldBase-a069267d.js",
+      "_vendor-1b195301.js",
       "resources/js/main.js",
-      "_FormBase-53b4ffe3.js",
-      "_field-8500df69.js",
+      "_FormBase-077e2b37.js",
+      "_field-5ebf7363.js",
       "_dynamic-import-helper-be004503.js"
     ],
     "isDynamicEntry": true,
@@ -885,29 +885,29 @@
     "css": [
       "assets/textEditorField-328cc2ba.css",
       "assets/checkbox-8e4b7931.css",
-      "assets/select-a1923e4d.css",
+      "assets/select-cb02b5ae.css",
       "assets/form-item-e3b0c442.css",
       "assets/icon-c883f2bf.css",
-      "assets/date-picker-318d2cbf.css",
+      "assets/date-picker-94a274f4.css",
       "assets/progress-72ebe088.css",
-      "assets/dropdown-menu-a7df4ea9.css",
+      "assets/dropdown-menu-b393c25c.css",
       "assets/card-598b26ed.css"
     ],
-    "file": "assets/textEditorField-68d64427.js",
+    "file": "assets/textEditorField-7a5e5a59.js",
     "imports": [
       "resources/js/main.js",
-      "_ItemsSelector-67ad3f5a.js",
-      "_AssetSelector-c5551a3a.js",
-      "_FieldBase-5ec7caaf.js",
-      "_functions-2177e1b9.js",
-      "_vendor-5e530cb8.js",
-      "_vue.runtime.esm-bundler-99f04be4.js",
-      "_FormBase-53b4ffe3.js",
-      "_field-8500df69.js",
-      "_resource-b2a07459.js",
-      "_Loading-c269d48e.js",
-      "_Filters-fdb72a7b.js",
-      "_GridView-863dea83.js",
+      "_ItemsSelector-b7f463e6.js",
+      "_AssetSelector-8db96230.js",
+      "_FieldBase-a069267d.js",
+      "_functions-28a6d119.js",
+      "_vendor-1b195301.js",
+      "_vue.runtime.esm-bundler-0dc421ac.js",
+      "_FormBase-077e2b37.js",
+      "_field-5ebf7363.js",
+      "_resource-08c4e646.js",
+      "_Loading-1615c9fb.js",
+      "_Filters-adef0032.js",
+      "_GridView-b295ac46.js",
       "_dynamic-import-helper-be004503.js"
     ],
     "isDynamicEntry": true,
@@ -916,16 +916,16 @@
   "resources/js/components/form/fields/textField.vue": {
     "css": [
       "assets/form-item-e3b0c442.css",
-      "assets/dropdown-menu-a7df4ea9.css",
+      "assets/dropdown-menu-b393c25c.css",
       "assets/card-598b26ed.css",
       "assets/icon-c883f2bf.css"
     ],
-    "file": "assets/textField-3d5868a1.js",
+    "file": "assets/textField-4af43c0e.js",
     "imports": [
-      "_FieldBase-5ec7caaf.js",
-      "_vendor-5e530cb8.js",
-      "_field-8500df69.js",
-      "_FormBase-53b4ffe3.js",
+      "_FieldBase-a069267d.js",
+      "_vendor-1b195301.js",
+      "_field-5ebf7363.js",
+      "_FormBase-077e2b37.js",
       "resources/js/main.js",
       "_dynamic-import-helper-be004503.js"
     ],
@@ -935,16 +935,16 @@
   "resources/js/components/form/fields/textareaField.vue": {
     "css": [
       "assets/form-item-e3b0c442.css",
-      "assets/dropdown-menu-a7df4ea9.css",
+      "assets/dropdown-menu-b393c25c.css",
       "assets/card-598b26ed.css",
       "assets/icon-c883f2bf.css"
     ],
-    "file": "assets/textareaField-59ee8508.js",
+    "file": "assets/textareaField-66fb83f4.js",
     "imports": [
-      "_FieldBase-5ec7caaf.js",
-      "_vendor-5e530cb8.js",
-      "_field-8500df69.js",
-      "_FormBase-53b4ffe3.js",
+      "_FieldBase-a069267d.js",
+      "_vendor-1b195301.js",
+      "_field-5ebf7363.js",
+      "_FormBase-077e2b37.js",
       "resources/js/main.js",
       "_dynamic-import-helper-be004503.js"
     ],
@@ -955,16 +955,16 @@
     "css": [
       "assets/switch-52ab10b3.css",
       "assets/form-item-e3b0c442.css",
-      "assets/dropdown-menu-a7df4ea9.css",
+      "assets/dropdown-menu-b393c25c.css",
       "assets/card-598b26ed.css",
       "assets/icon-c883f2bf.css"
     ],
-    "file": "assets/toggleField-a68002d5.js",
+    "file": "assets/toggleField-3f4e7866.js",
     "imports": [
-      "_FieldBase-5ec7caaf.js",
-      "_vendor-5e530cb8.js",
-      "_field-8500df69.js",
-      "_FormBase-53b4ffe3.js",
+      "_FieldBase-a069267d.js",
+      "_vendor-1b195301.js",
+      "_field-5ebf7363.js",
+      "_FormBase-077e2b37.js",
       "resources/js/main.js",
       "_dynamic-import-helper-be004503.js"
     ],
@@ -974,16 +974,16 @@
   "resources/js/components/form/fields/videoField.vue": {
     "css": [
       "assets/form-item-e3b0c442.css",
-      "assets/dropdown-menu-a7df4ea9.css",
+      "assets/dropdown-menu-b393c25c.css",
       "assets/card-598b26ed.css",
       "assets/icon-c883f2bf.css"
     ],
-    "file": "assets/videoField-88366b07.js",
+    "file": "assets/videoField-4b30423d.js",
     "imports": [
-      "_FieldBase-5ec7caaf.js",
-      "_vendor-5e530cb8.js",
-      "_field-8500df69.js",
-      "_FormBase-53b4ffe3.js",
+      "_FieldBase-a069267d.js",
+      "_vendor-1b195301.js",
+      "_field-5ebf7363.js",
+      "_FormBase-077e2b37.js",
       "resources/js/main.js",
       "_dynamic-import-helper-be004503.js"
     ],
@@ -993,37 +993,37 @@
   "resources/js/components/resource/IndexPage.vue": {
     "css": [
       "assets/loading-4b56e1a7.css",
-      "assets/dropdown-menu-a7df4ea9.css",
+      "assets/dropdown-menu-b393c25c.css",
       "assets/card-598b26ed.css",
       "assets/icon-c883f2bf.css",
       "assets/checkbox-8e4b7931.css",
-      "assets/select-a1923e4d.css",
+      "assets/select-cb02b5ae.css",
       "assets/form-item-e3b0c442.css",
-      "assets/date-picker-318d2cbf.css",
+      "assets/date-picker-94a274f4.css",
       "assets/link-790eddeb.css"
     ],
-    "file": "assets/IndexPage-4635d7e9.js",
+    "file": "assets/IndexPage-85bf2087.js",
     "imports": [
-      "_IndexBase-2d5f3a0c.js",
+      "_IndexBase-94280355.js",
       "resources/js/main.js",
-      "_vendor-5e530cb8.js",
-      "_FormBase-53b4ffe3.js",
+      "_vendor-1b195301.js",
+      "_FormBase-077e2b37.js",
       "_dynamic-import-helper-be004503.js",
-      "_Loading-c269d48e.js",
-      "_resource-b2a07459.js",
-      "_functions-2177e1b9.js",
-      "_Filters-fdb72a7b.js"
+      "_Loading-1615c9fb.js",
+      "_resource-08c4e646.js",
+      "_functions-28a6d119.js",
+      "_Filters-adef0032.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/components/resource/IndexPage.vue"
   },
   "resources/js/main.css": {
-    "file": "assets/main-57c32a05.css",
+    "file": "assets/main-b913d9d6.css",
     "src": "resources/js/main.css"
   },
   "resources/js/main.js": {
     "css": [
-      "assets/main-57c32a05.css"
+      "assets/main-b913d9d6.css"
     ],
     "dynamicImports": [
       "resources/js/pages/Home.vue",
@@ -1035,9 +1035,9 @@
       "resources/js/pages/PermissionEdit.vue",
       "resources/js/pages/CommandsIndex.vue"
     ],
-    "file": "assets/main-5645f762.js",
+    "file": "assets/main-db910e46.js",
     "imports": [
-      "_vendor-5e530cb8.js"
+      "_vendor-1b195301.js"
     ],
     "isEntry": true,
     "src": "resources/js/main.js"
@@ -1052,18 +1052,18 @@
       "assets/card-598b26ed.css",
       "assets/icon-c883f2bf.css"
     ],
-    "file": "assets/CommandsIndex-62ec901c.js",
+    "file": "assets/CommandsIndex-f8acb11a.js",
     "imports": [
-      "_vendor-5e530cb8.js",
+      "_vendor-1b195301.js",
       "resources/js/main.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/pages/CommandsIndex.vue"
   },
   "resources/js/pages/Home.vue": {
-    "file": "assets/Home-f066a8f1.js",
+    "file": "assets/Home-53cf87a7.js",
     "imports": [
-      "_vendor-5e530cb8.js"
+      "_vendor-1b195301.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/pages/Home.vue"
@@ -1075,26 +1075,26 @@
   "resources/js/pages/NavigationEdit.vue": {
     "css": [
       "assets/NavigationEdit-381e02d6.css",
-      "assets/dropdown-menu-a7df4ea9.css",
+      "assets/dropdown-menu-b393c25c.css",
       "assets/switch-52ab10b3.css",
       "assets/form-item-e3b0c442.css",
       "assets/link-790eddeb.css",
       "assets/icon-c883f2bf.css",
-      "assets/select-a1923e4d.css",
+      "assets/select-cb02b5ae.css",
       "assets/checkbox-8e4b7931.css",
-      "assets/date-picker-318d2cbf.css"
+      "assets/date-picker-94a274f4.css"
     ],
-    "file": "assets/NavigationEdit-db7834fe.js",
+    "file": "assets/NavigationEdit-9829bbce.js",
     "imports": [
       "resources/js/main.js",
-      "_vendor-5e530cb8.js",
-      "_ItemsSelector-67ad3f5a.js",
-      "_resource-b2a07459.js",
-      "_vuedraggable.umd-b7cfba09.js",
-      "_Loading-c269d48e.js",
-      "_Filters-fdb72a7b.js",
-      "_functions-2177e1b9.js",
-      "_vue.runtime.esm-bundler-99f04be4.js"
+      "_vendor-1b195301.js",
+      "_ItemsSelector-b7f463e6.js",
+      "_resource-08c4e646.js",
+      "_vuedraggable.umd-b2f660ef.js",
+      "_Loading-1615c9fb.js",
+      "_Filters-adef0032.js",
+      "_functions-28a6d119.js",
+      "_vue.runtime.esm-bundler-0dc421ac.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/pages/NavigationEdit.vue"
@@ -1104,25 +1104,25 @@
       "assets/card-598b26ed.css",
       "assets/checkbox-8e4b7931.css"
     ],
-    "file": "assets/PermissionEdit-3968306e.js",
+    "file": "assets/PermissionEdit-afddec7a.js",
     "imports": [
-      "_vendor-5e530cb8.js",
-      "_Loading-c269d48e.js",
-      "_functions-2177e1b9.js"
+      "_vendor-1b195301.js",
+      "_Loading-1615c9fb.js",
+      "_functions-28a6d119.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/pages/PermissionEdit.vue"
   },
   "resources/js/pages/ResourceDetail.vue": {
     "css": [
-      "assets/dropdown-menu-a7df4ea9.css",
+      "assets/dropdown-menu-b393c25c.css",
       "assets/card-598b26ed.css",
       "assets/icon-c883f2bf.css"
     ],
-    "file": "assets/ResourceDetail-cc3131c7.js",
+    "file": "assets/ResourceDetail-8ce20062.js",
     "imports": [
-      "_FormBase-53b4ffe3.js",
-      "_vendor-5e530cb8.js",
+      "_FormBase-077e2b37.js",
+      "_vendor-1b195301.js",
       "resources/js/main.js",
       "_dynamic-import-helper-be004503.js"
     ],
@@ -1132,14 +1132,14 @@
   "resources/js/pages/ResourceEdit.vue": {
     "css": [
       "assets/loading-4b56e1a7.css",
-      "assets/dropdown-menu-a7df4ea9.css",
+      "assets/dropdown-menu-b393c25c.css",
       "assets/card-598b26ed.css",
       "assets/icon-c883f2bf.css"
     ],
-    "file": "assets/ResourceEdit-6be07671.js",
+    "file": "assets/ResourceEdit-2937d411.js",
     "imports": [
-      "_vendor-5e530cb8.js",
-      "_FormBase-53b4ffe3.js",
+      "_vendor-1b195301.js",
+      "_FormBase-077e2b37.js",
       "resources/js/main.js",
       "_dynamic-import-helper-be004503.js"
     ],
@@ -1151,17 +1151,17 @@
       "resources/js/components/assets/IndexPage.vue",
       "resources/js/components/resource/IndexPage.vue"
     ],
-    "file": "assets/ResourceIndex-8daaaa59.js",
+    "file": "assets/ResourceIndex-b52130a0.js",
     "imports": [
       "resources/js/main.js",
       "_dynamic-import-helper-be004503.js",
-      "_vendor-5e530cb8.js"
+      "_vendor-1b195301.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/pages/ResourceIndex.vue"
   },
   "select.css": {
-    "file": "assets/select-a1923e4d.css",
+    "file": "assets/select-cb02b5ae.css",
     "src": "select.css"
   },
   "switch.css": {
@@ -1169,7 +1169,7 @@
     "src": "switch.css"
   },
   "vendor.css": {
-    "file": "assets/vendor-dd464266.css",
+    "file": "assets/vendor-31978f37.css",
     "src": "vendor.css"
   }
 }
