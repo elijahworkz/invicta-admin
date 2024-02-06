@@ -1,155 +1,157 @@
-import { createApp, ref } from 'vue'
-import { setupAxios } from './services/axios'
-import { createRouterInstance } from './services/router'
-import mitt from 'mitt'
-import isNil from 'lodash/isNil'
+import { createApp, ref } from "vue";
+import { setupAxios } from "./services/axios";
+import { createRouterInstance } from "./services/router";
+import mitt from "mitt";
+import isNil from "lodash/isNil";
 
 // components
-import App from '@/App.vue'
-import { ElNotification } from 'element-plus'
-import 'element-plus/es/components/message-box/style/index'
-import 'element-plus/es/components/notification/style/index'
-import 'element-plus/es/components/button-group/style/index'
+import App from "@/App.vue";
+import { ElNotification } from "element-plus";
+import "element-plus/es/components/message-box/style/index";
+import "element-plus/es/components/notification/style/index";
+import "element-plus/es/components/button-group/style/index";
 
+class Invicta {
+    constructor() {
+        this.app = null;
+        this.mountElement = "#app";
+        this.bootingCallbacks = [];
+        this.eventBus = mitt();
+        this.errors = ref({});
+        this.loadingElement = document.querySelector(".loading.pulse");
+        this.user = {
+            data: null,
+            name: null,
+        };
+    }
 
-class Invicta
-{
-	constructor() {
-		this.app = null
-		this.mountElement = '#app'
-		this.bootingCallbacks = []
-		this.eventBus = mitt()
-		this.errors = ref({})
-		this.loadingElement = document.querySelector('.loading.pulse')
-		this.user = {
-			data: null,
-			name: null
-		}
-	}
+    loadingStatus(status) {
+        this.loadingElement.textContent = status;
+    }
 
-	loadingStatus(status) {
-		this.loadingElement.textContent = status
-	}
+    booting(callback) {
+        // console.log('we have a new callback')
+        this.bootingCallbacks.push(callback);
+    }
 
-	booting(callback) {
-		console.log('we have a new callback')
-		this.bootingCallbacks.push(callback)
-	}
+    boot() {
+        // console.log('in boot', this.bootingCallbacks)
+        this.bootingCallbacks.forEach((callback) => callback(this.app));
+    }
 
-	boot() {
-		console.log('in boot', this.bootingCallbacks)
-		this.bootingCallbacks.forEach(callback => callback(this.app))
-	}
+    init(config) {
+        this.config = config;
+        this.axios = setupAxios(
+            `${this.getConfig("appUrl")}${this.getConfig("appPath")}`,
+        );
+        this.user = JSON.parse(atob(this.getConfig("user")));
+        delete this.config.user;
 
-	init(config) {
-		this.config = config
-		this.axios = setupAxios(`${this.getConfig('appUrl')}${this.getConfig('appPath')}`)
-		this.user = JSON.parse(atob(this.getConfig('user')))
-		delete(this.config.user)
+        this.app = createApp(App);
+        this.setupRouter();
 
-		this.app = createApp(App)
-		this.setupRouter()
+        this.app.use(this.router);
+        this.start();
+    }
 
-		this.app.use(this.router)
-		this.start()
-	}
+    getConfig(key) {
+        if (
+            this.config &&
+            Object.prototype.hasOwnProperty.call(this.config, key)
+        ) {
+            return this.config[key];
+        }
+        return [];
+    }
 
+    can(ability) {
+        if (this.user.dev == undefined || this.user.permissions == undefined)
+            return false;
 
-	getConfig(key) {
-		if (this.config && Object.prototype.hasOwnProperty.call(this.config, key)) {
-			return this.config[key]
-		}
-		return []
-	}
+        if (this.user.dev) {
+            return true;
+        }
+        return this.user.permissions.includes(ability);
+    }
 
-	can(ability) {
-		if(this.user.dev == undefined || this.user.permissions == undefined)
-			return false
+    start() {
+        console.log(" i am starting");
+        this.boot();
 
-		if(this.user.dev) {
-			return true
-		}
-		return this.user.permissions.includes(ability)
-	}
+        this.app.mount(this.mountElement);
 
-	start() {
-		console.log(' i am starting')
-		this.boot()
+        // console.log('started Invicta', this.config)
+    }
 
-		this.app.mount(this.mountElement)
+    setupRouter() {
+        this.router = createRouterInstance(this.getConfig("appPath"));
+    }
 
-		console.log('started Invicta', this.config)
-	}
+    componentExists(name) {
+        return !isNil(this.app._context.components[name]);
+    }
 
-	setupRouter() {
-		this.router = createRouterInstance(this.getConfig('appPath'))
-	}
+    component(name, component) {
+        if (!this.componentExists(name)) {
+            this.app.component(name, component);
+        }
+    }
 
-	componentExists(name) {
-		return !isNil(this.app._context.components[name])
-	}
+    // Emits dom events
+    event(name, data = null) {
+        let e = data
+            ? new CustomEvent(name, { detail: { data } })
+            : new Event(name);
 
-	component(name, component) {
-		if (!this.componentExists(name)) {
-			this.app.component(name, component)
-		}
-	}
+        document.dispatchEvent(e);
+    }
 
-	// Emits dom events
-	event(name, data = null) {
-		let e = (data)
-			? new CustomEvent(name, { detail: {data} })
-			: new Event(name)
+    // Listents to mitt events
+    on(name, callback) {
+        this.eventBus.on(name, callback);
+    }
 
-		document.dispatchEvent(e)
-	}
+    // Remove mitt events
+    off(name, callback) {
+        this.eventBus.off(name, callback);
+    }
 
-	// Listents to mitt events
-	on(name, callback) {
-		this.eventBus.on(name, callback)
-	}
+    // Emits mitt events
+    emit(name, data = {}) {
+        this.eventBus.emit(name, data);
+    }
 
-	// Remove mitt events
-	off(name, callback) {
-		this.eventBus.off(name, callback)
-	}
+    pageTitle(title) {
+        console.log("please Update the title", title);
+        useTitle(title, { titleTemplate: "%s - Ibc Admin" });
+    }
 
-	// Emits mitt events
-	emit(name, data = {}) {
-		this.eventBus.emit(name, data)
-	}
+    setErrors(errors) {
+        console.log("I see you want to add errors", errors);
+        this.errors.value = errors;
+    }
 
-	pageTitle(title) {
-		console.log('please Update the title', title)
-		useTitle(title, { titleTemplate: '%s - Ibc Admin' })
-	}
+    remember(key, value = null) {
+        key = `invicta-${key}`;
 
-	setErrors(errors) {
-		console.log('I see you want to add errors', errors)
-		this.errors.value = errors
-	}
+        if (!value) {
+            return localStorage.getItem(key);
+        } else {
+            localStorage.setItem(key, value);
+        }
+    }
 
-	remember(key, value = null) {
-		key = `invicta-${key}`
+    message(args) {
+        ElNotification({ ...args });
+    }
 
-		if (! value) {
-			return localStorage.getItem(key)
-		} else {
-			localStorage.setItem(key, value)
-		}
-	}
-
-	message(args) {
-		ElNotification({...args})
-	}
-
-	log(message, payload = null) {
-		if (payload) {
-			console.log(`[Invicta] ${message}`, payload)
-		} else {
-			console.log('[Invicta]', message)
-		}
-	}
+    log(message, payload = null) {
+        if (payload) {
+            console.log(`[Invicta] ${message}`, payload);
+        } else {
+            console.log("[Invicta]", message);
+        }
+    }
 }
 
-export default Invicta
+export default Invicta;
