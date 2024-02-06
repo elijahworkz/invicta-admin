@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.1.14](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.1.13...v1.1.14) (2024-02-06)
+
+### Bug Fixes
+
+* Data seeding for nested fields and number input not accepting 0 ([2db2fa](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/2db2fa9b620b873e844f55a0e89a893af0560ec4))
+
+
+---
+
 ## [1.1.13](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.1.12...v1.1.13) (2024-02-01)
 
 ### Bug Fixes
