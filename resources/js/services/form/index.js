@@ -46,7 +46,7 @@ const defineResourceForm = (id) => {
         settings.mode = resource.item ? "edit" : "create";
         settings.blueprint = resource.blueprint;
 
-        let itemData = resource.item ?? null;
+        let itemData = toRaw(resource.item) ?? null;
         formData.value = prepareFields(resource.blueprint, itemData);
 
         await getRemoteData();
@@ -161,7 +161,8 @@ const defineResourceForm = (id) => {
                     }
                     let value = getFieldData(item);
 
-                    if (dotPath) {
+                    // if we have nested fields and no itemData, we need to set the value
+                    if (dotPath && !itemData) {
                         value = set(tempNested[_id], dotPath, value);
                     }
 
