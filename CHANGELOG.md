@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.1.17](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.1.16...v1.1.17) (2024-02-12)
+
+### Bug Fixes
+
+* Tailwind error with vite 5 ([22be54](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/22be54c23060a543113e46b46c5663fb8f90ab16))
+
+
+---
+
 ## [1.1.16](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.1.15...v1.1.16) (2024-02-12)
 
 
