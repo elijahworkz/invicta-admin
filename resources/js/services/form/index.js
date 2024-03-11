@@ -334,7 +334,7 @@ const defineResourceForm = (id) => {
 
         get(id, defaultValue = null) {
             let result = get(formData.value, id, defaultValue);
-            return result === false && defaultValue ? defaultValue : result;
+            return result === null && defaultValue ? defaultValue : result;
         },
 
         set(id, value) {

@@ -18,7 +18,7 @@
 			<label :for="`term-${item.id}`" class="el-checkbox__label">{{ item.title }}</label>
 
 			<span 
-				v-if="data.hasPrimary && fieldValues.includes(item.id)"
+				v-if="data.hasPrimary && fieldValues.includes(item.id) && resourceForm.settings.mode === 'edit'"
 				class="ml-auto make-primary"
 				@click.prevent="makePrimary(item.id)">
 
