@@ -288,6 +288,7 @@ const defineResourceForm = (id) => {
             .post(settings.actionUrl, data)
             .then(({ data }) => {
                 console.log("post submit result", data);
+                console.log("postSubmitAction", postSubmitAction);
                 Invicta.message(data.message);
                 errors.value = {};
 
@@ -334,7 +335,7 @@ const defineResourceForm = (id) => {
 
         get(id, defaultValue = null) {
             let result = get(formData.value, id, defaultValue);
-            return result === null && defaultValue ? defaultValue : result;
+            return result === null && defaultValue !== undefined ? defaultValue : result;
         },
 
         set(id, value) {
