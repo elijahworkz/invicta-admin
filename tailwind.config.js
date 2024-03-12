@@ -1,5 +1,3 @@
-const defaultTheme = require('tailwindcss/defaultTheme');
-
 module.exports = {
 	content: [
 		'./resources/views/**/*.blade.php',
@@ -8,7 +6,7 @@ module.exports = {
 	theme: {
 		extend: {
 			fontFamily: {
-				sans: ['Nunito', ...defaultTheme.fontFamily.sans],
+				sans: ['Nunito'],
 			}
 		},
 	},
