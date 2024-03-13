@@ -53,7 +53,9 @@ function updateRelated(value) {
 
 /* We need to reload related list after form action (create or update) */
 function reloadRelated() {
-	console.log('we need to make a call here - where?')
+	console.log('we need to make a call here - where?', resourceForm.settings, props.data.id)
+  if (! resourceForm.settings.id)
+    return false
 	let url = `/api/resource/${resourceForm.settings.handle}/${resourceForm.settings.id}/relationship/${props.data.id}`
 	Invicta.axios.get(url)
 		.then(({data}) => {
