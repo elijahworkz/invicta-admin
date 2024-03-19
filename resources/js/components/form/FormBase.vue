@@ -1,47 +1,40 @@
 <template>
-	<el-form
-		class="invicta-form"
-		:class="formClass"
-		v-bind="formSettings">
+	<el-form class="invicta-form" :class="formClass" v-bind="formSettings">
 		<div class="flex items-end justify-between mb-4" v-if="!headless">
 			<div>
-				<BackLink v-if="breadcrumb" class="breadcrumb" :data="breadcrumb"/>
+				<BackLink v-if="breadcrumb" class="breadcrumb" :data="breadcrumb" />
 				<h1 class="mb-1">
-					<a v-if="resource.meta.itemUrl" class="flex items-center" :href="resource.meta.itemUrl" title="Visit URL" target="_blank">
+					<a v-if="resource.meta.itemUrl" class="flex items-center" :href="resource.meta.itemUrl"
+						title="Visit URL" target="_blank">
 						<span class="flex items-center" v-html="title"></span>
-						<svg class="ml-2" viewBox="0 0 24 24" width="22"><path fill="currentColor" d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z"></path></svg>
+						<svg class="ml-2" viewBox="0 0 24 24" width="22">
+							<path fill="currentColor"
+								d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z">
+							</path>
+						</svg>
 					</a>
 					<span v-else class="flex items-center" v-html="title"></span>
 				</h1>
 			</div>
 			<div class="resource-actions flex items-center ml-auto">
-				<Localizations 
-					v-if="resource.localizations"
-					:localizations="resource.localizations"
-					:form-id="formId"
-					:resource-url="resource.meta.indexUrl"/>
+				<Localizations v-if="resource.localizations" :localizations="resource.localizations" :form-id="formId"
+					:resource-url="resource.meta.indexUrl" />
 
-				<slot name="form-actions"/>
+				<slot name="form-actions" />
 
 				<el-button-group class="relative">
-					<el-button 
-						type="primary"
-						:size="pageForm ? 'large' : 'default'" 
-						@click="submit"
+					<el-button type="primary" :size="pageForm ? 'large' : 'default'" @click="submit"
 						:disabled="submitDisabled">
-							{{ postSubmitData[postSubmitAction].button }}
+						{{ postSubmitData[postSubmitAction].button }}
 					</el-button>
 					<el-popover title="After Saving" :teleported="false">
 						<template #reference>
-							<el-button 
-								:disabled="submitDisabled"
-								type="primary" 
-								:size="pageForm ? 'large' : 'default'"
+							<el-button :disabled="submitDisabled" type="primary" :size="pageForm ? 'large' : 'default'"
 								:icon="postSubmitData[postSubmitAction].icon"></el-button>
 						</template>
 						<el-radio-group v-model="postSubmitAction">
-							<el-radio v-for="action in postSubmitActions"
-								:label="action">{{ postSubmitData[action].option}}</el-radio>
+							<el-radio v-for="action in postSubmitActions" :label="action">{{
+		postSubmitData[action].option }}</el-radio>
 						</el-radio-group>
 					</el-popover>
 					<sup class="unsaved-indicator" v-show="resourceForm.isDirty.value"></sup>
@@ -49,44 +42,29 @@
 			</div>
 		</div>
 
-		<div class="form-wrapper" :class="{'card': tabsType == 'card'}">
-			<div class="main-panel" :class="{'el-card is-always-shadow': !hasSections && !headless, 'has-sidebar': hasSidebar}">
-					<el-tabs
-						v-if="hasSections"
-						v-model="activeTab"
-						type="border-card"
-						v-bind="blueprint.settings.tabs">
-						<el-tab-pane 
-							v-for="section in blueprint.sections"
-							:label="section.title"
-							:name="section.id">
-							<div class="fieldset" v-if="section.fields">
-								<FormField 
-									v-for="(field, index) in section.fields" 
-									:form-id="formId"
-									:field-data="field" 
-									:data-path="field.id"/>
-							</div>
-						</el-tab-pane>
-					</el-tabs>
-					<div v-else>
-						<div class="fieldset" v-if="blueprint.fields">
-							<FormField 
-								v-for="(field, index) in blueprint.fields"
-								:form-id="formId"
-								:field-data="field" 
-								:data-path="field.id"/>
+		<div class="form-wrapper" :class="{ 'card': tabsType == 'card' }">
+			<div class="main-panel"
+				:class="{ 'el-card is-always-shadow': !hasSections && !headless, 'has-sidebar': hasSidebar }">
+				<el-tabs v-if="hasSections" v-model="activeTab" type="border-card" v-bind="blueprint.settings.tabs">
+					<el-tab-pane v-for="section in blueprint.sections" :label="section.title" :name="section.id">
+						<div class="fieldset" v-if="section.fields">
+							<FormField v-for="(field, index) in section.fields" :form-id="formId" :field-data="field"
+								:data-path="field.id" />
 						</div>
+					</el-tab-pane>
+				</el-tabs>
+				<div v-else>
+					<div class="fieldset" v-if="blueprint.fields">
+						<FormField v-for="(field, index) in blueprint.fields" :form-id="formId" :field-data="field"
+							:data-path="field.id" />
 					</div>
+				</div>
 			</div>
 			<div v-if="hasSidebar" class="sidebar">
 				<el-card>
 					<div class="fieldset" v-if="blueprint.sidebar.fields">
-						<FormField 
-							v-for="(field, index) in blueprint.sidebar.fields"
-							:form-id="formId"
-							:field-data="field" 
-							:data-path="field.id"/>
+						<FormField v-for="(field, index) in blueprint.sidebar.fields" :form-id="formId"
+							:field-data="field" :data-path="field.id" />
 					</div>
 				</el-card>
 			</div>
@@ -136,7 +114,7 @@ onBeforeRouteLeave((to, from) => {
 	console.log('trying to leave', resourceForm.isDirty)
 	if (resourceForm.isDirty.value) {
 		const answer = window.confirm(
-		'Do you really want to leave? you have unsaved changes!'
+			'Do you really want to leave? you have unsaved changes!'
 		)
 		// cancel the navigation and stay on the same page
 		if (!answer) return false
@@ -158,7 +136,7 @@ Invicta.on('unlock-form', (formId) => {
 
 /* Layout setup */
 const blueprint = resourceForm.settings.blueprint
-const formSettings = get(blueprint.settings, 'form', {'label-position': 'top'})
+const formSettings = get(blueprint.settings, 'form', { 'label-position': 'top' })
 
 // Setup sections and active tab
 const hasSections = has(blueprint, 'sections')
@@ -196,7 +174,7 @@ const title = computed(() => {
 	let item = props.resource.item ?? null
 	let title = meta.pageTitle
 
-	if (item && meta.titleField !== 'id' && meta.titleField in item  ) {
+	if (item && meta.titleField !== 'id' && meta.titleField in item) {
 		title = get(item, meta.titleField)
 	}
 
@@ -213,12 +191,15 @@ const submitDisabled = computed(() => {
 })
 
 /* Post Submit options setup */
+const testSubmitAction = computed(() => {
+	return props.postSubmitActions[0]
+})
 const postSubmitAction = ref(props.postSubmitActions[0])
 const postSubmitData = {
-	back: { icon: ArrowLeft, button: 'Save & Back', option: 'Go back'},
-	close: { icon: ArrowLeft, button: 'Save & Close', option: 'Close Form'},
-	edit: { icon: ArrowDown, button: 'Save & Stay', option: 'Continue Editing'},
-	create: { icon: Plus, button: 'Save & New', option: 'Add New Item'},
+	back: { icon: ArrowLeft, button: 'Save & Back', option: 'Go back' },
+	close: { icon: ArrowLeft, button: 'Save & Close', option: 'Close Form' },
+	edit: { icon: ArrowDown, button: 'Save & Stay', option: 'Continue Editing' },
+	create: { icon: Plus, button: 'Save & New', option: 'Add New Item' },
 }
 
 onMounted(() => {
@@ -227,13 +208,14 @@ onMounted(() => {
 		activeTab.value = hash;
 	}
 
-	postSubmitAction.value = props.postSubmitActions.length > 1
-		? Invicta.remember('post-submit-action') || props.postSubmitActions[0]
-		: props.postSubmitActions[0]
+	let savedAction = Invicta.remember('post-submit-action')
+	if (savedAction && props.postSubmitActions.includes(savedAction)) {
+		postSubmitAction.value = savedAction
+	}
 })
 
 watch(activeTab, (newTab) => {
-	// we'll update hash for tabs only for page view 
+	// we'll update hash for tabs only for page view
 	if (props.pageForm) {
 		window.history.pushState(window.history.state, null, `#${newTab}`)
 	}
