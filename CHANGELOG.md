@@ -4,6 +4,16 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.1.19](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.1.18...v1.1.19) (2024-03-19)
+
+### Bug Fixes
+
+* Post submit action edit not working after create; fixes #41 ([482187](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/482187d73d3a65e3e147124f5e14c37bd186841e))
+* Saved post submit action displayed even if action not available for the form ([2b629b](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/2b629bac136244114f362c093c66c53fd8ae7697))
+
+
+---
+
 ## [1.1.18](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.1.17...v1.1.18) (2024-03-13)
 
 
