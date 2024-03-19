@@ -54,10 +54,13 @@ class ResourceController extends Controller
     {
         [$itemId, $handle] = $request->$action();
 
-        return response()->json(['message' => [
-            'type' => 'success',
-            'title' => $action == 'storeItem' ? 'Saved' : 'Updated',
-        ]]);
+        return response()->json([
+            'message' => [
+                'type' => 'success',
+                'title' => $action == 'storeItem' ? 'Saved' : 'Updated',
+            ],
+            'item' => $itemId,
+        ]);
     }
 
     // Available filters for resource
@@ -73,7 +76,7 @@ class ResourceController extends Controller
 
         return collect($request->resourceClass()->allActions())
             ->filter(function ($action) use ($handle) {
-                if (! $action->inline()) {
+                if (!$action->inline()) {
                     if ($action->redirect) {
                         $action->setRedirect($handle);
                     }
@@ -122,7 +125,7 @@ class ResourceController extends Controller
 
     public function destroy(ResourceRequest $request)
     {
-        $this->authorize('delete '.$request->handle());
+        $this->authorize('delete ' . $request->handle());
 
         // ResourceRequest $request
         $resource = $request->resourceClass();
@@ -134,7 +137,7 @@ class ResourceController extends Controller
         return response()->json([
             'message' => [
                 'type' => 'success',
-                'title' => 'Selected '.$resource->handle().' deleted',
+                'title' => 'Selected ' . $resource->handle() . ' deleted',
             ],
         ]);
     }
