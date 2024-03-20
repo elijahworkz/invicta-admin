@@ -32,7 +32,7 @@ class ExportSettings extends Action
     /**
      * Get blueprint with fields if neccessary.
      *
-     * @param  ModelInstance  $item available only for inline/drawer actions
+     * @param  ModelInstance  $item  available only for inline/drawer actions
      * @return array
      */
     public function blueprint($item = null)

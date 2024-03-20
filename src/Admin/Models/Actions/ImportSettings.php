@@ -27,7 +27,7 @@ class ImportSettings extends Action
      * @param  \App\Models\User  $user
      * @return void
      */
-    public function handle($fields, Collection $models = null, $user)
+    public function handle($fields, ?Collection $models, $user)
     {
         return GlobalSetting::create($fields->global);
     }
@@ -35,7 +35,7 @@ class ImportSettings extends Action
     /**
      * Get blueprint with fields if neccessary.
      *
-     * @param  ModelInstance  $item available only for inline/drawer actions
+     * @param  ModelInstance  $item  available only for inline/drawer actions
      * @return array
      */
     public function blueprint($item = null)

@@ -48,7 +48,7 @@ class InvictaAdmin
     /**
      * Build main admin navigation.
      *
-     * @return  Illuminate\Support\Collection
+     * @return Illuminate\Support\Collection
      */
     private static function menu()
     {

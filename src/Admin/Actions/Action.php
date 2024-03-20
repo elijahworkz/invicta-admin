@@ -76,7 +76,7 @@ class Action implements JsonSerializable
     /**
      * Perform action on a single item
      *
-     * @param $item Single model or a model object
+     * @param  $item  Single model or a model object
      */
     public function run($item)
     {
@@ -86,7 +86,7 @@ class Action implements JsonSerializable
     /**
      * Get blueprint with fields if neccessary.
      *
-     * @param  ModelInstance  $item available only for inline/drawer actions
+     * @param  ModelInstance  $item  available only for inline/drawer actions
      * @return array
      */
     public function blueprint($item = null)
