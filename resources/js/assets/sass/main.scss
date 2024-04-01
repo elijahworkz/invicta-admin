@@ -39,7 +39,7 @@ h1 {
 	font-size: var(--el-font-size-extra-large);
 }
 
-ul {	
+ul {
 	.icon-item {
 		@include flexbox(row, center, flex-start);
 	}

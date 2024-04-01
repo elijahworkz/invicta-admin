@@ -4,7 +4,7 @@
 
 .el-select {
 	width: 100%;
-	
+
 	.el-select__tags {
 		.el-tag {
 			background-color: #e6f5f9;
@@ -48,19 +48,6 @@
 	color: var(--el-color-primary);
 }
 
-.el-dialog {
-	.el-dialog__header {
-		border-bottom: 1px solid var(--el-border-color-light);
-		padding-bottom: 15px;
-		margin: 0;
-	}
-	.el-dialog__footer {
-		padding: 15px;
-		background: var(--el-bg-color-page);
-	}
-}
-
-
 .el-notification {
 	.el-notification--info {
 		color: var(--el-color-primary-dark-2);
@@ -75,7 +62,7 @@
 
 .el-dropdown {
 	outline: none;
-	
+
 	.el-tooltip__trigger {
 		svg {
 			transition: all .2s;
