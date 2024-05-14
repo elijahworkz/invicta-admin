@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.1.23](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.1.22...v1.1.23) (2024-05-14)
+
+### Bug Fixes
+
+* Code field width fix ([2789da](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/2789da8fa915911f47d44af3cbc95bbb689212d4))
+
+
+---
+
 ## [1.1.22](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.1.21...v1.1.22) (2024-05-14)
 
 ### Bug Fixes
