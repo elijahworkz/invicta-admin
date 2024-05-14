@@ -5,8 +5,8 @@
     "type": "module",
     "main": "resources/js/main.js",
     "scripts": {
-        "dev": "bunx --bun vite",
-        "build": "bunx --bun vite build",
+        "dev": "vite",
+        "build": "vite build",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {
@@ -23,6 +23,7 @@
     "dependencies": {
         "@ckeditor/ckeditor5-vue": "^4.0.1",
         "@codemirror/lang-json": "^6.0.0",
+        "@codemirror/lang-css": "^6.0.0",
         "@codemirror/theme-one-dark": "^6.0.0",
         "@mdi/js": "^6.9.96",
         "@popperjs/core": "^2.11.6",
