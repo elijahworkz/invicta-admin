@@ -21,7 +21,7 @@
 
         .main-panel {
             flex: 1;
-            // overflow: hidden;
+            overflow: hidden;
 
             &.has-sidebar {
                 max-width: calc(100% - 320px);
@@ -33,7 +33,7 @@
                 box-shadow: var(--el-box-shadow-light);
                 border: 1px solid var(--el-border-color-light);
 
-                >.el-tabs__content {
+                > .el-tabs__content {
                     overflow: visible;
                 }
 
@@ -54,24 +54,23 @@
                     }
                 }
 
-                >.el-tabs__content {
+                > .el-tabs__content {
                     padding: 20px 0 0 !important;
                 }
 
                 &.el-tabs--left {
-                    >.el-tabs__content {
+                    > .el-tabs__content {
                         padding: 10px 10px 10px 0 !important;
                     }
                 }
 
                 &.el-tabs--right {
-                    >.el-tabs__content {
+                    > .el-tabs__content {
                         padding: 10px 0 10px 10px !important;
                     }
                 }
 
                 &.el-tabs--border-card {
-
                     .el-tabs__header {
                         padding: 0;
 
@@ -82,12 +81,10 @@
                         }
                     }
 
-                    >.el-tabs__content {
+                    > .el-tabs__content {
                         padding: 20px 0 !important;
                     }
                 }
-
-
 
                 &.el-tabs--card {
                     background: transparent;
@@ -112,8 +109,7 @@
                         }
                     }
 
-
-                    >.el-tabs__content {
+                    > .el-tabs__content {
                         border-color: var(--el-border-color-light);
                         border-width: 0 1px 1px 1px;
                         border-radius: 0 0 4px 4px;
@@ -123,21 +119,21 @@
                     }
 
                     &.el-tabs--left {
-                        >.el-tabs__content {
+                        > .el-tabs__content {
                             border-width: 1px;
                             border-radius: 0 4px 4px 0;
                         }
                     }
 
                     &.el-tabs--right {
-                        >.el-tabs__content {
+                        > .el-tabs__content {
                             border-width: 1px;
                             border-radius: 4px 0 0 4px;
                         }
                     }
 
                     &.el-tabs--bottom {
-                        >.el-tabs__content {
+                        > .el-tabs__content {
                             border-width: 1px 1px 0 1px;
                             border-radius: 4px 4px 0 0;
                         }
@@ -174,7 +170,6 @@
 
     #drawer & {
         &.w {
-
             &-compact,
             &-sidebar {
                 max-width: 100%;
@@ -201,14 +196,13 @@
             }
 
             .sidebar & {
-
                 &.divided {
                     border-bottom: 1px solid var(--el-border-color-lighter);
                     border-top: 1px solid var(--el-border-color-lighter);
                     margin-bottom: 18px;
 
                     .el-form-item {
-                        margin: 10px 0
+                        margin: 10px 0;
                     }
 
                     &.top {
@@ -257,17 +251,17 @@
     &.group:not(.seamless) {
         border: 1px solid var(--el-border-color-lighter);
         background: var(--el-fill-color-light);
-        border-radius: .15rem;
+        border-radius: 0.15rem;
         padding: 10px 18px 18px;
         margin-bottom: 18px;
 
-        >.field-row-full {
+        > .field-row-full {
             padding: 0;
         }
     }
 
     &.seamless {
-        >.field-row-full {
+        > .field-row-full {
             padding: 0;
         }
     }
@@ -305,7 +299,7 @@
             background: var(--el-fill-color-light);
             padding: 10px 18px 18px;
             border: 1px solid var(--el-border-color-lighter);
-            border-radius: .15rem;
+            border-radius: 0.15rem;
             border-bottom: 0;
 
             .field-row-full {
@@ -335,12 +329,11 @@
             align-items: center;
             margin: 0 !important;
 
-
             .el-form-item__label {
                 display: inline-block;
                 margin: 0 !important;
                 font-size: 13px;
-                opacity: .5;
+                opacity: 0.5;
             }
         }
     }
@@ -353,7 +346,6 @@
 
 /* Field Adjustments */
 .el-form-item {
-
     &.inline-label {
         display: flex !important;
         align-items: center;
@@ -371,17 +363,15 @@
     }
 
     .el-form-item__label {
-
         div:first-child {
             display: inline-block;
         }
 
         span {
             font-size: 12px;
-            opacity: .3;
+            opacity: 0.3;
         }
     }
-
 
     .info {
         flex: 0 1 100%;
@@ -394,7 +384,7 @@
 
 .code-wrapper {
     width: 100%;
-
+    /*
     .w-compact & {
         max-width: calc(var(--form-compact-width) - 42px);
     }
@@ -406,4 +396,5 @@
     .w-sidebar & {
         max-width: calc(var(--form-full-width) - 42px);
     }
+*/
 }
