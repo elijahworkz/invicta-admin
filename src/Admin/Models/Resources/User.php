@@ -62,7 +62,7 @@ class User extends Resource
             'id' => Column::id(),
             'active' => Column::boolean('Active'),
             'dev' => Column::boolean('Is Dev'),
-            'title' => Column::make('Name')->sortable(),
+            'title' => Column::make('Name')->sortable()->editLink(),
             'email' => Column::make('Email'),
             'registration' => Column::make('Registration Date'),
             'last_login' => Column::make('Last Login'),
@@ -72,15 +72,10 @@ class User extends Resource
 
     public function displayUserName($request)
     {
-        $editRoute = route('invicta.resource.edit', ['resource' => 'users', 'item' => $this->id]);
-
-        $name = $request->user()->can('edit users')
-            ? "<a href='{$editRoute}' class='edit-link'>{$this->name}</a>"
-            : $this->name;
 
         return <<<HTML
             <div class="mb-1 font-bold">
-                {$name}
+                {$this->name}
             </div>
             <span>{$this->email}</span>
         HTML;

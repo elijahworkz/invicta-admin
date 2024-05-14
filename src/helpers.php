@@ -20,7 +20,7 @@ function invicta_route($name, $params = [])
 }
 
 if (! function_exists('global_set')) {
-    function global_set($handle, $argument = null)
+    function global_set($handle, $attribute = null)
     {
         $cachedSet = Cache::rememberForever('global_set_'.$handle, function () use ($handle) {
             $model = GlobalSetting::where('handle', $handle)->first();
@@ -32,8 +32,8 @@ if (! function_exists('global_set')) {
             return null;
         });
 
-        if ($cachedSet && $argument) {
-            return $cachedSet[$argument];
+        if ($cachedSet && $attribute) {
+            return $cachedSet[$attribute];
         }
 
         return $cachedSet;
