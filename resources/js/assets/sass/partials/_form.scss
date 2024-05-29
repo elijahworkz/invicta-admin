@@ -21,7 +21,8 @@
 
         .main-panel {
             flex: 1;
-            overflow: hidden;
+            //overflow: hidden;
+            width: 100%;
 
             &.has-sidebar {
                 max-width: calc(100% - 320px);

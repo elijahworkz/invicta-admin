@@ -1,7 +1,7 @@
 <template>
     <el-form class="invicta-form" :class="formClass" v-bind="formSettings">
         <div class="flex items-end justify-between mb-4" v-if="!headless">
-            <div>
+            <div class="resource-title">
                 <BackLink
                     v-if="breadcrumb"
                     class="breadcrumb"
@@ -314,6 +314,19 @@ onKeyStroke("Enter", (e) => {
 </script>
 
 <style lang="scss">
+.resource-title {
+  width: 75%;
+
+  h1 {
+    span {
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
 .resource-actions {
     .el-button-group {
         .el-tooltip__trigger.el-button {
