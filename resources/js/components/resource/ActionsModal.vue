@@ -85,7 +85,8 @@ const processAction = () => {
 		let data = { ...actionData.value, fields: [], validation: [] }
 
 		if (action.redirect) {
-			let url = `${action.redirect}?class=${actionData.value.class}&selected[]=${actionData.value.selected.join(',')}`
+      const selected = actionData.value.selected.map((val) => `selected[]=${val}`);
+			let url = `${action.redirect}?class=${actionData.value.class}&${selected.join('&')}`
 			// console.log('trying to redirect', url)
 			window.open(url, '_blank')
 		} else {
