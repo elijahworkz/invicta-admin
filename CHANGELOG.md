@@ -4,6 +4,19 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.1.26](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.1.25...v1.1.26) (2024-07-26)
+
+### Features
+
+* Radio group and group select fields added ([c79b2d](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/c79b2d9f9368a67af295fcd9f30b386d24152b56))
+
+### Bug Fixes
+
+* Popover after upgrade ([60adba](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/60adbaac404dfe24a3953f2be437167eaf6841bc))
+
+
+---
+
 ## [1.1.25](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.1.24...v1.1.25) (2024-06-03)
 
 
