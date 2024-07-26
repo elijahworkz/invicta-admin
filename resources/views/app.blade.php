@@ -63,9 +63,6 @@
 
     <div id="poppers"></div>
 
-    <script type="module">
-    </script>
-
     @auth
         @invictaAssets
     @endauth
@@ -73,7 +70,6 @@
     <script type="module">
         Invicta.init(@json(InvictaAdmin::appVariables()))
         document.addEventListener('InvictaReady', () => {
-            console.log('I see assets loaded event')
             Invicta.start()
         })
     </script>

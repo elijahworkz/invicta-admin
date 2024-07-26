@@ -34,9 +34,7 @@ class MenuItem
     /**
      *  Make new Menu Item.
      */
-    public function __construct(public $name)
-    {
-    }
+    public function __construct(public $name) {}
 
     public function label($value)
     {

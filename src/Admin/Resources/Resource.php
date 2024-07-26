@@ -73,9 +73,7 @@ class Resource extends JsonResource
 
     protected $routePrefix = '/resource/';
 
-    public function __construct(public $resource = null)
-    {
-    }
+    public function __construct(public $resource = null) {}
 
     public function handle()
     {

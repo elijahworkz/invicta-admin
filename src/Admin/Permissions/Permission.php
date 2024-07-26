@@ -13,9 +13,7 @@ class Permission
 
     public $label = null;
 
-    public function __construct(public $ability)
-    {
-    }
+    public function __construct(public $ability) {}
 
     public function children($items)
     {

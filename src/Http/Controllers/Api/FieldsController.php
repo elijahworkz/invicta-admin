@@ -11,7 +11,10 @@ use Illuminate\Support\Str;
 
 class FieldsController extends Controller
 {
-    public function linkableResources(Request $request)
+    /**
+     * @return array<int,array>
+     */
+    public function linkableResources(Request $request): array
     {
         $resources = ResourceRegistrar::all();
 
@@ -35,11 +38,16 @@ class FieldsController extends Controller
         return App::make($request->handle)::remoteOptions($request->search);
     }
 
-    public function linkableResourcesOptions(Request $request)
+    /**
+     * @return array<int,array<string,mixed>>
+     */
+    public function linkableResourcesOptions(Request $request): array
     {
         $resources = ResourceRegistrar::all();
         $resourcesToList = $request->has('resources')
-            ? (is_array($request->resources) ? $request->resources : [$request->resources])
+            ? (is_array($request->resources)
+                ? $request->resources
+                : [$request->resources])
             : null;
 
         $result = [];
@@ -53,14 +61,18 @@ class FieldsController extends Controller
                     continue;
                 }
 
-                $items = $resource->model()->select('id', $resource->titleField)->get();
+                $items = $resource
+                    ->model()
+                    ->select('id', $resource->titleField)
+                    ->get();
 
                 $options = [];
 
                 foreach ($items as $item) {
                     $options[] = [
-                        'value' => $resource->handle().'::'.$item->id,
+                        'value' => $handle.'::'.$item->id,
                         'label' => $item[$resource->titleField],
+                        'group' => $handle,
                     ];
                 }
 

@@ -14,7 +14,5 @@ class ResourceUpdated
      *
      * @param  string  $handle
      */
-    public function __construct(public $handle, public $item)
-    {
-    }
+    public function __construct(public $handle, public $item) {}
 }

@@ -20,12 +20,12 @@ const corsOrigin = gitpod
     ? process.env.GITPOD_WORKSPACE_URL.replace("https://", "https://8000-")
     : workspaceUrl;
 
-const https = false; //env.VITE_SECURE_SERVER
-// ? {
-//       key: fs.readFileSync(`${homedir}${env.VITE_SECURE_SERVER_KEY}`),
-//       cert: fs.readFileSync(`${homedir}${env.VITE_SECURE_SERVER_CERT}`),
-//   }
-// : false;
+const https = env.VITE_SECURE_SERVER
+    ? {
+          key: fs.readFileSync(`${homedir}${env.VITE_SECURE_SERVER_KEY}`),
+          cert: fs.readFileSync(`${homedir}${env.VITE_SECURE_SERVER_CERT}`),
+      }
+    : false;
 
 export default {
     host,

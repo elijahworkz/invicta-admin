@@ -11,7 +11,5 @@ class NavigationError
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public function __construct(public Navigation $menu)
-    {
-    }
+    public function __construct(public Navigation $menu) {}
 }

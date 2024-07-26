@@ -8,9 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 class HandleNavigationError implements ShouldQueue
 {
-    public function __construct(public Navigation $navigation)
-    {
-    }
+    public function __construct(public Navigation $navigation) {}
 
     public function handle(NavigationError $event)
     {

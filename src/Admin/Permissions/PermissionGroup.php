@@ -12,9 +12,7 @@ class PermissionGroup
 
     public $permissions = [];
 
-    public function __construct(public $handle)
-    {
-    }
+    public function __construct(public $handle) {}
 
     public function label($label)
     {

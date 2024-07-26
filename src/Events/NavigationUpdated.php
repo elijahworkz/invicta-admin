@@ -14,7 +14,5 @@ class NavigationUpdated
      *
      * @param  string  $handle
      */
-    public function __construct(public $handle)
-    {
-    }
+    public function __construct(public $handle) {}
 }

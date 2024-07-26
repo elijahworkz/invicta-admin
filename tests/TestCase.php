@@ -71,7 +71,7 @@ class TestCase extends Orchestra
 
     public function createGroupWithAbilities($abilities = null, $name = 'test')
     {
-        $group = new Group();
+        $group = new Group;
         $group->name = $name;
         $group->title = $name;
         $group->save();

@@ -35,9 +35,7 @@ class InvictaBaseServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
-    {
-    }
+    public function register() {}
 
     /**
      * Boot all custom Event listeners.

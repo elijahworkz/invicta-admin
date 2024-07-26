@@ -151,7 +151,7 @@ class User extends Resource
     public function actions()
     {
         return [
-            new ImpersonateUser(),
+            new ImpersonateUser,
         ];
     }
 
