@@ -24,7 +24,7 @@
 
     <style>
         body {
-            background: #f3f7fa;
+            background: #f5f5f5;
             color: #3c4b5f;
             overflow: hidden;
         }
