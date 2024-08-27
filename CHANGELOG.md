@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.1.27](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.1.26...v1.1.27) (2024-08-27)
+
+### Features
+
+* Color update ([787ab8](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/787ab8ceb108547aa33f6953e65db935826e9c5d))
+
+
+---
+
 ## [1.1.26](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.1.25...v1.1.26) (2024-07-26)
 
 ### Features
