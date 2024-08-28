@@ -28,13 +28,15 @@ $sidebar-mini-width: 54px;
     }
 
     &-sidebar {
+        --sidebar-width: $sidebar-width;
+        --sidebar-mini-width: $sidebar-mini-width;
         --sidebar-bg: #3f4458;
         --sidebar-fg: #c0c4cc;
         --sidebar-active-bg: #252A3C;
         --sidebar-active-fg: #ffffff;
-        --sidebar-active-icon: #ff5c22;
+        --sidebar-active-icon: #7BC3F9;
         --sidebar-divider: #5d5e77;
-        width: $sidebar-mini-width;
+        width: var(--sidebar-mini-width);
         height: 100%;
         transition: width 0.2s ease-in-out;
         overflow: hidden;
@@ -96,7 +98,7 @@ $sidebar-mini-width: 54px;
         min-width: 0;
 
         .sidebar-mini & {
-            padding-left: $sidebar-mini-width;
+            padding-left: var(--sidebar-mini-width);
         }
     }
 
