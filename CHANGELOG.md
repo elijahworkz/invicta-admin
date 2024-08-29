@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.1.30](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.1.29...v1.1.30) (2024-08-29)
+
+### Bug Fixes
+
+* Sidebar width style variable ([435360](https://bitbucket.org/eteachergrouprd/invicta-admin/commit/4353606f05b512e3a90c36f9d72fbd52c3aec155))
+
+
+---
+
 ## [1.1.29](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.1.28...v1.1.29) (2024-08-29)
 
 
