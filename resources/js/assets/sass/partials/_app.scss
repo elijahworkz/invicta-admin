@@ -5,6 +5,8 @@ $header-height: 50px;
     overflow: hidden;
     box-sizing: border-box;
     flex-direction: column;
+    --sidebar-width: 240px;
+    --sidebar-mini-width: 54px;
 
     &-header {
         @include flexbox(row, center, flex-start);
@@ -26,8 +28,6 @@ $header-height: 50px;
     }
 
     &-sidebar {
-        --sidebar-width: 240px;
-        --sidebar-mini-width: 54px;
         --sidebar-bg: #3f4458;
         --sidebar-fg: #c0c4cc;
         --sidebar-active-bg: #252A3C;
