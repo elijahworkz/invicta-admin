@@ -4,6 +4,11 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.1.32](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.1.31...v1.1.32) (2024-10-18)
+
+
+---
+
 ## [1.1.31](https://bitbucket.org/eteachergrouprd/invicta-admin/compare/v1.1.30...v1.1.31) (2024-08-30)
 
 
