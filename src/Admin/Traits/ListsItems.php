@@ -206,20 +206,21 @@ trait ListsItems
 
     protected function applySearch($query, $search)
     {
-        if (is_numeric($search)) {
+        if (! empty($this->search)) {
+            $query->where(function ($query) use ($search) {
+                collect($this->search)
+                    ->each(function ($column) use ($query, $search) {
+                        if (is_numeric($search)) {
+                            $query->orWhere($column, $search);
+                        } else {
+                            $query->orWhere($column, 'like', '%'.$search.'%');
+                        }
+                    });
+            });
+        } elseif (is_numeric($search)) {
             $query->where(function ($query) use ($search) {
                 $query->where('id', $search);
             });
-        } else {
-            if (! empty($this->search)) {
-                $query->where(function ($query) use ($search) {
-                    collect($this->search)->filter(function ($column) {
-                        return $column != 'id';
-                    })->each(function ($column) use ($query, $search) {
-                        $query->orWhere($column, 'like', '%'.$search.'%');
-                    });
-                });
-            }
         }
 
         return $query;
