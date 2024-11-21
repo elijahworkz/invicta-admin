@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.1.33](https://github.com/elijahworkz/invicta-admin/compare/v1.1.32...v1.1.33) (2024-11-21)
+
+### Bug Fixes
+
+* Composer typo ([6730e3](https://github.com/elijahworkz/invicta-admin/commit/6730e36150c99c5534717ce0cd3d6e4e2904e87f))
+
+
+---
+
 ## [1.1.32](https://github.com/elijahworkz/invicta-admin/compare/v1.1.31...v1.1.32) (2024-10-18)
 
 
