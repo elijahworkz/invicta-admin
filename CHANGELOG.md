@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.1.39](https://github.com/elijahworkz/invicta-admin/compare/v1.1.38...v1.1.39) (2024-11-21)
+
+### Features
+
+* Localization for navigation and global sets ([a872f1](https://github.com/elijahworkz/invicta-admin/commit/a872f135b5a189fa3192a04f912e1caf85bf0a09))
+
+
+---
+
 ## [1.1.38](https://github.com/elijahworkz/invicta-admin/compare/v1.1.37...v1.1.38) (2024-11-21)
 
 ### Bug Fixes
