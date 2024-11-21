@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.1.37](https://github.com/elijahworkz/invicta-admin/compare/v1.1.36...v1.1.37) (2024-11-21)
+
+### Bug Fixes
+
+* Typo ([961bc3](https://github.com/elijahworkz/invicta-admin/commit/961bc3d2175f1379686297028d15fc946eae3141))
+
+
+---
+
 ## [1.1.36](https://github.com/elijahworkz/invicta-admin/compare/v1.1.35...v1.1.36) (2024-11-21)
 
 
