@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.1.38](https://github.com/elijahworkz/invicta-admin/compare/v1.1.37...v1.1.38) (2024-11-21)
+
+### Bug Fixes
+
+* Globals seeder ([d3b56a](https://github.com/elijahworkz/invicta-admin/commit/d3b56a832405348c2856e44955f2df3d8dbdc127))
+
+
+---
+
 ## [1.1.37](https://github.com/elijahworkz/invicta-admin/compare/v1.1.36...v1.1.37) (2024-11-21)
 
 ### Bug Fixes
