@@ -1,6 +1,6 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Providers;
+namespace Elijahworkz\InvictaAdmin\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -85,16 +85,16 @@ class ConsoleServiceProvider extends ServiceProvider
     public function register()
     {
         $this->commands([
-            \Eteacher\InvictaAdmin\Console\InstallCommand::class,
-            \Eteacher\InvictaAdmin\Console\PublishCommand::class,
-            \Eteacher\InvictaAdmin\Console\AuthPublishCommand::class,
-            \Eteacher\InvictaAdmin\Console\NavPublishCommand::class,
-            \Eteacher\InvictaAdmin\Console\AssetsPublishCommand::class,
-            \Eteacher\InvictaAdmin\Console\MakeSuperAdminCommand::class,
-            \Eteacher\InvictaAdmin\Console\ResourceCommand::class,
-            \Eteacher\InvictaAdmin\Console\ActionCommand::class,
-            \Eteacher\InvictaAdmin\Console\FilterCommand::class,
-            \Eteacher\InvictaAdmin\Console\GlobalSettingPublishCommand::class,
+            \Elijahworkz\InvictaAdmin\Console\InstallCommand::class,
+            \Elijahworkz\InvictaAdmin\Console\PublishCommand::class,
+            \Elijahworkz\InvictaAdmin\Console\AuthPublishCommand::class,
+            \Elijahworkz\InvictaAdmin\Console\NavPublishCommand::class,
+            \Elijahworkz\InvictaAdmin\Console\AssetsPublishCommand::class,
+            \Elijahworkz\InvictaAdmin\Console\MakeSuperAdminCommand::class,
+            \Elijahworkz\InvictaAdmin\Console\ResourceCommand::class,
+            \Elijahworkz\InvictaAdmin\Console\ActionCommand::class,
+            \Elijahworkz\InvictaAdmin\Console\FilterCommand::class,
+            \Elijahworkz\InvictaAdmin\Console\GlobalSettingPublishCommand::class,
         ]);
     }
 }

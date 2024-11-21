@@ -1,6 +1,6 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Events;
+namespace Elijahworkz\InvictaAdmin\Events;
 
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;

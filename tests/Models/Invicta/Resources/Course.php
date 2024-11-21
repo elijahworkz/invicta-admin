@@ -1,16 +1,16 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Tests\Models\Invicta\Resources;
+namespace Elijahworkz\InvictaAdmin\Tests\Models\Invicta\Resources;
 
-use Eteacher\InvictaAdmin\Admin\Components\Column;
-use Eteacher\InvictaAdmin\Admin\Resources\Resource;
+use Elijahworkz\InvictaAdmin\Admin\Components\Column;
+use Elijahworkz\InvictaAdmin\Admin\Resources\Resource;
 
 class Course extends Resource
 {
     /**
      * The underlying resource model.
      */
-    public $model = 'Eteacher\InvictaAdmin\Tests\Models\Course';
+    public $model = 'Elijahworkz\InvictaAdmin\Tests\Models\Course';
 
     public $title = 'Courses';
 

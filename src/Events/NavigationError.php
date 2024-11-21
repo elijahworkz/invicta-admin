@@ -1,8 +1,8 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Events;
+namespace Elijahworkz\InvictaAdmin\Events;
 
-use Eteacher\InvictaAdmin\Admin\Models\Navigation;
+use Elijahworkz\InvictaAdmin\Admin\Models\Navigation;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;

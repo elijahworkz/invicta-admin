@@ -1,6 +1,6 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Admin\Traits;
+namespace Elijahworkz\InvictaAdmin\Admin\Traits;
 
 trait EnableSeo
 {

@@ -1,15 +1,15 @@
 <?php
 
-namespace Eteacher\InvictaAdmin;
+namespace Elijahworkz\InvictaAdmin;
 
 use Illuminate\Support\AggregateServiceProvider;
 
 class InvictaServiceProvider extends AggregateServiceProvider
 {
     protected $providers = [
-        \Eteacher\InvictaAdmin\Providers\AppServiceProvider::class,
-        \Eteacher\InvictaAdmin\Providers\AuthServiceProvider::class,
-        \Eteacher\InvictaAdmin\Providers\EventsServiceProvider::class,
-        \Eteacher\InvictaAdmin\Providers\BroadcastServiceProvider::class,
+        \Elijahworkz\InvictaAdmin\Providers\AppServiceProvider::class,
+        \Elijahworkz\InvictaAdmin\Providers\AuthServiceProvider::class,
+        \Elijahworkz\InvictaAdmin\Providers\EventsServiceProvider::class,
+        \Elijahworkz\InvictaAdmin\Providers\BroadcastServiceProvider::class,
     ];
 }

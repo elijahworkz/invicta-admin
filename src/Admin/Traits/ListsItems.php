@@ -1,8 +1,8 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Admin\Traits;
+namespace Elijahworkz\InvictaAdmin\Admin\Traits;
 
-use Eteacher\InvictaAdmin\Http\Resources\ItemsCollection;
+use Elijahworkz\InvictaAdmin\Http\Resources\ItemsCollection;
 use Illuminate\Support\Str;
 
 trait ListsItems

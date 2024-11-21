@@ -1,12 +1,12 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Facades;
+namespace Elijahworkz\InvictaAdmin\Facades;
 
-use Eteacher\InvictaAdmin\Admin\Permissions\PermissionRegistrar;
+use Elijahworkz\InvictaAdmin\Admin\Permissions\PermissionRegistrar;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Eteacher\InvictaAdmin\Admin\Permissions\PermissionRegistrar
+ * @see \Elijahworkz\InvictaAdmin\Admin\Permissions\PermissionRegistrar
  */
 class Permission extends Facade
 {

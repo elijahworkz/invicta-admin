@@ -1,8 +1,8 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Providers;
+namespace Elijahworkz\InvictaAdmin\Providers;
 
-use Eteacher\InvictaAdmin\Listeners\SetLastLoginTimestamp;
+use Elijahworkz\InvictaAdmin\Listeners\SetLastLoginTimestamp;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;

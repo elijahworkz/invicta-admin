@@ -1,10 +1,10 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Tests\Feature;
+namespace Elijahworkz\InvictaAdmin\Tests\Feature;
 
-use Eteacher\InvictaAdmin\Admin\Resources\ResourceRegistrar;
-use Eteacher\InvictaAdmin\Tests\Models\Invicta\Resources\Student;
-use Eteacher\InvictaAdmin\Tests\TestCase;
+use Elijahworkz\InvictaAdmin\Admin\Resources\ResourceRegistrar;
+use Elijahworkz\InvictaAdmin\Tests\Models\Invicta\Resources\Student;
+use Elijahworkz\InvictaAdmin\Tests\TestCase;
 use Illuminate\Support\Facades\App;
 use Inertia\Testing\AssertableInertia as Assert;
 

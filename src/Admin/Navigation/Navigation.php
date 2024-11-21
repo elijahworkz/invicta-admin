@@ -1,9 +1,9 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Admin\Navigation;
+namespace Elijahworkz\InvictaAdmin\Admin\Navigation;
 
-use Eteacher\InvictaAdmin\Admin\Models\Navigation as NavigationModel;
-use Eteacher\InvictaAdmin\Events\NavigationError;
+use Elijahworkz\InvictaAdmin\Admin\Models\Navigation as NavigationModel;
+use Elijahworkz\InvictaAdmin\Events\NavigationError;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 

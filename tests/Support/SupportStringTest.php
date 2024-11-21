@@ -1,8 +1,8 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Tests\Support;
+namespace Elijahworkz\InvictaAdmin\Tests\Support;
 
-use Eteacher\InvictaAdmin\Tests\TestCase;
+use Elijahworkz\InvictaAdmin\Tests\TestCase;
 use Illuminate\Support\Str;
 
 class SupportStringTest extends TestCase

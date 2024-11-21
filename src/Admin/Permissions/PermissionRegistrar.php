@@ -1,6 +1,6 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Admin\Permissions;
+namespace Elijahworkz\InvictaAdmin\Admin\Permissions;
 
 class PermissionRegistrar
 {

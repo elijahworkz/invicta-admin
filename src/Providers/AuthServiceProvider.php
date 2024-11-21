@@ -1,8 +1,8 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Providers;
+namespace Elijahworkz\InvictaAdmin\Providers;
 
-use Eteacher\InvictaAdmin\Admin\Permissions\CorePermissions;
+use Elijahworkz\InvictaAdmin\Admin\Permissions\CorePermissions;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;

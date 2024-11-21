@@ -1,6 +1,6 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Admin\Navigation;
+namespace Elijahworkz\InvictaAdmin\Admin\Navigation;
 
 use Illuminate\Support\Facades\DB;
 

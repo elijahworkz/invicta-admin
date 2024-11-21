@@ -1,6 +1,6 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Admin\Actions;
+namespace Elijahworkz\InvictaAdmin\Admin\Actions;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Str;

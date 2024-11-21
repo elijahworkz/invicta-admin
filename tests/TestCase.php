@@ -1,11 +1,11 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Tests;
+namespace Elijahworkz\InvictaAdmin\Tests;
 
-use Eteacher\InvictaAdmin\Admin\Models\Group;
-use Eteacher\InvictaAdmin\InvictaServiceProvider;
-use Eteacher\InvictaAdmin\Providers\InvictaBaseServiceProvider;
-use Eteacher\InvictaAdmin\Tests\Models\User;
+use Elijahworkz\InvictaAdmin\Admin\Models\Group;
+use Elijahworkz\InvictaAdmin\InvictaServiceProvider;
+use Elijahworkz\InvictaAdmin\Providers\InvictaBaseServiceProvider;
+use Elijahworkz\InvictaAdmin\Tests\Models\User;
 use Illuminate\Support\Arr;
 use Inertia\Inertia;
 use Inertia\ServiceProvider as InertiaServiceProvider;
@@ -34,7 +34,7 @@ class TestCase extends Orchestra
     protected function getPackageAliases($app)
     {
         return [
-            'InvictaAdmin' => 'Eteacher\InvictaAdmin\InvictaAdmin',
+            'InvictaAdmin' => 'Elijahworkz\InvictaAdmin\InvictaAdmin',
         ];
     }
 

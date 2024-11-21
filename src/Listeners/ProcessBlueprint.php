@@ -1,8 +1,8 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Listeners;
+namespace Elijahworkz\InvictaAdmin\Listeners;
 
-use Eteacher\InvictaAdmin\Events\BlueprintFound;
+use Elijahworkz\InvictaAdmin\Events\BlueprintFound;
 
 class ProcessBlueprint
 {

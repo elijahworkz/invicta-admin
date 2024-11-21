@@ -1,8 +1,8 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Admin\Models\Actions;
+namespace Elijahworkz\InvictaAdmin\Admin\Models\Actions;
 
-use Eteacher\InvictaAdmin\Admin\Actions\Action;
+use Elijahworkz\InvictaAdmin\Admin\Actions\Action;
 use Illuminate\Database\Eloquent\Collection;
 
 class ImpersonateUser extends Action

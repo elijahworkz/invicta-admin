@@ -1,8 +1,8 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Admin\Traits;
+namespace Elijahworkz\InvictaAdmin\Admin\Traits;
 
-use Eteacher\InvictaAdmin\Facades\Blueprint;
+use Elijahworkz\InvictaAdmin\Facades\Blueprint;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 

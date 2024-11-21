@@ -1,6 +1,6 @@
 <?php
 
-use Eteacher\InvictaAdmin\Admin\Models\GlobalSetting;
+use Elijahworkz\InvictaAdmin\Admin\Models\GlobalSetting;
 
 function invicta_path($path = null)
 {

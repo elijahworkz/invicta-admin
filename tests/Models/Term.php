@@ -1,6 +1,6 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Tests\Models;
+namespace Elijahworkz\InvictaAdmin\Tests\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

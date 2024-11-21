@@ -1,8 +1,8 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Admin\Blueprints;
+namespace Elijahworkz\InvictaAdmin\Admin\Blueprints;
 
-use Eteacher\InvictaAdmin\Events\BlueprintFound;
+use Elijahworkz\InvictaAdmin\Events\BlueprintFound;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;

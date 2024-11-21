@@ -1,15 +1,15 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Providers;
+namespace Elijahworkz\InvictaAdmin\Providers;
 
-use Eteacher\InvictaAdmin\Events\BlueprintFound;
-use Eteacher\InvictaAdmin\Events\NavigationError;
-use Eteacher\InvictaAdmin\Events\NavigationUpdated;
-use Eteacher\InvictaAdmin\Listeners\AddSeoBlueprint;
-use Eteacher\InvictaAdmin\Listeners\ClearNavigationCache;
-use Eteacher\InvictaAdmin\Listeners\EnsureLocalizationFields;
-use Eteacher\InvictaAdmin\Listeners\HandleNavigationError;
-use Eteacher\InvictaAdmin\Listeners\ProcessBlueprint;
+use Elijahworkz\InvictaAdmin\Events\BlueprintFound;
+use Elijahworkz\InvictaAdmin\Events\NavigationError;
+use Elijahworkz\InvictaAdmin\Events\NavigationUpdated;
+use Elijahworkz\InvictaAdmin\Listeners\AddSeoBlueprint;
+use Elijahworkz\InvictaAdmin\Listeners\ClearNavigationCache;
+use Elijahworkz\InvictaAdmin\Listeners\EnsureLocalizationFields;
+use Elijahworkz\InvictaAdmin\Listeners\HandleNavigationError;
+use Elijahworkz\InvictaAdmin\Listeners\ProcessBlueprint;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventsServiceProvider extends ServiceProvider

@@ -1,8 +1,8 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Tests\Models;
+namespace Elijahworkz\InvictaAdmin\Tests\Models;
 
-use Eteacher\InvictaAdmin\Tests\Models\Factories\StudentFactory;
+use Elijahworkz\InvictaAdmin\Tests\Models\Factories\StudentFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;

@@ -1,9 +1,9 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Listeners;
+namespace Elijahworkz\InvictaAdmin\Listeners;
 
-use Eteacher\InvictaAdmin\Admin\Navigation\Navigation;
-use Eteacher\InvictaAdmin\Events\NavigationError;
+use Elijahworkz\InvictaAdmin\Admin\Navigation\Navigation;
+use Elijahworkz\InvictaAdmin\Events\NavigationError;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class HandleNavigationError implements ShouldQueue

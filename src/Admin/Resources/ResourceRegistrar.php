@@ -1,6 +1,6 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Admin\Resources;
+namespace Elijahworkz\InvictaAdmin\Admin\Resources;
 
 class ResourceRegistrar
 {

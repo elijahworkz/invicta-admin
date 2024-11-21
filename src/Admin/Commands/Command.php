@@ -1,8 +1,8 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Admin\Commands;
+namespace Elijahworkz\InvictaAdmin\Admin\Commands;
 
-use Eteacher\InvictaAdmin\InvictaAdmin;
+use Elijahworkz\InvictaAdmin\InvictaAdmin;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Process;
 use Illuminate\Support\Str;

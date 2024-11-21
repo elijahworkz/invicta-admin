@@ -1,6 +1,6 @@
 <?php
 
-use Eteacher\InvictaAdmin\Http\Controllers\Auth\LoginController;
+use Elijahworkz\InvictaAdmin\Http\Controllers\Auth\LoginController;
 
 // API routes
 Route::middleware(['invicta.api'])

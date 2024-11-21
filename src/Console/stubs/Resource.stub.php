@@ -2,8 +2,8 @@
 
 namespace {{ namespace }};
 
-use Eteacher\InvictaAdmin\Admin\Components\Column;
-use Eteacher\InvictaAdmin\Admin\Resources\Resource;
+use Elijahworkz\InvictaAdmin\Admin\Components\Column;
+use Elijahworkz\InvictaAdmin\Admin\Resources\Resource;
 
 class {{ class }} extends Resource
 {

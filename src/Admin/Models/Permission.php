@@ -1,6 +1,6 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Admin\Models;
+namespace Elijahworkz\InvictaAdmin\Admin\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

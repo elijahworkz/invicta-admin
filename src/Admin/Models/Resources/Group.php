@@ -1,13 +1,13 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Admin\Models\Resources;
+namespace Elijahworkz\InvictaAdmin\Admin\Models\Resources;
 
-use Eteacher\InvictaAdmin\Admin\Components\Column;
-use Eteacher\InvictaAdmin\Admin\Resources\Resource;
+use Elijahworkz\InvictaAdmin\Admin\Components\Column;
+use Elijahworkz\InvictaAdmin\Admin\Resources\Resource;
 
 class Group extends Resource
 {
-    public $model = 'Eteacher\InvictaAdmin\Admin\Models\Group';
+    public $model = 'Elijahworkz\InvictaAdmin\Admin\Models\Group';
 
     /**
      * The column name that should be used to represent the resource when being displayed.

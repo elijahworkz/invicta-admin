@@ -1,6 +1,6 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Admin\Filters;
+namespace Elijahworkz\InvictaAdmin\Admin\Filters;
 
 use Illuminate\Support\Str;
 use JsonSerializable;

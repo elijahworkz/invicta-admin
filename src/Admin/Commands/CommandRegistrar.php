@@ -1,6 +1,6 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Admin\Commands;
+namespace Elijahworkz\InvictaAdmin\Admin\Commands;
 
 use Illuminate\Support\Facades\App;
 

@@ -1,17 +1,17 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Admin\Models\Resources;
+namespace Elijahworkz\InvictaAdmin\Admin\Models\Resources;
 
-use Eteacher\InvictaAdmin\Admin\Components\Column;
-use Eteacher\InvictaAdmin\Admin\Models\Actions\EditJsonField;
-use Eteacher\InvictaAdmin\Admin\Models\Actions\ExportSettings;
-use Eteacher\InvictaAdmin\Admin\Models\Actions\ImportSettings;
-use Eteacher\InvictaAdmin\Admin\Resources\Resource;
-use Eteacher\InvictaAdmin\Facades\Permission;
+use Elijahworkz\InvictaAdmin\Admin\Components\Column;
+use Elijahworkz\InvictaAdmin\Admin\Models\Actions\EditJsonField;
+use Elijahworkz\InvictaAdmin\Admin\Models\Actions\ExportSettings;
+use Elijahworkz\InvictaAdmin\Admin\Models\Actions\ImportSettings;
+use Elijahworkz\InvictaAdmin\Admin\Resources\Resource;
+use Elijahworkz\InvictaAdmin\Facades\Permission;
 
 class GlobalSetting extends Resource
 {
-    public $model = 'Eteacher\InvictaAdmin\Admin\Models\GlobalSetting';
+    public $model = 'Elijahworkz\InvictaAdmin\Admin\Models\GlobalSetting';
 
     public $canChangeBlueprints = true;
 

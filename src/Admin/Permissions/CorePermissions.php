@@ -1,8 +1,8 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Admin\Permissions;
+namespace Elijahworkz\InvictaAdmin\Admin\Permissions;
 
-use Eteacher\InvictaAdmin\Facades\Permission;
+use Elijahworkz\InvictaAdmin\Facades\Permission;
 
 class CorePermissions
 {

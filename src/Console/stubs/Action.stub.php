@@ -2,7 +2,7 @@
 
 namespace {{ namespace }};
 
-use Eteacher\InvictaAdmin\Admin\Actions\Action;
+use Elijahworkz\InvictaAdmin\Admin\Actions\Action;
 use Illuminate\Database\Eloquent\Collection;
 
 class {{ class }} extends Action

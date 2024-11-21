@@ -1,13 +1,13 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Admin\Models\Resources;
+namespace Elijahworkz\InvictaAdmin\Admin\Models\Resources;
 
-use Eteacher\InvictaAdmin\Admin\Components\Column;
-use Eteacher\InvictaAdmin\Admin\Resources\Resource;
+use Elijahworkz\InvictaAdmin\Admin\Components\Column;
+use Elijahworkz\InvictaAdmin\Admin\Resources\Resource;
 
 class Navigation extends Resource
 {
-    public $model = 'Eteacher\InvictaAdmin\Admin\Models\Navigation';
+    public $model = 'Elijahworkz\InvictaAdmin\Admin\Models\Navigation';
 
     /**
      * The column name that should be used to represent the resource when being displayed.

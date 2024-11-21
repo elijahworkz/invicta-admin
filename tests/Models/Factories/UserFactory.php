@@ -1,8 +1,8 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Tests\Models\Factories;
+namespace Elijahworkz\InvictaAdmin\Tests\Models\Factories;
 
-use Eteacher\InvictaAdmin\Tests\Models\User;
+use Elijahworkz\InvictaAdmin\Tests\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 

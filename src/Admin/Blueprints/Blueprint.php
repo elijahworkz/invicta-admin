@@ -1,6 +1,6 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Admin\Blueprints;
+namespace Elijahworkz\InvictaAdmin\Admin\Blueprints;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Fluent;

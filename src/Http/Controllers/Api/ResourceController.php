@@ -1,10 +1,10 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Http\Controllers\Api;
+namespace Elijahworkz\InvictaAdmin\Http\Controllers\Api;
 
-use Eteacher\InvictaAdmin\Events\ResourceDeleted;
-use Eteacher\InvictaAdmin\Http\Controllers\Controller;
-use Eteacher\InvictaAdmin\Http\Request\ResourceRequest;
+use Elijahworkz\InvictaAdmin\Events\ResourceDeleted;
+use Elijahworkz\InvictaAdmin\Http\Controllers\Controller;
+use Elijahworkz\InvictaAdmin\Http\Request\ResourceRequest;
 
 class ResourceController extends Controller
 {

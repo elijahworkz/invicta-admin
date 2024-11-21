@@ -1,15 +1,15 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Admin\Models\Resources;
+namespace Elijahworkz\InvictaAdmin\Admin\Models\Resources;
 
-use Eteacher\InvictaAdmin\Admin\Components\Column;
-use Eteacher\InvictaAdmin\Admin\Models\Asset as AssetModel;
-use Eteacher\InvictaAdmin\Admin\Resources\Resource;
+use Elijahworkz\InvictaAdmin\Admin\Components\Column;
+use Elijahworkz\InvictaAdmin\Admin\Models\Asset as AssetModel;
+use Elijahworkz\InvictaAdmin\Admin\Resources\Resource;
 use Illuminate\Support\HtmlString;
 
 class Asset extends Resource
 {
-    public $model = 'Eteacher\InvictaAdmin\Admin\Models\Asset';
+    public $model = 'Elijahworkz\InvictaAdmin\Admin\Models\Asset';
 
     /**
      * The column name that should be used to represent the resource when being displayed.

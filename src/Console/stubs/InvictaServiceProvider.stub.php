@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
-use Eteacher\InvictaAdmin\Admin\Models\Resources\Group;
-use Eteacher\InvictaAdmin\Facades\Menu;
-use Eteacher\InvictaAdmin\Providers\InvictaBaseServiceProvider;
+use Elijahworkz\InvictaAdmin\Admin\Models\Resources\Group;
+use Elijahworkz\InvictaAdmin\Facades\Menu;
+use Elijahworkz\InvictaAdmin\Providers\InvictaBaseServiceProvider;
 
 class InvictaServiceProvider extends InvictaBaseServiceProvider
 {

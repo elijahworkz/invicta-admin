@@ -1,8 +1,8 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Listeners;
+namespace Elijahworkz\InvictaAdmin\Listeners;
 
-use Eteacher\InvictaAdmin\Events\NavigationUpdated;
+use Elijahworkz\InvictaAdmin\Events\NavigationUpdated;
 use Illuminate\Support\Facades\Cache;
 
 class ClearNavigationCache

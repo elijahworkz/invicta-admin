@@ -1,9 +1,9 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Admin\Models\Actions;
+namespace Elijahworkz\InvictaAdmin\Admin\Models\Actions;
 
-use Eteacher\InvictaAdmin\Admin\Actions\Action;
-use Eteacher\InvictaAdmin\Admin\Models\GlobalSetting;
+use Elijahworkz\InvictaAdmin\Admin\Actions\Action;
+use Elijahworkz\InvictaAdmin\Admin\Models\GlobalSetting;
 use Illuminate\Database\Eloquent\Collection;
 
 class ImportSettings extends Action

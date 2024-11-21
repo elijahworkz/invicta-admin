@@ -1,6 +1,6 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Http\Middleware;
+namespace Elijahworkz\InvictaAdmin\Http\Middleware;
 
 use Closure;
 use Illuminate\Auth\AuthenticationException;

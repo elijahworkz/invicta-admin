@@ -1,8 +1,8 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Admin\Permissions;
+namespace Elijahworkz\InvictaAdmin\Admin\Permissions;
 
-use Eteacher\InvictaAdmin\Admin\Traits\Makeable;
+use Elijahworkz\InvictaAdmin\Admin\Traits\Makeable;
 
 class PermissionGroup
 {

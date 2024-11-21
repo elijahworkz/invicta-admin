@@ -1,8 +1,8 @@
 <?php
 
-namespace Eteacher\InvictaAdmin;
+namespace Elijahworkz\InvictaAdmin;
 
-use Eteacher\InvictaAdmin\Facades\Menu;
+use Elijahworkz\InvictaAdmin\Facades\Menu;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
@@ -42,7 +42,7 @@ class InvictaAdmin
 
     public static function version()
     {
-        return \Composer\InstalledVersions::getVersion('eteacher/invicta-admin');
+        return \Composer\InstalledVersions::getVersion('Elijahworkz/invicta-admin');
     }
 
     /**

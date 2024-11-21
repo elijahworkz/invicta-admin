@@ -1,10 +1,10 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Http\Controllers\Api;
+namespace Elijahworkz\InvictaAdmin\Http\Controllers\Api;
 
-use Eteacher\InvictaAdmin\Admin\Models\Group;
-use Eteacher\InvictaAdmin\Facades\Permission;
-use Eteacher\InvictaAdmin\Http\Controllers\Controller;
+use Elijahworkz\InvictaAdmin\Admin\Models\Group;
+use Elijahworkz\InvictaAdmin\Facades\Permission;
+use Elijahworkz\InvictaAdmin\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 

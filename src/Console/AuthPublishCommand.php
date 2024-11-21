@@ -1,6 +1,6 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Console;
+namespace Elijahworkz\InvictaAdmin\Console;
 
 use Illuminate\Console\Command;
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Http\Request;
+namespace Elijahworkz\InvictaAdmin\Http\Request;
 
-use Eteacher\InvictaAdmin\Admin\Actions\ActionJob;
-use Eteacher\InvictaAdmin\Admin\Resources\ResourceRegistrar;
-use Eteacher\InvictaAdmin\Events\ResourceUpdated;
-use Eteacher\InvictaAdmin\Facades\Blueprint;
+use Elijahworkz\InvictaAdmin\Admin\Actions\ActionJob;
+use Elijahworkz\InvictaAdmin\Admin\Resources\ResourceRegistrar;
+use Elijahworkz\InvictaAdmin\Events\ResourceUpdated;
+use Elijahworkz\InvictaAdmin\Facades\Blueprint;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Validator;

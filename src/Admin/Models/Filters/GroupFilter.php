@@ -1,9 +1,9 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Admin\Models\Filters;
+namespace Elijahworkz\InvictaAdmin\Admin\Models\Filters;
 
-use Eteacher\InvictaAdmin\Admin\Filters\Filter;
-use Eteacher\InvictaAdmin\Admin\Models\Group;
+use Elijahworkz\InvictaAdmin\Admin\Filters\Filter;
+use Elijahworkz\InvictaAdmin\Admin\Models\Group;
 
 class GroupFilter extends Filter
 {

@@ -1,14 +1,14 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Admin\Resources;
+namespace Elijahworkz\InvictaAdmin\Admin\Resources;
 
-use Eteacher\InvictaAdmin\Admin\Models\Actions\EditDataRaw;
-use Eteacher\InvictaAdmin\Admin\Models\Actions\ImportResourceItem;
-use Eteacher\InvictaAdmin\Admin\Traits\CanEditItems;
-use Eteacher\InvictaAdmin\Admin\Traits\HasActions;
-use Eteacher\InvictaAdmin\Admin\Traits\HasFilters;
-use Eteacher\InvictaAdmin\Admin\Traits\ListsItems;
-use Eteacher\InvictaAdmin\Admin\Traits\UpdatesRelationships;
+use Elijahworkz\InvictaAdmin\Admin\Models\Actions\EditDataRaw;
+use Elijahworkz\InvictaAdmin\Admin\Models\Actions\ImportResourceItem;
+use Elijahworkz\InvictaAdmin\Admin\Traits\CanEditItems;
+use Elijahworkz\InvictaAdmin\Admin\Traits\HasActions;
+use Elijahworkz\InvictaAdmin\Admin\Traits\HasFilters;
+use Elijahworkz\InvictaAdmin\Admin\Traits\ListsItems;
+use Elijahworkz\InvictaAdmin\Admin\Traits\UpdatesRelationships;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
@@ -174,7 +174,7 @@ class Resource extends JsonResource
     /**
      *  set additional permission for current resource.
      *
-     * @return array instance of Eteacher\InvictaAdmin\Admin\Permissions\Permission
+     * @return array instance of Elijahworkz\InvictaAdmin\Admin\Permissions\Permission
      */
     public function permissions()
     {

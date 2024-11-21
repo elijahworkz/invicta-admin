@@ -1,9 +1,9 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Http\Controllers\Api;
+namespace Elijahworkz\InvictaAdmin\Http\Controllers\Api;
 
-use Eteacher\InvictaAdmin\Admin\Commands\CommandRegistrar;
-use Eteacher\InvictaAdmin\Http\Controllers\Controller;
+use Elijahworkz\InvictaAdmin\Admin\Commands\CommandRegistrar;
+use Elijahworkz\InvictaAdmin\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class CommandsController extends Controller

@@ -1,6 +1,6 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Http\Resources;
+namespace Elijahworkz\InvictaAdmin\Http\Resources;
 
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\ResourceCollection;

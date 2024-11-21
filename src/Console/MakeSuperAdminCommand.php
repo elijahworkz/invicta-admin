@@ -1,6 +1,6 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Console;
+namespace Elijahworkz\InvictaAdmin\Console;
 
 use Illuminate\Console\Command;
 
@@ -28,7 +28,7 @@ class MakeSuperAdminCommand extends Command
     public function handle()
     {
         $user = app(invicta_user_model())::firstOrNew([
-            'email' => 'dev@eteachergroup.com',
+            'email' => 'dev@Elijahworkzgroup.com',
         ]);
 
         $user->password = 'password';
@@ -36,6 +36,6 @@ class MakeSuperAdminCommand extends Command
         $user->dev = true;
         $user->save();
 
-        $this->info('Dev user  with email:`dev@eteachergroup.com` password:`password` was added');
+        $this->info('Dev user  with email:`dev@Elijahworkzgroup.com` password:`password` was added');
     }
 }

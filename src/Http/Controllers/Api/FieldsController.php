@@ -1,10 +1,10 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Http\Controllers\Api;
+namespace Elijahworkz\InvictaAdmin\Http\Controllers\Api;
 
-use Eteacher\InvictaAdmin\Admin\Models\Asset;
-use Eteacher\InvictaAdmin\Admin\Resources\ResourceRegistrar;
-use Eteacher\InvictaAdmin\Http\Controllers\Controller;
+use Elijahworkz\InvictaAdmin\Admin\Models\Asset;
+use Elijahworkz\InvictaAdmin\Admin\Resources\ResourceRegistrar;
+use Elijahworkz\InvictaAdmin\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;

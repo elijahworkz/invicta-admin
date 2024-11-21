@@ -1,12 +1,12 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Admin\Menu;
+namespace Elijahworkz\InvictaAdmin\Admin\Menu;
 
-use Eteacher\InvictaAdmin\Admin\Models\GlobalSetting as GlobalSettingModel;
-use Eteacher\InvictaAdmin\Admin\Models\Group;
-use Eteacher\InvictaAdmin\Admin\Models\Resources\Asset;
-use Eteacher\InvictaAdmin\Admin\Models\Resources\Navigation;
-use Eteacher\InvictaAdmin\Facades\Permission;
+use Elijahworkz\InvictaAdmin\Admin\Models\GlobalSetting as GlobalSettingModel;
+use Elijahworkz\InvictaAdmin\Admin\Models\Group;
+use Elijahworkz\InvictaAdmin\Admin\Models\Resources\Asset;
+use Elijahworkz\InvictaAdmin\Admin\Models\Resources\Navigation;
+use Elijahworkz\InvictaAdmin\Facades\Permission;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
@@ -49,7 +49,7 @@ class Menu
      * Creates Tools Menu Item
      *
      *
-     * @return Eteacher\InvictaAdmin\Admin\Menu\MenuItem
+     * @return Elijahworkz\InvictaAdmin\Admin\Menu\MenuItem
      */
     public function tools($items = []): MenuItem
     {
@@ -82,7 +82,7 @@ class Menu
     /**
      * Creates Global setting menu item
      *
-     * @return Eteacher\InvictaAdmin\Admin\Menu\MenuItem
+     * @return Elijahworkz\InvictaAdmin\Admin\Menu\MenuItem
      */
     public function globalSettings($name = 'Site Settings', $icon = 'settings')
     {
@@ -125,7 +125,7 @@ class Menu
     /**
      * Creates Permission Menu Item with group links as children items.
      *
-     * @return Eteacher\InvictaAdmin\Admin\Menu\MenuItem
+     * @return Elijahworkz\InvictaAdmin\Admin\Menu\MenuItem
      */
     public function permissions($name = 'Permissions')
     {
@@ -144,7 +144,7 @@ class Menu
     /**
      * Get Permission children Menu Items.
      *
-     * @return array Eteacher\InvictaAdmin\Admin\Menu\MenuItem
+     * @return array Elijahworkz\InvictaAdmin\Admin\Menu\MenuItem
      */
     protected function permissionItems()
     {
@@ -168,7 +168,7 @@ class Menu
     /**
      * Creates an Inertia Link from Resource class.
      *
-     * @return Eteacher\InvictaAdmin\Admin\Menu\MenuItem
+     * @return Elijahworkz\InvictaAdmin\Admin\Menu\MenuItem
      */
     public function resource($resourceClass): MenuItem
     {
@@ -182,7 +182,7 @@ class Menu
     /**
      * Shortcut to create navigation menu item.
      *
-     * @return Eteacher\InvictaAdmin\Admin\Menu\MenuItem
+     * @return Elijahworkz\InvictaAdmin\Admin\Menu\MenuItem
      */
     public function navigation($name = 'Navigation'): MenuItem
     {
@@ -201,7 +201,7 @@ class Menu
     /**
      * Shortcut to create assets menu item.
      *
-     * @return Eteacher\InvictaAdmin\Admin\Menu\MenuItem
+     * @return Elijahworkz\InvictaAdmin\Admin\Menu\MenuItem
      */
     public function assets($name = 'Assets'): MenuItem
     {
@@ -216,7 +216,7 @@ class Menu
     /**
      * Shortcut to create a regural internal link.
      *
-     * @return Eteacher\InvictaAdmin\Admin\Menu\MenuItem
+     * @return Elijahworkz\InvictaAdmin\Admin\Menu\MenuItem
      */
     public function link($name, $path): MenuItem
     {
@@ -229,7 +229,7 @@ class Menu
     /**
      * Shortcut to create an external link.
      *
-     * @return Eteacher\InvictaAdmin\Admin\Menu\MenuItem
+     * @return Elijahworkz\InvictaAdmin\Admin\Menu\MenuItem
      */
     public function externalLink($name, $url): MenuItem
     {
@@ -242,7 +242,7 @@ class Menu
     /**
      * Create a menu item.
      *
-     * @return Eteacher\InvictaAdmin\Admin\Menu\MenuItem
+     * @return Elijahworkz\InvictaAdmin\Admin\Menu\MenuItem
      */
     protected function createItem($name): MenuItem
     {

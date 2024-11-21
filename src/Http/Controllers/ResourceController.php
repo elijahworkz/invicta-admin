@@ -1,8 +1,8 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Http\Controllers;
+namespace Elijahworkz\InvictaAdmin\Http\Controllers;
 
-use Eteacher\InvictaAdmin\Http\Request\ResourceRequest;
+use Elijahworkz\InvictaAdmin\Http\Request\ResourceRequest;
 
 class ResourceController extends Controller
 {

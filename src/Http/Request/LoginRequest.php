@@ -1,6 +1,6 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Http\Request;
+namespace Elijahworkz\InvictaAdmin\Http\Request;
 
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;

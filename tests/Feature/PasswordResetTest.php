@@ -1,9 +1,9 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Tests\Feature;
+namespace Elijahworkz\InvictaAdmin\Tests\Feature;
 
-use Eteacher\InvictaAdmin\Tests\Models\User;
-use Eteacher\InvictaAdmin\Tests\TestCase;
+use Elijahworkz\InvictaAdmin\Tests\Models\User;
+use Elijahworkz\InvictaAdmin\Tests\TestCase;
 use Illuminate\Support\Facades\Password;
 
 class PasswordResetTest extends TestCase

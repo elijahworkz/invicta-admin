@@ -1,13 +1,13 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Providers;
+namespace Elijahworkz\InvictaAdmin\Providers;
 
-use Eteacher\InvictaAdmin\Admin\Commands\CommandRegistrar;
-use Eteacher\InvictaAdmin\Admin\Resources\ResourceRegistrar;
-use Eteacher\InvictaAdmin\Foundation\Vite;
-use Eteacher\InvictaAdmin\Http\Middleware\Authorize;
-use Eteacher\InvictaAdmin\Http\Middleware\Impersonate;
-use Eteacher\InvictaAdmin\Http\Middleware\SetAuthGuard;
+use Elijahworkz\InvictaAdmin\Admin\Commands\CommandRegistrar;
+use Elijahworkz\InvictaAdmin\Admin\Resources\ResourceRegistrar;
+use Elijahworkz\InvictaAdmin\Foundation\Vite;
+use Elijahworkz\InvictaAdmin\Http\Middleware\Authorize;
+use Elijahworkz\InvictaAdmin\Http\Middleware\Impersonate;
+use Elijahworkz\InvictaAdmin\Http\Middleware\SetAuthGuard;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;

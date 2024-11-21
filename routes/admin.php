@@ -1,7 +1,7 @@
 <?php
 
-use Eteacher\InvictaAdmin\Http\Controllers\AdminController;
-use Eteacher\InvictaAdmin\Http\Controllers\ResourceController;
+use Elijahworkz\InvictaAdmin\Http\Controllers\AdminController;
+use Elijahworkz\InvictaAdmin\Http\Controllers\ResourceController;
 
 Route::controller(AdminController::class)->group(function () {
     Route::get('impersonate/leave', 'impersonateLeave')->name('impersonate-leave');

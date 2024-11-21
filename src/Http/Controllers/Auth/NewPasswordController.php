@@ -1,8 +1,8 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Http\Controllers\Auth;
+namespace Elijahworkz\InvictaAdmin\Http\Controllers\Auth;
 
-use Eteacher\InvictaAdmin\Http\Controllers\Controller;
+use Elijahworkz\InvictaAdmin\Http\Controllers\Controller;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;

@@ -1,10 +1,10 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Http\Controllers;
+namespace Elijahworkz\InvictaAdmin\Http\Controllers;
 
 use Carbon\Carbon;
-use Eteacher\InvictaAdmin\Admin\Resources\ResourceRegistrar;
-use Eteacher\InvictaAdmin\InvictaAdmin;
+use Elijahworkz\InvictaAdmin\Admin\Resources\ResourceRegistrar;
+use Elijahworkz\InvictaAdmin\InvictaAdmin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Inertia\Inertia;

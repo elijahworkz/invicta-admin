@@ -1,8 +1,8 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Foundation;
+namespace Elijahworkz\InvictaAdmin\Foundation;
 
-use Eteacher\InvictaAdmin\InvictaAdmin;
+use Elijahworkz\InvictaAdmin\InvictaAdmin;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
 

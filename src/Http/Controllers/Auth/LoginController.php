@@ -1,9 +1,9 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Http\Controllers\Auth;
+namespace Elijahworkz\InvictaAdmin\Http\Controllers\Auth;
 
-use Eteacher\InvictaAdmin\Http\Controllers\Controller;
-use Eteacher\InvictaAdmin\Http\Request\LoginRequest;
+use Elijahworkz\InvictaAdmin\Http\Controllers\Controller;
+use Elijahworkz\InvictaAdmin\Http\Request\LoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 

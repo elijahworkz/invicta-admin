@@ -1,11 +1,11 @@
 {
-    "name": "eteacher/invicta-admin",
+    "name": "Elijahworkz/invicta-admin",
     "description": "Admin Panel for Laravel projects",
     "type": "project",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Eteacher\\InvictaAdmin\\": "src/"
+            "Elijahworkz\\InvictaAdmin\\": "src/"
         },
         "files": [
             "src/helpers.php"
@@ -13,13 +13,13 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Eteacher\\InvictaAdmin\\Tests\\": "tests"
+            "Elijahworkz\\InvictaAdmin\\Tests\\": "tests"
         }
     },
     "authors": [
         {
             "name": "Ilya Gromov",
-            "email": "ilyag@eteachergroup.com"
+            "email": "ilyag@Elijahworkzgroup.com"
         }
     ],
     "require": {
@@ -31,10 +31,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Eteacher\\InvictaAdmin\\InvictaServiceProvider"
+                "Elijahworkz\\InvictaAdmin\\InvictaServiceProvider"
             ],
             "aliases": {
-                "InvictaAdmin": "Eteacher\\InvictaAdmin\\InvictaAdmin"
+                "InvictaAdmin": "Elijahworkz\\InvictaAdmin\\InvictaAdmin"
             }
         }
     },

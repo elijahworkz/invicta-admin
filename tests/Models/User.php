@@ -1,9 +1,9 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Tests\Models;
+namespace Elijahworkz\InvictaAdmin\Tests\Models;
 
-use Eteacher\InvictaAdmin\Admin\Traits\IsInvictaUser;
-use Eteacher\InvictaAdmin\Tests\Models\Factories\UserFactory;
+use Elijahworkz\InvictaAdmin\Admin\Traits\IsInvictaUser;
+use Elijahworkz\InvictaAdmin\Tests\Models\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;

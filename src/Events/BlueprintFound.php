@@ -1,8 +1,8 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Events;
+namespace Elijahworkz\InvictaAdmin\Events;
 
-use Eteacher\InvictaAdmin\Admin\Blueprints\Blueprint;
+use Elijahworkz\InvictaAdmin\Admin\Blueprints\Blueprint;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 

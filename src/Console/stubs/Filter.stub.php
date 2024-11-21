@@ -2,7 +2,7 @@
 
 namespace {{ namespace }};
 
-use Eteacher\InvictaAdmin\Admin\Filters\Filter;
+use Elijahworkz\InvictaAdmin\Admin\Filters\Filter;
 
 class {{ class }} extends Filter
 {

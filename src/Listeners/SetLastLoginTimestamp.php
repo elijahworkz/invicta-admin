@@ -1,6 +1,6 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Listeners;
+namespace Elijahworkz\InvictaAdmin\Listeners;
 
 use Illuminate\Auth\Events\Login;
 

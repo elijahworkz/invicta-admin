@@ -1,11 +1,11 @@
 <?php
 
-use Eteacher\InvictaAdmin\Http\Controllers\Api\AssetController;
-use Eteacher\InvictaAdmin\Http\Controllers\Api\CommandsController;
-use Eteacher\InvictaAdmin\Http\Controllers\Api\FieldsController;
-use Eteacher\InvictaAdmin\Http\Controllers\Api\NavigationController;
-use Eteacher\InvictaAdmin\Http\Controllers\Api\PermissionController;
-use Eteacher\InvictaAdmin\Http\Controllers\Api\ResourceController;
+use Elijahworkz\InvictaAdmin\Http\Controllers\Api\AssetController;
+use Elijahworkz\InvictaAdmin\Http\Controllers\Api\CommandsController;
+use Elijahworkz\InvictaAdmin\Http\Controllers\Api\FieldsController;
+use Elijahworkz\InvictaAdmin\Http\Controllers\Api\NavigationController;
+use Elijahworkz\InvictaAdmin\Http\Controllers\Api\PermissionController;
+use Elijahworkz\InvictaAdmin\Http\Controllers\Api\ResourceController;
 
 Route::post('assets', [AssetController::class, 'store']);
 

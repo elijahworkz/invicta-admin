@@ -1,6 +1,6 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Admin\Contracts;
+namespace Elijahworkz\InvictaAdmin\Admin\Contracts;
 
 interface InvictaHookContract
 {

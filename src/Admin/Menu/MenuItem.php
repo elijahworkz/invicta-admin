@@ -1,12 +1,12 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Admin\Menu;
+namespace Elijahworkz\InvictaAdmin\Admin\Menu;
 
 use BadMethodCallException;
-use Eteacher\InvictaAdmin\Admin\Resources\ResourceRegistrar;
-use Eteacher\InvictaAdmin\Admin\Traits\Makeable;
-use Eteacher\InvictaAdmin\Facades\Permission;
-use Eteacher\InvictaAdmin\InvictaAdmin;
+use Elijahworkz\InvictaAdmin\Admin\Resources\ResourceRegistrar;
+use Elijahworkz\InvictaAdmin\Admin\Traits\Makeable;
+use Elijahworkz\InvictaAdmin\Facades\Permission;
+use Elijahworkz\InvictaAdmin\InvictaAdmin;
 use Illuminate\Support\Facades\App;
 
 class MenuItem

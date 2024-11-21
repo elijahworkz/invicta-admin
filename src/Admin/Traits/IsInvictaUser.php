@@ -1,9 +1,9 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Admin\Traits;
+namespace Elijahworkz\InvictaAdmin\Admin\Traits;
 
-use Eteacher\InvictaAdmin\Admin\Models\Group;
-use Eteacher\InvictaAdmin\Admin\Models\Permission;
+use Elijahworkz\InvictaAdmin\Admin\Models\Group;
+use Elijahworkz\InvictaAdmin\Admin\Models\Permission;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\Access\Authorizable;

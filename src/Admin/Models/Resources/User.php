@@ -1,13 +1,13 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Admin\Models\Resources;
+namespace Elijahworkz\InvictaAdmin\Admin\Models\Resources;
 
 use App\Models\User as UserModel;
 use Carbon\Carbon;
-use Eteacher\InvictaAdmin\Admin\Components\Column;
-use Eteacher\InvictaAdmin\Admin\Models\Actions\ImpersonateUser;
-use Eteacher\InvictaAdmin\Admin\Models\Filters\GroupFilter;
-use Eteacher\InvictaAdmin\Admin\Resources\Resource;
+use Elijahworkz\InvictaAdmin\Admin\Components\Column;
+use Elijahworkz\InvictaAdmin\Admin\Models\Actions\ImpersonateUser;
+use Elijahworkz\InvictaAdmin\Admin\Models\Filters\GroupFilter;
+use Elijahworkz\InvictaAdmin\Admin\Resources\Resource;
 
 class User extends Resource
 {

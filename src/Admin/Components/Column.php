@@ -1,6 +1,6 @@
 <?php
 
-namespace Eteacher\InvictaAdmin\Admin\Components;
+namespace Elijahworkz\InvictaAdmin\Admin\Components;
 
 use Illuminate\Support\Fluent;
 
