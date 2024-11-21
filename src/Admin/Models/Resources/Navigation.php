@@ -4,9 +4,12 @@ namespace Elijahworkz\InvictaAdmin\Admin\Models\Resources;
 
 use Elijahworkz\InvictaAdmin\Admin\Components\Column;
 use Elijahworkz\InvictaAdmin\Admin\Resources\Resource;
+use Elijahworkz\InvictaAdmin\Admin\Traits\Localizable;
 
 class Navigation extends Resource
 {
+    use Localizable;
+
     public $model = 'Elijahworkz\InvictaAdmin\Admin\Models\Navigation';
 
     /**
@@ -34,6 +37,7 @@ class Navigation extends Resource
         return [
             'id' => $this->id,
             'title' => $this->title,
+            'locale' => $this->locale,
             'handle' => $this->handle,
         ];
     }
@@ -44,6 +48,7 @@ class Navigation extends Resource
             'id' => Column::id()->sortable(),
             'title' => Column::make('Title')->sortable()->customLink('/navigation/:id/items'),
             'handle' => Column::make('Handle'),
+            'locale' => Column::make('Locale')->align('center'),
         ];
     }
 

@@ -22,11 +22,14 @@ class NavigationController extends Controller
             ];
         });
 
+        $navResource = ResourceRegistrar::get('navigation');
         $tree = $menu->tree ?? [];
 
         return [
             'actionUrl' => route('invicta.api.nav.updateItems', ['menu' => $menu->id]),
             'menuTitle' => $menu->title,
+            'localizations' => $navResource->localizible() ? $navResource->localesForEdit($menu) : null,
+            'locale' => $menu->locale,
             'tree' => isset($tree['branches']) ? $tree['branches'] : $tree,
             'resources' => $resources,
         ];
@@ -43,5 +46,20 @@ class NavigationController extends Controller
             'type' => 'success',
             'title' => 'Navigation updated',
         ]]);
+    }
+
+    public function localize(Navigation $menu, $locale)
+    {
+        $copy = $menu->replicate([
+            'tree',
+        ])->fill([
+            'handle' => $menu->handle,
+            'title' => $menu->title.'-'.$locale,
+            'origin_id' => $menu->id,
+            'locale' => $locale,
+        ]);
+        $copy->save();
+
+        return $copy->id;
     }
 }

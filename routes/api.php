@@ -6,6 +6,7 @@ use Elijahworkz\InvictaAdmin\Http\Controllers\Api\FieldsController;
 use Elijahworkz\InvictaAdmin\Http\Controllers\Api\NavigationController;
 use Elijahworkz\InvictaAdmin\Http\Controllers\Api\PermissionController;
 use Elijahworkz\InvictaAdmin\Http\Controllers\Api\ResourceController;
+use Illuminate\Support\Facades\Route;
 
 Route::post('assets', [AssetController::class, 'store']);
 
@@ -37,6 +38,7 @@ Route::controller(NavigationController::class)
     ->group(function () {
         Route::get('{menu}/items', 'editItems')->name('editItems');
         Route::post('{menu}/items', 'updateItems')->name('updateItems');
+        Route::post('{menu}/localize/{locale}', 'localize')->name('localize');
     });
 
 Route::controller(FieldsController::class)

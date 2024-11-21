@@ -7,10 +7,13 @@ use Elijahworkz\InvictaAdmin\Admin\Models\Actions\EditJsonField;
 use Elijahworkz\InvictaAdmin\Admin\Models\Actions\ExportSettings;
 use Elijahworkz\InvictaAdmin\Admin\Models\Actions\ImportSettings;
 use Elijahworkz\InvictaAdmin\Admin\Resources\Resource;
+use Elijahworkz\InvictaAdmin\Admin\Traits\Localizable;
 use Elijahworkz\InvictaAdmin\Facades\Permission;
 
 class GlobalSetting extends Resource
 {
+    use Localizable;
+
     public $model = 'Elijahworkz\InvictaAdmin\Admin\Models\GlobalSetting';
 
     public $canChangeBlueprints = true;

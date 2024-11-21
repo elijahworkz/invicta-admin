@@ -272,7 +272,7 @@ class ResourceRequest extends FormRequest
         $locale = $this->route('locale');
 
         $copy = $item->replicate([
-            'content', 'seo',
+            'data', 'seo',
         ])->fill([
             'title' => $item->title.'-'.$locale,
             'slug' => $item->slug.'-'.$locale,

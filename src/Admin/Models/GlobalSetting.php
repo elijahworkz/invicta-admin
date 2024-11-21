@@ -20,6 +20,8 @@ class GlobalSetting extends Model
         'handle',
         'blueprint',
         'data',
+        'origin_id',
+        'locale',
     ];
 
     /**

@@ -6,8 +6,6 @@ class ResourceRegistrar
 {
     protected static $items = [];
 
-    protected static $test = 'Something';
-
     public static function get($handle)
     {
         return isset(static::$items[$handle])
@@ -28,15 +26,5 @@ class ResourceRegistrar
     public static function clear()
     {
         static::$items = [];
-    }
-
-    public static function getTest()
-    {
-        return static::$test;
-    }
-
-    public static function test($value)
-    {
-        static::$test = $value;
     }
 }

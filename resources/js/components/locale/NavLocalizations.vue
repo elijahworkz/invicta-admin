@@ -22,11 +22,8 @@ const router = useRouter()
 
 const props = defineProps({
     localizations: Object,
-    formId: String,
-    resourceUrl: String,
 })
 
-const resourceForm = useResourceForm(props.formId)
 
 const origin = computed(() => {
     let { localizations } = props
@@ -36,10 +33,8 @@ const origin = computed(() => {
 })
 
 const currentLocale = Object.values(props.localizations).filter((l) => l.current)[0].iso
-resourceForm.setLocale(currentLocale)
 
 const localeTitle = (locale) => {
-
     if (locale.origin)
         return 'Original'
 
@@ -51,21 +46,22 @@ const localeTitle = (locale) => {
 }
 
 const handleCommand = (locale) => {
+    console.log('hadndle command', locale)
     let id = locale.translation
         ? locale.translation
         : (locale.origin ? locale.origin : null)
 
-    let handle = resourceForm.settings.handle
-
     if (id) {
-        router.push({ name: 'resourceEdit', params: { id, handle } })
+        console.log('do I have the command', id, locale)
+        router.replace({ name: 'navEditItems', params: { id }, force: true })
     } else {
 
-        Invicta.axios.post(`/api/resource/${handle}/${origin.value}/localize/${locale.iso}`)
+        Invicta.axios.post(`/api/navigation/${origin.value}/localize/${locale.iso}`)
             .then(({ data }) => {
-                console.log('I have created localized version of this page', data)
-                router.push({ name: 'resourceEdit', params: { id: data, handle } })
+                console.log('I have created localized version of this menu', data)
+                router.push({ name: 'navEditItems', params: { id: data } })
             })
     }
 }
 </script>
+/script>

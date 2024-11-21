@@ -9,7 +9,7 @@ class Navigation extends Model
     protected $table = 'navigation';
 
     protected $fillable = [
-        'title', 'handle',
+        'title', 'handle', 'locale', 'origin_id',
     ];
 
     protected $casts = [
