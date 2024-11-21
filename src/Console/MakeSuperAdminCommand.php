@@ -28,7 +28,7 @@ class MakeSuperAdminCommand extends Command
     public function handle()
     {
         $user = app(invicta_user_model())::firstOrNew([
-            'email' => 'dev@Elijahworkzgroup.com',
+            'email' => 'dev@elijahworkz.com',
         ]);
 
         $user->password = 'password';
@@ -36,6 +36,6 @@ class MakeSuperAdminCommand extends Command
         $user->dev = true;
         $user->save();
 
-        $this->info('Dev user  with email:`dev@Elijahworkzgroup.com` password:`password` was added');
+        $this->info('Dev user  with email:`dev@elijahworkz.com` password:`password` was added');
     }
 }
