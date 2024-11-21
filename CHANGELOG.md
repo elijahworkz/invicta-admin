@@ -4,6 +4,10 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.1.35](https://github.com/elijahworkz/invicta-admin/compare/v1.1.34...v1.1.35) (2024-11-21)
+
+
+---
 
 ## [1.1.33](https://github.com/elijahworkz/invicta-admin/compare/v1.1.32...v1.1.33) (2024-11-21)
 
