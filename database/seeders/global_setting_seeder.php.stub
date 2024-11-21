@@ -20,7 +20,7 @@ class GlobalSettingSeeder extends Seeder
         	'title' => 'Seo',
         	'handle' => 'seo',
         	'blueprint' => 'seo',
-        	'content' => [
+        	'data' => [
         		'title_separator' => ' | ',
 				'site_name' => env('APP_NAME')
 			],
