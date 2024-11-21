@@ -42,7 +42,7 @@ class InvictaAdmin
 
     public static function version()
     {
-        return \Composer\InstalledVersions::getVersion('Elijahworkz/invicta-admin');
+        return \Composer\InstalledVersions::getVersion('elijahworkz/invicta-admin');
     }
 
     /**
