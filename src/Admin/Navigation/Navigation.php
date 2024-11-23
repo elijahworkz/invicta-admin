@@ -44,11 +44,15 @@ class Navigation
 
         $tree = isset($this->menu->tree['error']) ? $this->menu->tree['branches'] : $this->menu->tree;
 
-        $this->items = new NavigationItems;
-        $this->collectResources($tree);
-        $this->items->getResources();
+        if (! empty($tree)) {
+            $this->items = new NavigationItems;
+            $this->collectResources($tree);
+            $this->items->getResources();
 
-        return $this->buildTree($tree);
+            return $this->buildTree($tree);
+        }
+
+        return [];
     }
 
     protected function collectResources($tree)
