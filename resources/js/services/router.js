@@ -42,10 +42,9 @@ export const createRouterInstance = (base = null) => {
         path: "/navigation/:id/items",
         component: () => import("@/pages/NavigationEdit.vue"),
         name: "navEditItems",
-        props: (to) => ({ ...to.meta.data }),
       },
       {
-        path: "/group/:id/permission",
+        path: "/group/:id/permissions",
         component: () => import("@/pages/PermissionEdit.vue"),
       },
       {

@@ -55,8 +55,8 @@ Route::controller(PermissionController::class)
     ->name('permission.')
     ->prefix('/group/')
     ->group(function () {
-        Route::get('{group}/permission', 'edit')->name('edit');
-        Route::post('{group}/permission', 'update')->name('update');
+        Route::get('{group}/permissions', 'edit')->name('edit');
+        Route::post('{group}/permissions', 'update')->name('update');
     });
 
 /* Admin tools */
