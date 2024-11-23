@@ -3,11 +3,15 @@
 namespace Elijahworkz\InvictaAdmin\Admin\Menu;
 
 use BadMethodCallException;
+use Elijahworkz\InvictaAdmin\Admin\Models\GlobalSetting;
+use Elijahworkz\InvictaAdmin\Admin\Models\Group;
+use Elijahworkz\InvictaAdmin\Admin\Models\Resources\GlobalSetting as GlobalSettingResource;
 use Elijahworkz\InvictaAdmin\Admin\Resources\ResourceRegistrar;
 use Elijahworkz\InvictaAdmin\Admin\Traits\Makeable;
 use Elijahworkz\InvictaAdmin\Facades\Permission;
 use Elijahworkz\InvictaAdmin\InvictaAdmin;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Schema;
 
 class MenuItem
 {
@@ -26,6 +30,8 @@ class MenuItem
     public $children = false;
 
     public $hasDivider = false;
+
+    public $callback = null;
 
     protected $resource = false;
 
@@ -105,34 +111,132 @@ class MenuItem
         return $this;
     }
 
-    /**
-     * set permission CRUD to the group with current handle
-     *
-     * @param  array  $permissions
-     * @return $this
-     */
-    public function permissions($handle, $permissions = [])
-    {
-        Permission::setPermissions($handle, $permissions);
-
-        $this->can('view '.$handle);
-
-        return $this;
-    }
-
     public static function resource($resourceClass)
     {
         $resource = App::make($resourceClass);
-        ResourceRegistrar::put($resource->handle(), $resource);
+        $resource->setPermissions();
+        $handle = $resource->handle();
+        ResourceRegistrar::put($handle, $resource);
 
         $self = new static($resource->menuTitle());
 
         $self->resource = $resource;
 
         return $self
-            ->permissions($resource->handle(), $resource->permissions())
             ->route($resource->route())
+            ->can('view '.$handle)
             ->icon($resource->icon());
+    }
+
+    public static function permissions($name)
+    {
+        $self = new static($name);
+        $self->callback = 'buildPermissions';
+        $self->label($name)->icon('shield-key')->can('view permissions');
+
+        return $self;
+    }
+
+    public function buildPermissions()
+    {
+        $children = [];
+        if (! Schema::hasTable('groups')) {
+            return null;
+        }
+        $groups = Group::orderByDesc('id')->get();
+        if (! count($groups)) {
+            return null;
+        }
+
+        foreach ($groups as $group) {
+            $route = "/group/$group->id/permissions";
+            $children[] = MenuItem::make($group->title)->route($route)->can('edit permissions');
+        }
+        $this->children($children);
+
+        return $this;
+    }
+
+    public static function globals($name, $icon)
+    {
+        if (! ResourceRegistrar::has('global_settings')) {
+            self::registerGlobalSettingsResource();
+        }
+        $self = new static($name);
+        $self->callback = 'buildGlobalSettings';
+        $self->label($name)->icon($icon)->can('view global_settings');
+
+        return $self;
+    }
+
+    public static function global($handle, $icon)
+    {
+        if (! ResourceRegistrar::has('global_settings')) {
+            self::registerGlobalSettingsResource();
+        }
+        // handle is set as name and will be used to get the global later at the build stage
+        $self = new static($handle);
+        $self->callback = 'addGlobalSettingItem';
+        $self->icon($icon);
+
+        return $self;
+    }
+
+    private static function registerGlobalSettingsResource(): void
+    {
+        ResourceRegistrar::put('global_settings', App::make(GlobalSettingResource::class));
+    }
+
+    public function buildGlobalSettings()
+    {
+        $handle = 'global_settings';
+        $children = [];
+        $permissions = [];
+
+        $globals = GlobalSetting::select(['id', 'title'])->locale()->get();
+        if (! count($globals)) {
+            return null;
+        }
+
+        foreach ($globals as $global) {
+            $permission = "edit {$handle}_item $global->id";
+            $route = "/resource/$handle/$global->id/edit";
+            $children[] = MenuItem::make($global->title)->can([$permission, "edit $handle"])->route($route);
+
+            // Permissions for global settings
+            $permissions[] = Permission::make($permission)->label("Edit $global->title");
+        }
+
+        Permission::group($handle)->label('Global Settings')
+            ->permissions([
+                Permission::make("view $handle")
+                    ->children([
+                        Permission::make("create new $handle"),
+                        Permission::make("edit $handle")->label('Edit all settings'),
+                        Permission::make("edit $handle items")
+                            ->label('Select settings to allow to edit')
+                            ->children($permissions),
+                        Permission::make("delete $handle"),
+                    ]),
+            ]);
+        $this->children($children);
+
+        return $this;
+    }
+
+    public function addGlobalSettingItem()
+    {
+        $global = GlobalSetting::select(['id', 'title'])->where('handle', $this->name)->locale()->first();
+
+        if (! $global) {
+            return null;
+        }
+        $permission = "view {$this->name}_global";
+        Permission::make($permission)->label("View $global->title");
+
+        $this->label($global->title)->route("/resource/global_settings/$global->id/edit")->can($permission);
+
+        return $this;
     }
 
     public function children(array $items)
@@ -148,6 +252,8 @@ class MenuItem
 
     public function render($child = false)
     {
+        // For special menu items like groups - we want to
+        // have custom render where the logic of
         return [
             'name' => $this->name,
             'url' => $this->url,

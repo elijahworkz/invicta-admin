@@ -9,6 +9,7 @@ use Elijahworkz\InvictaAdmin\Admin\Traits\HasActions;
 use Elijahworkz\InvictaAdmin\Admin\Traits\HasFilters;
 use Elijahworkz\InvictaAdmin\Admin\Traits\ListsItems;
 use Elijahworkz\InvictaAdmin\Admin\Traits\UpdatesRelationships;
+use Elijahworkz\InvictaAdmin\Facades\Permission;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
@@ -142,6 +143,11 @@ class Resource extends JsonResource
     public function sortable()
     {
         return method_exists($this->model(), 'orderColumnName');
+    }
+
+    public function setPermissions()
+    {
+        Permission::setPermissions($this->handle(), $this->permissions());
     }
 
     public function localizible()

@@ -2,7 +2,6 @@
 
 namespace Elijahworkz\InvictaAdmin\Admin\Menu;
 
-use Elijahworkz\InvictaAdmin\Admin\Models\GlobalSetting as GlobalSettingModel;
 use Elijahworkz\InvictaAdmin\Admin\Models\Group;
 use Elijahworkz\InvictaAdmin\Admin\Models\Resources\Asset;
 use Elijahworkz\InvictaAdmin\Admin\Models\Resources\Navigation;
@@ -21,15 +20,26 @@ class Menu
 
     public function build(): Collection
     {
+        // First we run through possible callbacks
+        $this->items = collect($this->items)->map(function ($item) {
+            if ($item->callback) {
+                $callback = $item->callback;
+                $item = $item->$callback();
+            }
+
+            return $item;
+        })->filter();
+
         return $this
             ->authorizeItems()
             ->authorizeChildren()
             ->render();
     }
 
+    /** @return mixed  */
     public function render()
     {
-        return $this->items->map(function ($item) {
+        return collect($this->items)->map(function ($item) {
             return $item->render();
         });
     }
@@ -85,40 +95,20 @@ class Menu
      */
     public function globalSettings($name = 'Site Settings', $icon = 'settings')
     {
-        $handle = 'global_settings';
-        $items = [];
-        $globalSettingItems = [];
+        $item = MenuItem::globals($name, $icon);
 
-        $globals = GlobalSettingModel::select(['id', 'title'])->get();
-
-        foreach ($globals as $globalItem) {
-            $itemPermission = "edit global_settings_item $globalItem->id";
-
-            $route = "/resource/$handle/$globalItem->id/edit";
-
-            $items[] = MenuItem::make($globalItem->title)->can([$itemPermission, "edit $handle"])->route($route);
-
-            //add permission for each global settings item
-            $globalSettingItems[] = Permission::make($itemPermission)->label('Edit '.$globalItem->title);
-        }
-
-        Permission::group($handle)->label('Global Settings')
-            ->permissions([
-                Permission::make("view $handle")->children([
-                    Permission::make("create new $handle"),
-                    Permission::make("edit $handle")->label('Edit all settings'),
-                    Permission::make("edit $handle items")
-                        ->label('Select settings to edit')->children($globalSettingItems),
-                    Permission::make("delete $handle"),
-                ]),
-            ]);
-
-        $item = $this->createItem($name)
-            ->icon($icon)
-            ->children($items)
-            ->can("view $handle");
+        $this->items[] = $item;
 
         return $item;
+    }
+
+    public function globalSetting($handle, $icon = 'settings')
+    {
+        $item = MenuItem::global($handle, $icon);
+        $this->items[] = $item;
+
+        return $item;
+
     }
 
     /**
@@ -128,16 +118,11 @@ class Menu
      */
     public function permissions($name = 'Permissions')
     {
-        $groups = $this->permissionItems();
+        $item = MenuItem::permissions($name);
 
-        if (! count($groups)) {
-            return null;
-        }
+        $this->items[] = $item;
 
-        return $this->createItem($name)
-            ->icon('shield-key')
-            ->children($groups)
-            ->can('view permissions');
+        return $item;
     }
 
     /**
@@ -217,7 +202,7 @@ class Menu
      *
      * @return Elijahworkz\InvictaAdmin\Admin\Menu\MenuItem
      */
-    public function link($name, $path): MenuItem
+    public function link($name, $path)
     {
         $item = $this->createItem($name);
         $item->route($path)->link();
@@ -227,10 +212,8 @@ class Menu
 
     /**
      * Shortcut to create an external link.
-     *
-     * @return Elijahworkz\InvictaAdmin\Admin\Menu\MenuItem
      */
-    public function externalLink($name, $url): MenuItem
+    public function externalLink($name, $url)
     {
         $item = $this->createItem($name);
         $item->route($url)->link(true);

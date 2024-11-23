@@ -23,6 +23,11 @@ class ResourceRegistrar
         static::$items[$handle] = $resource;
     }
 
+    public static function has($handle)
+    {
+        return isset(static::$items[$handle]);
+    }
+
     public static function clear()
     {
         static::$items = [];
