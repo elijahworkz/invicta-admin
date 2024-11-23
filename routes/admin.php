@@ -2,6 +2,7 @@
 
 use Elijahworkz\InvictaAdmin\Http\Controllers\AdminController;
 use Elijahworkz\InvictaAdmin\Http\Controllers\ResourceController;
+use Illuminate\Support\Facades\Route;
 
 Route::controller(AdminController::class)->group(function () {
     Route::get('impersonate/leave', 'impersonateLeave')->name('impersonate-leave');

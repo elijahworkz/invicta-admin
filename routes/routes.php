@@ -1,6 +1,7 @@
 <?php
 
 use Elijahworkz\InvictaAdmin\Http\Controllers\Auth\LoginController;
+use Illuminate\Support\Facades\Route;
 
 // API routes
 Route::middleware(['invicta.api'])
