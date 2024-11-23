@@ -1,6 +1,7 @@
 <?php
 
 use Elijahworkz\InvictaAdmin\Admin\Models\GlobalSetting;
+use Illuminate\Support\Facades\Cache;
 
 function invicta_path($path = null)
 {
@@ -23,7 +24,7 @@ if (! function_exists('global_set')) {
     function global_set($handle, $attribute = null)
     {
         $cachedSet = Cache::rememberForever('global_set_'.$handle, function () use ($handle) {
-            $model = GlobalSetting::where('handle', $handle)->first();
+            $model = GlobalSetting::where('handle', $handle)->locale()->first();
 
             if ($model) {
                 return $model->data;

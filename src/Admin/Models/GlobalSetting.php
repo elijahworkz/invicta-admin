@@ -3,6 +3,7 @@
 namespace Elijahworkz\InvictaAdmin\Admin\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
 
 class GlobalSetting extends Model
@@ -41,6 +42,11 @@ class GlobalSetting extends Model
         self::updated(function ($model) {
             Cache::forget('global_set_'.$model->handle);
         });
+    }
+
+    public function scopeLocale($query)
+    {
+        return $query->where('locale', App::currentLocale());
     }
 
     public static function getFilterOptions($globalSet, $attribute, $id = 'slug', $label = 'title')
