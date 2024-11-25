@@ -28,6 +28,11 @@
                 <div class="info info-bottom opacity-60">Set custom CSS classes.</div>
             </el-form-item>
 
+            <el-form-item label="Description">
+                <el-input size="large" v-model="itemForm.text" />
+                <div class="info info-bottom opacity-60">Set item description.</div>
+            </el-form-item>
+
             <el-form-item label="Open in new tab">
                 <el-switch size="large" v-model="itemForm.external" />
                 <div class="info info-bottom opacity-60">Open link in the new tab.</div>

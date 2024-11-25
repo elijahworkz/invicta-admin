@@ -156,6 +156,7 @@ const updateItems = (selected) => {
             type: resources.value[currentResource.value]?.title || item?.type,
             icon: item?.icon,
             css: item?.css,
+            text: item?.text,
             external: item?.external,
             children: []
         }
@@ -219,6 +220,7 @@ const newItem = {
     url: '',
     css: '',
     icon: '',
+    text: '',
     external: false,
 }
 
@@ -260,8 +262,6 @@ const saveNavigation = () => {
         .then(({ data }) => {
             Invicta.message(data.message)
         })
-
-    // router.post(props.actionUrl, { tree: treeItems.value })
 }
 </script>
 

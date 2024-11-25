@@ -3,6 +3,7 @@
 namespace Elijahworkz\InvictaAdmin\Admin\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\App;
 
 class Navigation extends Model
 {
@@ -15,4 +16,9 @@ class Navigation extends Model
     protected $casts = [
         'tree' => 'array',
     ];
+
+    public function scopeLocale($query)
+    {
+        return $query->where('locale', App::currentLocale());
+    }
 }

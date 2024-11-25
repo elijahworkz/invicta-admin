@@ -36,7 +36,7 @@ class Navigation
 
     protected function build($handle)
     {
-        $this->menu = NavigationModel::where('handle', $handle)->first();
+        $this->menu = NavigationModel::where('handle', $handle)->locale()->first();
 
         if (! $this->menu) {
             return [];
@@ -86,6 +86,8 @@ class Navigation
                 'children' => $children,
                 'depth' => $depth,
                 'css' => $branch['css'] ?? null,
+                'icon' => $branch['icon'] ?? null,
+                'text' => $branch['text'] ?? null,
                 'is_external' => $this->setExternal($branch),
                 'target' => $this->setTarget($branch),
             ];
