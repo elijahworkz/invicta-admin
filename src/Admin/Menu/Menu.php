@@ -93,22 +93,21 @@ class Menu
      *
      * @return Elijahworkz\InvictaAdmin\Admin\Menu\MenuItem
      */
-    public function globalSettings($name = 'Site Settings', $icon = 'settings')
+    public function globalSettings($name = 'Site Settings')
     {
-        $item = MenuItem::globals($name, $icon);
+        $item = MenuItem::globals($name);
 
         $this->items[] = $item;
 
         return $item;
     }
 
-    public function globalSetting($handle, $icon = 'settings')
+    public function globalSetting($handle)
     {
-        $item = MenuItem::global($handle, $icon);
+        $item = MenuItem::global($handle);
         $this->items[] = $item;
 
         return $item;
-
     }
 
     /**

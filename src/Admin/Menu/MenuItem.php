@@ -157,19 +157,19 @@ class MenuItem
         return $this;
     }
 
-    public static function globals($name, $icon)
+    public static function globals($name)
     {
         if (! ResourceRegistrar::has('global_settings')) {
             self::registerGlobalSettingsResource();
         }
         $self = new static($name);
         $self->callback = 'buildGlobalSettings';
-        $self->label($name)->icon($icon)->can('view global_settings');
+        $self->label($name)->can('view global_settings');
 
         return $self;
     }
 
-    public static function global($handle, $icon)
+    public static function global($handle)
     {
         if (! ResourceRegistrar::has('global_settings')) {
             self::registerGlobalSettingsResource();
@@ -177,7 +177,6 @@ class MenuItem
         // handle is set as name and will be used to get the global later at the build stage
         $self = new static($handle);
         $self->callback = 'addGlobalSettingItem';
-        $self->icon($icon);
 
         return $self;
     }

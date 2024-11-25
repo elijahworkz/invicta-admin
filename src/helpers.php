@@ -1,7 +1,9 @@
 <?php
 
 use Elijahworkz\InvictaAdmin\Admin\Models\GlobalSetting;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Fluent;
 
 function invicta_path($path = null)
 {
@@ -24,10 +26,14 @@ if (! function_exists('global_set')) {
     function global_set($handle, $attribute = null)
     {
         $cachedSet = Cache::rememberForever('global_set_'.$handle, function () use ($handle) {
-            $model = GlobalSetting::where('handle', $handle)->locale()->first();
+            $sets = GlobalSetting::where('handle', $handle)->get()->keyBy('locale');
 
-            if ($model) {
-                return $model->data;
+            if ($sets) {
+
+                $locale = App::currentLocale();
+                $set = (isset($sets[$locale])) ? $sets[$locale] : $sets->first();
+
+                return new Fluent($set->data);
             }
 
             return null;
