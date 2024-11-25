@@ -4,6 +4,22 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.1.40](https://github.com/elijahworkz/invicta-admin/compare/v1.1.39...v1.1.40) (2024-11-25)
+
+### Features
+
+* Add callbacks to menu items ([3fb7f9](https://github.com/elijahworkz/invicta-admin/commit/3fb7f933a0034440b34efe433fac66f8278626ae))
+* Add description to menu items ([313065](https://github.com/elijahworkz/invicta-admin/commit/313065c7dde5c2e6069ef5b6629913c31338d474))
+* Localize global settings ([5fcbef](https://github.com/elijahworkz/invicta-admin/commit/5fcbef90d263102772f6a59fe91e246733bf7a93))
+
+### Bug Fixes
+
+* Adding custom icon to global set menus ([014dbf](https://github.com/elijahworkz/invicta-admin/commit/014dbfa995b02a23c8c4457f763e8f73afb9acfb))
+* Error when using empty navigation ([ec7891](https://github.com/elijahworkz/invicta-admin/commit/ec78917bd09ee0c3416ada843622cab69cb9cbae))
+
+
+---
+
 ## [1.1.39](https://github.com/elijahworkz/invicta-admin/compare/v1.1.38...v1.1.39) (2024-11-21)
 
 ### Features
