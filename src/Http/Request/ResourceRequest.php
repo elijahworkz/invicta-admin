@@ -271,9 +271,9 @@ class ResourceRequest extends FormRequest
         $item = $resourceClass->findModel($this->route('item'), false);
         $locale = $this->route('locale');
 
-        $copy = $item->replicate([
-            'data', 'seo',
-        ])->fill([
+        // NOTE - removing replicate so that localized copy has the original content
+        // not sure about possible side effects
+        $copy = $item->replicate()->fill([
             'title' => $item->title.'-'.$locale,
             'slug' => $item->slug.'-'.$locale,
             'origin_id' => $item->id,
