@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.1.41](https://github.com/elijahworkz/invicta-admin/compare/v1.1.40...v1.1.41) (2024-12-03)
+
+### Bug Fixes
+
+* Localizing item breaking when data is not nullable ([d50b96](https://github.com/elijahworkz/invicta-admin/commit/d50b96d7e03abf7a280c78989c66c34943750dac))
+
+
+---
+
 ## [1.1.40](https://github.com/elijahworkz/invicta-admin/compare/v1.1.39...v1.1.40) (2024-11-25)
 
 ### Features
