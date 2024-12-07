@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.1.42](https://github.com/elijahworkz/invicta-admin/compare/v1.1.41...v1.1.42) (2024-12-07)
+
+### Features
+
+* Add localized route middleware ([90f7c2](https://github.com/elijahworkz/invicta-admin/commit/90f7c266b7036366f57f10b1bdf3159d4acd8e3b))
+
+
+---
+
 ## [1.1.41](https://github.com/elijahworkz/invicta-admin/compare/v1.1.40...v1.1.41) (2024-12-03)
 
 ### Bug Fixes
