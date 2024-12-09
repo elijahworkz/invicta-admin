@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.1.43](https://github.com/elijahworkz/invicta-admin/compare/v1.1.42...v1.1.43) (2024-12-09)
+
+### Bug Fixes
+
+* Localization for resource and edit views ([787110](https://github.com/elijahworkz/invicta-admin/commit/787110bfda88df57b4ba563630cc17ca4dda4dc4))
+
+
+---
+
 ## [1.1.42](https://github.com/elijahworkz/invicta-admin/compare/v1.1.41...v1.1.42) (2024-12-07)
 
 ### Features
