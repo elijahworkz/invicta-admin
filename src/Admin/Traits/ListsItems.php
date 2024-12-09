@@ -52,7 +52,7 @@ trait ListsItems
         $table = $this->model()->getTable();
 
         // localization
-        if ($this->localizible()) {
+        if ($this->localizable()) {
             $query = $this->localizeQuery($query);
         }
 
@@ -85,7 +85,7 @@ trait ListsItems
         $table = $this->model()->getTable();
 
         // localization
-        if ($this->localizible()) {
+        if ($this->localizable()) {
             $query = $this->localizeQuery($query);
         }
 

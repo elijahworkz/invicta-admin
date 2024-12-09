@@ -28,7 +28,7 @@ class NavigationController extends Controller
         return [
             'actionUrl' => route('invicta.api.nav.updateItems', ['menu' => $menu->id]),
             'menuTitle' => $menu->title,
-            'localizations' => $navResource->localizible() ? $navResource->localesForEdit($menu) : null,
+            'localizations' => $navResource->localizable() ? $navResource->localesForEdit($menu) : null,
             'locale' => $menu->locale,
             'tree' => isset($tree['branches']) ? $tree['branches'] : $tree,
             'resources' => $resources,

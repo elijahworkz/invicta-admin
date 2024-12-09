@@ -8,6 +8,7 @@ use Elijahworkz\InvictaAdmin\Events\ResourceUpdated;
 use Elijahworkz\InvictaAdmin\Facades\Blueprint;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Fluent;
 
@@ -49,7 +50,7 @@ class ResourceRequest extends FormRequest
                 'table' => $resourceClass->indexTableSettings(),
                 'columns' => $resourceClass->indexColumns(),
                 'sortable' => $resourceClass->sortable(),
-                'locales' => $resourceClass->localizible() ? $resourceClass->locales() : null,
+                'locales' => $resourceClass->localizable() ? $resourceClass->locales() : null,
                 'indexEdit' => $resourceClass->indexEdit,
                 'hasDetail' => method_exists($resourceClass, 'showDetail'),
                 'canCreate' => $resourceClass->canCreate && $user->can("create $handle"),
@@ -129,9 +130,15 @@ class ResourceRequest extends FormRequest
         $resourceClass = $this->resourceClass();
         $item = $resourceClass->findModel($this->route('item'));
         $handle = $resourceClass->handle();
+        $localizable = $resourceClass->localizable();
 
         if (request()->has('blueprint')) {
             $item->blueprint = request()->blueprint;
+        }
+
+        if ($localizable && $item->locale !== App::currentLocale()) {
+            App::setLocale($item->locale);
+            Session::put('locale', $item->locale);
         }
 
         return [
@@ -146,7 +153,7 @@ class ResourceRequest extends FormRequest
                 'pageTitle' => $resourceClass->viewTitle($item),
                 'itemUrl' => (! empty($item->uri)) ? url($item->uri) : null,
             ],
-            'localizations' => $resourceClass->localizible() ? $resourceClass->localesForEdit($item) : null,
+            'localizations' => $localizable ? $resourceClass->localesForEdit($item) : null,
             'blueprint' => request()->has('blueprint')
                 ? Blueprint::findByHandle($resourceClass, request()->blueprint)
                 : Blueprint::getDefault($resourceClass, $item),

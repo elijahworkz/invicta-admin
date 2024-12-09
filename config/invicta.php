@@ -101,6 +101,7 @@ return [
             'locale' => 'en_US',
             'iso' => 'en',
             'url' => '/',
+            'flag' => 'uk',
         ],
     ],
 

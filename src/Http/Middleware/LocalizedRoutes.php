@@ -11,9 +11,9 @@ class LocalizedRoutes
     {
         $locales = array_keys(config('invicta.locales'));
 
-        if (count($locales) > 1) {
-            $maybeLocale = $request->segment(1);
+        if (! empty($locales) && count($locales) > 1) {
 
+            $maybeLocale = $request->segment(1);
             if (in_array($maybeLocale, $locales)) {
                 App::setLocale($maybeLocale);
             }

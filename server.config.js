@@ -15,16 +15,15 @@ const workspaceUrl = env.VITE_DEV_SERVER_URL;
 
 const corsOrigin = workspaceUrl;
 
-const https = env.VITE_SECURE_SERVER
-  ? {
-      key: fs.readFileSync(`${homedir}${env.VITE_SECURE_SERVER_KEY}`),
-      cert: fs.readFileSync(`${homedir}${env.VITE_SECURE_SERVER_CERT}`),
-    }
-  : false;
+// const https = env.VITE_SECURE_SERVER
+//   ? {
+//       key: fs.readFileSync(`${homedir}${env.VITE_SECURE_SERVER_KEY}`),
+//       cert: fs.readFileSync(`${homedir}${env.VITE_SECURE_SERVER_CERT}`),
+//     }
+//   : false;
 
 export default {
   host,
-  https,
   cors: {
     origin: corsOrigin,
     credentials: true,

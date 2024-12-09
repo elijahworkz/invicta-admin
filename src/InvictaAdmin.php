@@ -3,6 +3,7 @@
 namespace Elijahworkz\InvictaAdmin;
 
 use Elijahworkz\InvictaAdmin\Facades\Menu;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
@@ -23,6 +24,8 @@ class InvictaAdmin
             'menu' => self::menu(),
             'user' => base64_encode(json_encode(self::user())),
             'assetsSettings' => self::assetsSettings(),
+            'locales' => config('invicta.locales'),
+            'currentLocale' => App::currentLocale(),
         ];
     }
 

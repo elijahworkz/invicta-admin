@@ -150,7 +150,7 @@ class Resource extends JsonResource
         Permission::setPermissions($this->handle(), $this->permissions());
     }
 
-    public function localizible()
+    public function localizable()
     {
         return method_exists($this, 'locales');
     }

@@ -7,6 +7,7 @@ use Elijahworkz\InvictaAdmin\Admin\Resources\ResourceRegistrar;
 use Elijahworkz\InvictaAdmin\Foundation\Vite;
 use Elijahworkz\InvictaAdmin\Http\Middleware\Authorize;
 use Elijahworkz\InvictaAdmin\Http\Middleware\Impersonate;
+use Elijahworkz\InvictaAdmin\Http\Middleware\Localize;
 use Elijahworkz\InvictaAdmin\Http\Middleware\SetAuthGuard;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Blade;
@@ -58,6 +59,7 @@ class AppServiceProvider extends ServiceProvider
             'web',
             SetAuthGuard::class,
             Impersonate::class,
+            Localize::class,
         ]);
 
         $router->middlewareGroup('invicta.auth', [
@@ -69,6 +71,7 @@ class AppServiceProvider extends ServiceProvider
             'auth:sanctum',
             SetAuthGuard::class,
             Impersonate::class,
+            Localize::class,
         ]);
     }
 

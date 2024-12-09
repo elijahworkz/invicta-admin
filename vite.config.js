@@ -8,6 +8,7 @@ import Components from "unplugin-vue-components/vite";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 import serverConfig from "./server.config.js";
 import path from "path";
+import svgLoader from "vite-svg-loader";
 
 export default defineConfig({
   server: serverConfig,
@@ -30,6 +31,7 @@ export default defineConfig({
       input: ["resources/js/main.js"],
       buildDirectory: "/vendor/invicta/",
       refresh: true,
+      detectTls: "dinvest.test",
     }),
     splitVendorChunkPlugin(),
     vue({
@@ -84,6 +86,7 @@ export default defineConfig({
       algorithm: "brotliCompress",
     }),
     visualizer(),
+    svgLoader(),
   ],
   optimizeDeps: {
     include: ["vue", "axios", "lodash-es"],

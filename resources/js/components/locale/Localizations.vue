@@ -1,24 +1,28 @@
 <template>
     <el-dropdown class="mr-4" @command="handleCommand">
         <el-button size="small" text type="info">
-            <SvgIcon :icon="mdiTranslate" :width="15" class="mr-2" /> {{ localizations[currentLocale].name }}
+            <SvgIcon :icon="mdiTranslate" :width="15" /> <span class="mx-2">{{ localizations[currentLocale].name
+                }}</span>
+            <Flag :country="localizations[currentLocale].flag" />
         </el-button>
         <template #dropdown>
             <el-dropdown-menu>
-                <el-dropdown-item v-for="locale in localizations" :key="locale.iso" :command="locale"
-                    :disabled="locale.current" :title="localeTitle(locale)">
-                    <i class="icon-status" :class="{ 'success': locale.translation || locale.origin }"></i> <span
-                        class="ml-2">{{ locale.name }}</span>
-                </el-dropdown-item>
+                <template v-for="locale in localizations" :key="locale.iso">
+                    <el-dropdown-item v-if="!locale.current" :command="locale" :title="localeTitle(locale)">
+                        <SvgIcon v-if="locale.translation || locale.origin" :icon="mdiTextBoxEditOutline" :width="18"
+                            class="opacity-50" />
+                        <SvgIcon :icon="mdiPlus" :width="18" v-else />
+                        <span class="ml-2">{{ locale.name }}</span>
+                    </el-dropdown-item>
+                </template>
             </el-dropdown-menu>
         </template>
     </el-dropdown>
 </template>
 
 <script setup>
-import { mdiTranslate } from '@mdi/js'
+import { mdiTranslate, mdiPlus, mdiTextBoxEditOutline } from '@mdi/js'
 import { useRouter } from 'vue-router'
-const router = useRouter()
 
 const props = defineProps({
     localizations: Object,
@@ -26,6 +30,7 @@ const props = defineProps({
     resourceUrl: String,
 })
 
+const router = useRouter()
 const resourceForm = useResourceForm(props.formId)
 
 const origin = computed(() => {
@@ -36,7 +41,6 @@ const origin = computed(() => {
 })
 
 const currentLocale = Object.values(props.localizations).filter((l) => l.current)[0].iso
-resourceForm.setLocale(currentLocale)
 
 const localeTitle = (locale) => {
 
@@ -58,14 +62,27 @@ const handleCommand = (locale) => {
     let handle = resourceForm.settings.handle
 
     if (id) {
-        router.push({ name: 'resourceEdit', params: { id, handle } })
+        let url = router.resolve({ name: 'resourceEdit', params: { id, handle } })
+        window.location.href = url.href
     } else {
 
         Invicta.axios.post(`/api/resource/${handle}/${origin.value}/localize/${locale.iso}`)
             .then(({ data }) => {
                 console.log('I have created localized version of this page', data)
-                router.push({ name: 'resourceEdit', params: { id: data, handle } })
+                let url = router.resolve({ name: 'resourceEdit', params: { id: data, handle } })
+                window.location.href = url.href
             })
     }
+}
+
+function loadTranslation(url) {
+    // Get the current URL
+    let currentUrl = new URL(window.location.href);
+
+    // Add or update the 'location' query parameter
+    currentUrl.searchParams.set('locale', locale);
+
+    // Reload the page with the updated URL
+    window.location.href = currentUrl.toString();
 }
 </script>

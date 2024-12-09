@@ -61,11 +61,15 @@ class FieldsController extends Controller
                     continue;
                 }
 
-                $items = $resource
+                $itemsQuery = $resource
                     ->model()
-                    ->select('id', $resource->titleField)
-                    ->get();
+                    ->select('id', $resource->titleField);
 
+                if ($resource->localizable()) {
+                    $itemsQuery->locale();
+                }
+
+                $items = $itemsQuery->get();
                 $options = [];
 
                 foreach ($items as $item) {
