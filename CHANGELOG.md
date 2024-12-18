@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.1.45](https://github.com/elijahworkz/invicta-admin/compare/v1.1.44...v1.1.45) (2024-12-18)
+
+### Bug Fixes
+
+* Uploader accepts settings ([245295](https://github.com/elijahworkz/invicta-admin/commit/2452958ff1f8c7679832201f62973de498ad647a))
+
+
+---
+
 ## [1.1.44](https://github.com/elijahworkz/invicta-admin/compare/v1.1.43...v1.1.44) (2024-12-09)
 
 
