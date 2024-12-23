@@ -41,6 +41,8 @@ class ExportSettings extends Action
             'title' => $item->title,
             'handle' => $item->handle,
             'blueprint' => $item->blueprint,
+            'locale' => $item->locale,
+            'origin_id' => $item->origin_id,
             'data' => $item->data,
         ];
 
