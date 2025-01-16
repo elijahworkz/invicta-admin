@@ -1,0 +1,73 @@
+.image-uploader {
+	white-space: nowrap;
+
+	&.button {
+		display: inline-block;
+	}
+
+	.el-button--small {
+		padding: 9px 7px;
+	}
+}
+
+.dropbox {
+	border: 1px dashed #d9d9d9; /* the dash box */
+	border-radius: 6px;
+	box-sizing: border-box;
+	text-align: center;
+	cursor: pointer;
+	min-height: 180px; /* minimum height */
+	position: relative;
+	overflow: hidden;
+	margin-bottom: 20px;
+
+
+	&.is-dragover {
+		border: 2px dashed #409eff;
+		background: rgba(32,159,255,.06);
+	}
+	.input-file {
+		opacity: 0; /* invisible but it's there! */
+		width: 100%;
+		height: 180px;
+		position: absolute;
+		cursor: pointer;
+		left: 0;
+		top: 0;
+	}
+	.dropbox-text {
+		font-size: 1em;
+		text-align: center;
+		padding: 40px 0 20px;
+
+			svg {
+				color: #c0c4cc;
+				display: block;
+				margin: 0px auto 16px;
+				line-height: 70px;
+				height: 70px;
+				width: 70px;
+			}
+	}
+
+	&.is-initial:hover {
+		border-color: #409eff; /* when mouse over to the drop zone, change color */
+
+		.dropbox-text {
+			svg {
+				color: #409eff;
+			}
+		}
+	}
+	.dropbox-saving {
+		padding: 40px 0 20px;
+	}
+}
+
+.button-upload {
+	display: inline-block;
+
+	.input-file {
+		display: none;
+	}
+}

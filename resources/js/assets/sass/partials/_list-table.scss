@@ -1,0 +1,141 @@
+.icon-status {
+	border-radius: 7px;
+	display: inline-block;
+	height: 7px;
+	width: 7px;
+	flex-shrink: 0;
+	background: var(--color-light-back-darker); //#dde3e9;
+
+	&.success {
+		background: var(--el-color-success)
+	}
+
+}
+
+$action-icon-size: 18px;
+.resource-table {
+	padding: 0 10px;
+
+	.el-table {
+
+		thead {
+			color: var(--el-text-color-regular);
+		}
+		
+		.table-settings {
+			.settings {
+				width: 200px;
+				border-right: 1px solid var(--el-border-color);
+			}
+		}
+
+		.cell {
+			line-height: 1.3;
+			word-break: break-word;
+
+			/* Default visual styles */
+
+			// stack with a header and description
+			.stack {
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+
+				span, strong {
+					display: block;
+				}
+
+				&.heading {
+					strong,
+					span {
+						color: var(--el-text-color-regular)
+					}
+					strong {
+						font-weight: 600;
+					}
+				}
+			}
+		}
+
+		.edit-link {
+			cursor: pointer;
+			
+			&:hover {
+				color: var(--el-color-primary);
+			}
+		}
+	}
+
+	img {
+		max-width: 100%;
+		height: auto;
+
+		&.avatar {
+			width: 2rem;
+			height: 2rem;
+		}
+	}
+}
+
+.list-table {
+	width: 100%;
+
+	tr {
+		background: var(--el-table-tr-bg-color);
+		
+		&:not(:last-child) {
+			border-bottom: 1px solid var(--el-border-color-lighter);
+		}
+
+		&:hover {
+			background: var(--el-fill-color-light);
+		}
+
+		> td {
+			padding: 10px;
+		}
+
+		&.warning-row {
+			--el-table-tr-bg-color: var(--el-color-warning-light-9);
+		}
+	}
+
+	a:hover {
+		color: var(--el-color-primary);
+	}
+}
+
+.action-icon {
+	cursor: pointer;
+	display: inline-block;
+	line-height: 0;
+	outline: none;
+	opacity: .5;
+
+	&:hover {
+		opacity: 1;
+	}
+}
+
+.resource-table,
+.list-table {
+	
+	.actions {
+		.action-icon {
+			width: $action-icon-size;
+			height: $action-icon-size;
+
+			svg {
+				width: $action-icon-size;
+				height: $action-icon-size;
+			}
+
+		 	&:not(:last-child) {
+				margin: 0 .4rem;
+			}
+			&:last-child {
+				margin: 0 0 0 .4rem;
+			}
+		}
+	}
+}

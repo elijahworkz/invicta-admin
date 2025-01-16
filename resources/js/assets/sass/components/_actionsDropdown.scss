@@ -1,0 +1,35 @@
+.actions-popover {
+  .popover-trigger {
+    line-height: 0;
+  }
+
+  .action-icon {
+    margin: 0 !important;
+  }
+}
+
+.popover-content {
+  padding: 0 !important;
+
+  ul {
+    li {
+      &.danger {
+        color: var(--el-color-danger);
+      }
+    }
+  }
+
+  .el-dropdown-menu__item {
+    &:not(.is-disabled) {
+      &:hover {
+        background-color: var(--el-color-primary-light-9);
+        color: var(--el-color-primary);
+      }
+    }
+  }
+
+  .divider {
+    // margin: 6px 0;
+    border-top: 1px solid var(--el-border-color-lighter);
+  }
+}

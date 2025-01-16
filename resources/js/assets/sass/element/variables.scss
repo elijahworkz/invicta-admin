@@ -1,0 +1,119 @@
+@forward 'element-plus/theme-chalk/src/common/var.scss' with (
+  /* Colors
+  -------------------------- */
+  $colors: (
+    (
+      'white': #ffffff,
+      'black': #4a596a,
+      'primary': (
+        'base': #206bc4,
+        'dark': #3673B1,
+      ),
+      'success': (
+        'base': #67c23a,
+      ),
+      'warning': (
+        'base': #e6a23c,
+      ),
+      'danger': (
+        'base': #f56c6c,
+      ),
+      'error': (
+        'base': #f56c6c,
+      ),
+      'info': (
+        'base': #909399,
+      ),
+    )
+  ),
+
+
+  /* Border
+  -------------------------- */
+  $border-color: (
+    (
+      'base': #d3d4d6,
+      'light': #dcdfe6,
+      'lighter': #eff0f3,
+      'extra-light': #e9e9e9,
+    )
+  ),
+
+  // Box-shadow
+  $box-shadow: (
+    (
+      'light': (
+        0px 0px 12px rgba(0, 0, 0, 0.07),
+      ),
+    )
+  ),
+
+  /* Typography
+  -------------------------- */
+  $font-size: (
+    (
+      'extra-large': 22px,
+      'large': 20px,
+      'medium': 16px,
+      'base': 15px,
+      'small': 14px,
+      'extra-small': 12px,
+    )
+  ),
+
+  $text-color: (
+    (
+      'primary': #3c4b5f,
+      'regular': #303133,
+      'secondary': #909399,
+      'placeholder': #a1a1a1,
+    )
+  ),
+
+  /* Border
+  -------------------------- */
+  $border-color-hover: var(--el-border-color-light),
+
+  /* Input
+  -------------------------- */
+  $input: (
+    (
+      'font-color': var(--el-text-color-regular),
+      'border': var(--el-border-base),
+      'border-color': var(--el-border-color-base),
+      'border-radius': var(--el-border-radius-base),
+      'background-color': var(--el-color-white),
+      'icon-color': var(--el-text-color-placeholder),
+      'placeholder-color': var(--el-text-color-placeholder),
+      'hover-border': var(--el-border-color-light),
+      'clear-hover-color': var(--el-text-color-secondary),
+      'focus-border': var(--el-color-primary),
+    )
+  ),
+
+  /* Dialog
+  -------------------------- */
+  $dialog: (
+    (
+      'title-font-size': 1rem,
+    )
+  ),
+
+  // Table
+  $table-padding: (
+    // (
+      'large': 10px 0,
+      'default': 8px 0,
+      'small': 6px 0,
+    // ),
+  ),
+
+  $table-font-size: (
+    (
+      'large': 16px,
+      'default': 15px,
+      'small': 14px,
+    )
+  ),
+
+);

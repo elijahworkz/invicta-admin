@@ -1,0 +1,107 @@
+$header-height: 50px;
+
+.app {
+    height: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+    flex-direction: column;
+    --sidebar-width: 240px;
+    --sidebar-mini-width: 54px;
+
+    &-header {
+        @include flexbox(row, center, flex-start);
+        height: $header-height;
+        color: var(--el-text-color-primary);
+        background: #fff;
+        box-shadow: var(--el-box-shadow-light);
+        border-bottom: 1px solid var(--el-border-color-light);
+        padding: 0 1rem 0 0;
+        z-index: 2001;
+    }
+
+    &-body {
+        @include flexbox();
+        flex: 1;
+        overflow: hidden;
+        position: relative;
+        max-width: 100%;
+    }
+
+    &-sidebar {
+        --sidebar-bg: #3f4458;
+        --sidebar-fg: #c0c4cc;
+        --sidebar-active-bg: #252A3C;
+        --sidebar-active-fg: #ffffff;
+        --sidebar-active-icon: #7BC3F9;
+        --sidebar-divider: #5d5e77;
+        width: var(--sidebar-mini-width);
+        height: 100%;
+        transition: width 0.2s ease-in-out;
+        overflow: hidden;
+        border-right: 1px solid var(--el-border-color);
+        background: var(--sidebar-bg);
+        color: var(--sidebar-fg);
+        position: relative;
+        padding: 10px 0;
+
+        .sidebar-normal {
+            display: block;
+            transition: all 0.2s;
+            transform: translate3d(-25px, 0, 0);
+            opacity: 0;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .sidebar-mini {
+            margin-right: 10px;
+        }
+
+        body:not(.sidebar-mini) &,
+        &:hover {
+            min-width: var(--sidebar-width);
+            width: var(--sidebar-width);
+
+            .sidebar-normal {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+            }
+        }
+
+        .sidebar-mini & {
+            position: fixed;
+            top: $header-height;
+            height: 100%;
+            z-index: 3;
+
+            &:not(:hover) {
+                .nav-group {
+                    span {
+                        display: none;
+                    }
+
+                    &:before {
+                        content: "-";
+                        text-align: center;
+                        display: block;
+                    }
+                }
+            }
+        }
+    }
+
+    &-main {
+        height: 100%;
+        flex: 1;
+        min-width: 0;
+
+        .sidebar-mini & {
+            padding-left: var(--sidebar-mini-width);
+        }
+    }
+
+    &-empty {
+        @include flexbox(row, flex-start, center);
+        flex: 1;
+    }
+}

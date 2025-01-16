@@ -1,0 +1,30 @@
+<?php
+
+namespace Database\Seeders;
+
+use Elijahworkz\InvictaAdmin\Admin\Models\GlobalSetting;
+use Illuminate\Database\Seeder;
+
+class GlobalSettingSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        GlobalSetting::truncate();
+
+        GlobalSetting::create([
+        	'title' => 'Seo',
+        	'handle' => 'seo',
+        	'blueprint' => 'seo',
+        	'data' => [
+        		'title_separator' => ' | ',
+				'site_name' => env('APP_NAME')
+			],
+		]);
+
+    }
+}

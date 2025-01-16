@@ -1,0 +1,64 @@
+{
+    "name": "invicta-admin",
+    "version": "1.1.46",
+    "description": "",
+    "type": "module",
+    "main": "resources/js/main.js",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/elijahworkz/invicta-admin.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/elijahworkz/invicta-admin/issues"
+    },
+    "homepage": "https://github.com/elijahworkz/invicta-admin#readme",
+    "dependencies": {
+        "@ckeditor/ckeditor5-vue": "^4.0.1",
+        "@codemirror/lang-css": "^6.3.0",
+        "@codemirror/lang-json": "^6.0.1",
+        "@codemirror/theme-one-dark": "^6.1.2",
+        "@mdi/js": "^6.9.96",
+        "@popperjs/core": "^2.11.8",
+        "@vueuse/core": "^8.9.4",
+        "@vueuse/shared": "^8.9.4",
+        "axios": "^1.7.7",
+        "ckeditor5-build-invicta": "git+ssh://git@github.com/elijahworkz/ckeditor5-invicta-custom-build.git#main",
+        "codemirror": "^6.0.1",
+        "dayjs": "^1.11.13",
+        "element-plus": "^2.8.8",
+        "get-video-id": "^3.7.0",
+        "mitt": "^3.0.1",
+        "nprogress": "^0.2.0",
+        "pinia": "^2.2.6",
+        "speakingurl": "^14.0.1",
+        "vite-svg-loader": "^5.1.0",
+        "vue": "^3.5.13",
+        "vue-codemirror": "^6.1.1",
+        "vue-router": "^4.4.5",
+        "vuedraggable": "^4.1.0"
+    },
+    "devDependencies": {
+        "@types/lodash": "^4.17.13",
+        "@vitejs/plugin-vue": "^4.6.2",
+        "autoprefixer": "^10.4.20",
+        "eslint": "^8.57.1",
+        "eslint-plugin-vue": "^8.7.1",
+        "laravel-vite-plugin": "^1.0.6",
+        "postcss": "^8.4.49",
+        "rollup-plugin-visualizer": "^5.12.0",
+        "sass": "^1.81.0",
+        "tailwindcss": "^3.4.15",
+        "unplugin-auto-import": "^0.11.5",
+        "unplugin-vue-components": "^0.22.12",
+        "vite": "^5.4.11",
+        "vite-plugin-compression": "^0.5.1"
+    }
+}

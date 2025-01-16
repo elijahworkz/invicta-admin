@@ -1,0 +1,56 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateInvictaAuthTables extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        $tables = config('invicta.auth_tables');
+
+        Schema::table('users', function (Blueprint $table) {
+           $table->boolean('dev')->default(false);
+           $table->timestamp('last_login')->nullable();
+        });
+
+        Schema::create($tables['groups'], function (Blueprint $table) {
+            $table->id();
+            $table->string('handle');
+            $table->string('title');
+            $table->timestamps();
+        });
+
+        Schema::create($tables['group_user'], function (Blueprint $table) use ($tables) {
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('group_id')->constrained($tables['groups'])->onDelete('cascade');
+            $table->primary(['user_id', 'group_id']);
+        });
+
+        Schema::create($tables['permissions'], function (Blueprint $table) use ($tables) {
+            $table->id();
+            $table->foreignId('group_id')->constrained($tables['groups'])->onDelete('cascade');
+            $table->string('ability');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        $tables = config('invicta.auth_tables');
+        Schema::dropIfExists($tables['group_user']);
+        Schema::dropIfExists($tables['permissions']);
+        Schema::dropIfExists($tables['groups']);
+    }
+};
