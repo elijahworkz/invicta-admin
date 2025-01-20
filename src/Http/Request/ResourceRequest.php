@@ -281,10 +281,11 @@ class ResourceRequest extends FormRequest
 
         // NOTE - removing replicate so that localized copy has the original content
         // not sure about possible side effects
+        $new_slug = $item->slug.'-'.$locale;
         $copy = $item->replicate()->fill([
             'title' => $item->title.'-'.$locale,
-            'slug' => $item->slug.'-'.$locale,
-            'uri' => Str::of($item->uri)->start('/'.$locale),
+            'slug' => $new_slug,
+            'uri' => Str::of($new_slug)->start('/'.$locale.'/'),
             'origin_id' => $item->id,
             'locale' => $locale,
         ]);
