@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Fluent;
+use Illuminate\Support\Str;
 
 class ResourceRequest extends FormRequest
 {
@@ -283,6 +284,7 @@ class ResourceRequest extends FormRequest
         $copy = $item->replicate()->fill([
             'title' => $item->title.'-'.$locale,
             'slug' => $item->slug.'-'.$locale,
+            'uri' => Str::of($item->uri)->start('/'.$locale),
             'origin_id' => $item->id,
             'locale' => $locale,
         ]);
