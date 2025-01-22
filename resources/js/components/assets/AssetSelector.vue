@@ -41,16 +41,16 @@
 			<div class="pagination px-2">
 				<el-pagination 
 					background 
-					small 
+					size="small" 
 					layout="prev, pager, next, jumper"
-					:current-page="itemsResource.data.currentPage"
-					:page-size="itemsResource.data.perPage"
-					:pager-count="5"
+					v-model:current-page="itemsResource.data.currentPage"
+					v-model:page-size="itemsResource.data.perPage"
 					:total="itemsResource.data.total"
-					@update:page-size="itemsResource.setPageSize"
-					@update:current-page="itemsResource.setPage"
+					@current-change="itemsResource.setPage"
 				/>
 			</div>
+            <label class="text-secondary">Show</label>
+            <el-input-number size="small" v-model="itemsResource.data.perPage" controls-position="right" />
 			<div class="button-row" v-if="layout == 'list'">
 				<div class="mr-2">Total: <strong>{{itemsResource.total }}</strong></div>
 				<el-button class="ml-auto mr-2" text @click="$emit('cancel')">Cancel</el-button>

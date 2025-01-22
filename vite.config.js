@@ -2,6 +2,7 @@ import { defineConfig, splitVendorChunkPlugin } from "vite";
 import laravel from "laravel-vite-plugin";
 import { visualizer } from "rollup-plugin-visualizer";
 import viteCompression from "vite-plugin-compression";
+import ckeditor5 from "@ckeditor/vite-plugin-ckeditor5";
 import vue from "@vitejs/plugin-vue";
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
@@ -9,6 +10,9 @@ import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 import serverConfig from "./server.config.js";
 import path from "path";
 import svgLoader from "vite-svg-loader";
+
+import { createRequire } from "node:module";
+const require = createRequire(import.meta.url);
 
 export default defineConfig({
   server: serverConfig,
@@ -52,6 +56,8 @@ export default defineConfig({
         },
       },
     }),
+    ckeditor5({ theme: require.resolve("@ckeditor/ckeditor5-theme-lark") }),
+
     AutoImport({
       imports: [
         "vue",

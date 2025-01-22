@@ -33,6 +33,7 @@ import { MoreFilled } from '@element-plus/icons-vue'
 
 const appName = Invicta.getConfig('appName')
 const appVersion = Invicta.getConfig('appVersion')
+const currentLocale = Invicta.getConfig('currentLocale')
 const impersonator = Invicta.getConfig('impersonator')
 
 const toggleSidebar = () => {

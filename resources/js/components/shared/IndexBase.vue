@@ -9,7 +9,7 @@
             </div>
             <div class="ml-auto flex items-center">
                 <LocaleSwitch v-if="resourceIndex.static.settings.locales"
-                    :locales="resourceIndex.static.settings.locales" />
+                    :locales="resourceIndex.static.settings.locales"/>
                 <Actions v-if="resourceIndex.static.actions?.global" :global="true"
                     :actions="resourceIndex.static.actions.global" name="Resource Actions" />
                 <slot name="actions" :settings="resourceIndex.static.settings">
@@ -86,7 +86,7 @@
         <el-scrollbar>
             <div class="px-8 pb-4 pt-12 w-full">
                 <FormBase class="mx-auto" :key="drawerFormId" :form-id="drawerFormId" :resource="drawerItem"
-                    :action-url="drawerFormActionUrl" :params="drawerFormParams" :post-submit-actions="['close']"
+                    :action-url="drawerFormActionUrl" :params="drawerFormParams" :post-submit-actions="['close', 'edit']"
                     @submitted="afterSubmit">
                 </FormBase>
             </div>

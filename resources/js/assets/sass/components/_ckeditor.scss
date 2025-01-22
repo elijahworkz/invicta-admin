@@ -1,0 +1,53 @@
+.text-editor {
+    .el-form-item__content {
+        display: block
+    }
+}
+
+.ck-editor__editable {
+    min-height: 300px;
+}
+
+.ck-editor__nested-editable {
+    min-height: unset;
+}
+
+.ck {
+    &.ck-dropdown {
+        .ck-dropdown__panel {
+
+            &.ck-dropdown__panel_se,
+            &.ck-dropdown__panel_sw {
+                transform: translate3d(0, calc(101% + 0px), 0);
+            }
+        }
+    }
+
+    &.ck-tooltip.ck-tooltip_s {
+        transform: translateY(calc(100.1% + 0px));
+    }
+
+    .ck-widget.ck-widget_with-selection-handler .ck-widget__selection-handler {
+        top: 0;
+    }
+}
+
+.ck-content {
+    .audio-button {
+        margin-bottom: 0.5rem;
+
+        .button-wrap {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .image {
+            margin: 0 10px 0 0;
+        }
+
+        p {
+            margin: 0;
+        }
+    }
+}

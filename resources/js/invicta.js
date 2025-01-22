@@ -119,7 +119,7 @@ class Invicta {
   }
 
   pageTitle(title) {
-    useTitle(title, { titleTemplate: `%s - ${this.getConfig('appName')}` });
+    useTitle(title, { titleTemplate: `%s - ${this.getConfig("appName")}` });
   }
 
   setErrors(errors) {

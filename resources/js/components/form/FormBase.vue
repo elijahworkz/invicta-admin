@@ -72,6 +72,7 @@
                 </el-card>
             </div>
         </div>
+        <TextEditorDrawer :form-id="formId"/>
     </el-form>
 </template>
 

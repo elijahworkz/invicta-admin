@@ -279,6 +279,9 @@ class ResourceRequest extends FormRequest
         $item = $resourceClass->findModel($this->route('item'), false);
         $locale = $this->route('locale');
 
+        App::setLocale($locale);
+        Session::put('locale', $locale);
+
         // NOTE - removing replicate so that localized copy has the original content
         // not sure about possible side effects
         $new_slug = $item->slug.'-'.$locale;
