@@ -242,13 +242,14 @@ const handleBulkDelete = () => {
     }
 };
 
-const afterSubmit = () => {
-    drawer.value = false;
+const afterSubmit = (event) => {
+    if (event.action == 'close') {
+        drawer.value = false;
+    }
     resourceIndex.getResource();
 };
 
 Invicta.on("refresh-resource", () => {
-    console.log("you want to refresh");
     resourceIndex.getResource();
 });
 </script>
