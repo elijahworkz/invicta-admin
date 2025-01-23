@@ -17,23 +17,26 @@
 		</header>
 
 		<main :class="{loading: loading, 'assets grid': layout == 'grid'}">
+            
+            <div class="flex items-center justify-center h-full" v-if="loading">
+                <Loading />
+            </div>
 
-			<ResourceTable
-				v-if="!loading && layout == 'list'"
-				resource-handle="assets"
-				:data="itemsResource.data.resourceData"
-				:columns="itemsResource.static.settings.columns"
-				:no-actions="true"
-				:single-select="true"
-				@single-select="handleSelect"
-			/>
-
-			<GridView v-if="!loading && layout == 'grid'" 
-				:resource="itemsResource.data.resourceData"
-				:selector="true"
-				@asset-selected="gridSelect"/>
-
-			<Loading v-if="loading" />
+            <el-scrollbar v-else>
+                <ResourceTable
+                    v-if="!loading && layout == 'list'"
+                    resource-handle="assets"
+                    :data="itemsResource.data.resourceData"
+                    :columns="itemsResource.static.settings.columns"
+                    :no-actions="true"
+                    :single-select="true"
+                    @single-select="handleSelect"
+                />
+                <GridView v-if="!loading && layout == 'grid'" 
+                    :resource="itemsResource.data.resourceData"
+                    :selector="true"
+                    @asset-selected="gridSelect"/>
+            </el-scrollbar>
 
 		</main>
 
@@ -42,19 +45,12 @@
 				<el-pagination 
 					background 
 					size="small" 
-					layout="prev, pager, next, jumper"
+					layout="prev, pager, next, jumper, sizes"
 					v-model:current-page="itemsResource.data.currentPage"
 					v-model:page-size="itemsResource.data.perPage"
 					:total="itemsResource.data.total"
 					@current-change="itemsResource.setPage"
 				/>
-			</div>
-            <label class="text-secondary">Show</label>
-            <el-input-number size="small" v-model="itemsResource.data.perPage" controls-position="right" />
-			<div class="button-row" v-if="layout == 'list'">
-				<div class="mr-2">Total: <strong>{{itemsResource.total }}</strong></div>
-				<el-button class="ml-auto mr-2" text @click="$emit('cancel')">Cancel</el-button>
-				<el-button type="primary" @click="submitSelected">Select</el-button>
 			</div>
 		</footer>		
 	</div>

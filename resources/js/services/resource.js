@@ -42,6 +42,11 @@ const defineResource = (handle) => {
 
   const loading = ref(false);
 
+  let savedPerPage = Invicta.remember("per-page-size");
+  if (savedPerPage) {
+    perPage.value = parseInt(savedPerPage);
+  }
+
   const setLocale = (locale) => {
     console.log("see you change locale", locale, requestUrl, resourceHandle);
     currentLocale.value = locale;
@@ -55,6 +60,7 @@ const defineResource = (handle) => {
 
   const setPageSize = (size) => {
     console.log("changing page size", perPage.value, size);
+    Invicta.remember("per-page-size", size);
     perPage.value = size;
   };
 
