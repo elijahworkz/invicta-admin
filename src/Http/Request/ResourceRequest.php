@@ -137,11 +137,6 @@ class ResourceRequest extends FormRequest
             $item->blueprint = request()->blueprint;
         }
 
-        if ($localizable && $item->locale !== App::currentLocale()) {
-            App::setLocale($item->locale);
-            Session::put('locale', $item->locale);
-        }
-
         return [
             'item' => $item,
             'meta' => [

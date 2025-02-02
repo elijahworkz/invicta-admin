@@ -55,6 +55,7 @@ const localeTitle = (locale) => {
 }
 
 const handleCommand = (locale) => {
+    console.log('i have this.', locale)
     let id = locale.translation
         ? locale.translation
         : (locale.origin ? locale.origin : null)
@@ -63,7 +64,7 @@ const handleCommand = (locale) => {
 
     if (id) {
         let url = router.resolve({ name: 'resourceEdit', params: { id, handle } })
-        window.location.href = url.href
+        window.location.href = `${url.href}?locale=${locale.iso}`
     } else {
 
         Invicta.axios.post(`/api/resource/${handle}/${origin.value}/localize/${locale.iso}`)

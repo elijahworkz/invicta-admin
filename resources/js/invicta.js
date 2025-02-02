@@ -72,12 +72,9 @@ class Invicta {
   }
 
   start() {
-    console.log(" i am starting");
     this.boot();
 
     this.app.mount(this.mountElement);
-
-    // console.log('started Invicta', this.config)
   }
 
   setupRouter() {

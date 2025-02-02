@@ -24,6 +24,7 @@ declare module '@vue/runtime-core' {
     Command: typeof import('./resources/js/components/commands/Command.vue')['default']
     CopyField: typeof import('./resources/js/components/form/fields/copyField.vue')['default']
     CopyText: typeof import('./resources/js/components/shared/CopyText.vue')['default']
+    CurrentLocale: typeof import('./resources/js/components/locale/CurrentLocale.vue')['default']
     DateField: typeof import('./resources/js/components/form/fields/dateField.vue')['default']
     DateFilter: typeof import('./resources/js/components/resource/DateFilter.vue')['default']
     DividerField: typeof import('./resources/js/components/form/fields/dividerField.vue')['default']
