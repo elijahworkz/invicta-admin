@@ -4,6 +4,19 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.0.6](https://github.com/elijahworkz/invicta-admin/compare/v0.0.5...v0.0.6) (2025-02-03)
+
+### Features
+
+* Current locale ([251092](https://github.com/elijahworkz/invicta-admin/commit/2510926da9234675ddd2afe9728824e665a665ee))
+
+### Bug Fixes
+
+* Replace text editor ([f91541](https://github.com/elijahworkz/invicta-admin/commit/f915415c99796944019c3c3d2e7187734e029cef))
+
+
+---
+
 ## [0.0.5](https://github.com/elijahworkz/invicta-admin/compare/v0.0.4...v0.0.5) (2025-01-31)
 
 
