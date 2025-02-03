@@ -1,23 +1,11 @@
 <template>
-<Drawer 
-    v-if="open" 
-    @close="open = false" 
-    :style="{ width: context == 'assets' ? '80%' : '500px' }">
-    
-    <AssetSelector
-        v-if="context == 'assets'"
-        @selected="selectAsset"
-        @cancel="open = false" />
+    <Drawer v-if="open" @close="open = false" :style="{ width: context == 'assets' ? '80%' : '500px' }">
 
-    <ItemsSelector
-        v-if="context == 'items'"
-        :single-select="true"
-        :select="['uri']"
-        :columns="columns"
-        :resources="resourcesForLinks"
-        @selected="selectItem"
-        @cancel="open = false" />			
-</Drawer>
+        <AssetSelector v-if="context == 'assets'" @selected="selectAsset" @cancel="open = false" />
+
+        <ItemsSelector v-if="context == 'items'" :single-select="true" :select="['uri']" :columns="columns"
+            :resources="resourcesForLinks" @selected="selectItem" @cancel="open = false" />
+    </Drawer>
 </template>
 
 <script setup>
@@ -52,7 +40,6 @@ Invicta.on('open-resource-links', (event) => {
 })
 
 function selectAsset(asset) {
-    console.log('selecting asset', asset, selectEvent)
     Invicta.emit(selectEvent, asset)
     open.value = false
 }

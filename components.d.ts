@@ -126,6 +126,7 @@ declare module '@vue/runtime-core' {
     Sidebar: typeof import('./resources/js/components/app/Sidebar.vue')['default']
     SiteLinks: typeof import('./resources/js/components/app/partials/SiteLinks.vue')['default']
     SlugField: typeof import('./resources/js/components/form/fields/slugField.vue')['default']
+    SunEditor: typeof import('./resources/js/components/form/SunEditor.vue')['default']
     SvgIcon: typeof import('./resources/js/components/shared/SvgIcon.vue')['default']
     TableField: typeof import('./resources/js/components/form/fields/tableField.vue')['default']
     TableSettings: typeof import('./resources/js/components/resource/TableSettings.vue')['default']
