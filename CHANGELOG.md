@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.0.7](https://github.com/elijahworkz/invicta-admin/compare/v0.0.6...v0.0.7) (2025-02-04)
+
+### Bug Fixes
+
+* Text editor insert image and localized items query ([198b26](https://github.com/elijahworkz/invicta-admin/commit/198b264ddc12a7daaa455edde90018b580887fc2))
+
+
+---
+
 ## [0.0.6](https://github.com/elijahworkz/invicta-admin/compare/v0.0.5...v0.0.6) (2025-02-03)
 
 ### Features
