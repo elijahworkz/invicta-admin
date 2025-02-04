@@ -1,77 +1,81 @@
 .el-form-item {
-	margin-bottom: 0;
+    margin-bottom: 0;
+
+    .el-form-item__content {
+        line-height: 1rem;
+    }
 }
 
 .el-select {
-	width: 100%;
+    width: 100%;
 
-	.el-select__tags {
-		.el-tag {
-			background-color: #e6f5f9;
-			color: #2f3539;
-		}
+    .el-select__tags {
+        .el-tag {
+            background-color: #e6f5f9;
+            color: #2f3539;
+        }
 
-		.el-tag__close.el-icon-close {
-			background: transparent;
-			color: #2779bd;
-			font-weight: bold;
-			font-size: 14px;
+        .el-tag__close.el-icon-close {
+            background: transparent;
+            color: #2779bd;
+            font-weight: bold;
+            font-size: 14px;
 
-			&:hover {
-				background:transparent;
-				color: #f56c6c;
-			}
-		}
-	}
+            &:hover {
+                background: transparent;
+                color: #f56c6c;
+            }
+        }
+    }
 }
 
 .el-collapse {
-	.el-collapse-item__header {
-		overflow: hidden;
-		white-space: nowrap;
-		text-overflow: ellipsis;
+    .el-collapse-item__header {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
 
-		&.is-active {
-			font-weight: 600;
-		}
-	}
+        &.is-active {
+            font-weight: 600;
+        }
+    }
 }
 
 .el-overlay {
-	color: var(--el-text-color-primary);
+    color: var(--el-text-color-primary);
 }
 
 .el-drawer__header {
-	margin-bottom: 0;
-	border-bottom: 1px solid var(--el-border-color-lighter);
-	padding: 1em;
-	color: var(--el-color-primary);
+    margin-bottom: 0;
+    border-bottom: 1px solid var(--el-border-color-lighter);
+    padding: 1em;
+    color: var(--el-color-primary);
 }
 
 .el-notification {
-	.el-notification--info {
-		color: var(--el-color-primary-dark-2);
-	}
+    .el-notification--info {
+        color: var(--el-color-primary-dark-2);
+    }
 
-	.el-notification__content {
-		text-align: start;
-		margin: 0;
-		line-height: 1.2;
-	}
+    .el-notification__content {
+        text-align: start;
+        margin: 0;
+        line-height: 1.2;
+    }
 }
 
 .el-dropdown {
-	outline: none;
+    outline: none;
 
-	.el-tooltip__trigger {
-		svg {
-			transition: all .2s;
-		}
+    .el-tooltip__trigger {
+        svg {
+            transition: all .2s;
+        }
 
-		&[aria-describedby] {
-			svg {
-				transform: rotate(180deg);
-			}
-		}
-	}
+        &[aria-describedby] {
+            svg {
+                transform: rotate(180deg);
+            }
+        }
+    }
 }

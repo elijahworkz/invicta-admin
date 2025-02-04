@@ -157,6 +157,10 @@ trait ListsItems
             }
         }
 
+        if ($this->localizable()) {
+            $query = $query->locale();
+        }
+
         $sortBy = request()->query('sort_by', 'id');
         $sortBy = $sortBy == 'title' ? $title : $sortBy;
         $sortOrder = request()->query('sort_order', 'desc');
