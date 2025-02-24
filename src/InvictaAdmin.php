@@ -76,7 +76,7 @@ class InvictaAdmin
     {
         $accept = 'image/*,audio/*';
         if (is_array(config('invicta.assets_documents'))) {
-            $accept .= implode(',', config('invicta.assets_documents'));
+            $accept .= ','.implode(',', config('invicta.assets_documents'));
         }
 
         return [
