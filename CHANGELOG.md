@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.0.9](https://github.com/elijahworkz/invicta-admin/compare/v0.0.8...v0.0.9) (2025-02-24)
+
+### Bug Fixes
+
+* Asset field document select ([4c7937](https://github.com/elijahworkz/invicta-admin/commit/4c79370af389d3256dd08ef1e321896a81811033))
+
+
+---
+
 ## [0.0.8](https://github.com/elijahworkz/invicta-admin/compare/v0.0.7...v0.0.8) (2025-02-07)
 
 ### Bug Fixes
