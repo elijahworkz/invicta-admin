@@ -4,6 +4,16 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.1.0](https://github.com/elijahworkz/invicta-admin/compare/v0.0.9...v0.1.0) (2025-02-25)
+
+### Bug Fixes
+
+* Sundeditor extra space ([883390](https://github.com/elijahworkz/invicta-admin/commit/8833903097dddcab6223ffdc4d32c735fceef1ed))
+* Suneditor extra spacer ([9af38e](https://github.com/elijahworkz/invicta-admin/commit/9af38e66974bb6ff1b6dc8941e81c8997e278dcb))
+
+
+---
+
 ## [0.0.9](https://github.com/elijahworkz/invicta-admin/compare/v0.0.8...v0.0.9) (2025-02-24)
 
 ### Bug Fixes
