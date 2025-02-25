@@ -1,5 +1,4 @@
 <template>
-    <div class="sun-toolbar"></div>
     <textarea :id="editorId"></textarea>
 </template>
 
@@ -52,8 +51,8 @@ onMounted(() => {
         formats: ['p', 'h2', 'h3'],
     })
 
-    editor.setContents('')
-    editor.insertHTML(props.initialValue)
+    editor.setContents(props.initialValue)
+    // editor.insertHTML(props.initialValue)
     editor.onChange = (contents) => emit('updated', contents)
 
     Invicta.on(`${props.id}-insert-image`, (asset) => {
