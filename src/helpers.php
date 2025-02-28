@@ -25,13 +25,15 @@ function invicta_route($name, $params = [])
 if (! function_exists('global_set')) {
     function global_set($handle, $attribute = null)
     {
-        $cachedSet = Cache::rememberForever('global_set_'.$handle, function () use ($handle) {
-            $sets = GlobalSetting::where('handle', $handle)->get()->keyBy('locale');
+        $locale = App::currentLocale();
+        $cachedSets = Cache::rememberForever('global_set_'.$handle, function () use ($handle) {
+            return GlobalSetting::where('handle', $handle)->get()->keyBy('locale');
+        });
 
-            if ($sets) {
-
-                $locale = App::currentLocale();
-                $set = (isset($sets[$locale])) ? $sets[$locale] : $sets->first();
+        $cacheHandle = implode('_', ['global', 'set', $handle, $locale]);
+        $cachedSet = Cache::rememberForever($cacheHandle, function () use ($cachedSets, $locale) {
+            if ($cachedSets) {
+                $set = (isset($cachedSets[$locale])) ? $cachedSets[$locale] : $cachedSets->first();
 
                 return new Fluent($set->data);
             }
