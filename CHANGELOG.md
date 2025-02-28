@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.1.1](https://github.com/elijahworkz/invicta-admin/compare/v0.1.0...v0.1.1) (2025-02-28)
+
+### Bug Fixes
+
+* Global set caching with localization ([63bc70](https://github.com/elijahworkz/invicta-admin/commit/63bc7081f700fc9acb08c1236153f31f091829bb))
+
+
+---
+
 ## [0.1.0](https://github.com/elijahworkz/invicta-admin/compare/v0.0.9...v0.1.0) (2025-02-25)
 
 ### Bug Fixes
