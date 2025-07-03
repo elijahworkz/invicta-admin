@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.1.2](https://github.com/elijahworkz/invicta-admin/compare/v0.1.1...v0.1.2) (2025-07-03)
+
+### Features
+
+* Replace texteditor and axios ([129d57](https://github.com/elijahworkz/invicta-admin/commit/129d57c041bb12132e1910b1ff725287b2fe6da8))
+
+
+---
+
 ## [0.1.1](https://github.com/elijahworkz/invicta-admin/compare/v0.1.0...v0.1.1) (2025-02-28)
 
 ### Bug Fixes
