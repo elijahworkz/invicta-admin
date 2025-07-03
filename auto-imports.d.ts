@@ -2,6 +2,7 @@
 export {}
 declare global {
   const EffectScope: typeof import('vue')['EffectScope']
+  const ElMessage: typeof import('element-plus/es')['ElMessage']
   const ElMessageBox: typeof import('element-plus/es')['ElMessageBox']
   const FetchClient: typeof import('./resources/js/services/fetch.js')['FetchClient']
   const capitalize: typeof import('./resources/js/utils/functions.js')['capitalize']
@@ -64,7 +65,6 @@ declare global {
   const resolveComponent: typeof import('vue')['resolveComponent']
   const resolveDirective: typeof import('vue')['resolveDirective']
   const set: typeof import('./resources/js/utils/lodash.js')['set']
-  const setupAxios: typeof import('./resources/js/services/axios.js')['setupAxios']
   const shallowReactive: typeof import('vue')['shallowReactive']
   const shallowReadonly: typeof import('vue')['shallowReadonly']
   const shallowRef: typeof import('vue')['shallowRef']
