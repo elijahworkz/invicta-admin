@@ -91,7 +91,7 @@ const processAction = () => {
 			window.open(url, '_blank')
 		} else {
 			// console.log('processing action', props.actionsUrl)
-			Invicta.axios.post(props.actionsUrl, data)
+			Invicta.fetch.post(props.actionsUrl, data)
 				.then(({data}) => {
 					Invicta.message(data.message)
 					Invicta.emit('refresh-resource')

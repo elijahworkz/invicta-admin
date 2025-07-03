@@ -55,8 +55,8 @@ function getPermissions(getTree = false) {
         ? { params: { tree: true } }
         : {}
 
-    Invicta.axios.get(`api${route.path}`, params)
-        .then(({ data }) => {
+    Invicta.fetch.get(`api${route.path}`, params)
+        .then((data) => {
             if (getTree && data.tree) {
                 permissionsTree.value = data.tree
             }
@@ -91,8 +91,8 @@ function submit() {
     loading.value = true
     let permissions = pickBy(checked(trees.value), isString)
 
-    Invicta.axios.post(`api${route.path}`, { permissions })
-        .then(({ data }) => {
+    Invicta.fetch.post(`api${route.path}`, { permissions })
+        .then((data) => {
             Invicta.message(data.message)
             loading.value = false
         })

@@ -255,7 +255,7 @@ const defineResourceForm = (id) => {
     for (let [key, endpoint] of remoteData) {
       console.log("getRemoteData", key, endpoint);
       if (isString(endpoint)) {
-        Invicta.axios.get(endpoint).then(({ data }) => {
+        Invicta.fetch.get(endpoint).then((data) => {
           remoteData.set(key, data);
           Invicta.emit(endpoint, true);
         });
@@ -274,7 +274,7 @@ const defineResourceForm = (id) => {
 
     Invicta.axios
       .post(settings.actionUrl, data)
-      .then(({ data }) => {
+      .then((data) => {
         console.log("post submit result", data);
         console.log("postSubmitAction", postSubmitAction);
         Invicta.message(data.message);

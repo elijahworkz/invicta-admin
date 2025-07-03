@@ -56,8 +56,8 @@ const handleCommand = (locale) => {
         router.replace({ name: 'navEditItems', params: { id }, force: true })
     } else {
 
-        Invicta.axios.post(`/api/navigation/${origin.value}/localize/${locale.iso}`)
-            .then(({ data }) => {
+        Invicta.fetch.post(`/api/navigation/${origin.value}/localize/${locale.iso}`)
+            .then((data) => {
                 console.log('I have created localized version of this menu', data)
                 router.push({ name: 'navEditItems', params: { id: data } })
             })

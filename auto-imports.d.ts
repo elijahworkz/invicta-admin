@@ -2,8 +2,8 @@
 export {}
 declare global {
   const EffectScope: typeof import('vue')['EffectScope']
-  const ElMessage: typeof import('element-plus/es')['ElMessage']
   const ElMessageBox: typeof import('element-plus/es')['ElMessageBox']
+  const FetchClient: typeof import('./resources/js/services/fetch.js')['FetchClient']
   const capitalize: typeof import('./resources/js/utils/functions.js')['capitalize']
   const checked: typeof import('./resources/js/utils/functions.js')['checked']
   const clone: typeof import('./resources/js/utils/lodash.js')['clone']
@@ -21,6 +21,7 @@ declare global {
   const formatBytes: typeof import('./resources/js/utils/functions.js')['formatBytes']
   const fromNow: typeof import('./resources/js/utils/functions.js')['fromNow']
   const get: typeof import('./resources/js/utils/lodash.js')['get']
+  const getCookie: typeof import('./resources/js/utils/functions.js')['getCookie']
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
   const getFields: typeof import('./resources/js/services/form/index.js')['getFields']

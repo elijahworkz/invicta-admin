@@ -1,14 +1,6 @@
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 
-// dayjs
-//     .extend(relativeTime)(function () {
-//         if (this.process != null) {
-//             return;
-//         }
-//         this.process = { env: {}, argv: [] };
-//     })
-//     .call(null);
 dayjs.extend(relativeTime);
 export { dayjs };
 
@@ -88,4 +80,9 @@ export function formatBytes(bytes, decimals) {
         i = Math.floor(Math.log(bytes) / Math.log(k));
 
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
+}
+
+export function getCookie(name) {
+    var v = document.cookie.match("(^|;) ?" + name + "=([^;]*)(;|$)");
+    return v ? v[2] : null;
 }

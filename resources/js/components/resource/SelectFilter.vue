@@ -38,7 +38,7 @@ const remoteOptions = (query) => {
 		handle: props.handle,
 		search: query
 	}
-	Invicta.axios.get(`api/fields/filter/options`, {params})
+	Invicta.fetch.get(`api/fields/filter/options`, {params})
 		.then(({data}) => {
 			console.log('got results for options', data)
 			options.value = data

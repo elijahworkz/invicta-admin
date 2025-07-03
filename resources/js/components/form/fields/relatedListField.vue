@@ -49,8 +49,8 @@ function reloadRelated() {
 	if (!resourceForm.settings.id)
 		return false
 	let url = `/api/resource/${resourceForm.settings.handle}/${resourceForm.settings.id}/relationship/${props.data.id}`
-	Invicta.axios.get(url)
-		.then(({ data }) => {
+	Invicta.fetch.get(url)
+		.then((data) => {
 			console.log('I got this new data here', data)
 			updateRelated(data)
 		})

@@ -71,7 +71,7 @@ const tableResource = useFormResource(props.data.id)
 onMounted(() => {
 	loading.value = true
 
-	Invicta.axios.get(props.data.resourceUrl, {params: {settings: true}})
+	Invicta.fetch.get(props.data.resourceUrl, {params: {settings: true}})
 		.then(({data}) => {
 			tableResource.initForm(props.data.resourceUrl, data)
 			resource.value = data

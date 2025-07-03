@@ -151,7 +151,7 @@ const handleActions = ({ action, selected }) => {
             .get(`${actionsUrl}/blueprint/${item}`, {
                 params: { class: action.class },
             })
-            .then(({ data }) => {
+            .then((data) => {
                 drawerFormId.value = `${props.handle}.${item}.${action.class}`;
                 drawerItem.value = data;
                 drawerFormActionUrl.value = actionsUrl;
@@ -166,7 +166,7 @@ const handleEdit = (item) => {
         let itemUrl = `api${route.path}/${item}`;
         drawerFormParams.value = {};
 
-        Invicta.axios.get(`${itemUrl}/edit`).then(({ data }) => {
+        Invicta.fetch.get(`${itemUrl}/edit`).then((data) => {
             drawerFormId.value = `${props.handle}.${data.item.id}`;
             drawerItem.value = data;
             drawerFormActionUrl.value = itemUrl;
@@ -226,7 +226,7 @@ const handleDelete = (selected) => {
         .then(() => {
             Invicta.axios
                 .delete(`api${route.path}`, { data: { selected } })
-                .then(({ data }) => {
+                .then((data) => {
                     Invicta.message(data.message);
                     resourceIndex.getResource();
                 });

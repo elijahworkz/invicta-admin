@@ -140,8 +140,8 @@ function requestResourceItems() {
         ? `api/resource/${currentResource.value.handle}/items`
         : props.requestUrl
 
-    Invicta.axios.get(requestUrl, { params })
-        .then(({ data }) => {
+    Invicta.fetch.get(requestUrl, { params })
+        .then((data) => {
             itemsResource.initForm(requestUrl, data)
             itemsResource.getResourceFilters(currentResource.value.handle)
             loading.value = false

@@ -39,7 +39,7 @@ const toggleSidebar = () => {
 }
 
 const logout = () => {
-    Invicta.axios.post('/logout')
+    Invicta.fetch.post('/logout')
         .then(() => window.location.reload())
 }
 </script>

@@ -45,7 +45,7 @@ function startCommand(command) {
 }
 
 function runCommand(command) {
-	Invicta.axios.get(command.runUrl)
+	Invicta.fetch.get(command.runUrl)
 		.then(({data}) => {
 			Invicta.message(data.message)
 			command.running = false

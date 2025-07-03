@@ -62,8 +62,8 @@ onMounted(() => {
     loading.value = true
     layout.value = Invicta.remember('media-layout') || 'grid'
 
-    Invicta.axios.get('api/resource/assets', { params: { settings: true } })
-        .then(({ data }) => {
+    Invicta.fetch.get('api/resource/assets', { params: { settings: true } })
+        .then((data) => {
             loading.value = false
             console.log('I got this data', data)
             itemsResource.initForm('api/resource/assets', data)

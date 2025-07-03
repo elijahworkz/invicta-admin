@@ -76,8 +76,8 @@ watch(() => route.params.id, getNav, { immediate: true })
 function getNav(id) {
     loading.value = true
 
-    Invicta.axios.get(`api/navigation/${id}/items`)
-        .then(({ data }) => {
+    Invicta.fetch.get(`api/navigation/${id}/items`)
+        .then((data) => {
             actionUrl.value = data.actionUrl
             menuTitle.value = data.menuTitle
             locale.value = data.locale
@@ -258,8 +258,8 @@ const editItem = (item) => {
 /* Save Navigation */
 
 const saveNavigation = () => {
-    Invicta.axios.post(actionUrl.value, { tree: treeItems.value })
-        .then(({ data }) => {
+    Invicta.fetch.post(actionUrl.value, { tree: treeItems.value })
+        .then((data) => {
             Invicta.message(data.message)
         })
 }

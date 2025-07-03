@@ -82,7 +82,7 @@ function filterGroup(options) {
 }
 
 function getOptions() {
-    Invicta.axios.get(props.data.options).then(({ data }) => {
+    Invicta.fetch.get(props.data.options).then((data) => {
         options.value = data;
         optionsReady.value = true;
     });

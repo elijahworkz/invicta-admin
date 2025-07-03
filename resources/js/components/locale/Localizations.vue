@@ -67,8 +67,8 @@ const handleCommand = (locale) => {
         window.location.href = `${url.href}?locale=${locale.iso}`
     } else {
 
-        Invicta.axios.post(`/api/resource/${handle}/${origin.value}/localize/${locale.iso}`)
-            .then(({ data }) => {
+        Invicta.fetch.post(`/api/resource/${handle}/${origin.value}/localize/${locale.iso}`)
+            .then((data) => {
                 console.log('I have created localized version of this page', data)
                 let url = router.resolve({ name: 'resourceEdit', params: { id: data, handle } })
                 window.location.href = url.href

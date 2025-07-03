@@ -88,7 +88,7 @@ const makePrimary = (id) => {
 		sync: [...fieldValues.value]
 	}
 
-	Invicta.axios.post(props.data.options, data)
+	Invicta.fetch.post(props.data.options, data)
 }
 
 /* Build list of options */
@@ -108,7 +108,7 @@ onMounted(() => {
 
 	let resource = resourceForm.settings.handle
 
-	Invicta.axios.get(props.data.options, {params: {resource, locale: resourceForm.settings.currentLocale}})
+	Invicta.fetch.get(props.data.options, {params: {resource, locale: resourceForm.settings.currentLocale}})
 		.then(({data}) => {
 			console.log('I got this for categories', data)
 			options.value = data

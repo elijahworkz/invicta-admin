@@ -34,7 +34,7 @@ const counter = ref(0);
 const { createWith } = props;
 
 onMounted(() => {
-  Invicta.axios.get(props.requestUrl).then(({ data }) => {
+  Invicta.fetch.get(props.requestUrl).then((data) => {
     resource.value = data;
     formId.value = data.meta.id
       ? `${data.meta.handle}.${data.meta.id}`

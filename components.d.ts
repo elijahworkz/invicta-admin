@@ -110,6 +110,7 @@ declare module '@vue/runtime-core' {
     Output: typeof import('./resources/js/components/commands/Output.vue')['default']
     PagePlaceholder: typeof import('./resources/js/components/shared/PagePlaceholder.vue')['default']
     Popover: typeof import('./resources/js/components/shared/Popover.vue')['default']
+    QuillEditor: typeof import('./resources/js/components/form/QuillEditor.vue')['default']
     RadioGroupField: typeof import('./resources/js/components/form/fields/radioGroupField.vue')['default']
     RateField: typeof import('./resources/js/components/form/fields/rateField.vue')['default']
     RelatedListField: typeof import('./resources/js/components/form/fields/relatedListField.vue')['default']

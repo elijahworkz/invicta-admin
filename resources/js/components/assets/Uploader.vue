@@ -118,8 +118,8 @@ function upload(file) {
         }
     }
 
-    Invicta.axios.post('/api/assets', formData, config)
-        .then(({ data }) => {
+    Invicta.fetch.post('/api/assets', formData, config)
+        .then((data) => {
             Invicta.message(data.message)
             emit('upload-complete', data.asset)
             Invicta.emit('refresh-resource')

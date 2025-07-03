@@ -91,8 +91,8 @@ const handleFieldAction = ({ action, item }) => {
             selected: [item.id],
         }
 
-        Invicta.axios.post('api/resource/assets/actions', data)
-            .then(({ data }) => {
+        Invicta.fetch.post('api/resource/assets/actions', data)
+            .then((data) => {
                 // console.log('response from action', data)
                 Invicta.message(data.message)
                 fieldValue.value = data.asset

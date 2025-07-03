@@ -68,8 +68,8 @@ function getRelatedOptions(params, remote = false) {
 
     loading.value = true
 
-    Invicta.axios.get(relatedUrl, { params })
-        .then(({ data }) => {
+    Invicta.fetch.get(relatedUrl, { params })
+        .then((data) => {
             let remoteOptions = map(data, (value, label) => {
                 let _value = ('path' in props.data)
                     ? Number(value)

@@ -1,0 +1,77 @@
+.ql-tooltip {
+    background-color: #fff;
+    border: 1px solid var(--el-border-color);
+    box-shadow: var(--el-box-shadow);
+    padding: 5px 12px;
+    white-space: nowrap;
+
+    &::before {
+        content: "Visit URL:";
+        line-height: 26px;
+        margin-right: var(--tooltip-margin);
+    }
+
+    input[type=text] {
+        display: none;
+        border: 1px solid var(--el-border-color);
+        font-size: 13px;
+        height: 26px;
+        margin: 0px;
+        padding: 3px 5px;
+        width: 170px;
+    }
+
+    a.ql-preview {
+        display: inline-block;
+        max-width: 200px;
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+        vertical-align: top;
+    }
+
+    a.ql-action::after {
+        border-right: 1px solid var(--el-border-color);
+        content: 'Edit';
+        margin-left: calc(var(--tooltip-margin) * 2);
+        padding-right: var(--tooltip-margin);
+    }
+
+    a.ql-remove::before {
+        content: 'Remove';
+        margin-left: var(--tooltip-margin);
+    }
+
+    a {
+        line-height: 26px;
+    }
+
+    &.ql-editing {
+
+        a.ql-preview,
+        a.ql-remove {
+            display: none;
+        }
+
+        input[type=text] {
+            display: inline-block;
+        }
+
+        a.ql-action::after {
+            border-right: 0px;
+            content: 'Save';
+            padding-right: 0px;
+        }
+    }
+
+    &[data-mode=link]::before {
+        content: "Enter link:";
+    }
+
+    &[data-mode=formula]::before {
+        content: "Enter formula:";
+    }
+
+    &[data-mode=video]::before {
+        content: "Enter video:";
+    }
+}

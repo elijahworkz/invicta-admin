@@ -217,7 +217,7 @@ const defineResource = (handle) => {
       query.settings = true;
     }
 
-    Invicta.axios.get(requestUrl.value, { params: query }).then(({ data }) => {
+    Invicta.fetch.get(requestUrl.value, { params: query }).then((data) => {
       console.log("4. got some new data", data);
       resourceData.value = data.data;
       total.value = data.meta.total;
@@ -241,7 +241,7 @@ const defineResource = (handle) => {
       let url = handle
         ? `api/resource/${handle}/filters`
         : `${requestUrl.value}/filters`;
-      Invicta.axios.get(url).then(({ data }) => {
+      Invicta.fetch.get(url).then((data) => {
         if (data.length) {
           resourceStaticData.filters = data.map((filter) => {
             let initialValue = "";
@@ -264,7 +264,7 @@ const defineResource = (handle) => {
 
   function getResourceActions() {
     if (resourceStaticData.actions === null) {
-      Invicta.axios.get(`${requestUrl.value}/actions`).then(({ data }) => {
+      Invicta.fetch.get(`${requestUrl.value}/actions`).then((data) => {
         if (data.length) {
           resourceStaticData.actions = data.reduce((obj, item) => {
             obj[item.type] = obj[item.type] || [];
@@ -283,7 +283,7 @@ const defineResource = (handle) => {
 
     query.selectAll = true;
 
-    return Invicta.axios.get(requestUrl.value, { params: query });
+    return Invicta.fetch.get(requestUrl.value, { params: query });
   }
 
   return {

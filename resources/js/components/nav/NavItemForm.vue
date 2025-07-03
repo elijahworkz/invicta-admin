@@ -64,8 +64,8 @@ onMounted(() => {
     if ('id' in props.itemData) {
         resource.value = true
         let itemUrl = `/api/resource/${props.itemData.handle}/${props.itemData.id}/uri`
-        Invicta.axios.get(itemUrl)
-            .then(({ data }) => {
+        Invicta.fetch.get(itemUrl)
+            .then((data) => {
                 if (!data) {
                     error.value = true
                     errorMessage.value = `${props.itemData.type} not found`
