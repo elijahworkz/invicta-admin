@@ -17,7 +17,7 @@ class CreateInvictaGlobalSettingsTable extends Migration
         Schema::create('global_settings', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('locale')->default('default');
+            $table->string('locale')->default(config('app.locale'));
             $table->string('handle')->unique();
             $table->string('blueprint');
             $table->unsignedInteger('origin_id')->nullable();

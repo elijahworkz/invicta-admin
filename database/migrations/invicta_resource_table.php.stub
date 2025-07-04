@@ -18,7 +18,7 @@ class {{ class }} extends Migration
             $table->id();
             $table->string('slug');
             $table->bigInteger('origin_id')->nullable();
-            $table->string('locale')->default('default');
+            $table->string('locale')->default(config('app.locale'));
             {{ seo }}
             $table->timestamps();
         });

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,15 +14,17 @@
     <link rel="stylesheet" href="//unpkg.com/element-plus/dist/index.css" />
 
     <!-- Font -->
-    <link href="https://fonts.googleapis.com/css?family=Nunito:400,400i,500,500i,600,600i,700,700i&display=swap" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,400i,500,500i,600,600i,700,700i&display=swap"
+        rel="stylesheet" type="text/css">
 
     @preloadInvictaScripts
 
 </head>
+
 <body>
     <style>
         body {
-            background: #f3f7fa;
+            background: #f5f5f5;
             color: #3c4b5f;
             overflow: hidden;
             padding: 0;
@@ -33,21 +36,22 @@
             align-items: flex-start;
             justify-content: center;
         }
+
         .auth-form {
             margin-top: 100px;
             min-width: 300px;
         }
 
         .auth-header {
-             text-align: center;
-             font-size: 32px;
-             line-height: 1.5;
-             margin: 0 auto 20px;
-         }
+            text-align: center;
+            font-size: 32px;
+            line-height: 1.5;
+            margin: 0 auto 20px;
+        }
 
         .auth-card {
-             margin-bottom: 15px;
-         }
+            margin-bottom: 15px;
+        }
 
         .text-center {
             text-align: center;
@@ -62,9 +66,15 @@
         a {
             color: inherit;
         }
+
+        .el-form-item {
+            display: block;
+        }
     </style>
 
     @yield('content')
 
 </body>
+
 </html>
+

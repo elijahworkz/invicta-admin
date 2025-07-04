@@ -19,7 +19,7 @@ class CreateInvictaNavTable extends Migration
             $table->string('handle')->unique();
             $table->string('title');
             $table->bigInteger('origin_id')->nullable();
-            $table->string('locale')->default('default');
+            $table->string('locale')->default(config('app.locale'));
             $table->json('tree')->nullable();
             $table->timestamps();
         });
