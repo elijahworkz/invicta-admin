@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.1.3](https://github.com/elijahworkz/invicta-admin/compare/v0.1.2...v0.1.3) (2025-07-04)
+
+### Bug Fixes
+
+* Auth style and migration default for locale ([7604c9](https://github.com/elijahworkz/invicta-admin/commit/7604c925e2176d22e9d5464dd3beb44c3f021bcb))
+
+
+---
+
 ## [0.1.2](https://github.com/elijahworkz/invicta-admin/compare/v0.1.1...v0.1.2) (2025-07-03)
 
 ### Features
