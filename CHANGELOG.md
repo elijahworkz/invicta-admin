@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.1.4](https://github.com/elijahworkz/invicta-admin/compare/v0.1.3...v0.1.4) (2025-07-05)
+
+### Features
+
+* Add settings model ([d62969](https://github.com/elijahworkz/invicta-admin/commit/d62969ece8301a5308f1cd8aad6231a50cd1d683))
+
+
+---
+
 ## [0.1.3](https://github.com/elijahworkz/invicta-admin/compare/v0.1.2...v0.1.3) (2025-07-04)
 
 ### Bug Fixes
