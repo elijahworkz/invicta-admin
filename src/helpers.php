@@ -1,9 +1,10 @@
 <?php
 
-use Elijahworkz\InvictaAdmin\Admin\Models\GlobalSetting;
+use Elijahworkz\InvictaAdmin\InvictaAdmin;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Fluent;
+use Illuminate\Support\Str;
 
 function invicta_path($path = null)
 {
@@ -22,29 +23,79 @@ function invicta_route($name, $params = [])
     return route('invicta.'.$name, $params);
 }
 
-if (! function_exists('global_set')) {
-    function global_set($handle, $attribute = null)
+if (! function_exists('site_url')) {
+    function site_url($url, $params = [])
     {
-        $locale = App::currentLocale();
-        $cachedSets = Cache::rememberForever('global_set_'.$handle, function () use ($handle) {
-            return GlobalSetting::where('handle', $handle)->get()->keyBy('locale');
-        });
+        $params = (! empty($params))
+            ? '?'.http_build_query($params)
+            : '';
 
-        $cacheHandle = implode('_', ['global', 'set', $handle, $locale]);
-        $cachedSet = Cache::rememberForever($cacheHandle, function () use ($cachedSets, $locale) {
-            if ($cachedSets) {
-                $set = (isset($cachedSets[$locale])) ? $cachedSets[$locale] : $cachedSets->first();
+        $urlStr = Str::of($url.$params);
 
-                return new Fluent($set->data);
-            }
-
-            return null;
-        });
-
-        if ($cachedSet && $attribute) {
-            return $cachedSet[$attribute];
+        if ($urlStr->contains('http') || $urlStr->contains('#')) {
+            return $url;
         }
 
-        return $cachedSet;
+        if ($urlStr->contains('home')) {
+            return locale()->url;
+        }
+
+        // we need to set menu links to be always full url in order to prevent magazine overlap
+        return $urlStr;
+    }
+}
+
+if (! function_exists('getUrl')) {
+    function resourceUrl($url)
+    {
+        if (Str::contains($url, '::')) {
+            [$resource, $id] = explode('::', $url);
+
+            $result = DB::table($resource)->where('id', $id)->select('uri')->first();
+
+            if (empty($result)) {
+                return url()->current();
+            }
+
+            return site_url($result->uri);
+        }
+
+        return str($url)->contains('http') ? $url : site_url($url);
+    }
+}
+
+if (! function_exists('settings')) {
+    function settings($handle, $attribute = null, $default = null)
+    {
+        return InvictaAdmin::settings($handle, $attribute, $default);
+    }
+}
+
+if (! function_exists('global_set')) {
+    function global_set($handle, $attribute = null, $default = null)
+    {
+        return InvictaAdmin::global_set($handle, $attribute, $default);
+    }
+}
+
+if (! function_exists('locales')) {
+    function locales()
+    {
+        return once(function () {
+            return collect(config('invicta.locales'));
+
+        });
+    }
+}
+
+if (! function_exists('locale')) {
+    function locale($attribute = null)
+    {
+        return once(function () use ($attribute) {
+            $locales = locales();
+            $locale = $locales[App::currentLocale()];
+
+            return $attribute ? $locale[$attribute] : new Fluent($locale);
+        });
     }
 }
