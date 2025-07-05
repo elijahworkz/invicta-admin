@@ -74,6 +74,7 @@ class InvictaAdmin
 
     public static function global_set($handle, $attribute, $default)
     {
+
         return once(function () use ($handle, $attribute, $default) {
 
             $locale = App::currentLocale();
@@ -81,7 +82,7 @@ class InvictaAdmin
                 return GlobalSetting::where('handle', $handle)->get()->keyBy('locale');
             });
 
-            if ($cachedSets->empty()) {
+            if (! $cachedSets) {
                 return $default;
             }
 
