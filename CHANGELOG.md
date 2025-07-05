@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.1.5](https://github.com/elijahworkz/invicta-admin/compare/v0.1.4...v0.1.5) (2025-07-05)
+
+### Features
+
+* Simple non localizied site settings ([100443](https://github.com/elijahworkz/invicta-admin/commit/1004437c327ad726bd3eb9e564e3026f6f697098))
+
+
+---
+
 ## [0.1.4](https://github.com/elijahworkz/invicta-admin/compare/v0.1.3...v0.1.4) (2025-07-05)
 
 ### Features
