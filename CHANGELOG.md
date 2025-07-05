@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.1.6](https://github.com/elijahworkz/invicta-admin/compare/v0.1.5...v0.1.6) (2025-07-05)
+
+### Bug Fixes
+
+* Global_set helper ([a464d4](https://github.com/elijahworkz/invicta-admin/commit/a464d4a9c3ede7f353d13e36674a8b0f8872d743))
+
+
+---
+
 ## [0.1.5](https://github.com/elijahworkz/invicta-admin/compare/v0.1.4...v0.1.5) (2025-07-05)
 
 ### Features
