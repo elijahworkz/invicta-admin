@@ -33,7 +33,7 @@ class MenuItem
 
     public $callback = null;
 
-    protected $resource = false;
+    protected $resource = null;
 
     protected $ability;
 
@@ -236,6 +236,17 @@ class MenuItem
         $this->label($global->title)->route("/resource/global_settings/$global->id/edit")->can($permission);
 
         return $this;
+    }
+
+    public static function settings($name)
+    {
+        // TODO: Add permissions set for Settings (view/edit/??)
+        return self::make($name)->route('/settings')->can('edit settings')->icon('settings');
+    }
+
+    private static function registerResource($handle, $resource): void
+    {
+        ResourceRegistrar::put($handle, App::make($resource));
     }
 
     public function children(array $items)

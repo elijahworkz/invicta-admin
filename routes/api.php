@@ -6,9 +6,18 @@ use Elijahworkz\InvictaAdmin\Http\Controllers\Api\FieldsController;
 use Elijahworkz\InvictaAdmin\Http\Controllers\Api\NavigationController;
 use Elijahworkz\InvictaAdmin\Http\Controllers\Api\PermissionController;
 use Elijahworkz\InvictaAdmin\Http\Controllers\Api\ResourceController;
+use Elijahworkz\InvictaAdmin\Http\Controllers\Api\SettingsController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('assets', [AssetController::class, 'store']);
+
+Route::controller(SettingsController::class)
+    ->name('settings.')
+    ->prefix('settings')
+    ->group(function () {
+        Route::get('/', 'edit')->name('edit');
+        Route::post('/', 'update')->name('update');
+    });
 
 Route::controller(ResourceController::class)
     ->name('resource.')

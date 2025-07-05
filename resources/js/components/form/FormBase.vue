@@ -2,77 +2,141 @@
     <el-form class="invicta-form" :class="formClass" v-bind="formSettings">
         <div class="flex items-end justify-between mb-4" v-if="!headless">
             <div class="resource-title">
-                <BackLink v-if="breadcrumb" class="breadcrumb" :data="breadcrumb" />
+                <BackLink
+                    v-if="breadcrumb"
+                    class="breadcrumb"
+                    :data="breadcrumb"
+                />
                 <h1 class="mb-1">
-                    <a v-if="resource.meta.itemUrl" class="flex items-center" :href="resource.meta.itemUrl"
-                        title="Visit URL" target="_blank">
+                    <a
+                        v-if="resource.meta.itemUrl"
+                        class="flex items-center"
+                        :href="resource.meta.itemUrl"
+                        title="Visit URL"
+                        target="_blank"
+                    >
                         <span class="flex items-center" v-html="title"></span>
                         <svg class="ml-2" viewBox="0 0 24 24" width="22">
-                            <path fill="currentColor"
-                                d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z">
-                            </path>
+                            <path
+                                fill="currentColor"
+                                d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z"
+                            ></path>
                         </svg>
                     </a>
-                    <span v-else class="flex items-center" v-html="title"></span>
+                    <span
+                        v-else
+                        class="flex items-center"
+                        v-html="title"
+                    ></span>
                 </h1>
             </div>
             <div class="resource-actions flex items-center ml-auto">
-                <Localizations v-if="resource.localizations" :localizations="resource.localizations" :form-id="formId"
-                    :resource-url="resource.meta.indexUrl" />
+                <Localizations
+                    v-if="resource.localizations"
+                    :localizations="resource.localizations"
+                    :form-id="formId"
+                    :resource-url="resource.meta.indexUrl"
+                />
 
                 <slot name="form-actions" />
-
-                <el-button-group class="relative">
-                    <el-button type="primary" :size="pageForm ? 'large' : 'default'" @click="submit"
-                        :disabled="submitDisabled">
+                <el-button
+                    type="primary"
+                    size="large"
+                    @click="submit"
+                    :disabled="submitDisabled"
+                    v-if="postSubmitAction == 'disabled'"
+                >
+                    Save
+                </el-button>
+                <el-button-group class="relative" v-else>
+                    <el-button
+                        type="primary"
+                        :size="pageForm ? 'large' : 'default'"
+                        @click="submit"
+                        :disabled="submitDisabled"
+                    >
                         {{ postSubmitData[postSubmitAction].button }}
                     </el-button>
                     <el-popover title="After Saving" :teleported="true">
                         <template #reference>
-                            <el-button :disabled="submitDisabled" type="primary" :size="pageForm ? 'large' : 'default'"
-                                :icon="postSubmitData[postSubmitAction].icon"></el-button>
+                            <el-button
+                                :disabled="submitDisabled"
+                                type="primary"
+                                :size="pageForm ? 'large' : 'default'"
+                                :icon="postSubmitData[postSubmitAction].icon"
+                            ></el-button>
                         </template>
                         <el-radio-group v-model="postSubmitAction">
-                            <el-radio v-for="action in postSubmitActions" :value="action" :label="action">{{
-                                postSubmitData[action].option
-                                }}</el-radio>
+                            <el-radio
+                                v-for="action in postSubmitActions"
+                                :value="action"
+                                :label="action"
+                                >{{ postSubmitData[action].option }}</el-radio
+                            >
                         </el-radio-group>
                     </el-popover>
-                    <sup class="unsaved-indicator" v-show="resourceForm.isDirty.value"></sup>
+                    <sup
+                        class="unsaved-indicator"
+                        v-show="resourceForm.isDirty.value"
+                    ></sup>
                 </el-button-group>
             </div>
         </div>
 
         <div class="form-wrapper" :class="{ card: tabsType == 'card' }">
-            <div class="main-panel" :class="{
-                'el-card is-always-shadow': !hasSections && !headless,
-                'has-sidebar': hasSidebar,
-            }">
-                <el-tabs v-if="hasSections" v-model="activeTab" type="border-card" v-bind="blueprint.settings.tabs">
-                    <el-tab-pane v-for="section in blueprint.sections" :label="section.title" :name="section.id">
+            <div
+                class="main-panel"
+                :class="{
+                    'el-card is-always-shadow': !hasSections && !headless,
+                    'has-sidebar': hasSidebar,
+                }"
+            >
+                <el-tabs
+                    v-if="hasSections"
+                    v-model="activeTab"
+                    type="border-card"
+                    v-bind="blueprint.settings.tabs"
+                >
+                    <el-tab-pane
+                        v-for="section in blueprint.sections"
+                        :label="section.title"
+                        :name="section.id"
+                    >
                         <div class="fieldset" v-if="section.fields">
-                            <FormField v-for="(field, index) in section.fields" :form-id="formId" :field-data="field"
-                                :data-path="field.id" />
+                            <FormField
+                                v-for="(field, index) in section.fields"
+                                :form-id="formId"
+                                :field-data="field"
+                                :data-path="field.id"
+                            />
                         </div>
                     </el-tab-pane>
                 </el-tabs>
                 <div v-else>
                     <div class="fieldset" v-if="blueprint.fields">
-                        <FormField v-for="(field, index) in blueprint.fields" :form-id="formId" :field-data="field"
-                            :data-path="field.id" />
+                        <FormField
+                            v-for="(field, index) in blueprint.fields"
+                            :form-id="formId"
+                            :field-data="field"
+                            :data-path="field.id"
+                        />
                     </div>
                 </div>
             </div>
             <div v-if="hasSidebar" class="sidebar">
                 <el-card>
                     <div class="fieldset" v-if="blueprint.sidebar.fields">
-                        <FormField v-for="(field, index) in blueprint.sidebar.fields" :form-id="formId"
-                            :field-data="field" :data-path="field.id" />
+                        <FormField
+                            v-for="(field, index) in blueprint.sidebar.fields"
+                            :form-id="formId"
+                            :field-data="field"
+                            :data-path="field.id"
+                        />
                     </div>
                 </el-card>
             </div>
         </div>
-        <TextEditorDrawer :form-id="formId"/>
+        <TextEditorDrawer :form-id="formId" />
     </el-form>
 </template>
 
@@ -171,8 +235,8 @@ const formClass = computed(() => {
     let width = props.headless
         ? "w-full"
         : hasSidebar
-            ? "w-sidebar"
-            : "w-compact";
+          ? "w-sidebar"
+          : "w-compact";
     return formSettings.class || width;
 });
 

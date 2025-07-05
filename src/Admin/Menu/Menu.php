@@ -60,7 +60,7 @@ class Menu
      *
      * @return Elijahworkz\InvictaAdmin\Admin\Menu\MenuItem
      */
-    public function tools($items = []): MenuItem
+    public function tools($items = []): ?MenuItem
     {
         // items is an array of handles.
         // If need to change title of one of children item need to put array where `key` is handle and `value` is title.
@@ -105,6 +105,18 @@ class Menu
     public function globalSetting($handle)
     {
         $item = MenuItem::global($handle);
+        $this->items[] = $item;
+
+        return $item;
+    }
+
+    /**
+     * Creates Settings menu item
+     */
+    public function settings($name = 'Site Settings'): MenuItem
+    {
+        $item = MenuItem::settings($name);
+
         $this->items[] = $item;
 
         return $item;

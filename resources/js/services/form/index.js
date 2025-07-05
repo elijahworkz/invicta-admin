@@ -272,7 +272,7 @@ const defineResourceForm = (id) => {
 
     console.log("we have form submit", data);
 
-    Invicta.axios
+    Invicta.fetch
       .post(settings.actionUrl, data)
       .then((data) => {
         console.log("post submit result", data);

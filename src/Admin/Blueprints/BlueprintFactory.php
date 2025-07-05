@@ -94,6 +94,15 @@ class BlueprintFactory
         return $this->findBlueprint($handle);
     }
 
+    public function settingsBlueprint()
+    {
+        if ($blueprint = $this->getBlueprintFile(resource_path('blueprints'), 'settings')) {
+            return new Blueprint($blueprint);
+        }
+
+        return false;
+    }
+
     private function findBlueprint($handle)
     {
         $blueprint = [];

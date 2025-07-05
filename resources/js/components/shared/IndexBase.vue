@@ -147,7 +147,7 @@ const handleActions = ({ action, selected }) => {
             item = selected[0];
         }
 
-        Invicta.axios
+        Invicta.fetch
             .get(`${actionsUrl}/blueprint/${item}`, {
                 params: { class: action.class },
             })
@@ -224,7 +224,7 @@ const handleDelete = (selected) => {
         },
     )
         .then(() => {
-            Invicta.axios
+            Invicta.fetch
                 .delete(`api${route.path}`, { data: { selected } })
                 .then((data) => {
                     Invicta.message(data.message);
