@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.1.7](https://github.com/elijahworkz/invicta-admin/compare/v0.1.6...v0.1.7) (2025-07-06)
+
+### Bug Fixes
+
+* Main seo settings on create ([982b4e](https://github.com/elijahworkz/invicta-admin/commit/982b4e5cdec8c93f8ee4a8857b0eb9b976146dbc))
+
+
+---
+
 ## [0.1.6](https://github.com/elijahworkz/invicta-admin/compare/v0.1.5...v0.1.6) (2025-07-05)
 
 ### Bug Fixes
