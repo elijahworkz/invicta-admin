@@ -51,7 +51,7 @@ watch(
         // resourceItem.value = route.meta.data
         loading.value = true;
         resourceItem.value = null;
-        Invicta.fetch.get(`api${route.path}`).then(({ data }) => {
+        Invicta.fetch.get(`api${route.path}`).then((data) => {
             resourceItem.value = data;
             loading.value = false;
         });
@@ -82,7 +82,7 @@ const readOnly = false;
 function getResourceItem(url) {
     loading.value = true;
 
-    Invicta.fetch.get(url).then(({ data }) => {
+    Invicta.fetch.get(url).then((data) => {
         console.log("we have some info here", data);
         loading.value = false;
         // resourceFormId.value = `${settings.handle}.${data.item.id}`

@@ -6,8 +6,8 @@ trait EnableSeo
 {
     public function getSeoSectionBlueprint()
     {
-        $seoTitleSeparator = global_set('seo', 'title_separator');
-        $seoSiteName = global_set('seo', 'site_name');
+        $seoTitleSeparator = settings('seo', 'title_separator');
+        $seoSiteName = settings('seo', 'site_name');
 
         return [
             'id' => 'seo',
