@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.1.8](https://github.com/elijahworkz/invicta-admin/compare/v0.1.7...v0.1.8) (2025-07-08)
+
+### Bug Fixes
+
+* Upload assets ([73addc](https://github.com/elijahworkz/invicta-admin/commit/73addc9f1fa4a8f8471196bde8c1833f5cad1903))
+
+
+---
+
 ## [0.1.7](https://github.com/elijahworkz/invicta-admin/compare/v0.1.6...v0.1.7) (2025-07-06)
 
 ### Bug Fixes
