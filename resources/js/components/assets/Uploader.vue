@@ -1,18 +1,38 @@
 <template>
     <div class="image-uploader" :class="type">
-        <form enctype="multipart/form-data" novalidate v-if="isInitial || isSaving">
-            <div v-if="type == 'drag'" class="dropbox" :class="{
-                'is-dragover': dragover,
-                'is-initial': isInitial
-            }" @drop.prevent="initUpload" @dragover.prevent="dragover = true" @dragleave.prevent="dragover = false">
-
-                <input type="file" ref="uploadInput" :multiple="multiple" :accept="settings.accept" class="input-file"
-                    :disabled="isSaving" @change="initUpload">
+        <form
+            enctype="multipart/form-data"
+            novalidate
+            v-if="isInitial || isSaving"
+        >
+            <div
+                v-if="type == 'drag'"
+                class="dropbox"
+                :class="{
+                    'is-dragover': dragover,
+                    'is-initial': isInitial,
+                }"
+                @drop.prevent="initUpload"
+                @dragover.prevent="dragover = true"
+                @dragleave.prevent="dragover = false"
+            >
+                <input
+                    type="file"
+                    ref="uploadInput"
+                    :multiple="multiple"
+                    :accept="settings.accept"
+                    class="input-file"
+                    :disabled="isSaving"
+                    @change="initUpload"
+                />
 
                 <div class="dropbox-initial" v-if="isInitial">
                     <div class="dropbox-text" @click="inputClick">
                         <SvgIcon :icon="mdiCloudUploadOutline" />
-                        <span>Drop file here or <strong>click to select</strong></span>
+                        <span
+                            >Drop file here or
+                            <strong>click to select</strong></span
+                        >
                     </div>
                 </div>
                 <div class="dropbox-saving" v-if="isSaving">
@@ -21,9 +41,20 @@
                 </div>
             </div>
             <div v-else class="button-upload">
-                <span class="el-button el-button--primary" @click="inputClick" title="Upload new asset">
-                    <input type="file" ref="uploadInput" :multiple="multiple" :accept="settings.accept"
-                        class="input-file" :disabled="isSaving" @change="initUpload">
+                <span
+                    class="el-button el-button--primary"
+                    @click="inputClick"
+                    title="Upload new asset"
+                >
+                    <input
+                        type="file"
+                        ref="uploadInput"
+                        :multiple="multiple"
+                        :accept="settings.accept"
+                        class="input-file"
+                        :disabled="isSaving"
+                        @change="initUpload"
+                    />
                     <i v-if="isSaving" class="el-icon is-loading">
                         <Loading />
                     </i>
@@ -33,105 +64,108 @@
 
                     <span v-if="type === 'button'">Upload</span>
                 </span>
-                <el-button v-if="type === 'browse'" :icon="Picture" @click="$emit('open-library')">Media
-                    Library</el-button>
+                <el-button
+                    v-if="type === 'browse'"
+                    :icon="Picture"
+                    @click="$emit('open-library')"
+                    >Media Library</el-button
+                >
             </div>
         </form>
     </div>
 </template>
 
 <script setup>
-import { mdiCloudUploadOutline } from '@mdi/js';
-import { UploadFilled, Loading, Picture } from '@element-plus/icons-vue'
+import { mdiCloudUploadOutline } from "@mdi/js";
+import { UploadFilled, Loading, Picture } from "@element-plus/icons-vue";
 
 const props = defineProps({
     type: {
         type: String,
-        default: 'button' // possible values are 'drag', 'button', 'browse'
+        default: "button", // possible values are 'drag', 'button', 'browse'
     },
     single: {
         type: Boolean,
-        default: false
+        default: false,
     },
-    folder: String
-})
+    folder: String,
+});
 
-const emit = defineEmits(['upload-complete', 'open-library'])
-const settings = Invicta.getConfig('assetsSettings')
+const emit = defineEmits(["upload-complete", "open-library"]);
+const settings = Invicta.getConfig("assetsSettings");
 
 const multiple = computed(() => {
     if (props.single) {
-        return false
+        return false;
     }
-    return settings.multiupload
-})
+    return settings.multiupload;
+});
 
 /* Set statuses */
-const isInitial = ref(true)
-const isSaving = ref(false)
-const dragover = ref(false)
+const isInitial = ref(true);
+const isSaving = ref(false);
+const dragover = ref(false);
 
 /* Set Input Ref */
-const uploadInput = ref()
+const uploadInput = ref();
 
 /* Upload progress */
-const uploadProgress = ref(0)
+const uploadProgress = ref(0);
 const uploadStatus = computed(() => {
-    return uploadProgress.value == 100 ? 'Saving to database...' : 'Uploading to server...'
-})
+    return uploadProgress.value == 100
+        ? "Saving to database..."
+        : "Uploading to server...";
+});
 
 /* Handle Upload */
 const initUpload = (event) => {
-    dragover.value = false
-    isInitial.value = false
-    isSaving.value = true
+    dragover.value = false;
+    isInitial.value = false;
+    isSaving.value = true;
 
-    const files = (event.target.files.length !== 0) ? event.target.files : event.dataTransfer.files
+    const files =
+        event.target.files.length !== 0
+            ? event.target.files
+            : event.dataTransfer.files;
 
-    if (files.length == 0) return
+    if (files.length == 0) return;
 
     for (let file of files) {
-        upload(file)
+        upload(file);
     }
-}
+};
 
 const inputClick = () => {
-    uploadInput.value.value = null
-    uploadInput.value.click()
-}
+    uploadInput.value.value = null;
+    uploadInput.value.click();
+};
 
-function upload(file) {
-    uploadInput.value = null
+async function upload(file) {
+    uploadInput.value = null;
 
-    let formData = new FormData()
-    formData.append('file', file)
+    let formData = new FormData();
+    formData.append("file", file);
 
-    if (props.folder && props.folder != '') {
-        formData.append('folder', props.folder)
+    if (props.folder && props.folder != "") {
+        formData.append("folder", props.folder);
     }
 
-    const config = {
-        onUploadProgress: (event) => {
-            if (event.lengthComputable) {
-                uploadProgress.value = Math.round((event.loaded * 100) / event.total)
-            }
-        }
-    }
+    const data = await Invicta.fetch.upload(
+        settings.uploadUrl,
+        formData,
+        (e) => {
+            uploadProgress.value = Math.round((e.loaded * 100) / e.total);
+        },
+    );
 
-    Invicta.fetch.post('/api/assets', formData, config)
-        .then((data) => {
-            Invicta.message(data.message)
-            emit('upload-complete', data.asset)
-            Invicta.emit('refresh-resource')
-            reset()
-        })
-        .catch(error => {
-            reset()
-        })
+    Invicta.message(data.message);
+    emit("upload-complete", data.asset);
+    Invicta.emit("refresh-resource");
+    reset();
 }
 
 function reset() {
-    isSaving.value = false
-    isInitial.value = true
+    isSaving.value = false;
+    isInitial.value = true;
 }
 </script>

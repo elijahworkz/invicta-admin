@@ -9,7 +9,7 @@ use Elijahworkz\InvictaAdmin\Http\Controllers\Api\ResourceController;
 use Elijahworkz\InvictaAdmin\Http\Controllers\Api\SettingsController;
 use Illuminate\Support\Facades\Route;
 
-Route::post('assets', [AssetController::class, 'store']);
+Route::post('assets', [AssetController::class, 'store'])->name('assets.upload');
 
 Route::controller(SettingsController::class)
     ->name('settings.')

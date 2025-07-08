@@ -139,6 +139,7 @@ class InvictaAdmin
         return [
             'multiupload' => config('invicta.assets_multi_upload'),
             'accept' => $accept,
+            'uploadUrl' => route('invicta.api.assets.upload'),
         ];
     }
 

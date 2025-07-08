@@ -5,13 +5,13 @@ export class FetchClient {
         this.baseUrl = baseUrl;
         this.prefix = prefix;
 
-        const token = decodeURIComponent(getCookie("XSRF-TOKEN"));
+        this.token = decodeURIComponent(getCookie("XSRF-TOKEN"));
 
         this.defaultOptions = {
             credentials: "include",
             headers: {
                 "X-Requested-With": "XMLHttpRequest",
-                "X-Xsrf-Token": token,
+                "X-Xsrf-Token": this.token,
             },
         };
     }
@@ -138,6 +138,34 @@ export class FetchClient {
 
     async delete(url, options = {}) {
         return this.request(url, { ...options, method: "DELETE" });
+    }
+
+    async upload(url, data, cb) {
+        return new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+
+            xhr.upload.addEventListener("progress", (e) => {
+                if (e.lengthComputable) {
+                    cb(e);
+                }
+            });
+
+            xhr.addEventListener("load", () => {
+                if (xhr.status === 200) {
+                    resolve(JSON.parse(xhr.responseText));
+                } else {
+                    reject(new Error(`HTTP error! status: ${xhr.status}`));
+                }
+            });
+
+            xhr.addEventListener("error", () => {
+                reject(new Error("Network error"));
+            });
+
+            xhr.open("POST", url);
+            xhr.setRequestHeader("X-XSRF-TOKEN", this.token);
+            xhr.send(data);
+        });
     }
 
     fullUrl(url) {
