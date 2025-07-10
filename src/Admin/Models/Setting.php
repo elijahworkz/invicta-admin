@@ -11,9 +11,7 @@ class Setting extends Model
      * @var string[]
      */
     protected $fillable = [
-        'title',
         'handle',
-        'blueprint',
         'data',
     ];
 
