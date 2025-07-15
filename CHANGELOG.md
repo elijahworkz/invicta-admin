@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.1.10](https://github.com/elijahworkz/invicta-admin/compare/v0.1.9...v0.1.10) (2025-07-15)
+
+### Bug Fixes
+
+* Delete resource ([6a5661](https://github.com/elijahworkz/invicta-admin/commit/6a5661c3d51feb914d80110afbd78154ff059489))
+
+
+---
+
 ## [0.1.9](https://github.com/elijahworkz/invicta-admin/compare/v0.1.8...v0.1.9) (2025-07-10)
 
 
