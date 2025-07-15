@@ -137,7 +137,15 @@ export class FetchClient {
     }
 
     async delete(url, options = {}) {
-        return this.request(url, { ...options, method: "DELETE" });
+        return this.request(url, {
+            ...options,
+            method: "DELETE",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json",
+                ...options.headers,
+            },
+        });
     }
 
     async upload(url, data, cb) {

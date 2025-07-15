@@ -4,17 +4,32 @@
             <div class="flex-auto mr-4">
                 <h1 class="mb-1">{{ resourceIndex.static.settings.title }}</h1>
                 <div class="max-w-sm">
-                    <Search :currentSearch="route.query.search" :key="handle" @update="resourceIndex.setSearch" />
+                    <Search
+                        :currentSearch="route.query.search"
+                        :key="handle"
+                        @update="resourceIndex.setSearch"
+                    />
                 </div>
             </div>
             <div class="ml-auto flex items-center">
-                <LocaleSwitch v-if="resourceIndex.static.settings.locales"
-                    :locales="resourceIndex.static.settings.locales"/>
-                <Actions v-if="resourceIndex.static.actions?.global" :global="true"
-                    :actions="resourceIndex.static.actions.global" name="Resource Actions" />
+                <LocaleSwitch
+                    v-if="resourceIndex.static.settings.locales"
+                    :locales="resourceIndex.static.settings.locales"
+                />
+                <Actions
+                    v-if="resourceIndex.static.actions?.global"
+                    :global="true"
+                    :actions="resourceIndex.static.actions.global"
+                    name="Resource Actions"
+                />
                 <slot name="actions" :settings="resourceIndex.static.settings">
-                    <router-link :to="{ name: 'resourceCreate' }" v-show="resourceIndex.static.settings.canCreate">
-                        <el-button type="primary" size="large">Create new</el-button>
+                    <router-link
+                        :to="{ name: 'resourceCreate' }"
+                        v-show="resourceIndex.static.settings.canCreate"
+                    >
+                        <el-button type="primary" size="large"
+                            >Create new</el-button
+                        >
                     </router-link>
                 </slot>
             </div>
@@ -30,48 +45,97 @@
                 </div>
 
                 <div class="ml-auto leading-none flex items-center">
-                    <el-link v-if="canResetFilters" @click="resourceIndex.clearFilters" :underline="false" type="danger"
-                        class="mr-2">Clear all filters</el-link>
-                    <Filters v-if="resourceIndex.static.filters" :resource-handle="handle"
-                        :filters="resourceIndex.static.filters" :active-filters="resourceIndex.data.activeFilters" />
+                    <el-link
+                        v-if="canResetFilters"
+                        @click="resourceIndex.clearFilters"
+                        :underline="false"
+                        type="danger"
+                        class="mr-2"
+                        >Clear all filters</el-link
+                    >
+                    <Filters
+                        v-if="resourceIndex.static.filters"
+                        :resource-handle="handle"
+                        :filters="resourceIndex.static.filters"
+                        :active-filters="resourceIndex.data.activeFilters"
+                    />
                 </div>
             </div>
 
-            <div class="bg-slate-100 px-3 py-2 flex items-center justify-between" v-if="selectedRows.length">
+            <div
+                class="bg-slate-100 px-3 py-2 flex items-center justify-between"
+                v-if="selectedRows.length"
+            >
                 <div class="flex items-center leading-none">
                     <span class="mr-2 text-sm">{{ selectedText }}</span>
-                    <el-link v-if="!selectedAll" type="primary" :underline="false" @click="selectAll"
-                        class="mr-2">Select all {{ resourceIndex.data.total }}</el-link>
-                    <el-link :underline="false" type="info" @click="deselect">Deselect all</el-link>
+                    <el-link
+                        v-if="!selectedAll"
+                        type="primary"
+                        :underline="false"
+                        @click="selectAll"
+                        class="mr-2"
+                        >Select all {{ resourceIndex.data.total }}</el-link
+                    >
+                    <el-link :underline="false" type="info" @click="deselect"
+                        >Deselect all</el-link
+                    >
                 </div>
                 <div class="ml-auto flex items-center">
-                    <Actions v-if="resourceIndex.static.actions?.bulk" name="Bulk Actions"
-                        :actions="resourceIndex.static.actions.bulk" :selected="selectedRows"
-                        :selected-all="selectedAll" />
-                    <div v-show="resourceIndex.static.settings.canDelete" class="ml-3" title="Delete Selected">
+                    <Actions
+                        v-if="resourceIndex.static.actions?.bulk"
+                        name="Bulk Actions"
+                        :actions="resourceIndex.static.actions.bulk"
+                        :selected="selectedRows"
+                        :selected-all="selectedAll"
+                    />
+                    <div
+                        v-show="resourceIndex.static.settings.canDelete"
+                        class="ml-3"
+                        title="Delete Selected"
+                    >
                         <el-button :icon="Delete" @click="handleBulkDelete" />
                     </div>
                 </div>
             </div>
 
-            <slot :resource="resourceIndex.data.resourceData" :settings="resourceIndex.static.settings"
-                :handle-edit="handleEdit" :handle-select="handleSelect" :handle-delete="handleDelete">
-                <ResourceTable ref="resourceTableRef" :key="handle" :resource-handle="handle"
-                    :data="resourceIndex.data.resourceData" :table-props="resourceIndex.static.settings.table"
-                    :columns="resourceIndex.static.settings.columns" :can-edit="resourceIndex.static.settings.canEdit"
+            <slot
+                :resource="resourceIndex.data.resourceData"
+                :settings="resourceIndex.static.settings"
+                :handle-edit="handleEdit"
+                :handle-select="handleSelect"
+                :handle-delete="handleDelete"
+            >
+                <ResourceTable
+                    ref="resourceTableRef"
+                    :key="handle"
+                    :resource-handle="handle"
+                    :data="resourceIndex.data.resourceData"
+                    :table-props="resourceIndex.static.settings.table"
+                    :columns="resourceIndex.static.settings.columns"
+                    :can-edit="resourceIndex.static.settings.canEdit"
                     :can-delete="resourceIndex.static.settings.canDelete"
-                    :has-detail="resourceIndex.static.settings.hasDetail" @select="handleSelect" @edit="handleEdit"
-                    @delete="handleDelete" v-loading="resourceIndex.data.loading" />
+                    :has-detail="resourceIndex.static.settings.hasDetail"
+                    @select="handleSelect"
+                    @edit="handleEdit"
+                    @delete="handleDelete"
+                    v-loading="resourceIndex.data.loading"
+                />
             </slot>
 
             <div class="flex items-center justify-between p-3 mt-2">
                 <div>
                     Total: <strong>{{ resourceIndex.data.total }}</strong>
                 </div>
-                <el-pagination background size="small" layout="jumper, prev, pager, next, sizes"
-                    :current-page="resourceIndex.data.currentPage" :page-size="resourceIndex.data.perPage"
-                    :total="resourceIndex.data.total" @update:page-size="resourceIndex.setPageSize"
-                    @update:current-page="resourceIndex.setPage" />
+                <el-pagination
+                    background
+                    size="small"
+                    layout="jumper, prev, pager, next, sizes"
+                    :current-page="resourceIndex.data.currentPage"
+                    :page-size="resourceIndex.data.perPage"
+                    :total="resourceIndex.data.total"
+                    @update:page-size="resourceIndex.setPageSize"
+                    @update:current-page="resourceIndex.setPage"
+                />
             </div>
         </div>
     </div>
@@ -85,9 +149,16 @@
     <Drawer v-if="drawer" @close="drawer = false" :style="{ width: '80%' }">
         <el-scrollbar>
             <div class="px-8 pb-4 pt-12 w-full">
-                <FormBase class="mx-auto" :key="drawerFormId" :form-id="drawerFormId" :resource="drawerItem"
-                    :action-url="drawerFormActionUrl" :params="drawerFormParams" :post-submit-actions="['close', 'edit']"
-                    @submitted="afterSubmit">
+                <FormBase
+                    class="mx-auto"
+                    :key="drawerFormId"
+                    :form-id="drawerFormId"
+                    :resource="drawerItem"
+                    :action-url="drawerFormActionUrl"
+                    :params="drawerFormParams"
+                    :post-submit-actions="['close', 'edit']"
+                    @submitted="afterSubmit"
+                >
                 </FormBase>
             </div>
         </el-scrollbar>
@@ -225,7 +296,7 @@ const handleDelete = (selected) => {
     )
         .then(() => {
             Invicta.fetch
-                .delete(`api${route.path}`, { data: { selected } })
+                .delete(`api${route.path}`, { selected })
                 .then((data) => {
                     Invicta.message(data.message);
                     resourceIndex.getResource();
@@ -243,7 +314,7 @@ const handleBulkDelete = () => {
 };
 
 const afterSubmit = (event) => {
-    if (event.action == 'close') {
+    if (event.action == "close") {
         drawer.value = false;
     }
     resourceIndex.getResource();
