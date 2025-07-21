@@ -136,7 +136,7 @@ export class FetchClient {
         });
     }
 
-    async delete(url, options = {}) {
+    async delete(url, data, options = {}) {
         return this.request(url, {
             ...options,
             method: "DELETE",
