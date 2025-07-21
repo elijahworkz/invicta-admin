@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.1.11](https://github.com/elijahworkz/invicta-admin/compare/v0.1.10...v0.1.11) (2025-07-21)
+
+### Bug Fixes
+
+* Delete fetch ([9096bc](https://github.com/elijahworkz/invicta-admin/commit/9096bc5c6e7a90117ed5aa1b7bed71914af32fb2))
+
+
+---
+
 ## [0.1.10](https://github.com/elijahworkz/invicta-admin/compare/v0.1.9...v0.1.10) (2025-07-15)
 
 ### Bug Fixes
