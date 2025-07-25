@@ -2,6 +2,8 @@
 @import 'mixins/mixins';
 
 :root {
+    interpolate-size: allow-keywords;
+
     --color-primary-back: #f5f5f5;
     --color-primary-back-lighter: #f3f7fa9c;
     --color-primary-back-darker: #2e3c40;
@@ -12,6 +14,10 @@
     --color-editor-blue: #2c657c;
     --color-light-blue: #f5f7fa;
     --color-overlay-back: rgba(0, 0, 0, .2);
+
+    --accordion-btn-icon-width: 18px;
+    --accordion-btn-icon: url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20class%3D%22icon%20icon-1%22%3E%3Cpath%20d%3D%22M6%209l6%206l6%20-6%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E);
+    --accordion-btn-icon-transition: transform .2s ease-in-out;
 }
 
 * {
@@ -62,6 +68,7 @@ ul {
 @import 'components/actionsDropdown';
 @import 'components/uploader';
 @import 'components/text-editor';
+@import 'components/accordion';
 
 /* Element Overwrites */
 .invicta {
