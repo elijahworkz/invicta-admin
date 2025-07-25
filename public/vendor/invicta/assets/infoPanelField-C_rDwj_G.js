@@ -1,1 +1,0 @@
-import{o as t,e as n,h as a}from"./vendor-Ci2skXiS.js";const o=["innerHTML"],s={__name:"infoPanelField",props:{formId:String,data:Object,path:String},setup(e){return(r,c)=>e.data.content!=""?(t(),n("div",{key:0,class:"info-panel",innerHTML:e.data.content},null,8,o)):a("",!0)}};export{s as default};

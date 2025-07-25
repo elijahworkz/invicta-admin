@@ -1,1 +1,0 @@
-import{o as t,e as a,i as s,t as o,u as c}from"./vendor-Ci2skXiS.js";const n={class:"py-6 px-10"},_={__name:"Home",setup(r){Invicta.pageTitle("Home");const e=Invicta.user.name;return(i,l)=>(t(),a("div",n,[s("h1",null,"Welcome, "+o(c(e)),1)]))}};export{_ as default};
