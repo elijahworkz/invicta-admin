@@ -25,7 +25,13 @@ export class FetchClient {
         if (params && typeof params === "object") {
             Object.entries(params).forEach(([key, value]) => {
                 if (value !== null && value !== undefined) {
-                    fullUrl.searchParams.append(key, String(value));
+                    if (Array.isArray(value)) {
+                        value.forEach((x) => {
+                            fullUrl.searchParams.append(`${key}[]`, String(x));
+                        });
+                    } else {
+                        fullUrl.searchParams.append(key, String(value));
+                    }
                 }
             });
         }

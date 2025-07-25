@@ -48,7 +48,7 @@
                     <el-link
                         v-if="canResetFilters"
                         @click="resourceIndex.clearFilters"
-                        :underline="false"
+                        underline="never"
                         type="danger"
                         class="mr-2"
                         >Clear all filters</el-link
@@ -71,12 +71,12 @@
                     <el-link
                         v-if="!selectedAll"
                         type="primary"
-                        :underline="false"
+                        underline="never"
                         @click="selectAll"
                         class="mr-2"
                         >Select all {{ resourceIndex.data.total }}</el-link
                     >
-                    <el-link :underline="false" type="info" @click="deselect"
+                    <el-link underline="never" type="info" @click="deselect"
                         >Deselect all</el-link
                     >
                 </div>

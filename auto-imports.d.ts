@@ -2,8 +2,6 @@
 export {}
 declare global {
   const EffectScope: typeof import('vue')['EffectScope']
-  const ElMessage: typeof import('element-plus/es')['ElMessage']
-  const ElMessageBox: typeof import('element-plus/es')['ElMessageBox']
   const FetchClient: typeof import('./resources/js/services/fetch.js')['FetchClient']
   const capitalize: typeof import('./resources/js/utils/functions.js')['capitalize']
   const checked: typeof import('./resources/js/utils/functions.js')['checked']
