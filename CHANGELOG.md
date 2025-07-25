@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.1.12](https://github.com/elijahworkz/invicta-admin/compare/v0.1.11...v0.1.12) (2025-07-25)
+
+### Bug Fixes
+
+* Fetch array params and update el-link ([18505d](https://github.com/elijahworkz/invicta-admin/commit/18505dd2db1c639f3624b3707ce7b353ffb0d86c))
+
+
+---
+
 ## [0.1.11](https://github.com/elijahworkz/invicta-admin/compare/v0.1.10...v0.1.11) (2025-07-21)
 
 ### Bug Fixes
