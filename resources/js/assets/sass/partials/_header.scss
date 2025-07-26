@@ -1,3 +1,5 @@
+@use '../mixins/_mixins' as *;
+
 .app {
     .sidebar-toggle {
         @include flexbox(row, center, center);

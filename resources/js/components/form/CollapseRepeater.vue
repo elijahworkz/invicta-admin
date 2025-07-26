@@ -105,16 +105,3 @@ function removeRow(index) {
     props.list.splice(index, 1);
 }
 </script>
-
-<style lang="scss">
-.repeater-field {
-    .accordion {
-        .details-body {
-            padding: 0.5rem;
-            border: 1px solid var(--el-border-color);
-            border-radius: 0.25rem;
-            background-color: var(--color-primary-back);
-        }
-    }
-}
-</style>

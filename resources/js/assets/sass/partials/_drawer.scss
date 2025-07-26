@@ -1,78 +1,80 @@
+@use '../mixins/_mixins' as *;
+
 #drawer {
-	.overlay {
-		position: fixed;
-		top: 0;
-		right: 0;
-		bottom: 0;
-		left: 0;
-		z-index: 2001;
-		height: 100%;
-		background-color: var(--color-overlay-back);
+    .overlay {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 2001;
+        height: 100%;
+        background-color: var(--color-overlay-back);
 
-		.content {
-			position: absolute;
-			height: 100%;
-			right: 0;
-			top: 0;
-			bottom: 0;
-			width: 60%;
-			display: flex;
-			box-shadow: var(--el-box-shadow-dark);
-			overflow: hidden;
-			transition: all var(--el-transition-duration);
-			background: var(--color-primary-back);
+        .content {
+            position: absolute;
+            height: 100%;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 60%;
+            display: flex;
+            box-shadow: var(--el-box-shadow-dark);
+            overflow: hidden;
+            transition: all var(--el-transition-duration);
+            background: var(--color-primary-back);
 
-			.el-scrollbar {
-				width: 100%;
-			}
+            .el-scrollbar {
+                width: 100%;
+            }
 
-			main {
-				overflow: hidden;
-				flex: 1;
-				background: #fff;
+            main {
+                overflow: hidden;
+                flex: 1;
+                background: #fff;
 
-				&.loading {
-					@include flexbox(row, center, center);
-				}
-			}
+                &.loading {
+                    @include flexbox(row, center, center);
+                }
+            }
 
-			footer {
+            footer {
 
-				.pagination {
-					background: #fff;
-					padding: 10px;
-				}
+                .pagination {
+                    background: #fff;
+                    padding: 10px;
+                }
 
-				.button-row {
-					border-top: 1px solid var(--el-border-color-lighter);
-					@include flexbox(row, center, flex-end);
-					padding: 10px;
-				}
-			}
-		}
+                .button-row {
+                    border-top: 1px solid var(--el-border-color-lighter);
+                    @include flexbox(row, center, flex-end);
+                    padding: 10px;
+                }
+            }
+        }
 
-		&.drawer {
+        &.drawer {
 
-			&-enter-active,
-			&-leave-active {
-				transition: all .2s ease-out;
+            &-enter-active,
+            &-leave-active {
+                transition: all .2s ease-out;
 
-				.content {
-					transform: translateX(0);
-				}
-			}
+                .content {
+                    transform: translateX(0);
+                }
+            }
 
-			&-enter-from,
-			&-leave-to {
-				opacity: 0;
+            &-enter-from,
+            &-leave-to {
+                opacity: 0;
 
-				.content {
-					transform: translateX(20px);
-				}
-			}
+                .content {
+                    transform: translateX(20px);
+                }
+            }
 
-		}
+        }
 
 
-	}
+    }
 }

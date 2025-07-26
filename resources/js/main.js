@@ -1,6 +1,7 @@
-import '~/assets/css/main.css' // tailwind css
-import '~/assets/sass/main.scss' // custom css
+import "~/assets/css/tailwind.css"; // custom css
+import "~/assets/sass/main.scss"; // custom css
 
-import InvictaApp from './invicta'
+import InvictaApp from "./invicta";
 
-window.Invicta = new InvictaApp()
+window.Invicta = new InvictaApp();
+

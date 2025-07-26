@@ -1,9 +1,24 @@
-// @import 'element/variables.scss';
-@import 'mixins/mixins';
+@use 'mixins/mixins' as *;
+@use 'partials/app';
+@use 'partials/header';
+@use 'partials/nav';
+@use 'partials/list-table';
+@use 'partials/form';
+@use 'partials/asset-library';
+@use 'partials/drawer';
+
+/* Element + overwrites */
+@use 'element/custom';
+
+/* Components */
+@use 'components/popover';
+@use 'components/actionsDropdown';
+@use 'components/uploader';
+@use 'components/accordion';
+@use 'components/text-editor';
 
 :root {
     interpolate-size: allow-keywords;
-
     --color-primary-back: #f5f5f5;
     --color-primary-back-lighter: #f3f7fa9c;
     --color-primary-back-darker: #2e3c40;
@@ -53,24 +68,4 @@ ul {
     .icon-item {
         @include flexbox(row, center, flex-start);
     }
-}
-
-@import 'partials/app';
-@import 'partials/header';
-@import 'partials/nav';
-@import 'partials/list-table';
-@import 'partials/form';
-@import 'partials/asset-library';
-@import 'partials/drawer';
-
-/* Components */
-@import 'components/popover';
-@import 'components/actionsDropdown';
-@import 'components/uploader';
-@import 'components/text-editor';
-@import 'components/accordion';
-
-/* Element Overwrites */
-.invicta {
-    @import 'element/custom.scss';
 }

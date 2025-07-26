@@ -36,6 +36,7 @@
 
                 >.el-tabs__content {
                     overflow: visible;
+                    padding: 20px 0 0 !important;
                 }
 
                 .el-tabs__header {
@@ -47,25 +48,17 @@
                     .el-tabs__header {
                         padding: 10px 10px 0 0;
                     }
-                }
 
-                &.el-tabs--right {
-                    .el-tabs__header {
-                        padding: 10px 0 0 10px;
-                    }
-                }
-
-                >.el-tabs__content {
-                    padding: 20px 0 0 !important;
-                }
-
-                &.el-tabs--left {
                     >.el-tabs__content {
                         padding: 10px 10px 10px 0 !important;
                     }
                 }
 
                 &.el-tabs--right {
+                    .el-tabs__header {
+                        padding: 10px 0 0 10px;
+                    }
+
                     >.el-tabs__content {
                         padding: 10px 0 10px 10px !important;
                     }
@@ -76,6 +69,8 @@
                         padding: 0;
 
                         .el-tabs__item {
+                            margin-top: 0;
+
                             &:first-child {
                                 border-top-left-radius: 4px;
                             }
@@ -114,7 +109,7 @@
                         border-color: var(--el-border-color-light);
                         border-width: 0 1px 1px 1px;
                         border-radius: 0 0 4px 4px;
-                        background: var(--el-fill-color-blank);
+                        background: var(--color-primary-back);
                         box-shadow: var(--el-box-shadow-light);
                         padding: 20px 0px !important;
                     }
@@ -260,6 +255,10 @@
         >.field-row-full {
             padding: 0;
         }
+
+        .group:not(.seamless) & {
+            background: var(--el-color-white);
+        }
     }
 
     &.seamless {
@@ -271,7 +270,7 @@
     .section {
         width: 100%;
         padding: 20px;
-        background: var(--el-fill-color-light);
+        background: var(--color-primary-back);
         margin: 0 0 20px;
 
         h2 {
@@ -289,25 +288,21 @@
             margin-left: 0.5rem;
         }
 
-        .el-collapse-item__wrap {
-            overflow: visible;
-
-            .el-collapse-item__content {
-                padding-bottom: 0;
-            }
-        }
-
-        .panel {
-            background: var(--el-fill-color-light);
+        .details-body {
+            background: var(--color-primary-back);
             padding: 10px 18px 18px;
             border: 1px solid var(--el-border-color-lighter);
             border-radius: 0.15rem;
-            border-bottom: 0;
 
             .field-row-full {
                 padding: 0;
             }
+
+            .group & {
+                background: var(--el-color-white);
+            }
         }
+
     }
 
     .inline-repeater-field {
