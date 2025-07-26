@@ -1,4 +1,4 @@
-import { defineConfig, splitVendorChunkPlugin } from "vite";
+import { defineConfig } from "vite";
 import laravel from "laravel-vite-plugin";
 import { visualizer } from "rollup-plugin-visualizer";
 import viteCompression from "vite-plugin-compression";
@@ -10,8 +10,7 @@ import serverConfig from "./server.config.js";
 import path from "path";
 import svgLoader from "vite-svg-loader";
 
-import { createRequire } from "node:module";
-const require = createRequire(import.meta.url);
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
     server: serverConfig,
@@ -36,7 +35,7 @@ export default defineConfig({
             refresh: true,
             detectTls: "avesti.test",
         }),
-        splitVendorChunkPlugin(),
+        tailwindcss(),
         vue({
             template: {
                 transformAssetUrls: {
@@ -93,9 +92,9 @@ export default defineConfig({
         svgLoader(),
     ],
     optimizeDeps: {
-        include: ["vue", "lodash-es"],
+        include: ["vue", "fetch", "lodash-es", "element-plus"],
     },
     rollupOptions: {
-        external: ["vue", "element-plus"],
+        external: ["vue", "fetch", "element-plus"],
     },
 });
