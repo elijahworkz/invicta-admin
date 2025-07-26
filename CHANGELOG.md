@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.1.15](https://github.com/elijahworkz/invicta-admin/compare/v0.1.14...v0.1.15) (2025-07-26)
+
+### Bug Fixes
+
+* Update tailwind and style fixes ([c0cfab](https://github.com/elijahworkz/invicta-admin/commit/c0cfab0b0ac9c7947ee09a62a15a1451ebd6dfbd))
+
+
+---
+
 ## [0.1.14](https://github.com/elijahworkz/invicta-admin/compare/v0.1.13...v0.1.14) (2025-07-26)
 
 
