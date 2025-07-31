@@ -24,6 +24,7 @@ const props = defineProps({
 });
 
 const emit = defineEmits(["update:content", "ready"]);
+const initiated = ref(false);
 
 onMounted(() => {
     register();
@@ -67,6 +68,7 @@ const initialize = () => {
 
     // Create new Quill instance
     quill = new Quill(editor.value, options);
+
     // Set editor content
     setContents(props.content);
 
@@ -112,9 +114,14 @@ const internalModelEquals = (against) => {
 };
 
 const handleTextChange = () => {
-    internalModel = getContents();
     // Update v-model:content when text changes
-    emit("update:content", internalModel);
+    // but only after first init
+    if (initiated.value) {
+        internalModel = getContents();
+        emit("update:content", internalModel);
+    } else {
+        initiated.value = true;
+    }
 };
 
 const getContents = () => {

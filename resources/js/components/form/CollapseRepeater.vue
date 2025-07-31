@@ -3,13 +3,13 @@
         <div class="accordion inner">
             <draggable
                 :list="list"
-                handle=".handle"
+                handle=".drag-handle"
                 item-key="index"
                 :disabled="disableDraggable"
                 @update="$emit('updated', list)"
             >
                 <template #item="{ element, index }">
-                    <details :name="index" :disabled="readOnly">
+                    <details :name="`item-${index}`" :disabled="readOnly">
                         <summary>
                             <DragHandle v-if="!disableDraggable" />
                             <span class="ms-2 summary-text">{{
