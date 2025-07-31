@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.1.16](https://github.com/elijahworkz/invicta-admin/compare/v0.1.15...v0.1.16) (2025-07-31)
+
+### Bug Fixes
+
+* Draggable ([516e83](https://github.com/elijahworkz/invicta-admin/commit/516e838e9f26de897873dbeb0decba02b11d2097))
+
+
+---
+
 ## [0.1.15](https://github.com/elijahworkz/invicta-admin/compare/v0.1.14...v0.1.15) (2025-07-26)
 
 ### Bug Fixes
