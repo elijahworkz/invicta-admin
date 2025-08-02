@@ -5,18 +5,18 @@
 @use 'text-editor/table';
 
 .text-editor {
-    --toolbar-bg-color: var(--lpm-light);
-    --toolbar-fg-color: #000;
+    --toolbar-bg-color: var(--el-fill-color-lighter);
+    --toolbar-fg-color: var(--el-text-color-primary);
 
     --toolbar-svg-width: 1.2rem;
 
     --toolbar-control-width: 2rem;
     --toolbar-control-height: 2rem;
 
-    --toolbar-btn-hover-bg: var(--lpm-gray-100);
-    --toolbar-btn-hover-fg: var(--lpm-primary);
-    --toolbar-btn-active-bg: var(--lpm-gray-100);
-    --toolbar-btn-active-fg: var(--lpm-info);
+    --toolbar-btn-hover-bg: var(--el-fill-color);
+    --toolbar-btn-hover-fg: var(--toolbar-fg-color);
+    --toolbar-btn-active-bg: var(--el-fill-color-dark);
+    --toolbar-btn-active-fg: var(--el-text-color-regular);
 
     --toolbar-color-item-size: 1rem;
 

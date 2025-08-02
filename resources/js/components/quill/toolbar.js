@@ -5,6 +5,7 @@ export const toolbarOptions = [
     [{ color: [] }],
     [{ list: "ordered" }, { list: "bullet" }, { align: [] }],
     ["blockquote", "link", "image"],
+    ["clean"],
     // ['table-better'], // table dropdown button
 ];
 // minimal: [

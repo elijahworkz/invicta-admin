@@ -7,7 +7,7 @@
 // decide what to do with table
 // check about passing toolbar
 //
-import Quill from "quill";
+import Quill from "quill-next";
 import { toolbarOptions } from "@/components/quill/toolbar.js";
 import { registerIcons } from "@/components/quill/icons.js";
 // import QuillTableBetter from 'quill-table-better'
@@ -43,19 +43,6 @@ function register() {
     // Custom alignment style
     const AlignStyle = Quill.import("attributors/style/align");
     Quill.register(AlignStyle, true);
-
-    // Custom background style
-    const BackgroundStyle = Quill.import("attributors/style/background");
-    Quill.register(BackgroundStyle, true);
-
-    // Custom color style
-    const ColorStyle = Quill.import("attributors/style/color");
-    Quill.register(ColorStyle, true);
-
-    // Register table module
-    // Quill.register({
-    //     'modules/table-better': QuillTableBetter,
-    // }, true);
 }
 
 // Initialize Quill
@@ -77,6 +64,7 @@ const initialize = () => {
 
     const toolbar = quill.getModule("toolbar");
     toolbar.addHandler("image", selectImage);
+    toolbar.addHandler("clean", cleanHtml);
 
     // Emit ready event
     emit("ready", quill);
@@ -89,15 +77,6 @@ const composeOptions = () => {
         bounds: ".text-editor",
         modules: {
             toolbar: props.toolbar ?? toolbarOptions,
-            // table: false,
-            // 'table-better': {
-            //     language: 'en_US',
-            //     menus: ['column', 'row', 'merge', 'cell', 'wrap', 'delete'],
-            //     toolbarTable: true
-            // },
-            // keyboard: {
-            //     bindings: QuillTableBetter.keyboardBindings
-            // }
         },
     };
 };
@@ -125,20 +104,34 @@ const handleTextChange = () => {
 };
 
 const getContents = () => {
-    return getHTML();
+    return getHtml();
 };
 
 const setContents = (content) => {
-    setHTML(content);
+    setHtml(content);
     internalModel = content;
 };
 
-const getHTML = () => {
+const getHtml = () => {
     return quill?.root.innerHTML ?? "";
 };
 
-const setHTML = (html) => {
+const setHtml = (html) => {
     if (quill) quill.root.innerHTML = html;
+};
+
+const cleanHtml = () => {
+    console.log("Cleaning HTML content...");
+    if (!quill) return;
+
+    // Get the current content
+    const html = getHtml();
+
+    // Strip attributes from the HTML
+    const cleanedHtml = stripAttributes(html);
+
+    // Set the cleaned HTML back to the editor
+    setContents(cleanedHtml);
 };
 
 const Invicta = window.Invicta;
@@ -155,15 +148,19 @@ Invicta.on(`${props.id}-insert-image`, (asset) => {
     insertEmbed("image", asset);
 });
 
-function insertEmbed(type, asset) {
-    if (!quill) return;
+function stripAttributes(htmlString) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlString, "text/html");
 
-    const range = quill.getSelection();
-    let url = `https://${Invicta.brand.domain}/${asset.path}`;
+    // Iterate over all elements in the parsed document
+    doc.querySelectorAll("*").forEach((element) => {
+        // Remove all attributes from the current element
+        while (element.attributes.length > 0) {
+            element.removeAttribute(element.attributes[0].name);
+        }
+    });
 
-    if (range) {
-        quill.insertEmbed(range.index, type, url);
-    }
+    return doc.body.innerHTML; // Return the HTML content without attributes
 }
 
 watch(
