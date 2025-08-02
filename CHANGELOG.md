@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.1.17](https://github.com/elijahworkz/invicta-admin/compare/v0.1.16...v0.1.17) (2025-08-02)
+
+### Features
+
+* Quill-next and clean html ([1c282f](https://github.com/elijahworkz/invicta-admin/commit/1c282fc686e418c899fd8e41db3a0e99a13e8e6c))
+
+
+---
+
 ## [0.1.16](https://github.com/elijahworkz/invicta-admin/compare/v0.1.15...v0.1.16) (2025-07-31)
 
 ### Bug Fixes
