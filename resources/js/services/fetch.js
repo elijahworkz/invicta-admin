@@ -10,6 +10,7 @@ export class FetchClient {
         this.defaultOptions = {
             credentials: "include",
             headers: {
+                "withCredentials": true,
                 "X-Requested-With": "XMLHttpRequest",
                 "X-Xsrf-Token": this.token,
             },
