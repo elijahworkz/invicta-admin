@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.1.19](https://github.com/elijahworkz/invicta-admin/compare/v0.1.18...v0.1.19) (2025-11-27)
+
+### Bug Fixes
+
+* Nested repeater ([8b0f0f](https://github.com/elijahworkz/invicta-admin/commit/8b0f0f6d50008f8c92ec4b2397bb21011c992a81))
+
+
+---
+
 ## [0.1.18](https://github.com/elijahworkz/invicta-admin/compare/v0.1.17...v0.1.18) (2025-08-13)
 
 
