@@ -9,7 +9,10 @@
                 @update="$emit('updated', list)"
             >
                 <template #item="{ element, index }">
-                    <details :name="`item-${index}`" :disabled="readOnly">
+                    <details
+                        :name="`${randomId}-item-${index}`"
+                        :disabled="readOnly"
+                    >
                         <summary>
                             <DragHandle v-if="!disableDraggable" />
                             <span class="ms-2 summary-text">{{
@@ -89,6 +92,8 @@ const props = defineProps({
         default: false,
     },
 });
+
+const randomId = Math.random().toString(36).substring(2, 15);
 
 const emit = defineEmits(["updated"]);
 const defaultRow = props.list.length ? props.list[0] : props.default;
