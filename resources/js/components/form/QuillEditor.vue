@@ -148,6 +148,17 @@ Invicta.on(`${props.id}-insert-image`, (asset) => {
     insertEmbed("image", asset);
 });
 
+function insertEmbed(type, asset) {
+    if (!quill) return;
+
+    const range = quill.getSelection();
+    let url = type == "image" ? asset.src : asset;
+
+    if (range) {
+        quill.insertEmbed(range.index, type, url);
+    }
+}
+
 function stripAttributes(htmlString) {
     const parser = new DOMParser();
     const doc = parser.parseFromString(htmlString, "text/html");
