@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.1.20](https://github.com/elijahworkz/invicta-admin/compare/v0.1.19...v0.1.20) (2026-01-07)
+
+### Bug Fixes
+
+* Insert image in texteditor ([4465e2](https://github.com/elijahworkz/invicta-admin/commit/4465e2ea58847dae897a6e0597600391b1b73425))
+
+
+---
+
 ## [0.1.19](https://github.com/elijahworkz/invicta-admin/compare/v0.1.18...v0.1.19) (2025-11-27)
 
 ### Bug Fixes
