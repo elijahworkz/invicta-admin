@@ -1,5 +1,11 @@
 <template>
-    <div ref="editor"></div>
+    <div
+        ref="container"
+        :class="{ 'sticky-toolbar': isSticky }"
+        class="quill-editor-container"
+    >
+        <div ref="editor"></div>
+    </div>
 </template>
 
 <script setup>
@@ -8,6 +14,7 @@
 // check about passing toolbar
 //
 import Quill from "quill-next";
+import { nextTick } from "vue";
 import { toolbarOptions } from "@/components/quill/toolbar.js";
 import { registerIcons } from "@/components/quill/icons.js";
 // import QuillTableBetter from 'quill-table-better'
@@ -25,14 +32,26 @@ const props = defineProps({
 
 const emit = defineEmits(["update:content", "ready"]);
 const initiated = ref(false);
+const isSticky = ref(false);
+const container = ref(null);
 
-onMounted(() => {
+onMounted(async () => {
     register();
+    // await nextTick(); // Ensure DOM is fully rendered
     initialize();
+    // await nextTick(); // Ensure Quill is initialized
+
+    // Add a small delay to ensure all DOM elements are properly rendered before setting up scroll listeners
+    setTimeout(() => {
+        setupScrollListener();
+        // Trigger initial scroll check to set the correct initial state
+        handleScroll();
+    }, 100);
 });
 
 onBeforeUnmount(() => {
     quill = null;
+    removeScrollListener();
 });
 
 let quill;
@@ -45,9 +64,74 @@ function register() {
     Quill.register(AlignStyle, true);
 }
 
+// Setup scroll listener to detect when editor top goes out of view
+const setupScrollListener = () => {
+    // Add scroll listeners to window and any scrollable parent containers
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    // Also listen to resize events to recalculate positions
+    window.addEventListener("resize", handleScroll, { passive: true });
+
+    // Check for any scrollable parent containers and add listeners to them
+    let element = container.value;
+    if (element) {
+        while (element && element !== document.documentElement) {
+            const computedStyle = window.getComputedStyle(element);
+            if (
+                computedStyle.overflowY === "auto" ||
+                computedStyle.overflowY === "scroll" ||
+                computedStyle.overflowX === "auto" ||
+                computedStyle.overflowX === "scroll"
+            ) {
+                element.addEventListener("scroll", handleScroll, {
+                    passive: true,
+                });
+            }
+            element = element.parentElement;
+        }
+    }
+};
+
+const removeScrollListener = () => {
+    window.removeEventListener("scroll", handleScroll);
+    window.removeEventListener("resize", handleScroll);
+
+    // Remove listeners from any scrollable parent containers
+    let element = container.value;
+    if (element) {
+        while (element && element !== document.documentElement) {
+            const computedStyle = window.getComputedStyle(element);
+            if (
+                computedStyle.overflowY === "auto" ||
+                computedStyle.overflowY === "scroll" ||
+                computedStyle.overflowX === "auto" ||
+                computedStyle.overflowX === "scroll"
+            ) {
+                element.removeEventListener("scroll", handleScroll);
+            }
+            element = element.parentElement;
+        }
+    }
+};
+
+// Handle scroll event to determine if toolbar should be sticky
+const handleScroll = () => {
+    if (!container.value) return;
+
+    const rect = container.value.getBoundingClientRect();
+    // Check if the top of the editor is above the viewport (out of view)
+    // We use a small buffer (e.g., 10px) to account for potential rounding issues
+    const isTopOutOfView = rect.top <= 10;
+
+    // Only update if the state actually changed to prevent unnecessary re-renders
+    if (isSticky.value !== isTopOutOfView) {
+        isSticky.value = isTopOutOfView;
+    }
+};
+
 // Initialize Quill
 const initialize = () => {
-    if (!editor.value) return;
+    if (!editor.value || !container.value) return;
     options = composeOptions();
 
     // Register custom icons
@@ -74,7 +158,7 @@ const initialize = () => {
 const composeOptions = () => {
     return {
         theme: "snow",
-        bounds: ".text-editor",
+        bounds: container.value, // Use the container element as bounds
         modules: {
             toolbar: props.toolbar ?? toolbarOptions,
         },

@@ -1,8 +1,8 @@
-@use 'text-editor/core';
-@use 'text-editor/toolbar';
-@use 'text-editor/editor';
-@use 'text-editor/tooltip';
-@use 'text-editor/table';
+@use "text-editor/core";
+@use "text-editor/toolbar";
+@use "text-editor/editor";
+@use "text-editor/tooltip";
+@use "text-editor/table";
 
 .text-editor {
     --toolbar-bg-color: var(--el-fill-color-lighter);
@@ -21,7 +21,7 @@
     --toolbar-color-item-size: 1rem;
 
     --editor-bg-color: #fff;
-    --tooltip-margin: .255rem;
+    --tooltip-margin: 0.255rem;
 
     .el-form-item__content {
         display: grid;
@@ -31,6 +31,15 @@
 
         .ql-hidden {
             display: none;
+        }
+    }
+
+    .quill-editor-container {
+        position: relative;
+
+        &.sticky-toolbar {
+            /* When the editor is scrolled out of view, make the toolbar fixed */
+            margin-top: 42px !important; /* Adjust based on toolbar height */
         }
     }
 }

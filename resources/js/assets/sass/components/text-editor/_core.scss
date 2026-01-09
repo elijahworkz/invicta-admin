@@ -7,15 +7,13 @@ $LIST_STYLE_OUTER_WIDTH: $LIST_STYLE_MARGIN + $LIST_STYLE_WIDTH;
 $MAX_INDENT: 9;
 
 @function resets($arr) {
-    $result: '';
+    $result: "";
 
     @each $item in $arr {
-        @if $result =='' {
-            $result: 'list-#{$item}';
-        }
-
-        @else {
-            $result: $result + ' list-#{$item}';
+        @if $result == "" {
+            $result: "list-#{$item}";
+        } @else {
+            $result: $result + " list-#{$item}";
         }
     }
 
@@ -40,7 +38,7 @@ $MAX_INDENT: 9;
         outline-style: dashed;
     }
 
-    >* {
+    > * {
         cursor: text;
     }
 
@@ -48,6 +46,7 @@ $MAX_INDENT: 9;
     h3 {
         font-weight: 600;
         margin-bottom: 1rem;
+        line-height: 1.2;
     }
 
     h2 {
@@ -59,7 +58,7 @@ $MAX_INDENT: 9;
     }
 
     p {
-        font-size: .925rem;
+        font-size: 0.925rem;
         line-height: 1.5;
     }
 
