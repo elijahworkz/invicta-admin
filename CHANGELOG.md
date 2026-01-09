@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.1.21](https://github.com/elijahworkz/invicta-admin/compare/v0.1.20...v0.1.21) (2026-01-09)
+
+### Features
+
+* Sticky editor toolbar ([7aa396](https://github.com/elijahworkz/invicta-admin/commit/7aa3968fb6624ebd6a8858034fec3df0faf08764))
+
+
+---
+
 ## [0.1.20](https://github.com/elijahworkz/invicta-admin/compare/v0.1.19...v0.1.20) (2026-01-07)
 
 ### Bug Fixes
